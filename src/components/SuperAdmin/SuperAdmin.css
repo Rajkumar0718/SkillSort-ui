@@ -1,0 +1,54 @@
+.notify {
+    position: relative;
+    top: -3.2em;
+    left: 1.4em;
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: .15em .3em;
+    font-size: 75%;
+    font-weight: bold;
+}
+
+.notify-bell {
+    color: #343a40;
+    background-color: #ffffff;
+    border-color: #fff;
+    padding-top: 12px;
+}
+
+.notify-bell:hover {
+    color: #a9a9a9;
+}
+
+.jodit-wysiwyg {
+    max-height: 104px;
+}
+
+.counter-bgc-red {
+    background-color: #ff3c7e;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 10px;
+    line-height: 1;
+    padding: 3px 5.5px;
+    position: absolute;
+    right: -5px;
+    top: 5px;
+}
+
+.required {
+    content: "*";
+    color: red;
+}
+
+.ace_cursor {
+    opacity: 0;
+}
+
+.mb-05 {
+    margin-bottom: 0.5rem;
+}
+
+.myGrid .MuiDataGrid-columnHeaderTitleContainer {
+    max-height: 40px !important;
+}

@@ -1,0 +1,24 @@
+.Toastify__close-button {
+  color: black;
+}
+
+.Toastify__close-button--error {
+  color: black;
+}
+
+.login-bg {
+  background-image: url(../images/Panelist.png);
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 480px) {
+
+  .Toastify__toast-container--top-left,
+  .Toastify__toast-container--top-center,
+  .Toastify__toast-container--top-right {
+    width: 15rem !important;
+    transform: translateX(9rem) !important;
+  }
+}

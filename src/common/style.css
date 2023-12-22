@@ -1,0 +1,14 @@
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position:relative;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    line-height: 0px;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}

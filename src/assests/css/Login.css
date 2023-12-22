@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;900&display=swap');
+/* Preload images */
+.link-preload {
+    display: none;
+    background-image: url(../../assests/images/login-image.webp);
+}
+
+.link-preload-two {
+    display: none;
+    background-image: url(../../assests/images/Bg-Banner.webp);
+}
+
+.link-preload-three {
+    display: none;
+    background-image: url(../../assests/images/bg-graduate.webp);
+}
+
+.login-background {
+    background-color: #7684e2;
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../../assests/images/login-image.webp);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+    animation: slide 15s infinite;
+}
+
+@keyframes slide {
+    0% {
+        background-image: url(../../assests/images/login-image.webp);
+    }
+
+    25% {
+        background-image: url(../../assests/images/login-image.webp);
+    }
+
+    40% {
+        background-image: url(../../assests/images/Bg-Banner.webp);
+    }
+
+    60% {
+        background-image: url(../../assests/images/Bg-Banner.webp);
+    }
+
+    70% {
+        background-image: url(../../assests/images/bg-graduate.webp);
+    }
+
+    90% {
+        background-image: url(../../assests/images/bg-graduate.webp);
+    }
+
+    100% {
+        background-image: url(../../assests/images/login-image.webp);
+    }
+}
+
+.dp {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center
+}
+
+.login-box {
+    width: 21rem;
+    height: 27rem;
+    border-radius: 2rem;
+    background-color: #F05A28;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.login-select {
+    /* border: 0px 1px; */
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom-color: white;
+    background-color: #F05A28;
+    color: #fff;
+    outline: none;
+    width: 15rem;
+    text-align: center;
+}
+
+.login-textfield {
+    color: #fff;
+    outline: none;
+    width: 15rem;
+    background-color: #F05A28;
+    text-align: center;
+}
+
+.input-text {
+    border-bottom: 1px solid white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.login-button:disabled {
+    opacity: 0.15 !important;
+    cursor: not-allowed;
+}
+
+.text-pad {
+    padding-bottom: 1rem;
+}
+
+input.input-text::placeholder {
+    color: white;
+    text-align: center;
+    font-weight: 400;
+}
+
+.sign-in {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input:-webkit-autofill {
+    border-bottom: 1px solid #3B489E !important;
+}
+
+.login-button {
+    background-color: #3B489E;
+    color: #fff;
+    border: none;
+    height: 2rem;
+    width: 7rem;
+    border-radius: 5px;
+}
+
+.login-pad {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-around;
+    padding-top: 2rem;
+}
+
+.login-a {
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none !important;
+    overflow: hidden;
+    position: relative;
+    /* display: inline-block; */
+}
+
+.login-a::before,
+.login-a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+
+.login-a::before {
+    background-color: #3B489E;
+    height: 2px;
+    bottom: 0;
+    transform-origin: 100% 50%;
+    transform: scaleX(0);
+    transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.login-a::after {
+    content: attr(data-replace);
+    height: 100%;
+    top: 0;
+    transform-origin: 100% 50%;
+    transform: translate3d(200%, 0, 0);
+    transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+    color: #3B489E;
+}
+
+a.login-a:hover::before {
+    transform-origin: 0% 50%;
+    transform: scaleX(1);
+    color: white !important;
+}
+
+a.login-a:hover::after {
+    transform: translate3d(0, 0, 0);
+    color: white !important;
+}
+
+a.login-a:hover {
+    color: white;
+}
+
+.login-content {
+    color: #ffffff;
+    font-size: 60px;
+    font-style: normal;
+    font-family: 'Montserrat', 'Times New Roman', Times, serif;
+    font-weight: 800;
+    text-align: end;
+    line-height: 1;
+    width: 31rem;
+    padding: 1.5rem;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border: none;
+    -webkit-box-shadow: #F05A28 inset;
+    transition: background-color 5000s ease-in-out 0s;
+    border-color: white;
+    background-color: #F05A28;
+}
+
+.MuiInput-underline:before {
+    border-bottom: 1px solid #3B489E !important;
+}
+
+::selection {
+    background: #3B489E !important;
+    color: white !important;
+}
+
+::-moz-selection {
+    /* Code for Firefox */
+    background: #3B489E !important;
+    color: white !important;
+}
+
+@media screen and (max-width: 767px) {
+    .login-box {
+        width: 20rem;
+        height: 25rem;
+        border-radius: 10px;
+        background-color: #F05A28;
+    }
+
+    .login-content {
+        display: none;
+    }
+
+    .dp {
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+    .login-background {
+        background-image: url(../../assests/images/login-image.webp);
+        background-color: #7684e2;
+        background-blend-mode: multiply;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        overflow: hidden;
+    }
+}
