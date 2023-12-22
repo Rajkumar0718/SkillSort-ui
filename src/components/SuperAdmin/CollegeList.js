@@ -63,10 +63,6 @@ const CollegeList = () => {
         getCollegeSerachList();
     };
 
-    // const setAddressForToolTip = (address, _index) => {
-    //   setTooltipAddress(address);
-    // };
-
     const onNextPage = () => {
         setLoader(true);
         getCollegeSerachList();
@@ -74,6 +70,7 @@ const CollegeList = () => {
 
     const onPagination = (pageSize, currentPage) => {
         setPageSize(pageSize);
+        console.log("hello")
         setCurrentPage(currentPage);
         onNextPage();
     };
