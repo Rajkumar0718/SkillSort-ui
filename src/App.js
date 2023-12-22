@@ -45,7 +45,7 @@ export default function App() {
 
   const routes = useRoutes([
     { path: "/sidebars", element: <SideBar listItems={listItems} /> },
-    { path: "/button", element: <Button {...btnList[0]}></Button> },
+    { path: "/button", element: <Button {...btnList[0] }></Button> },
   ]);
   return routes;
 }
