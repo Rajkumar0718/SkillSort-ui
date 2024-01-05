@@ -70,7 +70,7 @@ function Search(props) {
                 />
                 </div>
                 {props.showCheckBox &&
-                <div>
+                <div style={{display:'contents'}}>
                   <span className="title" >Trial Companies <Checkbox onChange={()=>props.handleTrailCompany()} ></Checkbox></span>
                   </div>}
               <div className="col-md-1 col-lg-1 col-sm-1 col-xl-1 p-0 ">

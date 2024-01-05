@@ -6,18 +6,19 @@ import { authHeader, errorHandler } from '../../api/Api';
 import Search from '../../common/AdvanceSearch';
 import { fallBackLoader } from '../../utils/CommonUtils';
 import { url } from '../../utils/UrlConstant';
-// import { isRoleValidation } from '../../utils/Validation';
+import { isRoleValidation } from '../../utils/Validation';
 import TableHeader from '../../utils/TableHeader';
 import Pagination from '../../utils/Pagination';
 import '../../assests/css/AdminDashboard.css'
 import { CollegeTable } from './CollegeTable';
+import '../../common/Common.css';
 
 
 const CollegeList = () => {
     const [college, setCollege] = useState([]);
     const [searchKey] = useState('ACTIVE');
     const [loader, setLoader] = useState(false);
-    // const [role] = useState(isRoleValidation());
+    const [role] = useState(isRoleValidation());
     // const [tooltipAddress, setTooltipAddress] = useState('');
     const [searchValue, setSearchValue] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
@@ -36,7 +37,8 @@ const CollegeList = () => {
     const handlerStatusFilter = (event) => {
         axios.get(`${url.COLLEGE_API}/college/list?status=${event.target.value || searchKey}`, { headers: authHeader() })
             .then(res => {
-                setCollege(res.data.response);
+                setCollege(res?.data?.response);
+                console.log(res)
             }).catch(err => {
                 errorHandler(err);
             });
@@ -61,6 +63,7 @@ const CollegeList = () => {
         setPageSize(10);
         setCurrentPage(1);
         getCollegeSerachList();
+        
     };
 
     const onNextPage = () => {
@@ -70,7 +73,6 @@ const CollegeList = () => {
 
     const onPagination = (pageSize, currentPage) => {
         setPageSize(pageSize);
-        console.log("hello")
         setCurrentPage(currentPage);
         onNextPage();
     };
@@ -87,24 +89,8 @@ const CollegeList = () => {
     };
 
     let i = pageSize - 1;
-    const headers = ['S.No', 'CollegeName','State','District','Action']
-    const body = [
-        {
-          collegeName: 'Sample College 1',
-          state: 'California',
-          district: 'XYZ',
-          status: 'Active',
-          // ... other properties
-        },
-        {
-          collegeName: 'Sample College 2',
-          state: 'New York',
-          district: 'ABC',
-          status: 'Inactive',
-          // ... other properties
-        },
-        // ... more college data
-      ];
+    const headers = ['S.NO', 'COLLEGENAME','STATE','DISTRICT','STATUS','ACTION']
+    
       
     // {/* <CustomTable headers={headers} data={college} pageSize={pageSize} currentPage={currentPage}/> */ }
 
@@ -130,7 +116,7 @@ const CollegeList = () => {
                                 {fallBackLoader(loader)}
                                 <div className="table-responsive pagination_table">
                                     <table className="table table-striped" id="dataTable">
-                                        <CollegeTable headers={headers} body={body} pageSize={pageSize} currentPage={currentPage}></CollegeTable>
+                                        <CollegeTable headers={headers} body={college} pageSize={pageSize} currentPage={currentPage} link={"/collegeadmin/edit"}></CollegeTable>
                                         {/* <thead className="table-dark">
                            <tr>
                              <th className='col-lg-1' style={{ textAlign: 'center' }}>S.NO</th>

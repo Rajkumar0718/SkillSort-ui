@@ -716,6 +716,7 @@ html {
   color: black;
   display: flex;
   margin-top: 2rem;
+  text-decoration: none;
 }
 
 .foot-text {

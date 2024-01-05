@@ -14,7 +14,7 @@ export function authHeader() {
     return {};
   }
 }
-
+  
 export function logOut() {
   sessionStorage.clear();
   localStorage.clear();

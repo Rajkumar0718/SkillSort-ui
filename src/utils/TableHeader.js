@@ -22,6 +22,7 @@ const TableHeader = (props) => {
 
     return (
         <div className="card-header-new">
+            
             <div className="row">
                 <div className="col-md-4">
                     <span className="card-title">{title}</span>

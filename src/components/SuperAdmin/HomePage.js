@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../assests/css/SuperAdminDashboard.css';
-import HomeHeader from '../../common/Header';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
@@ -44,7 +43,7 @@ const HomePage = () => {
                         : <img src={s.img} alt={s.name} className="sidenav-img" style={{ margin: 'auto' }} />}
                     </Link>
                     </div>
-                    <Link to={s.path} style={{ textAlign: "center" }}>
+                    <Link to={s.path} style={{ textAlign: "center",textDecoration:'none',cursor:'pointer' }}>
                     <div className='dash-text'>{s.name}</div>
                     </Link>
                 </div>)}
