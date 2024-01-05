@@ -165,7 +165,6 @@ export default function SideBar({ listItems }) {
             MENU
           </Typography>
         </DrawerHeader>
-        <Divider />
         <List sx={{ paddingTop: "0px" }}>
           <Divider />
           {listItems.map((item, index) => (
@@ -211,6 +210,8 @@ export default function SideBar({ listItems }) {
                       width: "131px",
                       color: "black",
                       fontFamily: "Open Sans",
+                      whiteSpace: "normal",
+                      textOverflow: "ellipsis"
                     }}
                   />
                   <div>

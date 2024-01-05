@@ -16,11 +16,11 @@ function Header(props) {
   const location = useLocation();
   const pathname = location.pathname;
 
-  useEffect(() => {
-    if (isRoleValidation() === 'ADMIN' || isRoleValidation() === 'HR') {
-      getReexamCandidateCount();
-    }
-  }, [location]);
+  // useEffect(() => {
+  //   if (isRoleValidation() === 'ADMIN' || isRoleValidation() === 'HR') {
+  //     getReexamCandidateCount();
+  //   }
+  // }, [location]);
 
   const getReexamCandidateCount = () => {
     let companyId = JSON.parse(localStorage.getItem('user')).companyId;
@@ -47,7 +47,7 @@ function Header(props) {
         <img className='header-logo' src={LOGO} alt='SkillSort' />
         <div className='header-right'>
           <div className='header-right-a'>
-            {(isRoleValidation() === 'HR' || isRoleValidation() === 'ADMIN') &&
+            {/* {(isRoleValidation() === 'HR' || isRoleValidation() === 'ADMIN') &&
             pathname !== '/admin/candidates' ? (
               <Link to={{ pathname: '/admin/candidates', state: { candidates: candidates } }}>
                 <Badge color='secondary' badgeContent={_.size(candidates)}>
@@ -59,7 +59,7 @@ function Header(props) {
                   ></i>
                 </Badge>
               </Link>
-            ) : null}
+            ) : null} */}
           </div>
           <hr className='vr' />
           <div className='header-right-a header-name-content'>

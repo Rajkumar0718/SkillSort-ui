@@ -1,24 +1,47 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Button = (props) => {
-console.log(props.title);
+const Button = ({ buttonConfig, children }) => {
+  const {
+    className,
+    onClick,
+    style,
+    type,
+    dataToggle,
+    dataPlacement,
+    hoverTitle,
+    disabled,
+    dataDismiss,
+    id,
+    to,
+    linkStyle,
+    title,
+    linkClassname,
+  } = buttonConfig;
+
   return (
-    <div>
-      <button
-        className={props.className}
-        onClick={props.onClick}
-        style={props.style}
-        type={props.type}
-        data-toggle={props.dataToggle}
-        data-placement={props.dataPlacement}
-        title={props.hoverTitle}
-        disabled={props.disabled}
-        data-dismiss={props.dataDismiss}
-        id={props.id}
-      >{props.title}</button>
-    </div>
+    <button
+      className={className}
+      onClick={onClick}
+      style={style}
+      type={type}
+      data-toggle={dataToggle}
+      data-placement={dataPlacement}
+      title={hoverTitle}
+      disabled={disabled}
+      data-dismiss={dataDismiss}
+      id={id}
+    >
+      {to ? (
+        <Link style={linkStyle} to={to} className={linkClassname}>
+          {title}
+        </Link>
+      ) : (
+        title
+      )}
+      {children} {/* Render additional content (e.g., icon) */}
+    </button>
   );
 };
 
 export default Button;
-
