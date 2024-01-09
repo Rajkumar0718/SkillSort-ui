@@ -4,14 +4,14 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import GroupsIcon from "@mui/icons-material/Groups";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import Header from "../common/Header";
-import Breadcrumbs from "../common/Breadcrumb";
+import Breadcrumb from "../common/Breadcrumb";
 import ZZ5H from "../assests/images/SVKl-unscreen.gif";
-import SideBars from "../common/SideBars";
+import SideBar from "../common/SideBar";
 import PageNotFound from "../components/PageNotFound";
 import CollegeReportList from "../components/college/CollegeReportList";
 import StaffList from "../components/college/StaffList";
 import StudentList from "../components/college/StudentList";
-import CustomBreadcrumbs from "../common/CustomBreadcrumbs";
+
 
 const CollegeLayout = () => {
   const collegeRoutes = [
@@ -53,12 +53,12 @@ const CollegeLayout = () => {
   const breadcrumbsProps = {
     homeLink: "/college/staff",
     separator: ">",
-    linkStyle: { cursor: 'pointer', color: '#3f51b5' },
-    activeTypographyStyle: { color: 'grey' },
-};
+    linkStyle: { cursor: "pointer", color: "#3f51b5" },
+    activeTypographyStyle: { color: "grey" },
+  };
   return (
     <div>
-      <SideBars links={sidebarLinks}></SideBars>
+      <SideBar links={sidebarLinks}></SideBar>
       <div className="d-flex" id="wrapper">
         <div id="page-content-wrapper" style={{ position: "absolute" }}>
           <Header
@@ -67,8 +67,7 @@ const CollegeLayout = () => {
             showSidenav={showSidenav}
           />
           <div style={{ margin: "25px 0px 0px 25px" }}>
-            <CustomBreadcrumbs {...breadcrumbsProps}></CustomBreadcrumbs>
-
+            <Breadcrumb {...breadcrumbsProps}></Breadcrumb>
           </div>
           <div className="container-fluid">
             <Suspense
@@ -82,18 +81,18 @@ const CollegeLayout = () => {
               }
             >
               <Routes>
-                  {collegeRoutes.map((route, index) => (
-                    route.path !== 'undefined' ?
+                {collegeRoutes.map((route, index) =>
+                  route.path !== "undefined" ? (
                     <Route
                       key={index}
                       path={route.path}
                       element={<route.component />}
                     />
-                  : <Route path="*" element={<PageNotFound />} />
-                  ))}
-
+                  ) : (
+                    <Route path="*" element={<PageNotFound />} />
+                  )
+                )}
               </Routes>
-
             </Suspense>
           </div>
         </div>

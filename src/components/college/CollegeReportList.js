@@ -5,7 +5,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import IconButton from "@mui/material/IconButton";
 import StudentPlacementreportModal from "./StudentPlacementreportModal";
 import StudentreportModal from "../SuperAdmin/StudentreportModal";
-import ReportList from "../../common/ReportList";
+import Card from "../../common/Card";
 const CollegeReportList = (props) => {
   const items = [
     {
@@ -38,7 +38,7 @@ const CollegeReportList = (props) => {
 
 
   return (
-    <ReportList
+    <Card
       items={items}
       showModalComponent={showModalComponent}
       onCloseModalComponent={onCloseModalComponent}

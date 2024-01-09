@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import _ from "lodash";
 import IconButton from "@mui/material/IconButton";
 
-const ReportList = (props) => {
+const Card = (props) => {
   const { items, showModalComponent, onCloseModalComponent } = props;
   const [loader, setLoader] = useState(false);
   const [modalKey, setModalKey] = useState(null);
@@ -61,4 +61,4 @@ const ReportList = (props) => {
   );
 };
 
-export default ReportList;
+export default Card;

@@ -39,7 +39,7 @@ const Button = ({ buttonConfig, children }) => {
       ) : (
         title
       )}
-      {children} {/* Render additional content (e.g., icon) */}
+      {children}
     </button>
   );
 };

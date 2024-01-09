@@ -259,7 +259,7 @@ const StudentReportModal = (props) => {
         !report.department &&
         !report.skillsortScore &&
         _.size(report.yop) === 0,
-      style: { marginRight: "1rem", minWidth: "5rem" },
+      style: { minWidth: "5rem" },
       onClick: { handleReset },
       className: "btn btn-sm btn-nxt",
       title: "Reset",
