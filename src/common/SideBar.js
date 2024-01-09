@@ -73,7 +73,7 @@ const SideBar = ({ links }) => {
           >
 
             <div
-              className={
+              className= {
                window.location.pathname===link.homeLink|| window.location.pathname === link.to
                   ? "menu-icon focus"
                   : "menu-icon"
