@@ -1,7 +1,7 @@
 import { CircleLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import { withStyles } from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
+import { withStyles } from '@mui/styles';
+import Switch from '@mui/material/Switch';
 
 export function toastMessage(type, message) {
     document.addEventListener('click', () => toast.dismiss(), false);
