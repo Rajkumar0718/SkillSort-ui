@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;900&display=swap');
+
+.rowdesign {
+  font-family: Montserrat !important;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  /* width:150px; */
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin-right: 16px;
+
+
+}
+
+.thdesign {
+  font-Family: Montserrat !important;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  /* width:150px; */
+  font-weight: 700;
+  font-size: 100px;
+
+
+}
+
+.rowdesign:nth-of-type(even) {
+  background-color: #ECEDF6 !important;
+
+}
+
+.rowdesign:nth-of-type(odd) {
+  background-color: white !important;
+
+}
+
+.content-align {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+
+.backPic {
+  background-repeat: no-repeat;
+  background-image: url('../../images/skillsortposition.png');
+  background-position: right 0px bottom 2rem;
+  opacity: 65;
+}

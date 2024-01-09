@@ -1,51 +1,35 @@
-import "./App.css";
-import React from "react";
-import SideBar from "./common/SideBar";
-import { useRoutes } from "react-router-dom";
-import Home from "@mui/icons-material/Home";
-import { Apartment } from "@mui/icons-material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Button from "./common/Button";
+import AdminLogin from "./components/Admin/AdminLogin";
+import { Route, Routes, useRoutes } from "react-router-dom";
+import HomePage from "./components/SuperAdmin/HomePage";
+import PageNotFound from "./components/PageNotFound";
+import CollegeList from "./components/SuperAdmin/CollegeList";
+import CollegeLayout from "./container/CollegeLayout";
+import Layout from "./common/Layout";
+import StudentList from "./components/college/StudentList";
+import RequireAuth from "./components/RequireAuth";
+import StaffList from "./components/college/StaffList";
+import AddStaff from "./components/college/AddStaff";
+import CollegeReportList from "./components/college/CollegeReportList";
 
-export default function App() {
-  const listItems = [
-    { text: "Home", icon: <Home />, menu: "MENU", link: "/example" },
-    {
-      text: "Company",
-      icon: <Apartment />,
-      menu: "MENU",
-      link: "/example2",
-      child: [{ link: "/admin/onGoingTest", title: "OnGoing Test" }],
-    },
-    {
-      text: "CompanyAdmin",
-      icon: <AccountCircleIcon />,
-      menu: "MENU",
-      child: [
-        { link: "/admin/onGoingTest", title: "OnGoing Test" },
-        { link: "/admin/onGoingTest", title: "OnGoing" },
-      ],
-    },
-  ];
-  const btnList = [
-    {
-      className: "my-button",
-      // onClick: handleClick,
-      style: { color: "red" },
-      type: "button",
-      dataToggle: "modal",
-      dataPlacement: "top",
-      hoverTitle: "okk",
-      disabled: false,
-      dataDismiss: "alert",
-      id: "myButtonId",
-      title:"Click me"
-    },
-  ];
+function App() {
+  return (
+    <Routes>
+      <Route index element={<AdminLogin />}></Route>
+      <Route path="/login" element = {<AdminLogin />} />
+      <Route path="/" element={<Layout />}>
+        {/* Public Routes */}
+        {/* Protected Routes */}
+        <Route element={<RequireAuth allowedRoles={["COLLEGE_ADMIN","COLLEGE_STAFF"]}/>}>
+          <Route path="/college" element={<StudentList />} />
+          <Route path="/college/placement-coordinator" element = {<StaffList/>} />
+          <Route path="/college/placement-coordinator/add" element = {<AddStaff />} />
+          <Route path="/college/collegeReport" element={<CollegeReportList/>} />
+        </Route>
 
-  const routes = useRoutes([
-    { path: "/sidebars", element: <SideBar listItems={listItems} /> },
-    { path: "/button", element: <Button {...btnList[0]}></Button> },
-  ]);
-  return routes;
+        <Route path="*" element={<PageNotFound />} />
+      </Route>
+    </Routes>
+  )
 }
+
+export default App;
