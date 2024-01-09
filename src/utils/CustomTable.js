@@ -1,4 +1,4 @@
-import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, withStyles } from "@material-ui/core";
+import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, withStyles } from "@mui/material";
 import _ from "lodash";
 import BasicMenu from "./Menu/BasicMenu";
 

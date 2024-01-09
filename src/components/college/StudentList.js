@@ -1,10 +1,10 @@
-import React from "react";
-import { fallBackLoader } from "../../utils/CommonUtils";
+import React, { useState } from "react";
 import Button from "../../common/Button";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { fallBackLoader } from "../../utils/CommonUtils";
+
+
 const StudentList = () => {
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(false);
   const [openModel, setOpenModel] = useState(false);
   const btnList = [
     {
@@ -33,11 +33,17 @@ const StudentList = () => {
     },
   ];
 
+  const handleOutsideClick = (e) => {
+    if (e.target.className === "modal fade show") {
+      // getStudents();
+    }
+  };
+
   const onClickOpenModel = () => {
     if (!openModel) {
-      document.addEventListener("click", this.handleOutsideClick, false);
+      document.addEventListener("click", handleOutsideClick, false);
     } else {
-      document.removeEventListener("click", this.handleOutsideClick, false);
+      document.removeEventListener("click", handleOutsideClick, false);
     }
     setOpenModel(!openModel);
   };

@@ -1,5 +1,3 @@
-import React, { useState, Suspense } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import GroupsIcon from "@mui/icons-material/Groups";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
@@ -11,6 +9,8 @@ import PageNotFound from "../components/PageNotFound";
 import CollegeReportList from "../components/college/CollegeReportList";
 import StaffList from "../components/college/StaffList";
 import StudentList from "../components/college/StudentList";
+import { Suspense, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 
 const CollegeLayout = () => {
@@ -84,7 +84,7 @@ const CollegeLayout = () => {
                 {collegeRoutes.map((route, index) =>
                   route.path !== "undefined" ? (
                     <Route
-                      key={index}
+                      key={route.path}
                       path={route.path}
                       element={<route.component />}
                     />

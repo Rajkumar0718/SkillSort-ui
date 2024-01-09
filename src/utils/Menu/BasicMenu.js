@@ -1,6 +1,6 @@
-import { withStyles } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
+import { withStyles } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
 import React from 'react';
 
 

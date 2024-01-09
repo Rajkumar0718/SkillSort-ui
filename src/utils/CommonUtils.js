@@ -1,7 +1,7 @@
 import { CircleLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import { withStyles } from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
+import Switch from '@mui/material/Switch';
+import { styled } from '@mui/material/styles';
 
 export function toastMessage(type, message) {
     document.addEventListener('click', () => toast.dismiss(), false);
@@ -17,11 +17,24 @@ export function toastMessage(type, message) {
     }
 }
 
-export const ToggleStatus = withStyles({
-    switchBase: {
-        color: "red", '&$checked': { color: 'green', }, '&$checked + $track': { backgroundColor: 'green', },
-    }, checked: {}, track: { backgroundColor: 'red', },
-})(Switch);
+const CustomSwitch = styled(Switch)(({ theme }) => ({
+    '& .MuiSwitch-switchBase': {
+        color: 'red',
+        '&.Mui-checked': {
+            color: 'green',
+            '& + .MuiSwitch-track': {
+                backgroundColor: 'green',
+            },
+        },
+    },
+    '& .MuiSwitch-track': {
+        backgroundColor: 'red',
+    },
+}));
+
+export const ToggleStatus = () => {
+    return <CustomSwitch />;
+};
 
 export function fallBackLoader(value) {
     return (<div style={{ position: "fixed", top: "45%", left: "45%", transform: "translate(-50%, -50%)" }}>

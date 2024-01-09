@@ -1,10 +1,6 @@
-import React from "react";
-import {
-  Breadcrumbs as MUIBreadcrumbs,
-  Link,
-  Typography,
-} from "@material-ui/core";
-import { useNavigate, useLocation } from "react-router-dom";
+import React from 'react';
+import { Breadcrumbs as MUIBreadcrumbs, Link, Typography } from '@mui/material';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Breadcrumbs = (props) => {
   const { homeLink, separator, linkStyle, activeTypographyStyle } = props;

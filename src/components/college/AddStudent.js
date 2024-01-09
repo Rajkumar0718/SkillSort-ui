@@ -6,7 +6,7 @@ import {
   isValidMobileNo,
   isValidName,
 } from "../../utils/Validation";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import FormHelperText from "@mui/material/FormHelperText";
 import { Link } from "react-router-dom";
 import Button from "../../common/Button";
 const AddStudent = (props) => {

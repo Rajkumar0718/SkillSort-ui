@@ -4,7 +4,7 @@ import { isEmpty, isValidEmail, isValidMobileNo } from "../../utils/Validation";
 import { url } from "../../utils/UrlConstant";
 import { authHeader, errorHandler } from "../../api/Api";
 import { toastMessage } from "../../utils/CommonUtils";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import FormHelperText from "@mui/material/FormHelperText";
 import { Link } from "react-router-dom";
 import Button from "../../common/Button";
 const AddStaff = (props) => {

@@ -1,0 +1,87 @@
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import GroupsIcon from "@mui/icons-material/Groups";
+import TextSnippetIcon from "@mui/icons-material/TextSnippet";
+import { Suspense, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import Header from "./Header";
+import SideBars from "./SideBars";
+import CustomBreadcrumbs from "./CustomBreadcrumbs";
+import ZZ5H from "../assests/images/SVKl-unscreen.gif";
+import TestingSidebar from "./TestingSideBar";
+
+
+export const Layout = () => {
+  const sidebarLinks = [
+    {
+      to: "/college/placement-coordinator",
+      iconButton: <AccountCircleIcon></AccountCircleIcon>,
+      label: "Placement-coordinator",
+    },
+    {
+      to: "/college",
+      iconButton: <GroupsIcon></GroupsIcon>,
+      label: "Student",
+    },
+    {
+      to: "/college/collegeReport",
+      iconButton: <TextSnippetIcon></TextSnippetIcon>,
+      label: "SkillSort User Report",
+    },
+  ];
+
+  const [showSidenav, setShowSidenav] = useState(false);
+  const navigate = useNavigate();
+
+  const toggleButtonClicked = () => {
+    setShowSidenav(!showSidenav);
+  };
+
+  const logOut = () => {
+    localStorage.clear();
+    navigate("/login");
+    window.location.reload();
+  };
+
+  const breadcrumbsProps = {
+    homeLink: "/college",
+    separator: ">",
+    linkStyle: { cursor: 'pointer', color: '#3f51b5' },
+    activeTypographyStyle: { color: 'grey' },
+  };
+
+
+  return (
+    <div>
+      {/* <SideBars links={sidebarLinks}></SideBars> */}
+      <TestingSidebar/>
+      <div className="d-flex" id="wrapper">
+        <div id="page-content-wrapper" style={{ position: "absolute" }}>
+          <Header
+            onClickToggled={toggleButtonClicked}
+            logOut={() => logOut()}
+            showSidenav={showSidenav}
+          />
+          <div style={{ margin: "25px 0px 0px 25px" }}>
+            <CustomBreadcrumbs {...breadcrumbsProps}></CustomBreadcrumbs>
+            <div className="container-fluid">
+              <Suspense
+                fallback={
+                  <div
+                    className="animated fadeIn pt-1"
+                    style={{ position: "fixed", top: "40%", left: "45%" }}
+                  >
+                    <img src={ZZ5H} width={150} height={150} alt="loading"></img>
+                  </div>
+                }
+              >
+                  <Outlet />
+              </Suspense>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Layout;

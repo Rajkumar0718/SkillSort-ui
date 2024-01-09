@@ -1,4 +1,4 @@
-import { Checkbox, InputAdornment, TextField } from '@material-ui/core';
+import { Checkbox, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useState } from 'react';
 import './style.css';
@@ -17,7 +17,6 @@ function Search(props) {
   }
 
   return (
-    <>
       <div className="search">
         <div
           className="row"
@@ -88,7 +87,6 @@ function Search(props) {
           )}
         </div>
       </div>
-    </>
   );
 }
 

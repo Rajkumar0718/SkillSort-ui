@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+// import {
+//   KeyboardDatePicker,
+//   MuiPickersUtilsProvider,
+// } from "@material-ui/pickers";
 import _ from "lodash";
 import moment from "moment";
 import axios from "axios";
@@ -397,7 +397,7 @@ const StudentReportModal = (props) => {
                       height: "100%",
                     }}
                   >
-                    <div>
+                    {/* <div>
                       <label>From Date</label>
                       <div>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -422,7 +422,7 @@ const StudentReportModal = (props) => {
                           ></KeyboardDatePicker>
                         </MuiPickersUtilsProvider>
                       </div>
-                    </div>
+                    </div> */}
                     <div>
                       <label>Year of passing</label>
                       <div style={{ width: "12.5rem !important" }}>

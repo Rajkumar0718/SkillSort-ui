@@ -1,14 +1,11 @@
-import { Badge } from '@material-ui/core';
 import axios from 'axios';
-import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { authHeader, getCurrentUser } from '../api/Api';
 import LOGO from '../assests/images/LOGO.svg';
 import DEMO from '../assests/images/admin.png';
 import { toastMessage } from '../utils/CommonUtils';
 import { url } from '../utils/UrlConstant';
-import { isRoleValidation } from '../utils/Validation';
 import './Common.css';
 
 function Header(props) {
@@ -42,7 +39,6 @@ function Header(props) {
   };
 
   return (
-    <>
       <div className='header'>
         <img className='header-logo' src={LOGO} alt='SkillSort' />
         <div className='header-right'>
@@ -81,7 +77,6 @@ function Header(props) {
           </div>
         </div>
       </div>
-    </>
   );
 }
 
