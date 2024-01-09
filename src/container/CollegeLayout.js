@@ -25,16 +25,23 @@ const CollegeLayout = () => {
       to: "placement-coordinator",
       iconButton: <AccountCircleIcon></AccountCircleIcon>,
       label: "Placement-coordinator",
+      homeLink:"/college/staff"
     },
     {
       to: "staff",
       iconButton: <GroupsIcon></GroupsIcon>,
       label: "Student",
+      homeLink:"/college/staff"
     },
     {
       to: "report",
       iconButton: <TextSnippetIcon></TextSnippetIcon>,
       label: "SkillSort User Report",
+      homeLink:"/college/staff",
+      child: [
+        { title: "Child Item 1" },
+        { title: "Child Item 2" },
+      ],
     },
   ];
 

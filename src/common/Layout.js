@@ -3,11 +3,10 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import { Suspense, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import Header from "./Header";
-import SideBars from "./SideBars";
-import CustomBreadcrumbs from "./CustomBreadcrumbs";
 import ZZ5H from "../assests/images/SVKl-unscreen.gif";
+import Header from "./Header";
 import TestingSidebar from "./TestingSideBar";
+import Breadcrumbs from "./Breadcrumb";
 
 
 export const Layout = () => {
@@ -62,7 +61,7 @@ export const Layout = () => {
             showSidenav={showSidenav}
           />
           <div style={{ margin: "25px 0px 0px 25px" }}>
-            <CustomBreadcrumbs {...breadcrumbsProps}></CustomBreadcrumbs>
+            <Breadcrumbs {...breadcrumbsProps}></Breadcrumbs>
             <div className="container-fluid">
               <Suspense
                 fallback={

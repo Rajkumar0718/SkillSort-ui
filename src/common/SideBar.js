@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import NavBar from "../container/NavBar";
 import { isRoleValidation } from "../utils/Validation";
 import IconButton from "@mui/material/IconButton";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+
 import _ from "lodash";
 const SideBar = ({ links }) => {
   const wrapperRef = useRef(null);
   const [showSidenav, setShowSidenav] = useState(false);
   const [sideBarClass, setSideBarClass] = useState("sidebar col-9 sb-1");
-
-  const path = window.location.pathname
-
+  const [focusedIndex, setFocusedIndex] = useState(null);
   const toggleClicked = () => {
     setShowSidenav(!showSidenav);
     openSideBar();
@@ -42,6 +42,9 @@ const SideBar = ({ links }) => {
       });
     });
   };
+  const ChildLink = ({ link }) => (
+    <div className="child-link">{link.title}</div>
+  );
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -50,7 +53,7 @@ const SideBar = ({ links }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [path]);
+  }, []);
 
   return (
     <div
@@ -62,19 +65,30 @@ const SideBar = ({ links }) => {
         <NavBar toggleClicked={toggleClicked} />
         <hr className="bottom-border" />
         {links.map((link, index) => (
-          <Link key={index} to={link.to} onClick={() => changeClass()}>
+          <Link
+            key={index}
+            to={link.to}
+            onClick={() => changeClass()}
+            onFocus={() => setFocusedIndex(index)}
+          >
+
             <div
               className={
-                window.location.pathname === link.to
+               window.location.pathname===link.homeLink|| window.location.pathname === link.to
                   ? "menu-icon focus"
                   : "menu-icon"
               }
+              style={{height:link.child&&focusedIndex===index?"10rem":"3.5rem"}}
             >
               <div className="row link">
                 <div data-tip data-for="result">
                   <IconButton
                     aria-hidden="true"
-                    style={{ fontSize: "1.3rem", color: "#3b489E",display:'contents' }}
+                    style={{
+                      fontSize: "1.3rem",
+                      color: "#3b489E",
+                      display: "contents",
+                    }}
                   >
                     {link.iconButton}
                   </IconButton>
@@ -89,9 +103,26 @@ const SideBar = ({ links }) => {
                   }}
                 >
                   <span>{link.label}</span>
+                  {focusedIndex === index &&
+                    link.child &&
+                    !showSidenav &&
+                    link.child.map((c, childIndex) => (
+                      <div style={{ display: "flex",alignItems:"center"}}>
+                        <ArrowRightIcon sx={{ color: "#F05A28" }} />
+                        <a
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                          style={{ color: "black", fontFamily: "Open Sans" }}
+                        >
+                          {c.title}
+                        </a>
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>
+
             <hr className="bottom-border" style={{ color: "#BEBFC0" }} />
           </Link>
         ))}

@@ -40,9 +40,9 @@ export function isRoleValidation() {
         }).join(''));
         var payload = JSON.parse(jsonPayload);
     }
-    const role = payload.role.split(",");
-    if (role.length > 1) {
+    const role = payload?.role?.split(",");
+    if (role?.length > 1) {
         return role;
     }
-    return payload.role;
+    return payload?.role;
 }
