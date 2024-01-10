@@ -14,10 +14,10 @@ import CollegeReportList from "./components/college/CollegeReportList";
 function App() {
   return (
     <Routes>
+        {/* Public Routes */}
       <Route index element={<AdminLogin />}></Route>
       <Route path="/login" element = {<AdminLogin />} />
       <Route path="/" element={<Layout />}>
-        {/* Public Routes */}
         {/* Protected Routes */}
         <Route element={<RequireAuth allowedRoles={["COLLEGE_ADMIN","COLLEGE_STAFF"]}/>}>
           <Route path="/college" element={<StudentList />} />

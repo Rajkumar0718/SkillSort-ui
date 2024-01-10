@@ -8,26 +8,7 @@ import Header from "./Header";
 import TestingSidebar from "./TestingSideBar";
 import Breadcrumbs from "./Breadcrumb";
 
-
 export const Layout = () => {
-  const sidebarLinks = [
-    {
-      to: "/college/placement-coordinator",
-      iconButton: <AccountCircleIcon></AccountCircleIcon>,
-      label: "Placement-coordinator",
-    },
-    {
-      to: "/college",
-      iconButton: <GroupsIcon></GroupsIcon>,
-      label: "Student",
-    },
-    {
-      to: "/college/collegeReport",
-      iconButton: <TextSnippetIcon></TextSnippetIcon>,
-      label: "SkillSort User Report",
-    },
-  ];
-
   const [showSidenav, setShowSidenav] = useState(false);
   const navigate = useNavigate();
 
@@ -43,16 +24,13 @@ export const Layout = () => {
 
   const breadcrumbsProps = {
     homeLink: "/college",
-    separator: ">",
-    linkStyle: { cursor: 'pointer', color: '#3f51b5' },
-    activeTypographyStyle: { color: 'grey' },
+    name: "college",
   };
-
 
   return (
     <div>
       {/* <SideBars links={sidebarLinks}></SideBars> */}
-      <TestingSidebar/>
+      <TestingSidebar />
       <div className="d-flex" id="wrapper">
         <div id="page-content-wrapper" style={{ position: "absolute" }}>
           <Header
@@ -61,7 +39,7 @@ export const Layout = () => {
             showSidenav={showSidenav}
           />
           <div style={{ margin: "25px 0px 0px 25px" }}>
-            <Breadcrumbs {...breadcrumbsProps}></Breadcrumbs>
+            <Breadcrumbs />
             <div className="container-fluid">
               <Suspense
                 fallback={
@@ -69,18 +47,23 @@ export const Layout = () => {
                     className="animated fadeIn pt-1"
                     style={{ position: "fixed", top: "40%", left: "45%" }}
                   >
-                    <img src={ZZ5H} width={150} height={150} alt="loading"></img>
+                    <img
+                      src={ZZ5H}
+                      width={150}
+                      height={150}
+                      alt="loading"
+                    ></img>
                   </div>
                 }
               >
-                  <Outlet />
+                <Outlet />
               </Suspense>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Layout;

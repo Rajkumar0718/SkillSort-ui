@@ -9,6 +9,10 @@ const Input = (props) => {
       onChange={props.handleChange}
       name={props.name}
       style={props.style}
+      value={props.value}
+      autoComplete={props.autoComplete}
+      id={props.id}
+      maxLength={props.maxLength}
     />
   );
 };

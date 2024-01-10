@@ -7,6 +7,7 @@ import { toastMessage } from "../../utils/CommonUtils";
 import FormHelperText from "@mui/material/FormHelperText";
 import { Link } from "react-router-dom";
 import Button from "../../common/Button";
+import Input from "../../common/Input";
 const AddStaff = (props) => {
   const [disabled, setDisabled] = useState(false);
   const [staff, setStaff] = useState({
@@ -157,7 +158,7 @@ const AddStaff = (props) => {
                             </label>
                           </div>
                           <div className="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                            <input
+                            <Input
                               className="profile-page"
                               onChange={(e) => handleChange(e, "name")}
                               value={staff.name}
@@ -245,7 +246,10 @@ const AddStaff = (props) => {
                               Status{" "}
                             </label>
                           </div>
-                          <div className="custom-control custom-radio custom-control-inline ml-3 radio" style={{width:'16%',marginTop:'6px'}}>
+                          <div
+                            className="custom-control custom-radio custom-control-inline ml-3 radio"
+                            style={{ width: "16%", marginTop: "6px" }}
+                          >
                             <input
                               className="custom-control-input"
                               id="active"
@@ -256,6 +260,7 @@ const AddStaff = (props) => {
                               checked={
                                 staff.status === "ACTIVE" || staff.status === ""
                               }
+                              style={{ marginRight: "4px" }}
                             />
                             <label
                               className="custom-control-label"
@@ -264,7 +269,10 @@ const AddStaff = (props) => {
                               Active
                             </label>
                           </div>
-                          <div className="custom-control custom-radio custom-control-inline ml-3 radio" style={{width:'16%',marginTop:'6px'}}>
+                          <div
+                            className="custom-control custom-radio custom-control-inline ml-3 radio"
+                            style={{ width: "16%", marginTop: "6px" }}
+                          >
                             <input
                               className="custom-control-input"
                               id="inactive"
@@ -273,6 +281,7 @@ const AddStaff = (props) => {
                               value="INACTIVE"
                               name="status"
                               checked={staff.status === "INACTIVE"}
+                              style={{ marginRight: "3px" }}
                             />
                             <label
                               className="custom-control-label"
@@ -288,8 +297,12 @@ const AddStaff = (props) => {
                       <div className="col-11,col-lg-11,col-md-11 col-sm-11 col-xl-11">
                         <div style={{ float: "right", marginRight: "3.9rem" }}>
                           <Link
-                            className="btdn btn-default"
+                            className="btn btn-default"
                             to="/college/placement-coordinator"
+                            style={{
+                              textDecoration: "none",
+                              marginRight: "10px",
+                            }}
                           >
                             Cancel
                           </Link>

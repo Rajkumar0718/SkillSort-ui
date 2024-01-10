@@ -116,7 +116,7 @@ export default class TestingSidebar extends Component {
                   </div>
                 </div>
                 <div className="col-9 menu-name">
-                  <span>{sideBar.name}</span>
+                  <span style={{display:'flex'}}>{sideBar.name}</span>
                 </div>
               </div>
             </div>
