@@ -1,43 +1,41 @@
-import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, withStyles } from "@mui/material";
-import _ from "lodash";
-import BasicMenu from "./Menu/BasicMenu";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import _ from 'lodash';
+import BasicMenu from './Menu/BasicMenu';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled } from '@mui/system';
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 150,
-    marginLeft: '0.5rem',
-    width: '98%',
-    marginBottom: '1rem',
-  },
-});
+const theme = createTheme({});
 
-const StyledTableCell = withStyles(() => ({
-  head: {
-    backgroundColor: '#ECEDF6',
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: '#e0e1ea !important',
     color: '#3B489E',
     textTransform: 'uppercase',
     fontWeight: '700',
     fontFamily: 'Montserrat',
-    padding: '0.45rem 0.45rem 0.45rem 0.2rem !important',
-    fontSize: 14
+    padding: theme.spacing(0.45, 0.45, 0.45, 0.2),
+    fontSize: 12,
   },
-  body: {
-    fontSize: 13,
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 11,
     fontFamily: 'Montserrat',
-    paddingLeft: '0.45px !important'
+    paddingLeft: '2px !important',
   },
-}))(TableCell);
+}));
 
-const StyledTableRow = withStyles(() => ({
-  root: {
-    '&:nth-of-type(even)': {
-      backgroundColor: '#E0E1EA',
-    },
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(even)': {
+    backgroundColor: '#E0E1EA',
   },
-}))(TableRow);
+}));
+
 
 export const CustomTable = (props) => {
-  const classes = useStyles();
 
 
   const getHeader = () => {
@@ -45,7 +43,7 @@ export const CustomTable = (props) => {
       if (header.isFilter) {
         return (
           <StyledTableCell>
-            <BasicMenu header = {header}/>
+            <BasicMenu header={header} />
           </StyledTableCell>
         )
       } else {
@@ -54,59 +52,71 @@ export const CustomTable = (props) => {
     })
   }
 
-  const concatKeys = (keys,data) => {
-     let concatString = '';
-      _.map(keys, key => {
-       concatString = concatString.concat(data[key] ? data[key]: key)
-      })
-      return concatString;
+
+  const concatKeys = (keys, data) => {
+    let concatString = '';
+    _.map(keys, key => {
+      concatString = concatString.concat(data[key] ? data[key] : key)
+    })
+    return concatString;
   }
 
-  const splitDotsAndJoin = (key,data) => {
+  const splitDotsAndJoin = (key, data) => {
     const name = key.split(".")
-   return  data[name[0]][name[1]]
+    return data[name[0]][name[1]]
   }
 
   const getRowData = () => {
     let i = props.pageSize - 1;
-    if(_.size(props.data) > 0) {
-    return _.map(props.data, (row, index) => {
-    return(
-       <StyledTableRow>
-      {  _.map(props.headers, keys => {
-          if (keys.renderCell instanceof Function) {
-            return <StyledTableCell align={keys.align ? keys.align : 'center' }>{keys.renderCell(row,index)}</StyledTableCell>
-          }
-          else if(keys.concat) {
-            return <StyledTableCell align={keys.align ? keys.align : 'center' }>{concatKeys(keys.key,row)}</StyledTableCell>
-          }
-           else if (keys.key?.toUpperCase() === 'S.NO') {
-            return <StyledTableCell align={ 'center' }>{props.pageSize * props.currentPage - (i--)}</StyledTableCell>
-          } else if(keys.key?.includes(".")) {
-            return <StyledTableCell align={keys.align ? keys.align : 'center' }>{splitDotsAndJoin(keys.key,row)}</StyledTableCell>
-          }else {
-            return <StyledTableCell align={keys.align ? keys.align : 'center' }>{row[keys.key]}</StyledTableCell>
-          }
-        })}
-     </StyledTableRow>
-    )})
-  } else {
-    return <StyledTableRow className="text-center"> <StyledTableCell colSpan={7} align="center" >NO DATA AVAILABLE</StyledTableCell></StyledTableRow>
-  }
+    if (_.size(props.data) > 0) {
+      return _.map(props.data, (row, index) => {
+        return (
+          <StyledTableRow>
+            {_.map(props.headers, keys => {
+              if (keys.renderCell instanceof Function) {
+                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{keys.renderCell(row, index)}</StyledTableCell>
+              }
+              else if (keys.concat) {
+                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{concatKeys(keys.key, row)}</StyledTableCell>
+              }
+              else if (keys.key?.toUpperCase() === 'S.NO') {
+                return <StyledTableCell align={'center'}>{props.pageSize * props.currentPage - (i--)}</StyledTableCell>
+              } else if (keys.key?.includes(".")) {
+                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{splitDotsAndJoin(keys.key, row)}</StyledTableCell>
+              } else {
+                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
+              }
+            })}
+          </StyledTableRow>
+        )
+      })
+    } else {
+      return <StyledTableRow className="text-center"> <StyledTableCell colSpan={7} align="center" >NO DATA AVAILABLE</StyledTableCell></StyledTableRow>
+    }
   }
 
   return (
-    <TableContainer style={{overflowX: 'inherit'}}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
-        <TableHead>
+    <ThemeProvider theme={theme}>
+      <TableContainer style={{ overflowX: 'inherit' }}>
+        <Table
+          size="small"
+          aria-label="a dense table"
+          sx={{
+            minWidth: 150,
+            width: '100%',
+            marginBottom: (theme) => theme.spacing(2),
+          }}
+        >
+          <TableHead>
             <StyledTableRow>
-                {getHeader()}
+              {getHeader()}
             </StyledTableRow>
-        </TableHead>
-        <TableBody>
-              {getRowData()}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {getRowData()}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </ThemeProvider >
   )
 }
