@@ -9,6 +9,7 @@ import {
 import FormHelperText from "@mui/material/FormHelperText";
 import { Link } from "react-router-dom";
 import Button from "../../common/Button";
+import Input from "../../common/Input";
 const AddStudent = (props) => {
   const [student, setStudent] = useState({
     firstName: "",
@@ -149,6 +150,71 @@ const AddStudent = (props) => {
       disabled: disabled,
     },
   ];
+  const inputconfig = [
+    {
+      className: "profile-page",
+      onChange: (e) => handleChange(e, "firstName"),
+      value: student.firstName,
+      autoComplete: "new-username",
+      name: "firstName",
+      id: "student",
+      maxLength: "50",
+      type: "text",
+      placeholder: "Enter User First Name",
+    },
+    {
+      className: "profile-page",
+      onChange: (e) => handleChange(e, "lastName"),
+      value: student.lastName,
+      autoComplete: "new-username",
+      name: "lastName",
+      id: "student",
+      maxLength: "50",
+      type: "text",
+      placeholder: "Enter User Last Name",
+    },
+    {
+      className: "profile-page",
+      onChange: (e) => handleChange(e, "email"),
+      value: student.email,
+      autoComplete: "off",
+      name: "email",
+      id: "student",
+      maxLength: "50",
+      type: "text",
+      placeholder: "Enter email",
+    },
+    {
+      className: "profile-page",
+      onChange: (e) => handleChange(e, "phone"),
+      value: student.phone,
+      autoComplete: "off",
+      name: "phone",
+      id: "student",
+      maxLength: "50",
+      type: "number",
+      placeholder: "Enter phone",
+    },
+    {
+      className: "custom-control-input",
+      onChange: (e) => handleChange(e, "status"),
+      value: "ACTIVE",
+      name: "status",
+      id: "active",
+      type: "radio",
+      checked: student.status === "ACTIVE" || student.status === "",
+    },
+    {
+      className: "custom-control-input",
+      onChange: (e) => handleChange(e, "status"),
+      value: "INACTIVE",
+      name: "status",
+      id: "inactive",
+      type: "radio",
+      checked: student.status === "INACTIVE",
+    },
+  ];
+
   return (
     <main className="main-content bcg-clr">
       <div>
@@ -181,17 +247,7 @@ const AddStudent = (props) => {
                             </label>
                           </div>
                           <div className="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                            <input
-                              className="profile-page"
-                              onChange={(e) => handleChange(e, "firstName")}
-                              value={student.firstName}
-                              name="firstName"
-                              id="student"
-                              autoComplete="new-username"
-                              maxLength="50"
-                              type="text"
-                              placeholder="Enter User First Name"
-                            />
+                            <Input {...inputconfig[0]} />
                           </div>
                         </div>
                       </div>
@@ -214,17 +270,7 @@ const AddStudent = (props) => {
                             </label>
                           </div>
                           <div className="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                            <input
-                              className="profile-page"
-                              onChange={(e) => handleChange(e, "lastName")}
-                              value={student.lastName}
-                              name="lastName"
-                              id="student"
-                              autoComplete="new-username"
-                              maxLength="50"
-                              type="text"
-                              placeholder="Enter User Last Name"
-                            />
+                            <Input {...inputconfig[1]} />
                           </div>
                         </div>
                       </div>
@@ -245,17 +291,7 @@ const AddStudent = (props) => {
                             </label>
                           </div>
                           <div className="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                            <input
-                              className="profile-page"
-                              onChange={(e) => handleChange(e, "email")}
-                              value={student.email}
-                              name="email"
-                              id="student"
-                              autoComplete="off"
-                              maxLength="50"
-                              type="text"
-                              placeholder="Enter email"
-                            />
+                            <Input {...inputconfig[2]} />
                           </div>
                         </div>
                       </div>
@@ -276,17 +312,7 @@ const AddStudent = (props) => {
                             </label>
                           </div>
                           <div className="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                            <input
-                              className="profile-page"
-                              onChange={(e) => handleChange(e, "phone")}
-                              value={student.phone}
-                              name="phone"
-                              id="student"
-                              autoComplete="new-username"
-                              maxLength="50"
-                              type="number"
-                              placeholder="Enter phone"
-                            />
+                            <Input {...inputconfig[3]} />
                           </div>
                         </div>
                       </div>
@@ -311,18 +337,7 @@ const AddStudent = (props) => {
                               }}
                               className="custom-control custom-radio custom-control-inline ml-3 radio"
                             >
-                              <input
-                                className="custom-control-input"
-                                id="active"
-                                type="radio"
-                                onChange={(e) => handleChange(e, "status")}
-                                value="ACTIVE"
-                                name="status"
-                                checked={
-                                  student.status === "ACTIVE" ||
-                                  student.status === ""
-                                }
-                              />
+                              <Input {...inputconfig[4]} />
                               <label
                                 className="custom-control-label"
                                 htmlFor="active"
@@ -334,15 +349,7 @@ const AddStudent = (props) => {
                               style={{ marginTop: "0.3rem" }}
                               className="custom-control custom-radio custom-control-inline ml-3 radio"
                             >
-                              <input
-                                className="custom-control-input"
-                                id="inactive"
-                                type="radio"
-                                onChange={(e) => handleChange(e, "status")}
-                                value="INACTIVE"
-                                name="status"
-                                checked={student.status === "INACTIVE"}
-                              />
+                              <Input {...inputconfig[5]} />
                               <label
                                 className="custom-control-label"
                                 htmlFor="inactive"
@@ -360,7 +367,11 @@ const AddStudent = (props) => {
                     <div className="row">
                       <div className="col-11,col-lg-11,col-md-11 col-sm-11 col-xl-11">
                         <div style={{ float: "right", marginRight: "3.9rem" }}>
-                          <Link className="btn btn-default" to="/college" style={{textDecoration:"none"}}>
+                          <Link
+                            className="btn btn-default"
+                            to="/college"
+                            style={{ textDecoration: "none" }}
+                          >
                             Cancel
                           </Link>
                           <Button buttonConfig={buttonConfig[0]}></Button>

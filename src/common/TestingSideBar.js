@@ -62,18 +62,33 @@ export default class TestingSidebar extends Component {
     }
   };
 
+  // setEventListener = () => {
+  //   let header = document.getElementById("myDIV");
+  //   let buttons = header.getElementsByClassName("menu-icon");
+  //   console.log(buttons,"current[0]")
+  //   _.map(buttons, (_btn, index) => {
+  //     buttons[index].addEventListener("click", function () {
+  //       let current = document.getElementsByClassName("focus");
+  //       current[0].className = current[0]?.className?.replace(" focus", "");
+  //       this.className += " focus";
+  //     })
+  //   });
+  // }
+
   setEventListener = () => {
-    let header = document.getElementById("myDIV");
-    let buttons = header.getElementsByClassName("menu-icon");
-    _.map(buttons, (_btn, index) => {
-      buttons[index].addEventListener("click", function () {
-        let current = document.getElementsByClassName("focus");
-        current[0].className = current[0].className.replace(" focus", "");
-        this.className += " focus";
-      })
+    // Use event delegation to handle clicks on dynamically added elements
+    document.getElementById("myDIV").addEventListener("click", (event) => {
+      const targetButton = event.target.closest('.menu-icon');
+
+      if (targetButton) {
+        const current = document.getElementsByClassName("focus");
+        if (current.length > 0) {
+          current[0].classList.remove("focus");
+        }
+        targetButton.classList.add("focus");
+      }
     });
   }
-
 
   renderSubMenu = (sideBar) => {
     return (<div className='row' style={{ marginTop: '12px', marginLeft: '20px', display: 'flex', flexDirection: 'column' }}>
@@ -98,7 +113,7 @@ export default class TestingSidebar extends Component {
                 </div>
               </div>
               <div className='col-9 menu-name'>
-                <div style={{ height: '20px' }}>{sideBar.name}
+                <div style={{ height: '20px', maxWidth: '8.5rem' }}>{sideBar.name}
                   {this.state[sideBar.toggleValue] ? <div> {this.renderSubMenu(sideBar)} </div> : ''}
                 </div>
               </div>
@@ -116,7 +131,7 @@ export default class TestingSidebar extends Component {
                   </div>
                 </div>
                 <div className="col-9 menu-name">
-                  <span style={{display:'flex'}}>{sideBar.name}</span>
+                  <span style={{display:'flex', maxWidth: '8.5rem'}}>{sideBar.name}</span>
                 </div>
               </div>
             </div>

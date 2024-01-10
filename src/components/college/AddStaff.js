@@ -15,7 +15,7 @@ const AddStaff = (props) => {
     email: "",
     phone: "",
     role: "",
-    // collegeId: JSON.parse(localStorage.getItem("user")).companyId,
+    collegeId: JSON.parse(localStorage.getItem("user")).companyId,
     createdBy: "",
     department: "",
     token: localStorage.getItem("token"),
@@ -71,49 +71,49 @@ const AddStaff = (props) => {
     } else {
       setError({ ...error, phone: false });
     }
-    // if (!error.name && !error.email && !error.phone) {
-    //   setDisabled(true);
-    //   axios
-    //     .post(`${url.COLLEGE_API}/placement-coordinate/save`, staff, {
-    //       headers: authHeader(),
-    //     })
-    //     .then((res) => {
-    //       if (props.location.pathname.indexOf("edit") > -1) {
-    //         toastMessage(
-    //           "success",
-    //           "Placement coordinator Details Updated Successfully..!"
-    //         );
-    //       } else {
-    //         toastMessage(
-    //           "success",
-    //           "Placement coordinator Added Successfully..!"
-    //         );
-    //       }
-    //       props.history.push("/college/placement-coordinator");
-    //     })
-    //     .catch((err) => {
-    //       setDisabled(false);
-    //       errorHandler(err);
-    //     });
-    // }
+    if (!error.name && !error.email && !error.phone) {
+      setDisabled(true);
+      axios
+        .post(`${url.COLLEGE_API}/placement-coordinate/save`, staff, {
+          headers: authHeader(),
+        })
+        .then((res) => {
+          if (props.location.pathname.indexOf("edit") > -1) {
+            toastMessage(
+              "success",
+              "Placement coordinator Details Updated Successfully..!"
+            );
+          } else {
+            toastMessage(
+              "success",
+              "Placement coordinator Added Successfully..!"
+            );
+          }
+          props.history.push("/college/placement-coordinator");
+        })
+        .catch((err) => {
+          setDisabled(false);
+          errorHandler(err);
+        });
+    }
   };
-  // useEffect(() => {
-  //   if (props.location.pathname.indexOf("edit") > -1) {
-  //     let staffData = props.location.state.staff;
-  //     setStaff({
-  //       ...staff,
-  //       id: staffData.id,
-  //       authId: staffData.authId,
-  //       name: staffData.name,
-  //       department: staffData.department,
-  //       collegeId: staffData.collegeId,
-  //       email: staffData.email,
-  //       phone: staffData.phone,
-  //       password: staffData.password,
-  //       status: staffData.status,
-  //     });
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (props.location?.pathname?.indexOf("edit") > -1) {
+      let staffData = props.location.state.staff;
+      setStaff({
+        ...staff,
+        id: staffData.id,
+        authId: staffData.authId,
+        name: staffData.name,
+        department: staffData.department,
+        collegeId: staffData.collegeId,
+        email: staffData.email,
+        phone: staffData.phone,
+        password: staffData.password,
+        status: staffData.status,
+      });
+    }
+  }, [props.location]);
   let action = null;
   if (props && props.location && props.location.pathname.indexOf("edit") > -1) {
     action = props.location.state.action;
@@ -126,6 +126,62 @@ const AddStaff = (props) => {
       disabled: disabled,
     },
   ];
+  const inputconfig = [
+    {
+      className: "profile-page",
+      onChange: (e) => handleChange(e, "name"),
+      value: staff.name,
+      autoComplete: "off",
+      name: "name",
+      id: "staff",
+      maxLength: "50",
+      type: "text",
+      placeholder: "Enter User Name",
+    },
+    {
+      className: "profile-page",
+      onChange: (e) => handleChange(e, "email"),
+      value: staff.email,
+      name: "email",
+      id: "staff",
+      autoComplete: "off",
+      maxLength: "50",
+      type: "text",
+      placeholder: "Enter email",
+    },
+    {
+      className: "profile-page",
+      onChange: (e) => handleChange(e, "phone"),
+      value: staff.phone,
+      name: "phone",
+      id: "staff",
+      autoComplete: "off",
+      maxLength: "50",
+      type: "number",
+      placeholder: "Enter phone",
+    },
+    {
+      className: "custom-control-input",
+      id: "active",
+      type: "radio",
+      onChange: (e) => handleChange(e, "status"),
+      value: "ACTIVE",
+      name: "status",
+      checked: staff.status === "ACTIVE" || staff.status === "",
+      style: { marginRight: "10px" },
+    },
+    {
+      className: "custom-control-input",
+      id: "inactive",
+      type: "radio",
+      onChange: (e) => handleChange(e, "status"),
+      value: "INACTIVE",
+      name: "status",
+      checked: staff.status === "INACTIVE",
+      style: { marginRight: "10px" },
+    },
+  ];
+
   return (
     <main className="main-content bcg-clr">
       <div>
@@ -158,17 +214,7 @@ const AddStaff = (props) => {
                             </label>
                           </div>
                           <div className="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                            <Input
-                              className="profile-page"
-                              onChange={(e) => handleChange(e, "name")}
-                              value={staff.name}
-                              autoComplete="off"
-                              name="name"
-                              id="staff"
-                              maxLength="50"
-                              type="text"
-                              placeholder="Enter User Name"
-                            />
+                            <Input {...inputconfig[0]} />
                           </div>
                         </div>
                       </div>
@@ -190,17 +236,7 @@ const AddStaff = (props) => {
                             </label>
                           </div>
                           <div className="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                            <input
-                              className="profile-page"
-                              onChange={(e) => handleChange(e, "email")}
-                              value={staff.email}
-                              name="email"
-                              id="staff"
-                              autoComplete="off"
-                              maxLength="50"
-                              type="text"
-                              placeholder="Enter email"
-                            />
+                            <Input {...inputconfig[1]} />
                           </div>
                         </div>
                       </div>
@@ -221,17 +257,7 @@ const AddStaff = (props) => {
                             </label>
                           </div>
                           <div className="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                            <input
-                              className="profile-page"
-                              onChange={(e) => handleChange(e, "phone")}
-                              value={staff.phone}
-                              name="phone"
-                              id="staff"
-                              autoComplete="off"
-                              maxLength="50"
-                              type="number"
-                              placeholder="Enter phone"
-                            />
+                            <Input {...inputconfig[2]} />
                           </div>
                         </div>
                       </div>
@@ -243,52 +269,48 @@ const AddStaff = (props) => {
                               style={{ padding: "0px" }}
                               className="form-label input-label"
                             >
-                              Status{" "}
+                              Status
                             </label>
                           </div>
                           <div
                             className="custom-control custom-radio custom-control-inline ml-3 radio"
                             style={{ width: "16%", marginTop: "6px" }}
                           >
-                            <input
-                              className="custom-control-input"
-                              id="active"
-                              type="radio"
-                              onChange={(e) => handleChange(e, "status")}
-                              value="ACTIVE"
-                              name="status"
-                              checked={
-                                staff.status === "ACTIVE" || staff.status === ""
-                              }
-                              style={{ marginRight: "4px" }}
-                            />
-                            <label
-                              className="custom-control-label"
-                              htmlFor="active"
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                flexWrap: "nowrap",
+                              }}
                             >
-                              Active
-                            </label>
+                              <Input {...inputconfig[3]} />
+                              <label
+                                className="custom-control-label"
+                                htmlFor="active"
+                              >
+                                Active
+                              </label>
+                            </div>
                           </div>
                           <div
                             className="custom-control custom-radio custom-control-inline ml-3 radio"
                             style={{ width: "16%", marginTop: "6px" }}
                           >
-                            <input
-                              className="custom-control-input"
-                              id="inactive"
-                              type="radio"
-                              onChange={(e) => handleChange(e, "status")}
-                              value="INACTIVE"
-                              name="status"
-                              checked={staff.status === "INACTIVE"}
-                              style={{ marginRight: "3px" }}
-                            />
-                            <label
-                              className="custom-control-label"
-                              htmlFor="inactive"
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                flexWrap: "nowrap",
+                              }}
                             >
-                              Inactive
-                            </label>
+                              <Input {...inputconfig[4]} />
+                              <label
+                                className="custom-control-label"
+                                htmlFor="inactive"
+                              >
+                                Inactive
+                              </label>
+                            </div>
                           </div>
                         </div>
                       </div>
