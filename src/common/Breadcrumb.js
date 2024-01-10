@@ -1,51 +1,97 @@
-import React from 'react';
-import { Breadcrumbs as MUIBreadcrumbs, Link, Typography } from '@mui/material';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Breadcrumbs as MUIBreadcrumbs, Link, Typography } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
+import { isRoleValidation } from "../utils/Validation";
+import breadcrumb from "./BreadcrumbJson";
+import _ from "lodash";
 
-const Breadcrumbs = (props) => {
-  const { homeLink, separator, linkStyle, activeTypographyStyle } = props;
+const Breadcrumbs = () => {
+  const [homeLink, setHomeLink] = useState(null);
+  const [name, setName] = useState(null);
+  const [role, setRole] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const { pathname, state } = location || {};
+  const { pathname } = location || {};
   const pathnames = pathname ? pathname.split("/").filter((x) => x) : [];
-  if (pathname === homeLink) {
-    return null;
-  }
+  const [home_condition, setHome_condition] = useState(false);
+  const [condition, setCondition] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchData = async () => {
+      const roleFromValidation = await isRoleValidation();
+      if (isMounted) {
+        setRole(roleFromValidation);
+      }
+    };
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+  useEffect(() => {
+    if (breadcrumb.hasOwnProperty(role)) {
+      const values = breadcrumb[role];
+      if (values.length > 0) {
+        setHomeLink(values[0].homeLink);
+        setName(values[0].name);
+      }
+    }
+  }, [role]);
+  const handleHomeLinkClick = (event) => {
+    event.preventDefault();
+    console.log(homeLink);
+    navigate(homeLink);
+  };
+
+  const targetString = name;
   return (
     <MUIBreadcrumbs
       aria-label="breadcrumb"
-      separator={separator}
+      separator=">"
       style={{ paddingBottom: "10px" }}
     >
       {pathnames.length > 0 && pathname !== homeLink ? (
-        <Link onClick={() => navigate(homeLink)} style={linkStyle}>
+        <Link
+          onClick={handleHomeLinkClick}
+          onMouseEnter={() => setHome_condition(true)}
+          onMouseLeave={() => setHome_condition(false)}
+          style={{
+            cursor: "pointer",
+            color: "#3f51b5",
+            textDecoration: home_condition ? "underline" : "none",
+          }}
+        >
           Home
         </Link>
       ) : (
         ""
       )}
-
       {pathnames.map((name, index) => {
         const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
         const isLast = index === pathnames.length - 1;
-
-        if (
-          name !== homeLink &&
-          name.toLowerCase() !== "college" &&
-          pathnames.length > 1
-        ) {
-          return (
-            <Typography key={name} style={activeTypographyStyle}>
-              {name.charAt(0).toUpperCase() + name.slice(1)}
-            </Typography>
-          );
-        }
-
-        return isLast && name !== homeLink ? (
-          <Typography key={name} style={activeTypographyStyle}>
+        return isLast && name !== targetString ? (
+          <Typography key={name}>
             {name.charAt(0).toUpperCase() + name.slice(1)}
           </Typography>
-        ) : null;
+        ) : name !== targetString ? (
+          <Link
+            key={name}
+            onClick={() => navigate(routeTo)}
+            onMouseEnter={() => setCondition(true)}
+            onMouseLeave={() => setCondition(false)}
+            style={{
+              cursor: "pointer",
+              color: "#3f51b5",
+              textDecoration: condition ? "underline" : "none",
+            }}
+          >
+            {name.charAt(0).toUpperCase() + name.slice(1)}
+          </Link>
+        ) : (
+          ""
+        );
       })}
     </MUIBreadcrumbs>
   );

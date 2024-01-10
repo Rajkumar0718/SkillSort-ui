@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 export const CollegeTable = (props) => {
-    console.log(props)
+
 
     useEffect(() => {
         const {headers} = props
@@ -23,7 +23,7 @@ export const CollegeTable = (props) => {
                         {console.log(rowIndex, "rowIndex")}
                         {props.headers.map((header, cellIndex) => (
                             <>
-                            {header === 'S.No' ? <td style={{ textAlign: 'center' }}>{rowIndex+1}</td> : 
+                            {header === 'S.No' ? <td style={{ textAlign: 'center' }}>{rowIndex+1}</td> :
                             <td key={cellIndex} style={{ textAlign: 'center' }}>
 
                                {rowData[header]}

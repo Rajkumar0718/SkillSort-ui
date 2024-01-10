@@ -70,12 +70,12 @@ const CollegeList = () => {
 
     const onPagination = (pageSize, currentPage) => {
         setPageSize(pageSize);
-        console.log("hello")
+
         setCurrentPage(currentPage);
         onNextPage();
     };
 
-    
+
     const increment = () => {
         setStartPage(startPage + 5);
         setEndPage(endPage + 5);
@@ -105,7 +105,7 @@ const CollegeList = () => {
         },
         // ... more college data
       ];
-      
+
     // {/* <CustomTable headers={headers} data={college} pageSize={pageSize} currentPage={currentPage}/> */ }
 
     return (
@@ -145,7 +145,7 @@ const CollegeList = () => {
                                    data-toggle="dropdown"
                                    aria-haspopup="true"
                                    aria-expanded="false"
-   
+
                                  ><span>STATUS </span>
                                    <i className="fa fa-filter" aria-hidden="true"></i>
                                  </div>

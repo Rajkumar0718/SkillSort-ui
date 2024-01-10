@@ -5,10 +5,10 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
-  const contextValue = useMemo(() => ({ auth, setAuth }), [auth, setAuth]);
+  // const contextValue = useMemo(() => ({ auth, setAuth }), [auth, setAuth]);
 
   return (
-    <AuthContext.Provider value={contextValue}>
+    <AuthContext.Provider value={{auth, setAuth}}>
       {children}
     </AuthContext.Provider>
   )

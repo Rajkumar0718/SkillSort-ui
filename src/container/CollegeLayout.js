@@ -74,7 +74,7 @@ const CollegeLayout = () => {
             showSidenav={showSidenav}
           />
           <div style={{ margin: "25px 0px 0px 25px" }}>
-            <Breadcrumb {...breadcrumbsProps}></Breadcrumb>
+            <Breadcrumb></Breadcrumb>
           </div>
           <div className="container-fluid">
             <Suspense

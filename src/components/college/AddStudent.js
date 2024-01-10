@@ -360,7 +360,7 @@ const AddStudent = (props) => {
                     <div className="row">
                       <div className="col-11,col-lg-11,col-md-11 col-sm-11 col-xl-11">
                         <div style={{ float: "right", marginRight: "3.9rem" }}>
-                          <Link className="btn btn-default" to="/college">
+                          <Link className="btn btn-default" to="/college" style={{textDecoration:"none"}}>
                             Cancel
                           </Link>
                           <Button buttonConfig={buttonConfig[0]}></Button>
