@@ -10,26 +10,40 @@ import RequireAuth from "./components/RequireAuth";
 import StaffList from "./components/college/StaffList";
 import AddStaff from "./components/college/AddStaff";
 import CollegeReportList from "./components/college/CollegeReportList";
-
+import AddStudent from "./components/college/AddStudent";
 function App() {
   return (
     <Routes>
-        {/* Public Routes */}
+      {/* Public Routes */}
       <Route index element={<AdminLogin />}></Route>
-      <Route path="/login" element = {<AdminLogin />} />
+      <Route path="/login" element={<AdminLogin />} />
       <Route path="/" element={<Layout />}>
         {/* Protected Routes */}
-        <Route element={<RequireAuth allowedRoles={["COLLEGE_ADMIN","COLLEGE_STAFF"]}/>}>
+        <Route
+          element={
+            <RequireAuth allowedRoles={["COLLEGE_ADMIN", "COLLEGE_STAFF"]} />
+          }
+        >
           <Route path="/college" element={<StudentList />} />
-          <Route path="/college/placement-coordinator" element = {<StaffList/>} />
-          <Route path="/college/placement-coordinator/add" element = {<AddStaff />} />
-          <Route path="/college/collegeReport" element={<CollegeReportList/>} />
+          <Route
+            path="/college/placement-coordinator"
+            element={<StaffList />}
+          />
+          <Route
+            path="/college/placement-coordinator/add"
+            element={<AddStaff />}
+          />
+          <Route
+            path="/college/collegeReport"
+            element={<CollegeReportList />}
+          />
+          <Route path="/college/add" element={<AddStudent />} />
         </Route>
 
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
-  )
+  );
 }
 
 export default App;

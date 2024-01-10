@@ -1,20 +1,34 @@
 import React from "react";
 
 const Input = (props) => {
+  const {
+    className = "",
+    placeholder = "",
+    type = "",
+    onChange,
+    name = "",
+    style = {},
+    value = "",
+    autoComplete = "off",
+    id = "",
+    checked,
+    maxLength,
+  } = props;
+
   return (
     <input
-      className={props.className}
-      placeholder={props.placeholder}
-      type={props.type}
-      onChange={props.handleChange}
-      name={props.name}
-      style={props.style}
-      value={props.value}
-      autoComplete={props.autoComplete}
-      id={props.id}
-      maxLength={props.maxLength}
+      className={className}
+      placeholder={placeholder}
+      type={type}
+      onChange={onChange}
+      name={name}
+      style={style}
+      value={value}
+      autoComplete={autoComplete}
+      id={id}
+      checked={checked}
+      maxLength={maxLength}
     />
   );
 };
-
 export default Input;
