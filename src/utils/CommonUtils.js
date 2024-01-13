@@ -2,10 +2,12 @@ import { CircleLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
+import { useLocation } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 export function toastMessage(type, message) {
     document.addEventListener('click', () => toast.dismiss(), false);
-
+    console.log(type, message);
     switch (type) {
         case 'success': toast(message, { style: { backgroundColor: 'white', color: 'darkgreen' }, autoClose: 5000, closeOnClick: true });
             break;
@@ -45,3 +47,13 @@ export function fallBackLoader(value) {
 export function calculatePercentage(marksObtain,totalMarks) {
     return Math.floor((marksObtain*100)/totalMarks);
 }
+
+
+
+export function withLocation  (Component)  {
+ return (props) => {
+   const location = useLocation();
+   const navigation = useNavigate();
+   return <Component {...props} location={location} navigate={navigation}/>;
+ };
+};
