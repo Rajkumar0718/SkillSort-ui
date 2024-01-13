@@ -41,7 +41,6 @@ const Breadcrumbs = () => {
   }, [role]);
   const handleHomeLinkClick = (event) => {
     event.preventDefault();
-    console.log(homeLink);
     navigate(homeLink);
   };
 
@@ -55,12 +54,11 @@ const Breadcrumbs = () => {
       {pathnames.length > 0 && pathname !== homeLink ? (
         <Link
           onClick={handleHomeLinkClick}
-          onMouseEnter={() => setHome_condition(true)}
-          onMouseLeave={() => setHome_condition(false)}
+          underline="hover"
           style={{
             cursor: "pointer",
             color: "#3f51b5",
-            textDecoration: home_condition ? "underline" : "none",
+
           }}
         >
           Home
@@ -79,12 +77,10 @@ const Breadcrumbs = () => {
           <Link
             key={name}
             onClick={() => navigate(routeTo)}
-            onMouseEnter={() => setCondition(true)}
-            onMouseLeave={() => setCondition(false)}
+            underline="hover"
             style={{
               cursor: "pointer",
               color: "#3f51b5",
-              textDecoration: condition ? "underline" : "none",
             }}
           >
             {name.charAt(0).toUpperCase() + name.slice(1)}
