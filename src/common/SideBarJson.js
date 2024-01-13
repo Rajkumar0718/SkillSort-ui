@@ -187,13 +187,15 @@ const sidebar = {
     isSubMenu: false,
     to: "/college/placement-coordinator",
     name: "Placement Coordinator",
-    icon: 'fa fa-user-circle-o'
+    icon: 'fa fa-user-circle-o',
+    subPath: ['/college/placement-coordinator/add','/college/placement-coordinator/edit']
   }, {
     isSubMenu: false,
     name: 'Students',
     isDefault: true,
     to: '/college',
-    icon: 'fa fa-users'
+    icon: 'fa fa-users',
+    subPath: ['/college/add','/college/edit']
   }, {
     isSubMenu: false,
     to: '/college/collegeReport',
