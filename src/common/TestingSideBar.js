@@ -100,12 +100,13 @@ export default class TestingSidebar extends Component {
 
   renderSideBar = () => {
     const roleBasedSideBar = sidebar[this.state.role]
+    const pathName = window.location.pathname
     if (!roleBasedSideBar) return;
 
-    return _.map(roleBasedSideBar, sideBar => {
+    return _.map(roleBasedSideBar, (sideBar,index) => {
       if (sideBar.isSubMenu) {
         return (<> <hr className='bottom-border' />
-          <div style={{ height: this.state[sideBar.toggleValue] ? sideBar.height[0] : sideBar.height[1], alignItems: this.state[sideBar.toggleValue] ? "start" : 'center', cursor: 'pointer' }} onClick={() => this.toggleClickedSubMenu(sideBar.param)} className={sideBar.isDefault ? 'menu-icon focus' : 'menu-icon'} >
+          <div key={index} style={{ height: this.state[sideBar.toggleValue] ? sideBar.height[0] : sideBar.height[1], alignItems: this.state[sideBar.toggleValue] ? "start" : 'center', cursor: 'pointer' }} onClick={() => this.toggleClickedSubMenu(sideBar.param)} className={sideBar.isDefault ? 'menu-icon focus' : 'menu-icon'} >
             <div className="row link">
               <div className="col-3">
                 <div data-tip data-for="result" style={{ marginTop: this.state[sideBar.toggleValue] ? sideBar.toolTipMarginTop : '0', cursor: 'pointer' }}>
@@ -123,7 +124,7 @@ export default class TestingSidebar extends Component {
         return (<>
           <hr className='bottom-border' />
           <Link to={sideBar.to} onClick={this.changeClass} key={sideBar.name}>
-            <div className={window.location.pathname === sideBar.to ? 'menu-icon focus' : 'menu-icon'}>
+            <div className={(pathName === sideBar.to || sideBar.subPath?.includes(pathName))  ? 'menu-icon focus' : 'menu-icon'}>
               <div className="row link">
                 <div className="col-3">
                   <div>

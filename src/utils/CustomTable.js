@@ -19,10 +19,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontWeight: '700',
     fontFamily: 'Montserrat',
     padding: theme.spacing(0.45, 0.45, 0.45, 0.2),
-    fontSize: 12,
+    fontSize: 13,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 11,
+    fontSize: 13,
     fontFamily: 'Montserrat',
     paddingLeft: '2px !important',
   },
@@ -81,7 +81,11 @@ export const CustomTable = (props) => {
               }
               else if (keys.key?.toUpperCase() === 'S.NO') {
                 return <StyledTableCell align={'center'}>{props.pageSize * props.currentPage - (i--)}</StyledTableCell>
-              } else if (keys.key?.includes(".")) {
+              }
+              else if (keys.key === 'status') {
+                 return  <StyledTableCell className={row[keys.key] === 'INACTIVE' ? 'text-danger' : 'text-success'} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
+              }
+              else if (keys.key?.includes(".")) {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{splitDotsAndJoin(keys.key, row)}</StyledTableCell>
               } else {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
