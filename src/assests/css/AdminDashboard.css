@@ -1684,12 +1684,12 @@ h4,
   background-color: #ffffff;
 }
 
-.vertical {
-  border-left: 1.5px solid #000000;
-  height: 65px;
-  /* position: absolute; */
-  left: 46%;
-}
+ .vertical {
+   border-left: 1.5px solid #000000;
+   width: 10px;
+   height: 65px;
+   left: 22%;
+ }
 
 .verticalline {
   border: 1px solid black;
@@ -1923,22 +1923,30 @@ h4,
   text-align: left;
 }
 
-.section {
-  border-top: none;
+ .section {
+  /* border-top: none;
   border-right: none;
   border-left: none;
-  outline: none;
-  background: none;
-  font-family: "Montserrat", "Times New Roman", Times, serif !important;
+  border-bottom: 1px solid #3B489E;
+  outline: none !important;
+  background: none !important;
+  font-family: 'Montserrat','Times New Roman', Times, serif !important;
   font-size: 18px;
   font-weight: 400;
   line-height: 16px;
   letter-spacing: 0em;
   text-align: left;
-  color: #3b489e;
-  min-width: 25.188rem !important;
+  color: #3B489E;
+  min-width: 25.188rem !important; */
   margin-top: 1rem !important;
 }
+
+.section:focus {
+  outline: none;
+  border-bottom: none;
+  box-shadow: 0 0 5px rgba(59, 72, 158, 0.5);
+}
+
 
 .instruction-container {
   /* margin-left: 19.688rem !important; */
@@ -2212,4 +2220,9 @@ table td {
 
 .ml-1{
   margin-left: 1rem !important;
+}
+.time-text {
+  font-weight: 400;
+  font-size: 28px;
+  color: #F05A28;
 }
