@@ -1604,13 +1604,6 @@ h4,
   border-top: none !important;
 }
 
-.close {
-  font-weight: 500 !important;
-  opacity: 1 !important;
-  color: #f05a28 !important;
-  font-size: 3rem !important;
-  padding: 0 1rem 0 0 !important;
-}
 
 /* .close:hover {
    color: #F05A28 !important;
@@ -2225,4 +2218,11 @@ table td {
   font-weight: 400;
   font-size: 28px;
   color: #F05A28;
+}
+.split-card {
+  background: white;
+  border-radius: 30px;
+  box-shadow: 2px 2px 12px;
+  width: 200mm;
+  margin-top: 15vh;
 }

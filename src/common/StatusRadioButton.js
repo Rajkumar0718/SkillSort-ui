@@ -7,7 +7,7 @@ const StatusRadioButton = ({ handleChange, status, style }) => {
         </label>
       </div>
       <div className="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-        <div className="d-flex align-items-center ml-3 radio" style={style}>
+        <div className="d-flex align-items-center ms-3 radio" style={style}>
           <div className="form-check form-check-inline">
             <input
               className="form-check-input"
