@@ -1,11 +1,13 @@
 import DateFnsUtils from "@date-io/date-fns";
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { KeyboardDatePicker, MuiPickersUtilsProvider, DatePicker as MuiDatePicker } from '@material-ui/pickers';
 import _ from 'lodash';
 import React from 'react';
 import { fallBackLoader } from '../../utils/CommonUtils';
 import MultiSelectDropDown from "../../utils/MultiselectDropDown";
 import Pagination from '../../utils/Pagination';
 import { isRoleValidation } from "../../utils/Validation";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 
 export const RenderModalBody = (props) => {
     return (
@@ -18,10 +20,37 @@ export const RenderModalBody = (props) => {
                         <div className="mb-05">
                             <label>From Date</label>
                             <div>
-                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                    <KeyboardDatePicker placeholder="DD/MM/YYYY" onChange={(date) => props.onChange(date, 'fromDate')} value={props.report.fromDate || null} format="dd/MM/yyyy">
-                                    </KeyboardDatePicker>
-                                </MuiPickersUtilsProvider>
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <MuiDatePicker
+                                        value={props.report.fromDate || null}
+                                        onChange={(date) => props.onChange(date, 'fromDate')}
+                                        format="dd/MM/yyyy"
+                                        slotProps={{
+                                            textField: {
+                                                variant: 'filled',
+                                                size: 'small',
+                                                sx: {
+                                                    '& .MuiInputBase-input': {
+                                                        paddingTop: 0,
+                                                        paddingLeft: '5px',
+                                                        color: 'black',
+                                                        fontSize: '13px',
+                                                    },
+                                                    '&. MuiFormHelperText-root': {
+                                                        color: 'red !important'
+                                                    },
+                                                    '& .MuiFormControl-root': {
+                                                        fontSize: '13px',
+                                                        fontWeight: 400,
+                                                        color: 'black',
+                                                    }
+                                                },
+                                                className: 'profile-page',
+                                                placeholder: 'dd/mm/yyyy'
+                                            }
+                                        }}
+                                    />
+                                </LocalizationProvider>
                             </div>
                         </div>
                         <div className="mb-05">
@@ -31,6 +60,37 @@ export const RenderModalBody = (props) => {
                                     <KeyboardDatePicker placeholder="DD/MM/YYYY" onChange={(date) => props.onChange(date, 'toDate')} value={props.report.toDate || null} format="dd/MM/yyyy">
                                     </KeyboardDatePicker>
                                 </MuiPickersUtilsProvider>
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <MuiDatePicker
+                                        onChange={(date) => props.onChange(date, 'toDate')}
+                                        value={props.report.toDate || null}
+                                        format="dd/MM/yyyy"
+                                        slotProps={{
+                                            textField: {
+                                                variant: 'filled',
+                                                size: 'small',
+                                                sx: {
+                                                    '& .MuiInputBase-input': {
+                                                        paddingTop: 0,
+                                                        paddingLeft: '5px',
+                                                        color: 'black',
+                                                        fontSize: '13px',
+                                                    },
+                                                    '&. MuiFormHelperText-root': {
+                                                        color: 'red !important'
+                                                    },
+                                                    '& .MuiFormControl-root': {
+                                                        fontSize: '13px',
+                                                        fontWeight: 400,
+                                                        color: 'black',
+                                                    }
+                                                },
+                                                className: 'profile-page',
+                                                placeholder: 'dd/mm/yyyy'
+                                            }
+                                        }}
+                                    />
+                                </LocalizationProvider>
                             </div>
                         </div>
                         <div className="mb-05">
@@ -114,9 +174,8 @@ export const RenderModalBody = (props) => {
                                                         <th className="col-lg-3" style={{ textAlign: 'left' }}>College</th> : null
                                                     }
                                                     {props.report.role === "STUDENT" ?
-                                                        <>
-                                                            <th className="col-lg-3" style={{ textAlign: 'left' }}>Department</th>
-                                                        </> :
+                                                        <th className="col-lg-3" style={{ textAlign: 'left' }}>Department</th>
+                                                        :
                                                         <>
                                                             <th className='col-lg-2 col-xl-2' style={{ textAlign: 'left' }} >Reg Date</th>
                                                             <th className='col-lg-4 col-xl-1' style={{ textAlign: 'left' }} >Yop</th>
