@@ -1,11 +1,6 @@
 
 const sidebar = {
-  "ADMIN": [{
-    isSubMenu: false,
-    to: "/admin/dashboard",
-    name: "Dashboard",
-    icon: 'fa fa-tachometer'
-  }, {
+  "ADMIN": [ {
     to: '/admin/hr',
     name: 'HR Users',
     icon: 'fa fa-id-badge'
@@ -36,39 +31,13 @@ const sidebar = {
     }]
   }, {
     isSubMenu: false,
-    name: 'Candidates',
-    to: '/admin/candidates',
-    icon: 'fa fa-user-o'
-  }, {
-    isSubMenu: false,
-    to: '/admin/result',
-    name: 'Result',
-    icon: 'fa fa-newspaper-o'
+    name: 'Vacancy',
+    to: '/admin/vacancy',
+    icon: 'fa fa-user-plus'
   }, {
     to: '/admin/setting',
     name: 'Setting',
     icon: 'fa fa-cogs'
-  }, {
-    isSubMenu: true,
-    name: 'SkillSort',
-    icon: 'fa fa-user-circle-o',
-    toolTipMarginTop: '2.5rem',
-    toggleValue: 'showSubMenuSkillsort',
-    onClick: 'toggleClickedSubMenu',
-    param: 'skillsort',
-    height: ['7.8rem', '3.5rem'],
-    subMenu: [{
-      to: '/admin/adv-search',
-      name: 'Adv Search'
-    },
-    {
-      to: '/admin/shortlisted-candidates',
-      name: 'Shortlisted'
-    },
-    {
-      to: '/admin/skillsort',
-      name: 'Notified'
-    }]
   }, {
     isSubMenu: false,
     name: 'SMTP Configuration',
