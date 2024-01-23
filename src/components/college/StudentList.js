@@ -7,7 +7,7 @@ import { fallBackLoader } from "../../utils/CommonUtils";
 import Pagination from "../../utils/Pagination";
 import { url } from "../../utils/UrlConstant";
 import CustomMenuItem from "../../utils/Menu/CustomMenuItem";
-// import ExamMailModel from '../Admin/ExamMailModel';
+import ExamMailModel from '../Admin/ExamMailModel';
 import _ from "lodash";
 import { CustomTable } from "../../utils/CustomTable";
 import Button from "../../common/Button";
@@ -238,11 +238,11 @@ export default class StudentList extends Component {
             </div>
           </div>
         </div>
-        {/* {this.state.openModal ?
+        {this.state.openModal ?
           <ExamMailModel
             modalSection={{ type: "Student" }}
             onCloseModal={this.onCloseModal} /> : ''
-        } */}
+        }
       </main>
     );
   }

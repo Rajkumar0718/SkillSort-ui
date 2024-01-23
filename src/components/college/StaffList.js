@@ -1,82 +1,4 @@
-// import React from "react";
-// import { fallBackLoader } from "../../utils/CommonUtils";
-// import { useState } from "react";
-// import Button from "../../common/Button";
-// import { Link } from "react-router-dom";
-// import Search from "../../common/AdvanceSearch";
-// import axios from 'axios';
-// import { url } from "../../utils/UrlConstant";
-// import { authHeader ,errorHandler} from "../../api/Api";
 
-// const StaffList = () => {
-//   const user = JSON.parse(localStorage.getItem("user"));
-//   const [staff, setStaff] = useState([]);
-//   const [status, setStatus] = useState("ACTIVE");
-//   const [loader, setLoader] = useState(true);
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [pageSize, setPageSize] = useState(10);
-//   const [totalPages, setTotalPages] = useState(0);
-//   const [totalElements, setTotalElements] = useState(0);
-//   const [numberOfElements, setNumberOfElements] = useState(0);
-//   const [countError, setCountError] = useState(false);
-//   const [startPage, setStartPage] = useState(1);
-//   const [endPage, setEndPage] = useState(5);
-//   const [searchValue, setSearchValue] = useState("");
-//   const btnList = [
-//     {
-//       type: "button",
-//       className: "btn btn-sm btn-nxt header-button",
-//       title: "Add Coordinator",
-//       linkStyle: { textDecoration: "none", color: "white" },
-//       to: "/college/placement-coordinator/add",
-//     },
-//   ];
-//   const initialCall = () => {
-//     axios
-//       .get(
-//         `${url.COLLEGE_API}/placement-coordinate/list/?collegeId=${user.companyId}&status=${status}&page=${currentPage}&size=${pageSize}&search=${searchValue}`,
-//         {
-//           headers: authHeader(),
-//         }
-//       )
-//       .then((res) => {
-//         setStaff(res.data.response.content);
-//         setLoader(false);
-//         setTotalPages(res.data.response.totalPages);
-//         setTotalElements(res.data.response.totalElements);
-//         setNumberOfElements(res.data.response.numberOfElements);
-//       })
-//       .catch((error) => {
-//         setLoader(false);
-//         errorHandler(error);
-//       });
-//   };
-
-//   const onSearch = (newSearchValue) => {
-//     setSearchValue(newSearchValue);
-//     setCurrentPage(1);
-//     initialCall();
-//   };
-//   return (
-//     <main className="main-content bcg-clr">
-//       <div>
-//         {fallBackLoader(loader)}
-//         <div className="card-header-new">
-//           <span>Placement Coordinators</span>
-//           <Button buttonConfig={btnList[0]} />
-//         </div>
-//         <Search
-//           title="Filter"
-//           showSearch
-//           placeholder="search "
-//           onSearch={onSearch}
-//         ></Search>
-//       </div>
-//     </main>
-//   );
-// };
-
-// export default StaffList;
 import axios from "axios";
 import _ from "lodash";
 import React, { Component } from "react";
@@ -321,3 +243,4 @@ export default class StaffList extends Component {
     );
   }
 }
+
