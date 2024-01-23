@@ -22,7 +22,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 11,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 11,
+    fontSize: 13,
     fontFamily: 'Montserrat',
     paddingLeft: '2px !important',
     lineHeight:'0.7',
@@ -89,6 +89,11 @@ export const CustomTable = (props) => {
                  return  <StyledTableCell className={row[keys.key] === 'INACTIVE' ? 'text-danger' : 'text-success'} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
               }
               else if (keys.key?.includes(".")) {
+              }
+              else if (keys.key === 'status') {
+                 return  <StyledTableCell className={row[keys.key] === 'INACTIVE' ? 'text-danger' : 'text-success'} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
+              }
+              else if (keys.key?.includes(".")) {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{splitDotsAndJoin(keys.key, row)}</StyledTableCell>
               } else {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
@@ -127,3 +132,4 @@ export const CustomTable = (props) => {
     </ThemeProvider >
   )
 }
+
