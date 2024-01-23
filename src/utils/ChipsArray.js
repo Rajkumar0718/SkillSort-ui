@@ -1,69 +1,69 @@
-
-import { Cancel } from '@mui/icons-material';
-import { Chip, Paper, makeStyles  } from '@mui/material';
+import Chip from '@mui/material/Chip';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/system';
+import CancelIcon from '@mui/icons-material/Cancel';
 import React, { useEffect } from 'react';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    listStyle: 'none',
-    padding: theme.spacing(0.5),
-    margin: 0,
-    boxShadow: 'none',
-  },
-  chip: {
-    margin: theme.spacing(0.5),
-    textTransform: 'capitalize',
-    fontWeight: '400',
-    backgroundColor: '#3b489e !important',
-    color: 'white',
-    borderRadius:'5px !important'
+const StyledChip = styled(Chip)(({ theme }) => ({
+ margin: theme.spacing(0.5),
+ textTransform: 'capitalize',
+ fontWeight: '400',
+ backgroundColor: '#3b489e !important',
+ color: 'white',
+ borderRadius:'5px !important'
+}));
 
-  },
-  deleteIcon :{
-    color: 'white !important'
-  }
+const StyledDeleteIcon = styled(CancelIcon)(({ theme }) => ({
+ color: 'white !important'
 }));
 
 export default function ChipsArray(props) {
-  const classes = useStyles();
-  const [chipData, setChipData] = React.useState([]);
+ const [chipData, setChipData] = React.useState([]);
 
-  useEffect(() => {
-    if(props.chipperData) {
-      setChipData(props.chipperData)
-    }
-  },[props])
-
-  const handleDelete = (chipToDelete) => () => {
-    props.handleDeleteChip(chipToDelete)
-  };
-
-  const renderChip = () => {
-     if(chipData.length === 0)
-        return "";
-     return (
-      <Paper component="ul" className={classes.root}>
-      {chipData.map((data) => {
-        return (
-          <li key={data.key}>
-            <Chip
-              size="small"
-              label={`${data.value}`}
-              onDelete={handleDelete(data)}
-              className={classes.chip}
-              deleteIcon= {<Cancel style={{color: 'white',cursor: 'pointer'}}/>}
-            />
-          </li>
-        );
-      })}
-    </Paper>
-     )
+ useEffect(() => {
+  if(props.chipperData) {
+    setChipData(props.chipperData)
   }
+ },[props])
 
-  return (
-    renderChip()
-  );
+ const handleDelete = (chipToDelete) => () => {
+  props.handleDeleteChip(chipToDelete)
+ };
+
+ const renderChip = () => {
+   if(chipData.length === 0)
+      return "";
+   return (
+    <Paper 
+      sx={{
+        display: 'flex',
+        // justifyContent: 'space-between',
+        flexWrap: 'nowrap',
+        listStyle: 'none',
+        // p: 0.5,
+        // m: 0,
+        boxShadow:'none',
+        // borderBottom: 'none', // Removes the bottom border
+      }}
+      component="ul"
+    >
+    {chipData.map((data) => {
+      return (
+        <li key={data.key}>
+          <StyledChip
+            size="small"
+            label={`${data.value}`}
+            onDelete={handleDelete(data)}
+            deleteIcon= {<StyledDeleteIcon style={{cursor: 'pointer'}}/>}
+          />
+        </li>
+      );
+    })}
+  </Paper>
+   )
+ }
+
+ return (
+  renderChip()
+ );
 }

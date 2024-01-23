@@ -62,19 +62,6 @@ export default class TestingSidebar extends Component {
     }
   };
 
-  // setEventListener = () => {
-  //   let header = document.getElementById("myDIV");
-  //   let buttons = header.getElementsByClassName("menu-icon");
-  //   console.log(buttons,"current[0]")
-  //   _.map(buttons, (_btn, index) => {
-  //     buttons[index].addEventListener("click", function () {
-  //       let current = document.getElementsByClassName("focus");
-  //       current[0].className = current[0]?.className?.replace(" focus", "");
-  //       this.className += " focus";
-  //     })
-  //   });
-  // }
-
   setEventListener = () => {
     // Use event delegation to handle clicks on dynamically added elements
     document.getElementById("myDIV").addEventListener("click", (event) => {

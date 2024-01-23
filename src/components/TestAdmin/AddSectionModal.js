@@ -89,25 +89,25 @@ const [state, setState] = useState({
     <div className="modal fade show" id="myModal" role="dialog" style={{ paddingRight: '15px', display: 'flex', justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.90)' }} aria-hidden="true">
                 <div className="modal-dialog" style={{ width: "625px", maxWidth: "670px" }}>
                     <div className="modal-content" style={{ borderStyle: 'solid', borderColor: '#af80ecd1', borderRadius: "32px" }}>
-                        <div className="modal-header" style={{ padding: "2rem 2rem 0 3.85rem", border: "none" }}>
-                            <h5 className="setting-title">{props.modalSection.action} {state.forGroupType?'GroupType':'Section'}</h5>
+                        <div className="modal-header" style={{ border: "none" }}>
+                            <h5 className="setting-title" style={{marginLeft:'3rem'}}>{props.modalSection.action} {forGroupType?'GroupType':'Section'}</h5>
                             {props.modalSection.action === 'Update' ?
-                                <button type="button" onClick={props.onCloseModal} className="close" data-dismiss="modal">&times;</button> :
-                                <button type="button" onClick={props.onCloseModalAdd} className="close" data-dismiss="modal">&times;</button>}
+                                <button type="button" onClick={props.onCloseModal} className="close" data-dismiss="modal" style={{ border: "none" }}>&times;</button> :
+                                <button type="button" onClick={props.onCloseModalAdd} className="close" data-dismiss="modal" style={{ border: "none" }}>&times;</button>}
                         </div>
                         <div className="modal-body" style={{ paddingTop: "5px" }}>
-                            <form onSubmit={handleSubmitAddSection}>
-                                <div className="form-group row">
-                                    <label for="question" className='col-md-3 col-sm-3 col-lg-3 col-3 form-label lable-text'>{state.forGroupType?'GroupType':'Section'}<span className='required'></span></label>
-                                    <input className="form-control-mini" style={{ marginLeft: "1rem", width: "23.8rem" }}
+                            <form onSubmit={handleSubmitAddSection} style={{position:'relative', bottom:'2rem'}}>
+                                <div className="form-group row" style={{position:'relative', marginBottom:'1rem'}}>
+                                    <label for="question" className='col-md-3 col-sm-3 col-lg-3 col-3 form-label lable-text'>{forGroupType?'GroupType':'Section'}<span className='required'></span></label>
+                                    <input className="form-control-mini" style={{ marginLeft: "5rem", width: '23.8rem' }}
                                         onChange={(e) => handleAddSection(e, 'name')}
-                                        value={state.name}
+                                        value={name}
                                         autoComplete="off"
-                                        name='name' id='section' autoFocus required='true' type="text" placeholder={state.forGroupType?'Enter grouptype': 'Enter section' }/>
+                                        name='name' id='section' autoFocus required='true' type="text" placeholder={forGroupType?'Enter grouptype': 'Enter section' }/>
                                 </div>
-                                <div className="form-group row">
+                                <div className="form-group row" style={{position:'relative', marginBottom:'1rem'}}>
                                     <label for="question" className='col-md-3 col-sm-3 col-lg-3 col-3 form-label lable-text'>Description<span className='required'></span></label>
-                                    <input className="form-control-mini" required='true' style={{ marginLeft: "1rem", width: '23.8rem' }}
+                                    <input className="form-control-mini" required='true' style={{ marginLeft: "5rem", width: '23.8rem' }}
                                         onChange={(e) => handleAddSection(e, 'description')}
                                         value={state.description}
                                         autoComplete="off"

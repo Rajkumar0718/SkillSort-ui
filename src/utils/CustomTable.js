@@ -47,7 +47,9 @@ export const CustomTable = (props) => {
           </StyledTableCell>
         )
       } else {
-        return <StyledTableCell align={header.align ? header.align : 'center'}>{header.name}</StyledTableCell>
+        const nameCapital = header.name
+        console.log(typeof header.name)
+        return <StyledTableCell align={header.align ? header.align : 'center'}>{nameCapital}</StyledTableCell>
       }
     })
   }
