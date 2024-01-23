@@ -12,17 +12,23 @@ import _ from "lodash";
 
 const StyledFormControl = styled(FormControl)`
   width: ${(props) => (props.width ? "190px" : "250px")};
+
 `;
+
 
 const StyledSelect = styled(Select)`
   width: 100%;
-  height:2rem;
-  background-color:white
+  height:2.5rem;
+  background-color: white !important;
+  & .MuiInputBase-input:focus {
+    background-color: white !important;
+ }
 `;
 
 const StyledMenuItem = styled(MenuItem)`
   && {
     width: 100%;
+    background-color:white !important;
   }
 `;
 
@@ -41,34 +47,20 @@ const StyledListItemText = styled(ListItemText)`
 
 const StyledClear = styled(Clear)`
   cursor: pointer;
+
 `;
 
 const StyledArrowDropDown = styled(ArrowDropDown)`
   cursor: pointer;
-`;
 
-const StyledSelectAllText = styled(ListItemText)`
-  && {
-    font-weight: 500;
-    font-family: "Montserrat";
-  }
 `;
 
 const StyledMenuItemSelectAll = styled(MenuItem)`
   && {
     &.selectedAll {
-      background-color: none;
-      &:hover {
-        background-color: white;
-      }
+      background-color: white !important;
     }
   }
-`;
-
-const StyledMultiSelectDropDown = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 `;
 
 function MultiSelectDropDown(props) {
@@ -96,6 +88,7 @@ function MultiSelectDropDown(props) {
   return (
     <StyledFormControl size="small" width={width}>
       <StyledSelect
+      style={{backgroundColor: 'white'}}
         multiple
         variant="filled"
         value={value}
@@ -103,6 +96,15 @@ function MultiSelectDropDown(props) {
         placeholder={placeholder}
         onChange={(e) => handleChange(e, false)}
         IconComponent={renderIconComponent}
+        inputProps={{
+          MenuProps: {
+            PaperProps: {
+              sx: {
+                backgroundColor: 'white'
+              }
+            }
+          }
+       }}
         renderValue={
           isObject
             ? (selected) =>

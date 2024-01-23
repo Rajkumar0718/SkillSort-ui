@@ -214,7 +214,7 @@ export default class StudentreportModal extends Component {
   }
   setYearRange = () => {
     let startDay = moment().subtract(5, "years");
-    let endDate = moment().add(2, "years");
+    let endDate = moment().add(3, "years");
     this.setState({ yops: _.range(startDay.year(), endDate.year()) });
   };
 
@@ -707,7 +707,7 @@ export default class StudentreportModal extends Component {
         align: "center",
 
         renderCell: (params) => {
-          return params["LOGICAL REASONING"]
+          return params["LOGICAL REASONING"] !== undefined
             ? params["LOGICAL REASONING"]
             : "-";
         },
@@ -716,14 +716,14 @@ export default class StudentreportModal extends Component {
         name: "VERBAL",
         align: "center",
         renderCell: (params) => {
-          return params["VERBAL ABILITY"] ? params["VERBAL ABILITY"] : "-";
+          return params["VERBAL ABILITY"] !== undefined ? params["VERBAL ABILITY"] : "-";
         },
       },
       {
         name: "NUMERICAL",
         align: "center",
         renderCell: (params) => {
-          return params["NUMERICAL ABILITY"]
+          return params["NUMERICAL ABILITY"] !== undefined
             ? params["NUMERICAL ABILITY"]
             : "-";
         },
@@ -732,7 +732,7 @@ export default class StudentreportModal extends Component {
         name: "TECHNICAL",
         align: "center",
         renderCell: (params) => {
-          return params["tech"] ? params["tech"] : "-";
+          return params["tech"] !== undefined ? params["tech"] : "-";
         },
       },
       {

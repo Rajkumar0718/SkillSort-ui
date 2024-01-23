@@ -78,6 +78,7 @@ export const RenderModalBody = (props) => {
                       onChange={(date) => props.onChange(date, "toDate")}
                       value={props.report.toDate || null}
                       format="dd/MM/yyyy"
+                      minDate={props.report.fromDate || null}
                       slotProps={{
                         textField: {
                           variant: "filled",
@@ -104,37 +105,40 @@ export const RenderModalBody = (props) => {
                   </LocalizationProvider>
                 </div>
               </div>
-              {props.type !== 'PLACEMENT' ?
-              <>
-              <div className="mb-05">
-                <label>Email</label>
-                <div>
-                  <input
-                    className="profile-page"
-                    style={{ width: "12rem" }}
-                    type="text"
-                    placeholder="Enter email"
-                    value={props.report.email}
-                    onChange={(e) => props.onChange(e.target.value, "email")}
-                  ></input>
-                </div>
-              </div>
-              <div className="mb-05">
-                <label>SkillSort Score</label>
-                <div>
-                  <input
-                    className="profile-page"
-                    style={{ width: "12rem" }}
-                    type="text"
-                    placeholder="Enter SkillSort Score"
-                    value={props.report.skillsortScore}
-                    onChange={(e) =>
-                      props.onChange(e.target.value, "skillsortScore")
-                    }
-                  ></input>
-                </div>
-              </div>
-              </> : null }
+              {props.type !== "PLACEMENT" ? (
+                <>
+                  <div className="mb-05">
+                    <label>Email</label>
+                    <div>
+                      <input
+                        className="profile-page"
+                        style={{ width: "12rem" }}
+                        type="text"
+                        placeholder="Enter email"
+                        value={props.report.email}
+                        onChange={(e) =>
+                          props.onChange(e.target.value, "email")
+                        }
+                      ></input>
+                    </div>
+                  </div>
+                  <div className="mb-05">
+                    <label>SkillSort Score</label>
+                    <div>
+                      <input
+                        className="profile-page"
+                        style={{ width: "12rem" }}
+                        type="text"
+                        placeholder="Enter SkillSort Score"
+                        value={props.report.skillsortScore}
+                        onChange={(e) =>
+                          props.onChange(e.target.value, "skillsortScore")
+                        }
+                      ></input>
+                    </div>
+                  </div>
+                </>
+              ) : null}
               <div className="mb-05">
                 <label>Year of passing</label>
                 <div style={{ width: "12.5rem" }}>
@@ -174,7 +178,7 @@ export const RenderModalBody = (props) => {
               ) : null}
               {props.report.role === "STUDENT" ? (
                 <div className="mb-05">
-                  <label style={{paddingBottom:"1rem"}}>Department</label>
+                  <label style={{ paddingBottom: "1rem" }}>Department</label>
                   <div>
                     <select
                       className="profile-page"
@@ -257,7 +261,6 @@ export const RenderModalBody = (props) => {
               <div>
                 <div className="table-responsive pagination_table">
                   {isRoleValidation() === "SUPER_ADMIN" ? (
-
                     <table
                       className="table table-hover"
                       id="dataTable"

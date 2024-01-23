@@ -4,8 +4,7 @@ import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router';
-import { useNavigate } from 'react-router-dom';
+
 
 export function toastMessage(type, message) {
     document.addEventListener('click', () => toast.dismiss(), false);
