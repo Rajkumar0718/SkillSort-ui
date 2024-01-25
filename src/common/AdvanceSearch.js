@@ -17,7 +17,7 @@ function Search(props) {
   }
 
   return (
-      <div className="search">
+      <div className="search" style={props.style}>
         <div
           className="row"
           style={{
