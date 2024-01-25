@@ -1,22 +1,24 @@
 import { Checkbox, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useState } from 'react';
-import './style.css';
+// import './style.css';
 
 
 function Search(props) {
   const title = props.title;
   const [search, setSearch] = useState('');
-
+  
   const onSearch = () => {
+    console.log(search, "sear")
     props.onSearch(search);
   }
-
+  
   const onChange = (event) => {
     setSearch(event.target.value);
   }
 
   return (
+    <>
       <div className="search">
         <div
           className="row"
@@ -42,7 +44,7 @@ function Search(props) {
           {props.showSearch ? (
             <>
 
-              <div className="form-group has-search mb-0" style={{ marginLeft: props.showCheckBox ? '28%' : '41%', width: '35%' }}>
+              <div className="form-group has-search mb-0" style={{ marginLeft: props.showCheckBox ? '25%' : '41%', width: '35%' }}>
               {/* <i className="fa fa-search form-control-feedback"></i>
                <input type="text" className="form-control col-lg-12"  placeholder={props.placeholder} onChange={onChange}
                   style={{
@@ -64,12 +66,12 @@ function Search(props) {
                     }}
                     placeholder={props.placeholder}
                     onChange={onChange}
-                    onKeyDown={(e) => e.key === 'Enter' ? onSearch():""}
+                    onKeyDown={(e) => e.key === 'Enter' ? onSearch:""}
                   variant="standard"
                 />
                 </div>
                 {props.showCheckBox &&
-                <div>
+                <div className='col-md-2 col-lg-2 col-sm-2 col-xl-2 p-0'>
                   <span className="title" >Trial Companies <Checkbox onChange={()=>props.handleTrailCompany()} ></Checkbox></span>
                   </div>}
               <div className="col-md-1 col-lg-1 col-sm-1 col-xl-1 p-0 ">
@@ -87,6 +89,7 @@ function Search(props) {
           )}
         </div>
       </div>
+    </>
   );
 }
 

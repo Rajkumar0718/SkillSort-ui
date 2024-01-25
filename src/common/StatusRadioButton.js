@@ -1,7 +1,7 @@
 const StatusRadioButton = ({ handleChange, status, style }) => {
   return (
     <>
-      <div className="col-3 col-sm-3 col-md-3 col-lg-3">
+      <div className="col-2 col-sm-3 col-md-2 col-lg-2">
         <label style={{ padding: "0px" }} className="form-label input-label">
           Status
         </label>

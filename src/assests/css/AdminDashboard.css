@@ -9,6 +9,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Baskervville&family=DM+Sans&family=Fira+Sans:wght@200&display=swap");
 
+:root{
+  --bs-table-bg: none;
+  --bs-table-color: #3B489E !important;
+  --bs-emphasis-color: #3B489E !important;
+}
+#dataTable .table-dark-custom {
+  color: #3B489E !important;
+  background-color: #E0E1EA  !important;
+}
+.table{
+  --bs-table-bg: none
+}
+
 ul#accordionSidebar {
   background-color: #94939317;
   border-color: #94939317;
@@ -108,7 +121,7 @@ ul#accordionSidebar {
   margin: 0 0.5rem;
   display: block;
   color: #3a3b45;
-  text-decoration: none;
+  text-decoration: none !important;
   border-radius: 0.35rem;
   white-space: nowrap;
 }
@@ -475,6 +488,7 @@ ul#accordionSidebar {
   overflow-y: scroll;
   height: calc(100vh - 150px);
   z-index: 1;
+  margin-left: -1rem;
 }
 
 /* .d-flex.toggled{
@@ -1009,7 +1023,7 @@ h4,
 }
 
 .table-border-cr {
-  border: 0.25px solid rgb(224, 221, 221);
+  border: 0.10px solid rgb(224, 221, 221);
   border-radius: 3px;
   padding: 60px !important;
   padding-top: 20px !important;
@@ -1084,7 +1098,7 @@ h4,
 }
 
 .form-label {
-  padding: 0.4rem 0.75rem;
+  padding: -  0.4rem 0.75rem;
 }
 
 .mb-3 {
@@ -1113,7 +1127,7 @@ h4,
 }
 
 .card-header-new {
-  padding: 0.75rem 1.25rem;
+  padding: 0.75rem 1.25rem;  
   margin-bottom: 0.5%;
   background-color: #ffffff;
   /* border: 1px solid rgb(224, 221, 221); */
@@ -2173,6 +2187,7 @@ table td {
   color: black;
   display: flex;
   margin-top: 2rem;
+  text-decoration: none;
 }
 
 .foot-text {
@@ -2214,7 +2229,14 @@ table td {
 .ml-1{
   margin-left: 1rem !important;
 }
-.time-text {
+.foot-bg {
+  background-image: url('../images/footbgVector.png');
+  background-repeat: no-repeat;
+  background-position: right 2rem bottom 10px;
+}
+.payment-hr-tag{
+  opacity: 0.1;
+}.time-text {
   font-weight: 400;
   font-size: 28px;
   color: #F05A28;
