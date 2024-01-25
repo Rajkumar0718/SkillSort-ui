@@ -1,5 +1,7 @@
+import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import AdminLogin from "./components/Admin/AdminLogin";
-import { Route, Routes, useRoutes } from "react-router-dom";
 import HomePage from "./components/SuperAdmin/HomePage";
 import PageNotFound from "./components/PageNotFound";
 import CollegeList from "./components/SuperAdmin/CollegeList";
@@ -9,10 +11,16 @@ import StudentList from "./components/college/StudentList";
 import RequireAuth from "./components/RequireAuth";
 import StaffList from "./components/college/StaffList";
 import AddStaff from "./components/college/AddStaff";
-import CollegeReportList from "./components/college/CollegeReportList";
 import AddStudent from "./components/college/AddStudent";
+import CollegeReportList from "./components/college/CollegeReportList";
+import ListHr from "./components/Admin/ListHr";
+import AddHr from "./components/Admin/AddHr";
+import OnGoingExam from "./components/Admin/OnGoingExam";
+import CandidateDetailsOnGoingExam from "./components/Admin/CandidateDetailsOnGoingExam";
+
 function App() {
   return (
+    <>
     <Routes>
       {/* Public Routes */}
       <Route index element={<AdminLogin />}></Route>
@@ -39,11 +47,27 @@ function App() {
           />
           <Route path="/college/add" element={<AddStudent />} />
         </Route>
-
+        <Route 
+          element={
+            <RequireAuth allowedRoles={["ADMIN"]} />
+          }
+        >  
+          <Route path="/admin/hr" element={<ListHr />} />
+          <Route path="/admin/hr/add" element={<AddHr />} />
+          <Route path="/admin/hr/edit" element={<AddHr />} />
+          <Route path="/admin/onGoingTest" element={<OnGoingExam />} />
+          <Route path="/admin/onGoingTest/candidate" element={<CandidateDetailsOnGoingExam />} />
+        </Route>
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
+    <ToastContainer position="top-right" hideProgressBar={true} newestOnTop={true}
+        autoClose={1700} />
+    </>
   );
 }
+
+
+
 
 export default App;

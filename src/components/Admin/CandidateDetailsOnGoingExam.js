@@ -109,14 +109,14 @@ class CandidateDetailsOnGoingExam extends Component {
         },
         {
             name: 'Date of birth',
-            align: 'center',
+            align: 'left',
             renderCell: (params) => {
                 return moment(params?.dob).format("DD/MM/YYYY")
             }
         },
         {
             name: 'Gender',
-            align: 'center',
+            align: 'left',
             renderCell: (params) => {
                 return params?.gender
             }
