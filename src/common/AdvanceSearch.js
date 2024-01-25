@@ -19,7 +19,8 @@ function Search(props) {
   }
 
   return (
-      <div className="search" style={props.style}>
+    <>
+      <div className="search">
         <div
           className="col-md-2 col-lg-2 col-sm-2 col-xl-2 p-0"
           style={{
@@ -36,7 +37,7 @@ function Search(props) {
         {props.showSearch ? (
           <>
 
-            <div className="form-group has-search mb-0" style={{ marginLeft: props.showCheckBox ? '28%' : '41%', width: '35%' }}>
+              <div className="form-group has-search mb-0" style={{ marginLeft: props.showCheckBox ? '25%' : '41%', width: '35%' }}>
               {/* <i className="fa fa-search form-control-feedback"></i>
                <input type="text" className="form-control col-lg-12"  placeholder={props.placeholder} onChange={onChange}
                   style={{
