@@ -47,9 +47,7 @@ export const CustomTable = (props) => {
           </StyledTableCell>
         )
       } else {
-        const nameCapital = header.name
-        console.log(typeof header.name)
-        return <StyledTableCell align={header.align ? header.align : 'center'}>{nameCapital}</StyledTableCell>
+        return <StyledTableCell align={header.align ? header.align : 'center'}>{header.name}</StyledTableCell>
       }
     })
   }
@@ -89,7 +87,8 @@ export const CustomTable = (props) => {
               }
               else if (keys.key?.includes(".")) {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{splitDotsAndJoin(keys.key, row)}</StyledTableCell>
-              } else {
+              }
+               else {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
               }
             })}

@@ -6,19 +6,16 @@ import RequireAuth from "./components/RequireAuth";
 import AddQuestion from "./components/TestAdmin/AddQuestion";
 import AddStaff from "./components/college/AddStaff";
 import CollegeReportList from "./components/college/CollegeReportList";
-import StaffList from "./components/college/StaffList";
-import StudentList from "./components/college/StudentList";
-import  './assests/css/AdminDashboard.css';
-import './assests/css/SuperAdminDashboard.css';
-import Dashboard from "./components/TestAdmin/Dashboard";
-import SectionList from "./components/TestAdmin/SectionList";
-import Question from "./components/TestAdmin/Question";
-import SettingList from "./components/Admin/SettingList";
-import GroupTypesList from "./components/TestAdmin/GroupTypesList";
-
+import AddStudent from "./components/college/AddStudent";
+import ListHr from "./components/Admin/ListHr";
+import AddHr from "./components/Admin/AddHr";
+import OnGoingExam from "./components/Admin/OnGoingExam";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
+    <>
     <Routes>
       {/* Public Routes */}
       <Route index element={<AdminLogin />}></Route>
@@ -31,24 +28,40 @@ function App() {
           }
         >
           <Route path="/college" element={<StudentList />} />
-          <Route path="/college/placement-coordinator" element = {<StaffList/>} />
-          <Route path="/college/placement-coordinator/add" element = {<AddStaff />} />
-          <Route path="/college/collegeReport" element={<CollegeReportList/>} />        
+          <Route
+            path="/college/placement-coordinator"
+            element={<StaffList />}
+          />
+          <Route
+            path="/college/placement-coordinator/add"
+            element={<AddStaff />}
+          />
+          <Route
+            path="/college/collegeReport"
+            element={<CollegeReportList />}
+          />
+          <Route path="/college/add" element={<AddStudent />} />
         </Route>
-        <Route element={<RequireAuth allowedRoles={["TEST_ADMIN"]}/>}>
-           <Route path="/testadmin/dashboard"  name= 'Dashboard'  element={<Dashboard />} />
-           <Route path="/testadmin/section"  name= 'Sections'  element={<SectionList />} />
-           <Route path="/testadmin/question"  name= 'Questions'  element={<Question />} />
-           <Route path="/testadmin/question/add"  name= 'Add Question'  element={<AddQuestion />} />
-           <Route path="/testadmin/question/edit"  name= 'Edit Question'  element={<AddQuestion />} />
-           <Route path="/testadmin"  name= 'Test List'  element={<Question />} />
-           <Route path="/testadmin/setting"  name= 'Setting List'  element={<SettingList />} />
-           <Route path="/testadmin/grouptypes"    element={<GroupTypesList />} />
+        <Route 
+          element={
+            <RequireAuth allowedRoles={["ADMIN"]} />
+          }
+        >  
+          <Route path="/admin/hr" element={<ListHr />} />
+          <Route path="/admin/hr/add" element={<AddHr />} />
+          <Route path="/admin/hr/edit" element={<AddHr />} />
+          <Route path="/admin/onGoingTest" element={<OnGoingExam />} />
+
         </Route>
 
         <Route path="*" element={<PageNotFound />} />
+        
       </Route>
+      
     </Routes>
+    <ToastContainer position="top-right" hideProgressBar={true} newestOnTop={true}
+        autoClose={1700} />
+    </>
   );
 }
 

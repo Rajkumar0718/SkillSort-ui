@@ -6,6 +6,7 @@ import './style.css';
 
 function Search(props) {
   const title = props.title;
+  console.log(props, "props");
   const [search, setSearch] = useState('');
 
   const onSearch = () => {
@@ -17,7 +18,7 @@ function Search(props) {
   }
 
   return (
-      <div className="search">
+      <div className="search" style={props.style}>
         <div
           className="row"
           style={{
