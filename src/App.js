@@ -1,6 +1,6 @@
-import { lazy, Suspense } from 'react';
 import { Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import './assests/css/AdminDashboard.css';
+import Layout from "./common/Layout";
 import SuperAdminLayout from "./common/SuperAdminLayout";
 import AdminLogin from "./components/Admin/AdminLogin";
 import PageNotFound from "./components/PageNotFound";
@@ -49,28 +49,14 @@ import Signupcount from "./components/SuperAdmin/Signupcount";
 
 function App() {
   return (
-    <div>
-      <Suspense fallback="Loading...">
-        <Routes>
-          <Route index element={<AdminLogin />}></Route>
-          <Route path="/login" element={<AdminLogin />} />
-          <Route element={<RequireAuth allowedRoles={["ROLE_CANDIDATE"]} />}>
-            <Route path="/project" element={<ProjectUi />} />
-          </Route>
-         <Route path='/login/student' element={<StudentFromWebsite/>} />
-         <Route path="/setpassword" component={<StudentFromWebsite/>}/>
-         <Route path="/candidateinstruction" element={<EnhancedCandidateInstruction />} />
-         <Route path="/student/test/selectTech" element={<SelectTech/>}/>
-         <Route path='/test' element={<CandidateInterface />} />
-         <Route path='/thankYou' element={<ThankYouPage />} />
-         <Route path='/program/:token/:examId/:examUsersId/:collegeId' element={<EnhancedProgramUI />} />
-         <Route path='/program/:token/:examId/:examUsersId' element={<EnhancedProgramUI />} />
-         <Route path='/program' element={<EnhancedProgramUI />} />
-         <Route path='/sql' element={<EnhancedQueryUI />} />
-          <Route path="/candidate/register/:companyId/:examId" element={<PublicRegister />} />
-          <Route path="/public-candidate/register/:companyId/:examId" element={<CandidateReg />} />
-          <Route path="/candidate/re-exam-request" element={<ReExamRequest />} />
-          <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN"]} />}>
+    <>
+      <Routes>
+        {/* Public Routes */}
+        <Route index element={<AdminLogin />}></Route>
+        <Route path="/login" element={<AdminLogin />} />
+
+        {/* Private Routes */}
+        <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN"]} />}>
           <Route path="/home" element={<HomePage />} />
         </Route>
         <Route path="/" element={<SuperAdminLayout />} >
@@ -117,44 +103,42 @@ function App() {
             
           </Route>
         </Route>
-          {/* Public Routes */}
-          <Route path="/" element={<Layout />}>
-            {/* Protected Routes */}
-            <Route element={<RequireAuth allowedRoles={["COLLEGE_ADMIN", "COLLEGE_STAFF"]} />}>
-              <Route path="/college" element={<StudentList />} />
-              <Route path="/college/edit" element={<AddStudent />} />
-              <Route path="/college/add" element={<AddStudent />} />
-              <Route path="/college/placement-coordinator" element={<StaffList />} />
-              <Route path="/college/placement-coordinator/add" element={<AddStaff />} />
-              <Route path="/college/placement-coordinator/edit" element={<AddStaff />} />
-              <Route path="/college/collegeReport" element={<CollegeReportList />} />
-            </Route>
-            <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN", "COLLEGE_STAFF"]} />}>
-              {/* <Route path="/companyadmin" element={<CompanyList />} /> */}
-              <Route path="/home" element={<HomePage />} />
-            </Route>
-            <Route element={<RequireAuth allowedRoles={["TEST_ADMIN"]} />}>
-              <Route path="/testadmin/dashboard" element={<Dashboard />} />
-              <Route path="/testadmin/dashboard" element={<Dashboard />} />
-              <Route path='/testadmin/section' element={<SectionList />} />
-              <Route path='/testadmin/question' element={<Question />} />
-              <Route path='/testadmin/question/add' element={<AddQuestion />} />
-              <Route path='/testadmin/question/edit' element={<AddQuestion />} />
-              <Route path='/testadmin/grouptypes' element={<GroupTypesList />} />
-              <Route path='/testadmin/setting' element={<SettingList />} />
-            </Route>
-          <Route element={<RequireAuth allowedRoles={["COLLEGE_STUDENT"]} />}>
-           <Route path="/student" element={<StudentFirstTimeLogin />} />
-           <Route path="/student/profile" element={<StudentFirstTimeLogin />} />
-           <Route path="/student/student-test" element={<StudentTestList />} />
-           <Route path="/student/company-offer" element={<CompanyOffers />} />
-           <Route path="/student/student-practice-exam" element={<PracticeExamList />} />
-           <Route path="/student/advertisement" element={<AdvertisementPage />} />
-        </Route>
+        <Route path="/" element={<Layout />}>
+          <Route element={<RequireAuth allowedRoles={["COLLEGE_ADMIN", "COLLEGE_STAFF"]} />} >
+            <Route path="/college" element={<StudentList />} />
+            <Route
+              path="/college/placement-coordinator"
+              element={<StaffList />}
+            />
+            <Route
+              path="/college/placement-coordinator/add"
+              element={<AddStaff />}
+            />
+            <Route
+              path="/college/collegeReport"
+              element={<CollegeReportList />}
+            />
+            <Route path="/college/add" element={<AddStudent />} />
+          </Route>
+          <Route path="/report" element={<SuperAdminReportLayout />} />
+          <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN"]} />}>
+            {/* <Route path="/report/advance-search" element={<AdvSearchSupAdmin />} />
+          <Route path="/report" element={<CompetitorList />} />
+          <Route path="/individualUser/details" element={<CompetitorDetails />} />
+          <Route path="/individualUser/add/skills" element={<AddSkills />} />
+          <Route path="/individualUser/skills" element={<SkillList />} />
+          <Route path="/individualUser/question/edit" element={<AddQuestion />} />
+          <Route path="/individualUser/question" element={<QuestionList />} />
+          <Route path="/collegeadmin" element={<CollegeList />} />
+          <Route path="/companyadmin" element={<CompanyList />} />
+          <Route path="/panelists" element={<RecruiterList />} />
+          <Route path="/skillsortadmin" element={<ProcessAdminList />} />
+          <Route path="/settings" element={<ListIndustryAndTechnologies />} />
+          <Route path="/report/activity-dashboard" element={<Signupcount />} /> */}
           </Route>
           <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </Suspense>
+        </Route>
+      </Routes>
       <ToastContainer position="top-right" hideProgressBar={true} newestOnTop={true}
         autoClose={1700} />
     </>
@@ -166,3 +150,5 @@ function App() {
 
 
 export default App;
+
+

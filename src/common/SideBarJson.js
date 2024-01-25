@@ -174,62 +174,151 @@ const sidebar = {
     icon: 'fa fa-file-text-o'
   }
   ],
-  "COLLEGE_STUDENT": [{
+  "SUPER_ADMIN_COLLEGE": [{
     isSubMenu: false,
-    to: "/student/student-test",
-    name: "Dashboard",
+    to: "/home",
+    name: "HOME",
     icon: 'fa fa-home'
   }, {
     isSubMenu: false,
-    name: 'Profile',
-    to: '/student/profile',
+    name: 'College',
     isDefault: true,
-    icon: 'fa fa-users'
+    to: '/collegeadmin',
+    icon: 'fa fa-building-o'
   }, {
     isSubMenu: false,
-    to: '/student/company-offer',
-    name: 'Offered Companies',
-    icon: 'fa fa-briefcase'
+    to: '/collegeadmin/admin',
+    name: 'College Admin',
+    icon: 'fa fa-user-circle-o'
+  },
+  ],
+
+  "SUPER_ADMIN_COMPANY": [{
+    isSubMenu: false,
+    to: "/home",
+    name: "HOME",
+    icon: 'fa fa-home'
   }, {
     isSubMenu: false,
-    to: '/student/student-practice-exam',
-    name: 'Practice Exam',
-    icon: () => <FaClipboard style={{ fontSize: '1.3rem', color: '#3b489e' }}/>,
-    isReactIcon:true
-  },{
+    name: 'Company',
+    isDefault: true,
+    to: '/companyadmin',
+    subPath: ['/companyadmin/add'],
+    icon: 'fa fa-building-o'
+  }, {
     isSubMenu: false,
-    to: '/student/advertisement',
-    name: 'Advertisement',
-    icon: 'fa fa-bullhorn'
+    to: '/companyadmin/admin',
+    name: 'Company Admin',
+    subPath: ['/companyadmin/admin/add'],
+    icon: 'fa fa-user-circle-o'
   }
   ],
-  "TEST_ADMIN": [{
+  "SUPER_ADMIN_PANELISTS": [{
     isSubMenu: false,
-    to: "/testadmin/dashboard",
-    name: "Dashboard",
-    icon: 'fa fa-tachometer'
+    to: "/home",
+    name: "HOME",
+    icon: 'fa fa-home'
   }, {
     isSubMenu: false,
-    name: 'Section',
-    to: '/testadmin/section',
-    icon: 'fa fa-columns'
-  }, {
-    isSubMenu: false,
-    to: '/testadmin/grouptypes',
-    name: 'GroupTypes',
-    icon: 'fa fa-podcast'
-  },{
-    isSubMenu: false,
+    name: 'Panelist',
     isDefault: true,
-    to: '/testadmin/question',
-    name: 'Questions',
-    pathName: '/testadmin',
-    icon: 'fa fa-question-circle-o'
+    to: '/panelists',
+    icon: 'fa fa-user-circle-o '
+  }, {
+    isSubMenu: false,
+    to: '/panelists/payment',
+    name: 'Payment',
+    icon: 'fa fa-money'
+  }
+  ],
+  "SUPER_ADMIN_REPORT": [{
+    isSubMenu: false,
+    to: "/home",
+    name: "HOME",
+    icon: 'fa fa-home'
+  }, {
+    isSubMenu: false,
+    name: 'SkillSort User Report',
+    isDefault: true,
+    to: '/report',
+    icon: 'fa fa-file-text-o'
+  }, {
+    isSubMenu: false,
+    to: '/report/advance-search',
+    name: 'Advance Search',
+    icon: 'fa fa-search'
   },{
     isSubMenu: false,
-    to: '/testadmin/setting',
-    name: 'Setting',
-    icon: 'fa fa-cog',
+    to: '/report/activity-dashboard',
+    name: 'Activity Report',
+    icon: 'fa fa-file'
+  }
+],
+"SUPER_ADMIN_SKILL_SORT_ADMIN": [{
+  isSubMenu: false,
+  to: "/home",
+  name: "HOME",
+  icon: 'fa fa-home'
+}, {
+  isSubMenu: false,
+  name: 'Process Admin',
+  isDefault: true,
+  to: '/skillsortadmin',
+  icon: 'fa fa-user'
+}, {
+  isSubMenu: false,
+  to: '/skillsortadmin/testadmin',
+  name: 'Activity Report',
+  icon: 'fa fa-user-circle'
+},{
+  isSubMenu: false,
+  to: '/skillsortadmin/advertisement',
+  name: 'Advertisement',
+  icon: 'fa fa-bullhorn'
+}
+],
+
+  "SUPER_ADMIN_SETTINGS": [{
+    isSubMenu: false,
+    to: "/settings",
+    name: "Industry Type",
+    icon: 'fa fa-universal-access'
+  }, {
+    isSubMenu: false,
+    name: 'Department',
+    isDefault: true,
+    to: '/settings/department',
+    icon: 'fa fa-sitemap'
+  }, {
+    isSubMenu: false,
+    to: '/settings/practiceExam',
+    name: 'PracticeExam',
+    icon: 'fa fa-graduation-cap'
+  }, {
+    isSubMenu: false,
+    to: '/settings/smtp',
+    name: 'SMTP Config',
+    icon: 'fa fa-cogs'
+  }, {
+    isSubMenu: false,
+    to: '/settings/test',
+    name: 'Test',
+    icon: 'fa fa-th-list'
+  }, {
+    isSubMenu: false,
+    to: '/settings/plan-master',
+    name: 'Plan',
+    icon: 'fa fa-battery-three-quarters'
+  }, {
+    isSubMenu: false,
+    to: '/settings/weightage',
+    name: 'Weightage',
+    icon: 'fa fa-balance-scale'
+  },{
+    isSubMenu: false,
+    to: '/settings/freeCredits',
+    name: 'FreeCredits',
+    icon: 'fa fa-ticket'
   }
   ],
   "SUPER_ADMIN_COLLEGE": [{
