@@ -7,6 +7,8 @@ import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import { url } from '../../utils/UrlConstant';
 import { isEmpty } from "../../utils/Validation";
 import './SuperAdmin.css';
+import StatusRadioButton from '../../common/StatusRadioButton';
+
 
 class AddCompany extends Component {
 
@@ -139,8 +141,10 @@ class AddCompany extends Component {
   }
 
   componentWillMount() {
+    console.log(this.props?.location, "Here")
     if (this.props?.location?.pathname.indexOf('edit') > -1) {
       const { company } = this.props?.location?.state
+      console.log(company, "company")
       this.setState(prevState => {
         let companyData = { ...prevState.company };
         companyData.id = company.id;
@@ -271,6 +275,11 @@ class AddCompany extends Component {
                         </div>
                       </div>
                       <div className="row">
+                        <StatusRadioButton
+                          handleChange={this.handleChange}
+                          status={this.state.company.status}
+                          style={{ marginTop: "0.5rem" }}
+                        />
                       </div>
                       <div className="form-group row">
                         <div className="col-md-12">

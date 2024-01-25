@@ -10,6 +10,7 @@ function Search(props) {
   const [search, setSearch] = useState('');
 
   const onSearch = () => {
+    console.log(search, "sear")
     props.onSearch(search);
   }
 
