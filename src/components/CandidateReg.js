@@ -13,6 +13,7 @@ import { url } from "../utils/UrlConstant";
 import { isEmpty, isValidEmail, isValidMobileNo, isValidName } from "../utils/Validation";
 import ExamTimeOver from "./Candidate/ExamTimeOver";
 import TakePicture from "./Candidate/TakePicture";
+import { withLocation } from "../utils/CommonUtils";
 
 const FIELD_REQUIRED = 'Field is Required!';
 
@@ -24,6 +25,7 @@ const CandidateReg = () => {
   const [timeOver, setTimeOver] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isValidExamTime, setIsValidExamTime] = useState(false);
+  const [loadPage, setLoadPage] = useState(false)
   const [disabled, setDisabled] = useState(false);
   const [examId, setExamId] = useState("");
   const [setting, setSetting] = useState({});
@@ -136,6 +138,7 @@ const CandidateReg = () => {
     }
   }
   const checkIsValidExamTime = () => {
+    checkAlreadyRegistered();
     localStorage.clear()
     localStorage.setItem("examId", examId);
     axios.get(`${url.CANDIDATE_API}/candidate/` + examId + `/public/check`
@@ -145,14 +148,15 @@ const CandidateReg = () => {
       toast.error("Something went wrong !")
     });
 
-    checkAlreadyRegistered();
   }
 
   const checkValidExamTime = (res) => {
     if (res.data.message === "true") {
       setIsValidExamTime(true)
+      setLoadPage(true)
     } else {
       setIsValidExamTime(false)
+      setLoadPage(true)
     }
   }
 
@@ -389,7 +393,7 @@ const CandidateReg = () => {
     return date;
   }
 
-  if (isValidExamTime) {
+  if (isValidExamTime && loadPage) {
     return (timeOver ? <ExamTimeOver /> :
       <div className='bg-image' style={{ height: '100vh', backgroundPosition: 'right 2% bottom 2%' }}>
         <main className="main-content bcg-clr">
@@ -559,7 +563,7 @@ const CandidateReg = () => {
         </main>
       </div>
     )
-  } else {
+  } else if (!isValidExamTime && loadPage) {
     return (
       <div className="container-wapper d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
         <div className="row">
@@ -576,4 +580,4 @@ const CandidateReg = () => {
 
 }
 
-export default CandidateReg;
+export default withLocation(CandidateReg);

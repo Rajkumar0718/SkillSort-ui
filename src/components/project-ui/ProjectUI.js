@@ -54,7 +54,13 @@ const ProjectUi = () => {
         .then((res) => {
           setViewForProjectExam(res.data.response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          if(err.response?.status === 401) {
+              localStorage.clear()
+              sessionStorage.clear()
+              navigate('/thankYou')
+          }
+        });
     } else {
       axios
         .get(`${url.CANDIDATE_API}/candidate/onGoing/exam?email=` + sessionUser.email + `&examId=` + examId, {
@@ -63,7 +69,13 @@ const ProjectUi = () => {
         .then((res) => {
           setViewForProjectExam(res.data.response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          if (err.response?.status === 401) {
+            localStorage.clear()
+            sessionStorage.clear()
+            navigate('/thankYou')
+          }
+        });
     }
   };
 
@@ -217,7 +229,6 @@ const ProjectUi = () => {
   };
 
   const onClickOpenModel = () => {
-    // logEvent('Button', 'Click');
     if (!openModal) {
       document.addEventListener('click', handleOutsideClick, false);
     } else {

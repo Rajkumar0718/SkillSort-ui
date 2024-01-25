@@ -26,7 +26,9 @@ function App() {
       <Routes>
         <Route index element={<AdminLogin />}></Route>
         <Route path="/login" element={<AdminLogin />} />
-        <Route path="/project" element={<ProjectUi />} />
+        <Route element={<RequireAuth allowedRoles={["ROLE_CANDIDATE"]} />}>
+          <Route path="/project" element={<ProjectUi />} />
+        </Route>
         <Route path="/thankYou" element={<ThankYouPage />} />
         <Route path="/candidateinstruction" element={<CandidateInstruction />} />
         <Route path="/candidate/register/:companyId/:examId" element={<PublicRegister />} />

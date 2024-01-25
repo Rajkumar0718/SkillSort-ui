@@ -39,7 +39,7 @@ function PublicRegister() {
   }, [])
 
   const getCompany = () => {
-    axios.get(`${url.ADMIN_API}/company/${companyId}`)
+    axios.get(`${url.ADMIN_API}/company/company-id/${companyId}`)
       .then(res => {
         setCompany(res.data.response)
       }).catch(err => errorHandler(err));
@@ -68,7 +68,7 @@ function PublicRegister() {
           minHeight="100vh"
           flexDirection='column'
         >
-          <Card elevation={15} style={{ height: '15rem', width: '40rem', backgroundColor: 'rgb(194 195 200)' }}>
+          <Card elevation={15} style={{ height: '15rem', width: '40rem', backgroundColor: 'rgb(194 195 200 / 39%)' }}>
             <div style={{ textAlign: 'center', transform: 'translateX(30px)', marginTop: '1rem', width: '90%', overflow: 'hidden', whiteSpace: 'nowrap' }} >
               <span title={company.name} style={{ textOverflow: 'ellipsis', display: 'block', overflow: ' ' }} className='setting-title'>{company.name}</span>
             </div>
