@@ -19,15 +19,17 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontWeight: '700',
     fontFamily: 'Montserrat',
     padding: theme.spacing(0.45, 0.45, 0.45, 0.2),
-    fontSize: 11,
+    fontSize: 12,
+    marginTop: '10px',
+    paddingTop: '4px',
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 13,
     fontFamily: 'Montserrat',
     paddingLeft: '2px !important',
-    lineHeight:'1.2',
-    paddingTop:'7px !important',
-    paddingBttom:'7px !important'
+    paddingTop: '7px !important',
+    paddingBottom:'7px !important',
+    lineHeight: '0.7', // Adjust the line height as needed
   },
 }));
 
@@ -45,7 +47,7 @@ export const CustomTable = (props) => {
     return _.map(props.headers, header => {
       if (header.isFilter) {
         return (
-          <StyledTableCell>
+          <StyledTableCell align={header.align ? header.align : 'center'} sx={{minWidth: '20%'}}>
             <BasicMenu header={header} />
           </StyledTableCell>
         )
@@ -85,35 +87,18 @@ export const CustomTable = (props) => {
           <StyledTableRow>
             {_.map(props.headers, keys => {
               if (keys.renderCell instanceof Function) {
-                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{keys.renderCell(row, index)}</StyledTableCell>
+                return <StyledTableCell align={keys.align ? keys.align : 'center'} >{keys.renderCell(row, index)}</StyledTableCell>
               }
               else if (keys.concat) {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{concatKeys(keys.key, row)}</StyledTableCell>
               }
               else if (keys.key?.toUpperCase() === 'S.NO') {
-                return <StyledTableCell align={'center'}>{props.pageSize * props.currentPage - (i--)}</StyledTableCell>
-              }
-              else if (keys.key?.toUpperCase() === 'CATEGORIES') {
-                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{_.size(row[keys.key])}</StyledTableCell>
-              }
-              else if (keys.key?.toUpperCase() === 'DURATION') {
-                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{getDuration(row)}</StyledTableCell>
-              }
-              else if (keys.key === 'status') {
-                 return  <StyledTableCell className={row[keys.key] === 'INACTIVE' ? 'text-danger' : 'text-success'} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
-              }
-              else if (keys.key?.includes(".")) {
-              }
-              else if (keys.key === 'status') {
-                 return  <StyledTableCell className={row[keys.key] === 'INACTIVE' ? 'text-danger' : 'text-success'} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
-              }
-              else if (keys.key?.includes(".")) {
+                return <StyledTableCell align={'center'} >{props.pageSize ?( props.pageSize * props.currentPage - (i--)): index+1}</StyledTableCell>
+              } else if (keys.key?.includes(".")) {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{splitDotsAndJoin(keys.key, row)}</StyledTableCell>
-              }
-              else if (keys.key?.toUpperCase() === "MISSING SKILLS") {
-                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key].join(' , ')}</StyledTableCell>
-              }
-               else {
+              } else if (keys['isFilter']) {
+                return <StyledTableCell style={{color:row[keys.key]==='ACTIVE'? 'green' : 'red' }} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
+              } else {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
               }
             })}
@@ -121,13 +106,13 @@ export const CustomTable = (props) => {
         )
       })
     } else {
-      return <StyledTableRow className="text-center"> <StyledTableCell colSpan={7} align="center" >NO DATA AVAILABLE</StyledTableCell></StyledTableRow>
+      return <StyledTableRow className="text-center"> <StyledTableCell colSpan={8} align="center" >NO DATA AVAILABLE</StyledTableCell></StyledTableRow>
     }
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <TableContainer style={{ overflowX: 'inherit' }}>
+      <TableContainer style={{ overflowX: 'inherit', width:'100%'}}>
         <Table
           size="small"
           aria-label="a dense table"
