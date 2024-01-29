@@ -4,6 +4,12 @@ import { ToastContainer } from "react-toastify";
 import SuperAdminLayout from "./common/SuperAdminLayout";
 import './assests/css/AdminDashboard.css';
 import './assests/css/ReactToast.css';
+import SectionList from "./components/TestAdmin/SectionList"
+import Dashboard from "./components/TestAdmin/Dashboard"
+import Question from "./components/TestAdmin/Question"
+import AddQuestion from "./components/TestAdmin/AddQuestion"
+import GroupTypesList from "./components/TestAdmin/GroupTypesList"
+import SettingList from "./components/Admin/SettingList"
 import Layout from './common/Layout';
 import SectionList from "./components/TestAdmin/SectionList"
 import Dashboard from "./components/TestAdmin/Dashboard"
@@ -28,15 +34,14 @@ import AddTestAdmin from "./components/SuperAdmin/AddTestAdmin";
 import AddAdvertisement from "./components/SuperAdmin/AddAdvertisement";
 import AdvertisementHistory from "./components/SuperAdmin/AdvertisementHistory";
 import Payment from "./components/SuperAdmin/Payment";
-import FreeCredits from "./components/SuperAdmin/FreeCredits";
+import FreeCredits from "./components/SuperAdmin/FreeCredits";import AddStudent from "./components/college/AddStudent"
+import StudentList from "./components/college/StudentList"
+import StaffList from "./components/college/StaffList"
+import AddStaff from "./components/college/AddStaff"
+import CollegeReportList from "./components/college/CollegeReportList"
 const AdminLogin = lazy(() => import("./components/Admin/AdminLogin"));
 const PageNotFound = lazy(() => import("./components/PageNotFound"));
 const RequireAuth = lazy(() => import("./components/RequireAuth"));
-const AddStaff = lazy(() => import("./components/college/AddStaff"));
-const CollegeReportList = lazy(() => import("./components/college/CollegeReportList"));
-const StaffList = lazy(() => import("./components/college/StaffList"));
-const StudentList = lazy(() => import("./components/college/StudentList"));
-const CompanyList = lazy(() => import("./components/SuperAdmin/CompanyList"));
 const HomePage = lazy(() => import("./components/SuperAdmin/HomePage"));
 const ThankYouPage = lazy(() => import("./components/Candidate/ThankYouPage"));
 const PublicRegister = lazy(() => import("./components/Candidate/PublicRegister"));
@@ -98,13 +103,15 @@ function App() {
             {/* Protected Routes */}
             <Route element={<RequireAuth allowedRoles={["COLLEGE_ADMIN", "COLLEGE_STAFF"]} />}>
               <Route path="/college" element={<StudentList />} />
-              <Route path="/college/student" element={<StudentList />} />
+              <Route path="/college/edit" element={<AddStudent />} />
+              <Route path="/college/add" element={<AddStudent />} />
               <Route path="/college/placement-coordinator" element={<StaffList />} />
               <Route path="/college/placement-coordinator/add" element={<AddStaff />} />
+              <Route path="/college/placement-coordinator/edit" element={<AddStaff />} />
               <Route path="/college/collegeReport" element={<CollegeReportList />} />
             </Route>
             <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN", "COLLEGE_STAFF"]} />}>
-              <Route path="/companyadmin" element={<CompanyList />} />
+              {/* <Route path="/companyadmin" element={<CompanyList />} /> */}
               <Route path="/home" element={<HomePage />} />
             </Route>
             <Route element={<RequireAuth allowedRoles={["TEST_ADMIN"]} />}>

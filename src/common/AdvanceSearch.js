@@ -86,6 +86,7 @@ function Search(props) {
           <div className="col-md-5 col-lg-5 col-sm-5 col-xl-5"></div>
         )}
       </div>
+
   );
 }
 
