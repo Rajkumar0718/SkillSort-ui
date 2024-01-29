@@ -5,6 +5,12 @@ import SuperAdminLayout from "./common/SuperAdminLayout";
 import './assests/css/AdminDashboard.css';
 import './assests/css/ReactToast.css';
 import Layout from './common/Layout';
+import SectionList from "./components/TestAdmin/SectionList"
+import Dashboard from "./components/TestAdmin/Dashboard"
+import Question from "./components/TestAdmin/Question"
+import AddQuestion from "./components/TestAdmin/AddQuestion"
+import GroupTypesList from "./components/TestAdmin/GroupTypesList"
+import SettingList from "./components/Admin/SettingList"
 import SuperAdminReportLayout from "./container/SuperAdminReportLayout";
 import AddCollege from "./components/SuperAdmin/AddCollege";
 import CollegeAdminList from "./components/SuperAdmin/CollegeAdminList";
@@ -38,12 +44,6 @@ const CandidateReg = lazy(() => import("./components/CandidateReg"));
 const CandidateInstruction = lazy(() => import("./components/Candidate/CandidateInstruction"));
 const ProjectUi = lazy(() => import("./components/project-ui/ProjectUI"));
 const ReExamRequest = lazy(() => import("./components/Candidate/AlreadyWrittenExam"));
-import SectionList from "./components/TestAdmin/SectionList"
-import Dashboard from "./components/TestAdmin/Dashboard"
-import Question from "./components/TestAdmin/Question"
-import AddQuestion from "./components/TestAdmin/AddQuestion"
-import GroupTypesList from "./components/TestAdmin/GroupTypesList"
-import SettingList from "./components/Admin/SettingList"
 
 function App() {
   return (
@@ -107,16 +107,16 @@ function App() {
               <Route path="/companyadmin" element={<CompanyList />} />
               <Route path="/home" element={<HomePage />} />
             </Route>
-          <Route element={<RequireAuth allowedRoles={["TEST_ADMIN"]} />}>
-           <Route path="/testadmin/dashboard" element={<Dashboard />} />
-          <Route path="/testadmin/dashboard" element={<Dashboard />} />
-           <Route path='/testadmin/section' element={<SectionList />} />
-           <Route path='/testadmin/question' element={<Question />} />
-           <Route path='/testadmin/question/add' element={<AddQuestion />} />
-           <Route path='/testadmin/question/edit' element={<AddQuestion />} />
-           <Route path='/testadmin/grouptypes' element={<GroupTypesList />} />
-           <Route path='/testadmin/setting' element={<SettingList />} />
-          </Route>
+            <Route element={<RequireAuth allowedRoles={["TEST_ADMIN"]} />}>
+              <Route path="/testadmin/dashboard" element={<Dashboard />} />
+              <Route path="/testadmin/dashboard" element={<Dashboard />} />
+              <Route path='/testadmin/section' element={<SectionList />} />
+              <Route path='/testadmin/question' element={<Question />} />
+              <Route path='/testadmin/question/add' element={<AddQuestion />} />
+              <Route path='/testadmin/question/edit' element={<AddQuestion />} />
+              <Route path='/testadmin/grouptypes' element={<GroupTypesList />} />
+              <Route path='/testadmin/setting' element={<SettingList />} />
+            </Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
