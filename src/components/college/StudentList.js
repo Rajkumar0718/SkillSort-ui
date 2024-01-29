@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "../../common/Button";
 import { fallBackLoader } from "../../utils/CommonUtils";
 import axios from "axios";
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import { authHeader } from "../../api/Api";
 import { errorHandler } from "../../api/Api";
 const StudentList = () => {

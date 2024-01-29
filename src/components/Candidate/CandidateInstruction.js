@@ -3,7 +3,7 @@ import _ from "lodash";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from "../../api/Api";
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import { isEmpty, isRoleValidation } from "../../utils/Validation";
 
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
@@ -208,7 +208,7 @@ export default class CandidateInstruction extends Component {
           "Technical": this.state.sectionName
         }
       }).then(()=>{
-        const endTime = performance.now(); 
+        const endTime = performance.now();
         const responseTime = endTime - startTime;
         this.handleEventTrackForExamStartApi(responseTime)
       }).catch(error => {
@@ -216,7 +216,7 @@ export default class CandidateInstruction extends Component {
       })
     }
   }
-  
+
 
   handleEventTrackForExamStart = ()=>{
     const dataLayer = window.dataLayer || []
@@ -322,7 +322,7 @@ export default class CandidateInstruction extends Component {
                     null
                   }
                   </div>
-            
+
           </div>:null}
         </div>
         <footer className="btn start-test">

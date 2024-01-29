@@ -8,7 +8,7 @@ const sidebar = {
     isSubMenu: true,
     name: 'Test',
     icon: 'fa fa-file-text-o',
-    isDefault: true,
+
     toolTipMarginTop: '2.5rem',
     toggleValue: 'showSubMenuTest',
     onClick: 'toggleClickedSubMenu',
@@ -33,7 +33,8 @@ const sidebar = {
     isSubMenu: false,
     name: 'Vacancy',
     to: '/admin/vacancy',
-    icon: 'fa fa-user-plus'
+    icon: 'fa fa-user-plus',
+     subPath: ['/admin/vacancy/history'],
   }, {
     to: '/admin/setting',
     name: 'Setting',

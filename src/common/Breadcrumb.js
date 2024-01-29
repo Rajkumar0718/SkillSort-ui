@@ -49,7 +49,7 @@ const Breadcrumbs = () => {
     <MUIBreadcrumbs
       aria-label="breadcrumb"
       separator=">"
-      style={{ paddingBottom: "10px" }}
+
     >
       {pathnames.length > 0 && pathname !== homeLink ? (
         <Link
@@ -58,7 +58,7 @@ const Breadcrumbs = () => {
           style={{
             cursor: "pointer",
             color: "#3f51b5",
-
+            marginLeft: "2rem"
           }}
         >
           Home

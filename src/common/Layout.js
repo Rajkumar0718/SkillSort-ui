@@ -38,7 +38,7 @@ export const Layout = () => {
             logOut={() => logOut()}
             showSidenav={showSidenav}
           />
-          <div style={{ margin: "25px 0px 0px 25px" }}>
+          <div style={{ margin: "15px 0px 0px 3px" }}>
             <Breadcrumbs />
             <div className="container-fluid">
               <Suspense

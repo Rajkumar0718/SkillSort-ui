@@ -7,7 +7,7 @@ import "../../assests/css/ReactToast.css";
 import skillsort from '../../assests/images/Frame.png';
 import useAuth from "../../hooks/useAuth";
 import { toastMessage } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import getRole from '../../utils/GetRole';
 
 
@@ -24,7 +24,7 @@ const AdminLogin = () => {
       event: "StudentLoggedIn",
     });
   };
-  
+
   const handleLoginEventForHR = () => {
     window.dataLayer.push({
       event: "HRLoggedIn",
@@ -65,7 +65,7 @@ const AdminLogin = () => {
     },
   };
 
- 
+
 
   const navigateBasedOnRole = (role) => {
     const mapping = roleMappings[role];

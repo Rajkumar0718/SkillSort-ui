@@ -7,7 +7,7 @@ import _ from "lodash";
 import moment from "moment";
 import axios from "axios";
 import Button from "../../common/Button";
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import DateFnsUtils from "@date-io/date-fns";
 import { authHeader, errorHandler } from "../../api/Api";
 import MultiSelectDropDown from "../../utils/MultiselectDropDown";

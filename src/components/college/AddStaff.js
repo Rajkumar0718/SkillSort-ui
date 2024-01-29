@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { isEmpty, isValidEmail, isValidMobileNo } from "../../utils/Validation";
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import { authHeader, errorHandler } from "../../api/Api";
 import { toastMessage } from "../../utils/CommonUtils";
 import FormHelperText from "@mui/material/FormHelperText";
