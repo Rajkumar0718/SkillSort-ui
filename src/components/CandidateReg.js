@@ -26,7 +26,7 @@ const CandidateReg = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isValidExamTime, setIsValidExamTime] = useState(false);
   const [loadPage, setLoadPage] = useState(false)
-  const [disabled, setDisabled] = useState(false);
+  const [disable, setDisable] = useState(false);
   const [examId, setExamId] = useState("");
   const [setting, setSetting] = useState({});
   const [openModal, setOpenModal] = useState(false);
@@ -111,7 +111,7 @@ const CandidateReg = () => {
     axios.get(`${url.CANDIDATE_API}/candidate/public/findByCompanyId-byEmail?email=${user.email}&companyId=${companyId}`)
       .then(res => {
         setUser(res.data.response);
-      });
+      }).catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -312,18 +312,19 @@ const CandidateReg = () => {
         }
       }).catch((err) =>
         errorHandler(err),
-        setDisabled(false)
+        setDisable(false)
       )
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    setDisable(true)
     if (!validateFields()) {
+      setDisable(false)
       return;
     }
   
-    setDisabled(true)
 
     const formData = new FormData();
     axios.get(`${url.CANDIDATE_API}/candidate/csrf-token`).then((res) => {
@@ -362,7 +363,7 @@ const CandidateReg = () => {
 
   const onCloseModal = () => {
     setOpenModal(false)
-    setDisabled(false)
+    setDisable(false)
     window.close();
   }
 
@@ -551,7 +552,7 @@ const CandidateReg = () => {
                         {error.resumeFile && <FormHelperText className="helper helper-login" style={{ paddingLeft: "15px" }}>{error.resumeFile ? error.helperTxtResumeFile : null}</FormHelperText>}
                       </div>
                       <div className='col-4'>
-                        <button type="submit" className="btn btn-sm btn-nxt" disabled={disabled} style={{ margin: 'auto auto auto 10.5rem' }}>Continue</button>
+                        <button type="submit" className="btn btn-sm btn-nxt" disabled={disable} style={{ margin: 'auto auto auto 10.5rem' }}>Continue</button>
                       </div>
                     </div>
                   </div>

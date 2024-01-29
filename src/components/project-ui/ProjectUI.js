@@ -14,6 +14,7 @@ import { isRoleValidation } from '../../utils/Validation';
 import ProjectInit from './ProjectInit';
 import SubmitPopup from '../Candidate/SubmitPopup';
 import { useNavigate } from 'react-router';
+import { authHeader } from '../../api/Api';
 
 const ProjectUi = () => {
   const navigate = useNavigate();
@@ -164,6 +165,21 @@ const ProjectUi = () => {
       });
   };
 
+  const saveCode = (showToast) => {
+    let sandPackFile = localStorage.getItem('filesJson')
+    ongoingExam.sandPackFile = sandPackFile
+    axios.post(`${url.CANDIDATE_API}/candidate/onGoingExam`, ongoingExam , {
+      headers: authHeader()
+    }).then(()=>{
+      if(typeof showToast !== 'boolean') {
+        toastMessage('success','Code Saved Successfully')      
+      }
+    }).catch((error) => {
+      // errorHandler(error)
+      toastMessage('error','Error while saving code')
+    });
+  }
+
   useEffect(() => {
     setQuestionsForOngoing()
   }, [examQuestions.id])
@@ -305,6 +321,7 @@ const ProjectUi = () => {
 
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);
+    saveCode(true)
   };
 
   const handleDrawerClose = () => {
@@ -346,7 +363,13 @@ const ProjectUi = () => {
             <div>
             </div>
           </div>
-          <button onClick={onClickOpenModel} className="btn btn-sm btn-nxt" type="submit" style={{ width: '1rem', float: 'right', position: 'relative', right: '15%', bottom: '17%', marginTop: '1rem' }}>Submit</button>
+          <div className='row' style={{marginTop:'0.5rem'}}>
+            <div className='col-lg-5 col-md-5 col-xl-5'/>
+            <div className='col-lg-4 col-md-4 col-xl-4' style={{display:'flex',justifyContent:'space-evenly'}}>
+              <button onClick={saveCode} className="btn btn-sm btn-prev" >Save Code</button>
+              <button onClick={onClickOpenModel} className="btn btn-sm btn-nxt" type="submit" >Submit</button>
+            </div>
+          </div>
           {openModal ? (<SubmitPopup submit={submitExam} close={setStateForModal} />) : null}
 
         </>
@@ -359,11 +382,11 @@ const ProjectUi = () => {
             </div>
           </div>
           <div style={{ borderLeft: '4px solid #e0e0e0', flex: 1, overflowY: 'auto', marginTop: '2rem' }}>
-            <div className="row can-section" style={{ marginLeft: '25rem' }}>
-              <div style={{ marginTop: '1rem' }} className="col">
+            <div className="row can-section" style={{ alignItems:'center' }}>
+              <div style={{ marginTop: '1rem',fontWeight:'bold', fontSize:'large' }} className="col">
                 In which programming Language would you like to create the project?<span className="required"></span>
               </div>
-              <div className="col">
+                <div className="col-2 col-md-2 col-lg-2">
                 <select
                   style={{ color: '#3B489E' }}
                   value={languageName}
@@ -382,7 +405,7 @@ const ProjectUi = () => {
               </div>
             </div>
             <div className="row" style={{ marginTop: '2rem' }}>
-              <div className='col'>
+                <div className='col' style={{ display: 'flex', justifyContent: 'center' }}>
                 <button
                   disabled={!languageName}
                   onClick={() => handleOpenSandBox()}

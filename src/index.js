@@ -28,13 +28,13 @@ document.body.appendChild(gtmNoscript)
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <StrictMode>
-  <BrowserRouter>
-    <AuthProvider>
-      <Routes>
-        <Route path="/*" element={<App />} />
-      </Routes>
-    </AuthProvider>
-  </BrowserRouter>
-  // </StrictMode>
+  <StrictMode>
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/*" element={<App />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  </StrictMode>
 );

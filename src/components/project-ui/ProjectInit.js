@@ -34,6 +34,7 @@ const MyComponent = ({ onGoingExam }) => {
         saveCode()
       }
     };
+    localStorage.setItem('filesJson',JSON.stringify(sandpack.files))
 
     window.addEventListener('keydown', handleSaveShortcut);
 
@@ -65,15 +66,12 @@ const MyComponent = ({ onGoingExam }) => {
     packageJson.dependencies[jsonName.name] = jsonName.version
     const updatedPackageJson = JSON.stringify(packageJson, null, 2);
     sandpack.updateFile('package.json', updatedPackageJson, true)
-    // sandpack.updateFile(keyToFind,updatedPackageJson,true)
     sandpack.runSandpack()
   }
 
   return (
     <SandpackLayout style={{ height: '100%' }}>
-      <Resizable>
         <FileExplorer file={Object.keys(sandpack.files)} deleteFile={deleteFile} setActiveFiles={setActiveFiles} addFilesToSandpack={addFile} updatePackageJson={updatePackageJson} />
-      </Resizable>
       <Resizable defaultSize={{ width: 600 }} minHeight={"100%"} boundsByDirection enable={{ right: true }} >
         <SandpackCodeEditor
           closableTabs
