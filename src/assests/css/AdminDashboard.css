@@ -2499,15 +2499,6 @@ h4,
   display: block;
   width: 210px;
   height: 40px;
-  /* padding: 0.95rem 0.85rem 0 0.85rem;
-.form-control-mini-1 {
-  display: block;
-  width: 210px;
-  height: 40px;
-  /* padding: 0.95rem 0.85rem 0 0.85rem;
-   padding-right: 2rem;
-   margin-left: 7px; */
-  padding-top: 19px;
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 0.5;
@@ -2518,20 +2509,7 @@ h4,
   border: none;
   border-bottom: 1.5px solid black;
   outline: none;
-  margin-left: 2 !important;
-
-  padding-top: 19px;
-  font-size: 0.875rem;
-  font-weight: 400;
-  line-height: 0.5;
-  color: #3b489e;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border: none;
-  border-bottom: 1.5px solid black;
-  outline: none;
-  margin-left: 2 !important;
+  margin-left: 3rem;
 }
 
 .modal-dialogs {
@@ -3482,7 +3460,7 @@ h4,
   font-weight: 400;
   line-height: 16px;
   letter-spacing: 0em;
-  text-align: left;
+  text-align: center;
 }
 .can-section {
   margin: auto;
@@ -3981,3 +3959,9 @@ table td {
   width: 200mm;
   margin-top: 15vh;
 }
+.status-addQuestion{
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+

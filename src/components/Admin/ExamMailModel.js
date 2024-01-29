@@ -1,11 +1,13 @@
-import axios from "axios";
-import { saveAs } from "file-saver";
-import _ from "lodash";
-import React, { Component } from "react";
-// import CKEditor from "react-ckeditor-component";
-import { authHeader, errorHandler, logOut } from "../../api/Api";
-import { fallBackLoader, toastMessage } from "../../utils/CommonUtils";
-import { url } from "../../utils/UrlConstant";
+import axios from 'axios';
+import { saveAs } from 'file-saver';
+import _ from 'lodash';
+import React, { Component } from 'react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { authHeader, errorHandler, logOut } from '../../api/Api';
+import { fallBackLoader, toastMessage } from '../../utils/CommonUtils';
+import { url } from '../../utils/UrlConstant';
 export default class ExamMailModel extends Component {
   state = {
     loader: false,
@@ -52,7 +54,6 @@ export default class ExamMailModel extends Component {
 	  }
 
   sendExamLink = (data) => {
-    this.handleMailSentEventTrack()
     data.message = this.state.mailMsg;
     data.positionId = this.props.positionId;
     this.setState({ validMailButton: true, loader: true });
@@ -74,12 +75,6 @@ export default class ExamMailModel extends Component {
         }
         errorHandler(error);
       })
-  }
-
-  handleMailSentEventTrack =()=>{
-    window.dataLayer.push({
-      event: 'EmailSentForExams'
-    });
   }
 
   onFileChange = event => {
@@ -126,7 +121,7 @@ export default class ExamMailModel extends Component {
     // eslint-disable-next-line default-case
     switch (this.props.modalSection.type) {
       case 'Question':
-        return <div className="row" style={{ display: "flex", flexDirection: "row" }}>
+        return <div className="row" style={{ display: "flex", flexDirection: "row", transform:'translate(25px, -40px)' }}>
           <div className="col" style={{ paddingLeft: "21px" }}>
             <select className='form-control-mini' name='section' style={{ width: "200px" }}
               value={this.state.csvImportObject.section}
@@ -157,16 +152,16 @@ export default class ExamMailModel extends Component {
               })}
             </select>
           </div>
-          <div >
-            <button className='btn btn-sm btn-nxt'  disabled={(this.state.csvImportObject?.section !== '' && this.state.csvImportObject?.questionType !== '') ? false : true} onClick={this.importSampleFile} ><i className="fa fa-download" aria-hidden="true"></i> Sample Template</button>
-            <strong className='ml-2' style={{ color: '#3b489e',  marginLeft:"1rem"}}>( *must upload this file format )</strong>
+          <div style={{ paddingTop: "10px", marginLeft: "8px" }}>
+            <button className='btn btn-sm btn-nxt' disabled={(this.state.csvImportObject?.section !== '' && this.state.csvImportObject?.questionType !== '') ? false : true} onClick={this.importSampleFile} ><i className="fa fa-download" aria-hidden="true"></i> Sample Template</button>
+            <strong className='ml-2' style={{ color: '#3b489e', position:'relative', left:'1rem' }}>( *must upload this file format )</strong>
           </div>
         </div>
       case 'Email':
-        return <button className='btn btn-sm btn-nxt' style={{ marginLeft: "20px" }} onClick={this.importSampleFile} ><i className="fa fa-download" aria-hidden="true"></i> Sample Template</button>
+        return <button className='btn btn-sm btn-nxt' style={{ marginLeft: "5px" }} onClick={this.importSampleFile} ><i className="fa fa-download" aria-hidden="true"></i> Sample Template</button>
 
       case 'Student':
-        return <button className='btn btn-sm btn-nxt' style={{ marginLeft: "20px" }} onClick={this.importSampleFile} ><i className="fa fa-download" aria-hidden="true"></i> Sample Template</button>
+        return <button className='btn btn-sm btn-nxt' style={{ marginLeft: "5px" }} onClick={this.importSampleFile} ><i className="fa fa-download" aria-hidden="true"></i> Sample Template</button>
     }
   }
 
@@ -225,149 +220,48 @@ export default class ExamMailModel extends Component {
         })
     }
   };
+
+
   render() {
-    const questionType = this.props.modalSection.type === "Email";
+    const questionType = this.props.modalSection.type === 'Email';
     return (
-      <div
-        className="modal fade show"
-        id="myModal"
-        role="dialog"
-        style={{
-          paddingRight: "15px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "rgba(0,0,0,0.90)",
-        }}
-        aria-hidden="true"
-      >
+      <div className="modal fade show" id="myModal" role="dialog" style={{ paddingRight: '15px', display: 'flex', justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.90)' }} aria-hidden="true">
         {fallBackLoader(this.state.loader)}
-        <div
-          className="modal-dialog"
-          style={{ width: "700px", maxWidth: "770px" }}
-        >
-          <div
-            className="modal-content"
-            style={{
-              borderStyle: "solid",
-              borderColor: "#af80ecd1",
-              borderRadius: "32px",
-            }}
-          >
-            <div
-              className="modal-header"
-              style={{ padding: "1rem 2rem 0 1.8rem", border: "none" }}
-            >
-              <h5 className="setting-title">
-                Upload&nbsp;
-                {this.props.modalSection?.type === "Email"
-                  ? " Candidates"
-                  : this.props.modalSection?.type}
-              </h5>
-              {this.props.modalSection?.type === "Email" ? (
-                <h5 className="setting-title" style={{ paddingLeft: "0.5rem" }}>
-                  <span style={{ color: "#F05A28" }}>
-                    {this.props.remainingTest}
-                  </span>{" "}
-                  Credits Available
-                </h5>
-              ) : (
-                ""
-              )}
-              <button
-                type="button"
-                onClick={this.props.onCloseModal}
-                className="close"
-                data-dismiss="modal"
-              >
-                &times;
-              </button>
+        <div className="modal-dialog" style={{ width: "700px", maxWidth: "770px" }}>
+          <div className="modal-content" style={{ borderStyle: 'solid', borderColor: '#af80ecd1', borderRadius: "32px" }}>
+            <div className="modal-header" style={{ border: "none" }}>
+              <h5 className="setting-title" style={{marginLeft:'1rem'}}>Upload {this.props.modalSection?.type === "Email" ? "Candidates" : this.props.modalSection?.type }</h5>
+              {this.props.modalSection?.type === "Email" ? <h5 className="setting-title" style={{ paddingLeft: '0.5rem' }}><span style={{ color: '#F05A28' }}>{this.props.remainingTest}</span>   Credits Available</h5> : ''}
+              <button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{ border: "none" }}>&times;</button>
             </div>
-            <div className="card-body" style={{ paddingTop: "4px" }}>
+            <div className='card-body' style={{ paddingTop: "10px" }}>
               <div>
                 {this.renderQuestionTemplate()}
-                {(this.props.mailModalSection?.exam === null &&
-                  this.props.modalSection.type === "Email") ||
-                this.props.modalSection?.type === "Student" ? (
-                  <strong className="ml-2" style={{ color: "#3b489e", marginLeft:"1rem" }}>
-                    ( *must upload this file format )
-                  </strong>
-                ) : this.props.modalSection?.type !== "Question" &&
-                  this.props.modalSection?.type !== "Student" ? (
-                  <strong className="ml-2" style={{ color: "#3b489e" }}>
-                    ( *You can add more candidates, but the file must be in CSV
-                    format )
-                  </strong>
-                ) : null}
-                <hr className="rounded"></hr>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    paddingLeft: "5px",
-                  }}
-                >
-                  <input
-                    style={{ color: "#3b489e", paddingLeft:"2rem",paddingBottom:"1rem"}}
-                    id="files"
-                    type="file"
-                    onChange={this.onFileChange}
-                    accept={".csv"}
-                  />
-                  {!questionType && (
-                    <button
-                      className="btn btn-sm btn-nxt"
-                      disabled={this.state.validUploadButton}
-                      onClick={this.onFileUpload}
-                      style={{marginRight:"1rem"}}
-                    >
-                      Upload
-                    </button>
-                  )}
+                {(this.props.mailModalSection?.exam===null && this.props.modalSection.type === "Email") || this.props.modalSection?.type === "Student"? <strong className='ml-2' style={{ color: '#3b489e' }}>( *must upload this file format )</strong> : this.props.modalSection?.type !== "Question" && this.props.modalSection?.type !== "Student"  ?  <strong className='ml-2' style={{ color: '#3b489e' }}>( *You can add more candidates, but the file must be in CSV format )</strong> : null}
+                <hr className="rounded" style={{position:'relative', bottom:'2rem',width:'92%', left:'2rem'}}></hr>
+                <div style={{ display: 'flex', justifyContent: "space-between", paddingLeft: "30px",position:'relative', bottom:'2rem', }}>
+                  <input style={{ color: "#3b489e" }} id='files' type="file" onChange={this.onFileChange} accept={".csv"} />
+                  {!questionType && <button className="btn btn-sm btn-nxt" style={{position:'relative',right:'2rem'}} disabled={this.state.validUploadButton} onClick={this.onFileUpload}>Upload</button>}
                 </div>
-                {questionType && (
-                  <form onSubmit={this.handleSubmit}>
-                    <div className="form-row" style={{ marginTop: "1rem" }}>
-                      <div className="form-group col-12">
-                        {/* <CKEditor
-                          content={this.state.mailMsg}
-                          events={{
-                            change: (newContent) => {
-                              this.setState({
-                                mailMsg: newContent.editor.getData(),
-                              });
-                            },
-                          }}
-                          config={{
-                            removePlugins: "elementspath",
-                            resize_enabled: false,
-                          }}
-                        /> */}
-                      </div>
-                      <div
-                        className="col-md-11"
-                        style={{ display: "flex", justifyContent: "flex-end" }}
-                      >
-                        <button
-                          disabled={
-                            !this.state.selectedFile &&
-                            this.props.mailModalSection?.exam === null
-                          }
-                          type="button"
-                          onClick={() =>
-                            this.sendExamLink(
-                              this.props.mailModalSection.exam ||
-                                this.state.exam
-                            )
-                          }
-                          className="btn btn-sm btn-nxt"
-                        >
-                          Send Mail
-                        </button>
-                      </div>
+                {questionType && <form onSubmit={this.handleSubmit}>
+                  <div className="form-row" style={{ marginTop: '1rem' }}>
+                    <div className='form-group col-12'>
+                      <CKEditor
+                        content={this.state.mailMsg}
+                        events={{
+                          "change": newContent => { this.setState({ mailMsg: newContent.editor.getData() }) }
+                        }}
+                        config={{
+                          removePlugins: 'elementspath',
+                          resize_enabled: false
+                        }}
+                      />
                     </div>
-                  </form>
-                )}
+                    <div className="col-md-11" style={{ display: "flex",justifyContent: "flex-end" }}>
+                      <button disabled={!this.state.selectedFile && this.props.mailModalSection?.exam===null } type="button" onClick={() => this.sendExamLink(this.props.mailModalSection.exam || this.state.exam)} className="btn btn-sm btn-nxt" >Send Mail</button>
+                    </div>
+                  </div>
+                </form>}
               </div>
             </div>
           </div>

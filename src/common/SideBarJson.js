@@ -171,6 +171,35 @@ const sidebar = {
     name: 'SkillSort User Report',
     icon: 'fa fa-file-text-o'
   }
+  ],
+  "TEST_ADMIN": [{
+    isSubMenu: false,
+    to: "/testadmin/dashboard",
+    name: "Dashboard",
+    icon: 'fa fa-tachometer'
+  }, {
+    isSubMenu: false,
+    name: 'Section',
+    to: '/testadmin/section',
+    icon: 'fa fa-columns'
+  }, {
+    isSubMenu: false,
+    to: '/testadmin/grouptypes',
+    name: 'GroupTypes',
+    icon: 'fa fa-podcast'
+  },{
+    isSubMenu: false,
+    isDefault: true,
+    to: '/testadmin/question',
+    name: 'Questions',
+    pathName: '/testadmin',
+    icon: 'fa fa-question-circle-o'
+  },{
+    isSubMenu: false,
+    to: '/testadmin/setting',
+    name: 'Setting',
+    icon: 'fa fa-cog',
+  }
   ]
 }
 

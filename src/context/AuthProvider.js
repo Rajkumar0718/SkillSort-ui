@@ -1,12 +1,21 @@
-import { createContext, useMemo, useState } from "react";
 import PropTypes from 'prop-types';
+import { createContext, useEffect, useState } from "react";
+import { isRoleValidation } from '../utils/Validation';
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
-  // const contextValue = useMemo(() => ({ auth, setAuth }), [auth, setAuth]);
 
+  useEffect(() => {
+    let token = localStorage.getItem('token') || localStorage.getItem('jwtToken') 
+      if(token) {
+          let user = localStorage.getItem('user') || {}
+          const role = isRoleValidation()
+          setAuth({token,user: JSON.parse(user), role})
+      }
+  },[])
+  console.log(auth)
   return (
     <AuthContext.Provider value={{auth, setAuth}}>
       {children}
