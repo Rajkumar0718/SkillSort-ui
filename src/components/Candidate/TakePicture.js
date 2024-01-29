@@ -2,12 +2,11 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import Webcam from 'react-webcam';
 import { authHeader, errorHandler } from '../../api/Api';
-import { toastMessage } from '../../utils/CommonUtils';
+import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import { url } from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 import InstructionForCamera from './InstructionForCamera';
 import UnplugedModal from './UnplugedModal';
-import withRouter from '../../common/withRouter';
 
 class TakePicture extends Component {
 
@@ -45,7 +44,7 @@ class TakePicture extends Component {
 
   detectWebcam = () => {
     let md = navigator.mediaDevices;
-    if (!md || !md.enumerateDevices) { this.setState({ hasWebcam: false }) }
+    if (!md?.enumerateDevices) { this.setState({ hasWebcam: false }) }
     else {
       md.enumerateDevices().then(devices => {
         this.setState({ hasWebcam: devices.some(device => 'videoinput' === device.kind) });
@@ -75,11 +74,11 @@ class TakePicture extends Component {
           if (res.data.response) {
             this.setState({ btnDisable: true, isLoading: false })
             if (localStorage.getItem('havingSql') === 'true') {
-              isRoleValidation() === 'COLLEGE_STUDENT' ? this.props.history.push('/student/test/selectTech') : this.props.history.push('/competitor/test/selectTech')
+              isRoleValidation() === 'COLLEGE_STUDENT' ? this.props.navigate('/student/test/selectTech') : this.props.navigate('/competitor/test/selectTech')
               return
             }
             window.open(`${url.UI_URL}/candidateinstruction`, "", "width=1450px,height=900px")
-            this.props.history.push(isRoleValidation() === 'COLLEGE_STUDENT' ? '/student/student-test' : isRoleValidation() === 'COMPETITOR' || isRoleValidation() === 'DEMO_ROLE' ? '/competitor/testList' : this.props.onCloseModal());
+            this.props.navigate(isRoleValidation() === 'COLLEGE_STUDENT' ? '/student/student-test' : isRoleValidation() === 'COMPETITOR' || isRoleValidation() === 'DEMO_ROLE' ? '/competitor/testList' : this.props.onCloseModal());
           } else {
             toastMessage('error', 'Face does not recognize')
             this.setState({ isLoading: false })
@@ -95,10 +94,11 @@ class TakePicture extends Component {
   }
 
   render() {
+    const rolesAllowed = ['COLLEGE_STUDENT', 'COMPETITOR', 'DEMO_ROLE']
     return (
       <>
         {
-          isRoleValidation() === 'COLLEGE_STUDENT' || isRoleValidation() === 'COMPETITOR' || isRoleValidation() === 'DEMO_ROLE' ?
+          rolesAllowed.includes(isRoleValidation()) ?
             this.state.stateOfCamera === 'prompt' ?
               <div className='container' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
                 {<span className='dash-text'>Waiting for camera permission</span>}<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
@@ -164,4 +164,4 @@ class TakePicture extends Component {
     )
   }
 }
-export default withRouter(TakePicture)
+export default withLocation(TakePicture)
