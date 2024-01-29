@@ -123,16 +123,16 @@ function App() {
               <Route path="/companyadmin" element={<CompanyList />} />
               <Route path="/home" element={<HomePage />} />
             </Route>
-          <Route element={<RequireAuth allowedRoles={["TEST_ADMIN"]} />}>
-           <Route path="/testadmin/dashboard" element={<Dashboard />} />
-          <Route path="/testadmin/dashboard" element={<Dashboard />} />
-           <Route path='/testadmin/section' element={<SectionList />} />
-           <Route path='/testadmin/question' element={<Question />} />
-           <Route path='/testadmin/question/add' element={<AddQuestion />} />
-           <Route path='/testadmin/question/edit' element={<AddQuestion />} />
-           <Route path='/testadmin/grouptypes' element={<GroupTypesList />} />
-           <Route path='/testadmin/setting' element={<SettingList />} />
-          </Route>
+            <Route element={<RequireAuth allowedRoles={["TEST_ADMIN"]} />}>
+              <Route path="/testadmin/dashboard" element={<Dashboard />} />
+              <Route path="/testadmin/dashboard" element={<Dashboard />} />
+              <Route path='/testadmin/section' element={<SectionList />} />
+              <Route path='/testadmin/question' element={<Question />} />
+              <Route path='/testadmin/question/add' element={<AddQuestion />} />
+              <Route path='/testadmin/question/edit' element={<AddQuestion />} />
+              <Route path='/testadmin/grouptypes' element={<GroupTypesList />} />
+              <Route path='/testadmin/setting' element={<SettingList />} />
+            </Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
