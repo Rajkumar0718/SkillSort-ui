@@ -10,544 +10,440 @@ import MultiSelectDropDown from "../../utils/MultiSelectDropDown";
 import { isRoleValidation } from "../../utils/Validation";
 import { fallBackLoader } from "../../utils/CommonUtils";
 import Pagination from "../../utils/Pagination";
-
-
-const StudentReportModal = (props) => {
-  const [student, setStudent] = useState([]);
-  const [studentXlsx, setStudentXlsx] = useState([]);
-  const [colleges, setColleges] = useState([]);
-  const [department, setDepartment] = useState([]);
-  const [toggleClick, setToggleClick] = useState(false);
-  const [loader, setLoader] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [totalPages, setTotalPages] = useState(0);
-  const [totalElements, setTotalElements] = useState(0);
-  const [numberOfElements, setNumberOfElements] = useState(0);
-  const [countError, setCountError] = useState(false);
-  const [startPage, setStartPage] = useState(1);
-  const [endPage, setEndPage] = useState(5);
-  const [totalStudents, setTotalStudents] = useState(0);
-  const [selectedYop, setSelectedYop] = useState([]);
-  const [yops, setYops] = useState([]);
-  const [disabled, setDisabled] = useState(false);
-  const [collegeName, setCollegeName] = useState();
-  const [report, setReport] = useState({
-    fromDate: "",
-    toDate: "",
-    email: "",
-    collegeId: "",
-    department: "",
-    yop: [],
-    skillsortScore: 0,
-    role: "STUDENT",
-  });
-
-  // useEffect(() => {
-  //     getCollege()
-  //     if (isRoleValidation() === 'SUPER_ADMIN') this.getReport()
-  //     getDepartment()
-  //     setYearRange()
-  // }, [])
-
-  const setYearRange = () => {
-    let startDay = moment().subtract(5, 'years');
-    let endDate = moment().add(2, 'years');
-    setYops(_.range(startDay.year(), endDate.year()))
+import moment from "moment/moment";
+import axios from "axios";
+import { authHeader, errorHandler } from "../../api/Api";
+import ExportXlsx from "../../utils/ExportXlsx";
+import { CustomTable } from "../../utils/CustomTable";
+import { url } from "../../utils/UrlConstant";
+import RenderModalBody from "../../common/RenderModalBody";
+const columns = [
+  { header: "Name", key: "firstName" },
+  { header: "Email", key: "email" },
+  { header: "Department", key: "department" },
+  { header: "Offered Companies", key: "offerCompany" },
+  { header: "Offer Status", key: "userStatus" },
+];
+export default class StudentreportModal extends Component {
+  constructor() {
+    super();
+    this.state = {
+      student: [],
+      studentXlsx: [],
+      colleges: [],
+      department: [],
+      toggleClick: false,
+      loader: true,
+      currentPage: 1,
+      pageSize: 10,
+      totalPages: 0,
+      totalElements: 0,
+      numberOfElements: 0,
+      countError: false,
+      startPage: 1,
+      endPage: 5,
+      totalStudents: 0,
+      selectedYop: [],
+      yops: [],
+      disabled: false,
+      report: {
+        fromDate: "",
+        toDate: "",
+        email: "",
+        collegeId: "",
+        department: "",
+        yop: [],
+        skillsortScore: 0,
+        role: "STUDENT",
+      },
+    };
   }
-
-  const getReportXlsx = () => {
-    setDisabled(true);
-    const updatedReport = _.cloneDeep(report);
-    if (
-      moment(updatedReport.fromDate).isValid() &&
-      moment(updatedReport.toDate).isValid()
-    ) {
-      updatedReport.fromDate = moment(updatedReport.fromDate).format(
-        "DD/MM/YYYY"
-      );
-      updatedReport.toDate = moment(updatedReport.toDate).format("DD/MM/YYYY");
+  onChange = (value, key) => {
+    const { report } = this.state;
+    if (key === "collegeId") {
+      report[key] = this.state.colleges[value.target.value]?.id;
+    } else if (key === "department") {
+      report[key] = this.state.department[value.target.value]?.departmentName;
+    } else {
+      report[key] = value;
     }
-    if (_.isEmpty(updatedReport.toDate) && updatedReport.fromDate) {
-      const toDate = new Date();
-      updatedReport.fromDate = moment(updatedReport.fromDate).format(
-        "DD/MM/YYYY"
-      );
-      updatedReport.toDate = moment(toDate).format("DD/MM/YYYY");
-    }
-
-    axios
-      .post(
-        `${
-          url.ADMIN_API
-        }/adv-search/company-offers?page=${1}&size=${totalElements}`,
-        updatedReport,
-        { headers: authHeader() }
-      )
-      .then((res) => {
-        setStudentXlsx(res.data.response.content);
-        downloadCsv();
-      })
-      .catch((error) => {
-        setLoader(false);
-        errorHandler(error);
-      });
+    this.setState({ report: report });
   };
 
-  const pageChange = () => {
-    setCurrentPage(1);
-    setPageSize(10);
-    setTotalPages(0);
-    setTotalElements(0);
-    setNumberOfElements(0);
-    setStartPage(1);
-    setEndPage(5);
-    getReport();
-  };
-
-  const fillterButton = [
-    {
-      className: "btn btn-sm btn-prev",
-      style: { minWidth: "5rem" },
-      onClick: { pageChange },
-      title: "Filter",
-    },
-  ];
-
-  const toggleHandle = () => setToggleClick(!toggleClick);
-
-  const downloadButton = [
-    {
-      disabled: disabled,
-      style: { marginRight: "1rem" },
-      onClick: { getReportXlsx },
-      className: "btn-sm btn btn-nxt",
-      title: "Download",
-    },
-  ];
-
-  const XButton = [
-    {
-      type: "button",
-      type: "button",
-      onClick: props.onCloseModal,
-      className: "close",
-      "aria-label": "Close",
-      style: { background: "none", border: "none" },
-    },
-  ];
-
-  const handleYopChange = (event, isClearAll) => {
-    if (isClearAll) {
-      setSelectedYop([]);
-      setReport({ ...report, yop: [] });
-      return;
+  getReport = () => {
+    console.log("here");
+    const report = _.cloneDeep(this.state.report);
+    if (moment(report.fromDate).isValid() && moment(report.toDate).isValid()) {
+      report.fromDate = moment(report.fromDate).format("DD/MM/YYYY");
+      report.toDate = moment(report.toDate).format("DD/MM/YYYY");
     }
-    const value = event.target.value;
-    setSelectedYop(value);
-    setReport({ ...report, yop: value });
-  };
-  const getReport = () => {
-    const updatedReport = _.cloneDeep(report);
-    if (
-      moment(updatedReport.fromDate).isValid() &&
-      moment(updatedReport.toDate).isValid()
-    ) {
-      updatedReport.fromDate = moment(updatedReport.fromDate).format(
-        "DD/MM/YYYY"
-      );
-      updatedReport.toDate = moment(updatedReport.toDate).format("DD/MM/YYYY");
-    }
-    if (_.isEmpty(updatedReport.toDate) && updatedReport.fromDate) {
-      const toDate = new Date();
-      updatedReport.fromDate = moment(updatedReport.fromDate).format(
-        "DD/MM/YYYY"
-      );
-      updatedReport.toDate = moment(toDate).format("DD/MM/YYYY");
+    if (_.isEmpty(report.toDate) && report.fromDate) {
+      let toDate = new Date();
+      report.fromDate = moment(report.fromDate).format("DD/MM/YYYY");
+      report.toDate = moment(toDate).format("DD/MM/YYYY");
     }
     axios
       .post(
-        `${url.ADMIN_API}/adv-search/company-offers?page=${currentPage}&size=${pageSize}`,
-        updatedReport,
+        ` ${url.ADMIN_API}/adv-search/company-offers?page=${this.state.currentPage}&size=${this.state.pageSize}`,
+        report,
         { headers: authHeader() }
       )
       .then((res) => {
-        setStudent(res.data.response.content);
-        setTotalPages(res.data.response.totalPages);
-        setTotalElements(res.data.response.totalElements);
-        setNumberOfElements(res.data.response.numberOfElements);
-        setLoader(false);
+        // let filteredStudent = _.filter(res.data.response.student.content,st=>res.data.response.score[st.email])
+        this.setState({
+          student: res.data.response.content,
+          totalPages: res.data.response.totalPages,
+          totalElements: res.data.response.totalElements,
+          numberOfElements: res.data.response.numberOfElements,
+          loader: false,
+        });
       })
       .catch((error) => {
-        setLoader(false);
+        this.setState({ loader: false });
         errorHandler(error);
       });
   };
-  const getDepartment = () => {
+  onNextPage = () => {
+    this.getReport();
+  };
+  onPagination = (pageSize, currentPage) => {
+    this.setState({ pageSize: pageSize, currentPage: currentPage }, () => {
+      this.onNextPage();
+    });
+  };
+  increment = () => {
+    this.setState({
+      startPage: this.state.startPage + 5,
+      endPage: this.state.endPage + 5,
+    });
+  };
+  decrement = () => {
+    this.setState({
+      startPage: this.state.startPage - 5,
+      endPage: this.state.endPage - 5,
+    });
+  };
+
+  handleReset = () => {
+    this.setState(
+      {
+        student: [],
+        colleges: [],
+        department: [],
+        report: {
+          ...this.state.report,
+          fromDate: "",
+          toDate: "",
+          email: "",
+          collegeId: "",
+          department: "",
+          skillsortScore: "",
+          yop: [],
+        },
+        currentPage: 1,
+        pageSize: 10,
+        totalPages: 0,
+        totalElements: 0,
+        numberOfElements: 0,
+        countError: false,
+        startPage: 1,
+        endPage: 5,
+        selectedYop: [],
+      },
+      () => this.getReport(),
+      this.getCollege(),
+      this.getDepartment()
+    );
+  };
+
+  componentDidMount() {
+    this.getCollege();
+    this.setHeader();
+    if (isRoleValidation() === "SUPER_ADMIN") this.getReport();
+    this.getDepartment();
+    this.setYearRange();
+  }
+  setYearRange = () => {
+    let startDay = moment().subtract(5, "years");
+    let endDate = moment().add(3, "years");
+    this.setState({ yops: _.range(startDay.year(), endDate.year()) });
+  };
+
+  getDepartment = () => {
     axios
-      .get(`${url.ADMIN_API}/department?status=ACTIVE`, {
+      .get(` ${url.ADMIN_API}/department?status=ACTIVE`, {
         headers: authHeader(),
       })
       .then((res) => {
-        setDepartment(res.data.response);
+        this.setState({ department: res.data.response });
       })
       .catch((error) => {
         errorHandler(error);
       });
   };
-  const getCollege = () => {
+  pageChange = () => {
+    this.setState(
+      {
+        currentPage: 1,
+        pageSize: 10,
+        totalPages: 0,
+        totalElements: 0,
+        numberOfElements: 0,
+        startPage: 1,
+        endPage: 5,
+      },
+      () => this.getReport()
+    );
+  };
+
+  handleYopChange = (event, isClearAll) => {
+    if (isClearAll) {
+      this.setState({
+        selectedYop: [],
+        report: { ...this.state.report, yop: [] },
+      });
+      return;
+    }
+    const value = event.target.value;
+    this.setState({
+      selectedYop: value,
+      report: { ...this.state.report, yop: value },
+    });
+  };
+
+  getCollege = () => {
     axios
       .get(`${url.COLLEGE_API}/college/list?status=${"ACTIVE"}`, {
         headers: authHeader(),
       })
       .then((res) => {
-        setColleges(res.data.response);
-        if (isRoleValidation() !== "SUPER_ADMIN") {
-          const data = _.filter(
-            res.data.response,
-            (r) => r.id === props.collegeId
-          );
-          _.map(data, (c) => {
-            setCollegeName(c.collegeName);
-            setReport({ ...report, collegeId: c.id });
-            getReport();
-          });
-        }
+        console.log("College data:", res.data.response);
+        this.setState({ colleges: res.data.response }, () => {
+          if (isRoleValidation() !== "SUPER_ADMIN") {
+            let data = _.filter(
+              res.data.response,
+              (r) => r.id === this.props.collegeId
+            );
+            console.log("Filtered data:", data);
+            _.map(data, (c) => {
+              this.setState(
+                {
+                  collegeName: c.collegeName,
+                  report: { ...this.state.report, collegeId: c.id },
+                },
+                () => {
+                  console.log("State updated:", this.state);
+                  this.getReport();
+                }
+              );
+            });
+          }
+        });
       })
       .catch((error) => {
         errorHandler(error);
       });
   };
-  const handleReset = () => {
-    setStudent([]);
-    setColleges([]);
-    setDepartment([]);
-    setReport({
-      ...report,
-      fromDate: "",
-      toDate: "",
-      email: "",
-      collegeId: "",
-      department: "",
-      skillsortScore: "",
-      yop: [],
-    });
-    setCurrentPage(1);
-    setPageSize(10);
-    setTotalPages(0);
-    setTotalElements(0);
-    setNumberOfElements(0);
-    setCountError(false);
-    setStartPage(1);
-    setEndPage(5);
-    setSelectedYop([]);
-    getReport();
-    getCollege();
-    getDepartment();
-  };
-  const resetButton = [
-    {
-      disabled:
-        !report.fromDate &&
-        !report.toDate &&
-        !report.email &&
-        !report.collegeId &&
-        !report.department &&
-        !report.skillsortScore &&
-        _.size(report.yop) === 0,
-      style: { minWidth: "5rem" },
-      onClick: { handleReset },
-      className: "btn btn-sm btn-nxt",
-      title: "Reset",
-    },
-  ];
-  const downloadCsv = async () => {};
-  const renderTable = () => {
-    let i = pageSize - 1;
-    return student.length > 0 ? (
-      _.map(student || [], (student, index) => {
-        return (
-          <>
-            <tr key={index}>
-              <td
-                style={{
-                  textAlign: "center",
-                  fontSize: toggleClick ? null : "11px",
-                }}
-              >
-                {pageSize * currentPage - i--}
-              </td>
-              <td
-                style={{
-                  textAlign: "left",
-                  textTransform: "capitalize",
-                  fontSize: toggleClick ? null : "11px",
-                }}
-              >{`${student.firstName} ${student.lastName}`}</td>
-              <td
-                style={{
-                  textAlign: "left",
-                  textTransform: "captilize",
-                  fontSize: toggleClick ? null : "11px",
-                }}
-              >
-                {student.email}
-              </td>
-              <td
-                style={{
-                  textAlign: "left",
-                  fontSize: toggleClick ? null : "11px",
-                }}
-              >
-                {student.department !== "" && student.department !== null
-                  ? student.department
-                  : "-"}
-              </td>
-              <td
-                style={{
-                  textAlign: "left",
-                  fontSize: toggleClick ? null : "11px",
-                }}
-              >
-                {_.map(student?.companyStatus, (st) => st.companyName).join(
-                  ","
-                )}
-              </td>
-              <td
-                style={{
-                  textAlign: "left",
-                  fontSize: toggleClick ? null : "11px",
-                }}
-              >
-                {_.map(student?.companyStatus, (st) =>
-                  st.userResponseStatus ? st.userResponseStatus : "PENDING"
-                ).join(",")}
-              </td>
-            </tr>
-          </>
+
+  toggleHandle = () => this.setState({ toggleClick: !this.state.toggleClick });
+
+  getReportXlsx = () => {
+    this.setState({ disabled: true });
+    const report = _.cloneDeep(this.state.report);
+    if (moment(report.fromDate).isValid() && moment(report.toDate).isValid()) {
+      report.fromDate = moment(report.fromDate).format("DD/MM/YYYY");
+      report.toDate = moment(report.toDate).format("DD/MM/YYYY");
+    }
+    if (_.isEmpty(report.toDate) && report.fromDate) {
+      let toDate = new Date();
+      report.fromDate = moment(report.fromDate).format("DD/MM/YYYY");
+      report.toDate = moment(toDate).format("DD/MM/YYYY");
+    }
+    axios
+      .post(
+        ` ${url.ADMIN_API}/adv-search/company-offers?page=${1}&size=${
+          this.state.totalElements
+        }`,
+        report,
+        { headers: authHeader() }
+      )
+      .then((res) => {
+        // let filteredStudent = _.filter(res.data.response.student.content,st=>res.data.response.score[st.email])
+        this.setState(
+          {
+            studentXlsx: res.data.response.content,
+          },
+          () => this.downloadCsv()
         );
       })
-    ) : (
-      <tr className="text-center">
-        <td colspan="8">No data available in table</td>
-      </tr>
-    );
+      .catch((error) => {
+        this.setState({ loader: false });
+        errorHandler(error);
+      });
   };
-  return (
-    <div
-      className="modal fade show"
-      id="myModal"
-      role="dialog"
-      style={{ display: "block", backgroundColor: "rgba(0,0,0,0.90)" }}
-      aria-hidden="true"
-    >
-      <div className="modal-dialog-full-width" style={{ margin: "1rem" }}>
-        <div
-          className="modal-content"
-          style={{
-            borderStyle: "solid",
-            borderColor: "#af80ecd1",
-            borderRadius: "15px",
-            height: "95vh",
-            verticalAlign: "center",
-          }}
-        >
-          <div
-            className="modal-header"
-            style={{ border: "none", height: "3rem" }}
-          >
-            {toggleClick ? "" : <span>options </span>}
-            <i
-              onClick={toggleHandle}
-              className="fa fa-filter"
-              aria-hidden="true"
-              style={{
-                fontSize: "1.5rem",
-                marginRight: toggleClick
-                  ? ""
-                  : _.size(student) > 0
-                  ? "46rem"
-                  : "56.5rem",
-              }}
-            />
-            {_.size(student) > 0 ? (
-              <Button buttonConfig={downloadButton[0]}></Button>
-            ) : null}
-            <Button buttonConfig={XButton[0]}>
-              <span aria-hidden="true">&times;</span>
-            </Button>
-          </div>
-          <div className="modal-body">
-            <div className="row">
-              {toggleClick ? (
-                ""
-              ) : (
-                <div className="col-md-2">
-                  <div
-                    className="row"
-                    style={{
-                      flexDirection: "column",
-                      display: "flex",
-                      padding: "0.7rem",
-                      justifyContent: "space-between",
-                      height: "100%",
-                    }}
-                  >
-                    {/* <div>
-                      <label>From Date</label>
-                      <div>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                          <KeyboardDatePicker
-                            placeholder="DD/MM/YYYY"
-                            onChange={(date) => this.onChange(date, "fromDate")}
-                            value={report.fromDate || null}
-                            format="dd/MM/yyyy"
-                          ></KeyboardDatePicker>
-                        </MuiPickersUtilsProvider>
-                      </div>
-                    </div>
-                    <div>
-                      <label>To Date</label>
-                      <div>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                          <KeyboardDatePicker
-                            placeholder="DD/MM/YYYY"
-                            onChange={(date) => this.onChange(date, "toDate")}
-                            value={report.toDate || null}
-                            format="dd/MM/yyyy"
-                          ></KeyboardDatePicker>
-                        </MuiPickersUtilsProvider>
-                      </div>
-                    </div> */}
-                    <div>
-                      <label>Year of passing</label>
-                      <div style={{ width: "12.5rem !important" }}>
-                        <MultiSelectDropDown
-                          value={selectedYop}
-                          list={yops}
-                          handleChange={(e, isClearAll) =>
-                            handleYopChange(e, isClearAll)
-                          }
-                          placeholder={"Select YOP"}
-                          width={100}
-                        />
-                      </div>
-                    </div>
 
-                    <div>
-                      <label>Department</label>
-                      <div>
-                        <select
-                          className="profile-page"
-                          style={{ width: "10.5rem" }}
-                          required="true"
-                          onChange={(e) => this.onChange(e, "department")}
-                        >
-                          <option hidden selected value="">
-                            Select Department
-                          </option>
-                          {_.map(department, (department, index) => {
-                            return (
-                              <option value={index}>
-                                {department.departmentName}{" "}
-                              </option>
-                            );
-                          })}
-                        </select>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <Button buttonConfig={fillterButton[0]} />
-                      <Button buttonConfig={resetButton[0]} />
-                    </div>
-                  </div>
-                </div>
-              )}
-              <div
-                className={toggleClick ? "col-sm-12" : "col-sm-10"}
+  downloadCsv = async () => {
+    const keys = [
+      "firstName",
+      "email",
+      "department",
+      "offerCompany",
+      "userStatus",
+    ];
+    const data = _.map(this.state.studentXlsx, (stu) =>
+      _.pick(
+        {
+          ...stu,
+          offerCompany: _.map(stu?.companyStatus, (st) => st.companyName).join(
+            ","
+          ),
+          offerstatus: _.map(stu.companyStatus, (st) => st.hiringStatus),
+          userStatus: stu?.companyStatus[0]?.userResponseStatus
+            ? stu.companyStatus[0].userResponseStatus
+            : "PENDING",
+        },
+        keys
+      )
+    );
+    ExportXlsx(data, "StudentReport", columns);
+    this.setState({ disabled: false });
+  };
+
+  setHeader = () => {
+    const headers = [
+      {
+        name: "S.NO",
+        align: "center",
+        key: "S.NO",
+      },
+      {
+        name: "NAME",
+        align: "left",
+        key: "firstName",
+      },
+      {
+        name: "EMAIL",
+        align: "left",
+        key: "email",
+      },
+      {
+        name: "DEPARTMENT",
+        align: "left",
+        key: "department",
+      },
+      {
+        name: "COMPANY",
+        align: "left",
+        renderCell: (params) => {
+          return params.companyStatus[0].companyName;
+        },
+      },
+      {
+        name: "OFFER STATUS",
+        align: "left",
+        renderCell: (params) => {
+          return params.companyStatus[0].userResponseStatus
+            ? params.companyStatus[0].userResponseStatus
+            : "PENDING";
+        },
+      },
+    ];
+    this.setState({ headers });
+  };
+  render() {
+    return (
+      <div
+        className="modal fade show"
+        id="myModal"
+        role="dialog"
+        style={{ display: "block", backgroundColor: "rgba(0,0,0,0.90)" }}
+        aria-hidden="true"
+      >
+        <div className="modal-dialog-full-width" style={{ margin: "1rem" }}>
+          <div
+            className="modal-content"
+            style={{
+              borderStyle: "solid",
+              borderColor: "#af80ecd1",
+              borderRadius: "15px",
+              height: "94vh",
+              verticalAlign: "center",
+            }}
+          >
+            <div
+              className="modal-header"
+              style={{ border: "none", height: "4rem" }}
+            >
+              {this.state.toggleClick ? "" : <span>Options</span>}
+              <i
+                onClick={this.toggleHandle}
+                className="fa fa-filter"
+                aria-hidden="true"
+                title={!this.state.toggleClick ? "Hide Menu" : "Show Menu"}
                 style={{
-                  borderTop: "2px solid grey",
-                  borderLeft: toggleClick ? null : "2px solid grey",
-                  height: "82vh",
+                  cursor: 'pointer',
+                  fontSize: "1.5rem",
+                  marginRight: this.state.toggleClick
+                    ? ""
+                    : _.size(this.state.student) > 0
+                    ? "46rem"
+                    : "56.5rem",
                 }}
-              >
-                {fallBackLoader(loader)}
-                <div style={{ marginTop: "1rem" }}>
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
+              />
+              <div style={{display: 'flex', alignItems: 'center'}}>
+                {_.size(this.state.student) > 0 ? (
+                  <button
+                    disabled={this.state.disabled}
+                    style={{ marginRight: "1rem" }}
+                    onClick={this.getReportXlsx}
+                    className="btn-sm btn btn-nxt"
                   >
-                    <span
-                      className="dash-text"
-                      style={{ fontWeight: "400", marginLeft: "1.4rem" }}
-                    >
-                      Student Report
-                    </span>
-                    <span
-                      className="dash-text"
-                      style={{ marginRight: "1.4rem" }}
-                    >
-                      Total Students : {totalElements}
-                    </span>
-                  </div>
-                  <div style={{ marginTop: "1rem" }} className="table-border">
-                    <div>
-                      <div className="table-responsive pagination_table">
-                        <table
-                          className="table table-hover"
-                          id="dataTable"
-                          style={{ textAlign: "center" }}
-                        >
-                          <thead className="table-dark">
-                            <tr>
-                              <th
-                                style={{
-                                  textAlign: "center",
-                                  fontSize: toggleClick ? null : "11px",
-                                }}
-                              >
-                                S.No
-                              </th>
-                              <th style={{ textAlign: "left" }}>NAME</th>
-                              <th style={{ textAlign: "left" }}>Email</th>
-                              <th style={{ textAlign: "left" }}>Department</th>
-                              <th style={{ textAlign: "left" }}>Company</th>
-                              <th style={{ textAlign: "left" }}>
-                                Offer Status
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>{renderTable()}</tbody>
-                        </table>
-                        {numberOfElements ? (
-                          <Pagination
-                            totalPages={totalPages}
-                            currentPage={currentPage}
-                            onPagination={this.onPagination}
-                            increment={this.increment}
-                            decrement={this.decrement}
-                            startPage={startPage}
-                            numberOfElements={numberOfElements}
-                            endPage={endPage}
-                            totalElements={totalElements}
-                            pageSize={pageSize}
-                          />
-                        ) : null}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                    Download
+                  </button>
+                ) : null}
+                <button
+                  type="button"
+                  onClick={this.props.onCloseModal}
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
             </div>
+            <RenderModalBody
+              onChange={this.onChange}
+              report={this.state.report}
+              renderTable={this.renderTable}
+              numberOfElements={this.state.numberOfElements}
+              totalPages={this.state.totalPages}
+              startPage={this.state.startPage}
+              endPage={this.state.endPage}
+              pageSize={this.state.pageSize}
+              loader={this.state.loader}
+              currentPage={this.state.currentPage}
+              onPagination={this.onPagination}
+              onNextPage={this.onNextPage}
+              decrement={this.decrement}
+              increment={this.increment}
+              totalElements={this.state.totalElements}
+              renderTableForCollege={this.renderTableForCollege}
+              headers={this.state.headers}
+              data={this.state.student}
+              selectedYop={this.state.selectedYop}
+              yops={this.state.yops}
+              handleYopChange={this.handleYopChange}
+              pageChange={this.pageChange}
+              handleReset={this.handleReset}
+              department={this.state.department}
+              type ='PLACEMENT'
+              toggleClick={this.state.toggleClick}
+            />
+
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-export default StudentReportModal;
+    );
+  }
+}

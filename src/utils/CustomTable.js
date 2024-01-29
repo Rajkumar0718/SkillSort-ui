@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import _ from 'lodash';
 import BasicMenu from './Menu/BasicMenu';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { styled } from '@mui/system';
+import { lineHeight, padding, styled } from '@mui/system';
 
 const theme = createTheme({});
 
@@ -128,3 +128,4 @@ export const CustomTable = (props) => {
     </ThemeProvider >
   )
 }
+
