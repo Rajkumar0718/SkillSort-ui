@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 
 function Search(props) {
   const title = props.title;
+  console.log(props, "props");
   const [search, setSearch] = useState('');
 
   const onSearch = () => {
