@@ -1,14 +1,16 @@
-import { LocalizationProvider, DatePicker as MuiDatePicker } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { DatePicker as MuiDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { de, enGB, zhCN } from 'date-fns/locale';
 
 
-export default function DatePick ({className, style, views, minDate, maxDate, value, inputProps, onChange, format,disabled, onError})  {
+export default function DatePick ({className, style, views, minDate, maxDate, value, inputProps, onChange})  {
+
     return (
-      <LocalizationProvider dateAdapter={AdapterDayjs} >
-      <DemoContainer components={['DatePicker']}>
+      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGB}>
         <MuiDatePicker
+          className={className}
           views={views}
+          slotProps={{ textField: { variant: 'filled' } }}
           minDate={minDate}
           maxDate={maxDate}
           value={value}

@@ -12,6 +12,15 @@ import RenderModalBody from "../../common/RenderModalBody";
 import ExportXlsx from "../../utils/ExportXlsx";
 
 import { isRoleValidation } from "../../utils/Validation";
+import { fallBackLoader } from "../../utils/CommonUtils";
+import Pagination from "../../utils/Pagination";
+import moment from "moment/moment";
+import axios from "axios";
+import { authHeader, errorHandler } from "../../api/Api";
+import ExportXlsx from "../../utils/ExportXlsx";
+import { CustomTable } from "../../utils/CustomTable";
+import { url } from "../../utils/UrlConstant";
+import RenderModalBody from "../../common/RenderModalBody";
 const columns = [
   { header: "Name", key: "firstName" },
   { header: "Email", key: "email" },
@@ -407,11 +416,38 @@ export default class StudentreportModal extends Component {
                 </button>
               </div>
             </div>
+            <RenderModalBody
+              onChange={this.onChange}
+              report={this.state.report}
+              renderTable={this.renderTable}
+              numberOfElements={this.state.numberOfElements}
+              totalPages={this.state.totalPages}
+              startPage={this.state.startPage}
+              endPage={this.state.endPage}
+              pageSize={this.state.pageSize}
+              loader={this.state.loader}
+              currentPage={this.state.currentPage}
+              onPagination={this.onPagination}
+              onNextPage={this.onNextPage}
+              decrement={this.decrement}
+              increment={this.increment}
+              totalElements={this.state.totalElements}
+              renderTableForCollege={this.renderTableForCollege}
+              headers={this.state.headers}
+              data={this.state.student}
+              selectedYop={this.state.selectedYop}
+              yops={this.state.yops}
+              handleYopChange={this.handleYopChange}
+              pageChange={this.pageChange}
+              handleReset={this.handleReset}
+              department={this.state.department}
+              type ='PLACEMENT'
+              toggleClick={this.state.toggleClick}
+            />
+
           </div>
         </div>
       </div>
-
-  );
-};
-
+    );
+  }
 }

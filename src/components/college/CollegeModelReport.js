@@ -1,17 +1,16 @@
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import _ from "lodash";
 import React from "react";
-import { isRoleValidation } from "../utils/Validation";
-import { fallBackLoader } from "../utils/CommonUtils";
-import Pagination from "../utils/Pagination";
-import {
-  DatePicker as MuiDatePicker,
-  LocalizationProvider,
-} from "@mui/x-date-pickers";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { CustomTable } from "../utils/CustomTable";
-import MultiSelectDropDown from "../utils/MultiSelectDropDown";
+import { fallBackLoader } from "../../utils/CommonUtils";
+import MultiSelectDropDown from "../../utils/MultiselectDropDown";
+import Pagination from "../../utils/Pagination";
+import { isRoleValidation } from "../../utils/Validation";
 
-export const RenderModalBody = (props) => {
+export const CollegeModelReport = (props) => {
   return (
     <div className="modal-body">
       <div className="row">
@@ -20,125 +19,71 @@ export const RenderModalBody = (props) => {
         ) : (
           <div
             className="col-md-2 col-lg-2 col-xl-2"
-            style={{
-              height: "calc(100vh - 8rem)",
-              overflowY: "auto",
-              display: "flex",
-              overflowX: "hidden",
-              paddingBottom: "1rem",
-              paddingRight: "0rem",
-            }}
+            style={{ height: "calc(100vh - 7rem)", overflowY: "auto" }}
           >
             <div
               className="row"
               style={{
                 flexDirection: "column",
                 display: "flex",
+                padding: "0.7rem",
                 justifyContent: "space-between",
               }}
             >
               <div className="mb-05">
                 <label>From Date</label>
                 <div>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <MuiDatePicker
-                      value={props.report.fromDate || null}
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                      placeholder="DD/MM/YYYY"
                       onChange={(date) => props.onChange(date, "fromDate")}
+                      value={props.report.fromDate || null}
                       format="dd/MM/yyyy"
-                      slotProps={{
-                        textField: {
-                          variant: "filled",
-                          size: "small",
-                          sx: {
-                            "& .MuiInputBase-input": {
-                              backgroundColor: "white",
-                              paddingTop: "0px !important",
-                            },
-                            "& .MuiSvgIcon-root": {
-                              color: "#3b489e", // Change the ornament color to white
-                            },
-                            "& .MuiInputBase-root": {
-                              width: "12rem",
-                              background: "none",
-                            },
-                          },
-                          className: "profile-page",
-                          placeholder: "dd/mm/yyyy",
-                        },
-                      }}
-                    />
-                  </LocalizationProvider>
+                    ></KeyboardDatePicker>
+                  </MuiPickersUtilsProvider>
                 </div>
               </div>
               <div className="mb-05">
                 <label>To Date</label>
                 <div>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <MuiDatePicker
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                      placeholder="DD/MM/YYYY"
                       onChange={(date) => props.onChange(date, "toDate")}
                       value={props.report.toDate || null}
                       format="dd/MM/yyyy"
-                      minDate={props.report.fromDate || null}
-                      slotProps={{
-                        textField: {
-                          variant: "filled",
-                          size: "small",
-
-                          sx: {
-                            "& .MuiInputBase-input": {
-                              backgroundColor: "white",
-                              paddingTop: "0px !important",
-                            },
-                            "& .MuiSvgIcon-root": {
-                              color: "#3b489e", // Change the ornament color to white
-                            },
-                            "& .MuiInputBase-root": {
-                              width: "12rem",
-                              background: "none",
-                            },
-                          },
-                          className: "profile-page",
-                          placeholder: "dd/mm/yyyy",
-                        },
-                      }}
-                    />
-                  </LocalizationProvider>
+                    ></KeyboardDatePicker>
+                  </MuiPickersUtilsProvider>
                 </div>
               </div>
-              {props.type !== "PLACEMENT" ? (
-                <>
-                  <div className="mb-05">
-                    <label>Email</label>
-                    <div>
-                      <input
-                        className="profile-page"
-                        style={{ width: "12rem" }}
-                        type="text"
-                        placeholder="Enter email"
-                        value={props.report.email}
-                        onChange={(e) =>
-                          props.onChange(e.target.value, "email")
-                        }
-                      ></input>
-                    </div>
-                  </div>
-                  <div className="mb-05">
-                    <label>SkillSort Score</label>
-                    <div>
-                      <input
-                        className="profile-page"
-                        style={{ width: "12rem" }}
-                        type="text"
-                        placeholder="Enter SkillSort Score"
-                        value={props.report.skillsortScore}
-                        onChange={(e) =>
-                          props.onChange(e.target.value, "skillsortScore")
-                        }
-                      ></input>
-                    </div>
-                  </div>
-                </>
-              ) : null}
+              <div className="mb-05">
+                <label>Email</label>
+                <div>
+                  <input
+                    className="profile-page"
+                    style={{ width: "12.5rem" }}
+                    type="text"
+                    placeholder="Enter email"
+                    value={props.report.email}
+                    onChange={(e) => props.onChange(e.target.value, "email")}
+                  ></input>
+                </div>
+              </div>
+              <div className="mb-05">
+                <label>SkillSort Score</label>
+                <div>
+                  <input
+                    className="profile-page"
+                    style={{ width: "12.5rem" }}
+                    type="text"
+                    placeholder="Enter SkillSort Score"
+                    value={props.report.skillsortScore}
+                    onChange={(e) =>
+                      props.onChange(e.target.value, "skillsortScore")
+                    }
+                  ></input>
+                </div>
+              </div>
               <div className="mb-05">
                 <label>Year of passing</label>
                 <div style={{ width: "12.5rem" }}>
@@ -178,11 +123,11 @@ export const RenderModalBody = (props) => {
               ) : null}
               {props.report.role === "STUDENT" ? (
                 <div className="mb-05">
-                  <label style={{ paddingBottom: "1rem" }}>Department</label>
+                  <label>Department</label>
                   <div>
                     <select
                       className="profile-page"
-                      style={{ width: "12rem" }}
+                      style={{ width: "12.5rem" }}
                       required="true"
                       onChange={(e) => props.onChange(e, "department")}
                     >
@@ -200,7 +145,7 @@ export const RenderModalBody = (props) => {
                   </div>
                 </div>
               ) : null}
-              <div style={{ display: "flex", flexDirection: "row" }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <button
                   className="btn btn-sm btn-prev"
                   style={{ minWidth: "5rem" }}
@@ -219,7 +164,7 @@ export const RenderModalBody = (props) => {
                     _.size(props.report.yop) === 0
                   }
                   className="btn btn-sm btn-nxt"
-                  style={{ minWidth: "5rem", marginLeft: "2rem" }}
+                  style={{ minWidth: "5rem" }}
                   onClick={props.handleReset}
                 >
                   Reset
@@ -234,7 +179,7 @@ export const RenderModalBody = (props) => {
           style={{
             borderTop: "2px solid grey",
             borderLeft: props.toggleClick ? null : "2px solid grey",
-            height: "calc(100vh - 8.25rem)",
+            height: "calc(100vh - 7rem)",
           }}
         >
           {fallBackLoader(props.loader)}
@@ -253,7 +198,7 @@ export const RenderModalBody = (props) => {
             <div
               style={{
                 marginTop: "1rem",
-                height: "calc(100vh - 14rem)",
+                height: "calc(100vh - 12rem)",
                 overflowY: "auto",
               }}
               className="table-border"
@@ -299,12 +244,14 @@ export const RenderModalBody = (props) => {
                             </th>
                           ) : null}
                           {props.report.role === "STUDENT" ? (
-                            <th
-                              className="col-lg-3"
-                              style={{ textAlign: "left" }}
-                            >
-                              Department
-                            </th>
+                            <>
+                              <th
+                                className="col-lg-3"
+                                style={{ textAlign: "left" }}
+                              >
+                                Department
+                              </th>
+                            </>
                           ) : (
                             <>
                               <th
@@ -332,13 +279,68 @@ export const RenderModalBody = (props) => {
                       <tbody>{props.renderTable()}</tbody>
                     </table>
                   ) : (
-                    <CustomTable
-                      headers={props.headers}
-                      loader={props.loader}
-                      pageSize={props.pageSize}
-                      currentPage={props.currentPage}
-                      data={props.data}
-                    />
+                    <table
+                      className="table table-hover"
+                      id="dataTable"
+                      style={{ textAlign: "center" }}
+                    >
+                      <thead className="table-dark">
+                        <tr>
+                          <th
+                            className="col-lg-1"
+                            style={{
+                              textAlign: "center",
+                              fontSize: props.toggleClick ? null : "11px",
+                            }}
+                          >
+                            S.No
+                          </th>
+                          <th
+                            className="col-lg-2"
+                            style={{ textAlign: "left" }}
+                          >
+                            NAME
+                          </th>
+                          <th
+                            className="col-lg-3"
+                            style={{ textAlign: "left" }}
+                          >
+                            Department
+                          </th>
+                          <th
+                            className="col-lg-1"
+                            style={{ textAlign: "left" }}
+                          >
+                            LOGICAL
+                          </th>
+                          <th
+                            className="col-lg-1"
+                            style={{ textAlign: "left" }}
+                          >
+                            VERBAL
+                          </th>
+                          <th
+                            className="col-lg-1"
+                            style={{ textAlign: "left" }}
+                          >
+                            NUMERICAL
+                          </th>
+                          <th
+                            className="col-lg-1"
+                            style={{ textAlign: "left" }}
+                          >
+                            TECHNICAL
+                          </th>
+                          <th
+                            className="col-lg-1"
+                            style={{ textAlign: "left" }}
+                          >
+                            SkillsortScore
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>{props.renderTableForCollege()}</tbody>
+                    </table>
                   )}
                   {props.numberOfElements ? (
                     <Pagination
@@ -363,4 +365,4 @@ export const RenderModalBody = (props) => {
     </div>
   );
 };
-export default RenderModalBody;
+export default CollegeModelReport;
