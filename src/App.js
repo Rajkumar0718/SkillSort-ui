@@ -1,22 +1,10 @@
+import { lazy, Suspense } from 'react';
 import { Route, Routes } from "react-router-dom";
-import './assests/css/AdminDashboard.css';
-import Layout from "./common/Layout";
+import { ToastContainer } from "react-toastify";
 import SuperAdminLayout from "./common/SuperAdminLayout";
-import AdminLogin from "./components/Admin/AdminLogin";
-import PageNotFound from "./components/PageNotFound";
-import RequireAuth from "./components/RequireAuth";
-import CollegeList from "./components/SuperAdmin/CollegeList";
-import CompanyList from "./components/SuperAdmin/CompanyList";
-import CompetitorList from "./components/SuperAdmin/CompetitorList";
-import HomePage from "./components/SuperAdmin/HomePage";
-import ListIndustryAndTechnologies from "./components/SuperAdmin/ListIndustryAndTechnologies";
-import ProcessAdminList from "./components/SuperAdmin/ProcessAdminList";
-import RecruiterList from "./components/SuperAdmin/RecruiterList";
-import AddStaff from "./components/college/AddStaff";
-import AddStudent from "./components/college/AddStudent";
-import CollegeReportList from "./components/college/CollegeReportList";
-import StaffList from "./components/college/StaffList";
-import StudentList from "./components/college/StudentList";
+import './assests/css/AdminDashboard.css';
+import './assests/css/ReactToast.css';
+import Layout from './common/Layout';
 import SuperAdminReportLayout from "./container/SuperAdminReportLayout";
 import AddCollege from "./components/SuperAdmin/AddCollege";
 import CollegeAdminList from "./components/SuperAdmin/CollegeAdminList";
@@ -35,18 +23,38 @@ import AddAdvertisement from "./components/SuperAdmin/AddAdvertisement";
 import AdvertisementHistory from "./components/SuperAdmin/AdvertisementHistory";
 import Payment from "./components/SuperAdmin/Payment";
 import FreeCredits from "./components/SuperAdmin/FreeCredits";
-
+const AdminLogin = lazy(() => import("./components/Admin/AdminLogin"));
+const PageNotFound = lazy(() => import("./components/PageNotFound"));
+const RequireAuth = lazy(() => import("./components/RequireAuth"));
+const AddStaff = lazy(() => import("./components/college/AddStaff"));
+const CollegeReportList = lazy(() => import("./components/college/CollegeReportList"));
+const StaffList = lazy(() => import("./components/college/StaffList"));
+const StudentList = lazy(() => import("./components/college/StudentList"));
+const CompanyList = lazy(() => import("./components/SuperAdmin/CompanyList"));
+const HomePage = lazy(() => import("./components/SuperAdmin/HomePage"));
+const ThankYouPage = lazy(() => import("./components/Candidate/ThankYouPage"));
+const PublicRegister = lazy(() => import("./components/Candidate/PublicRegister"));
+const CandidateReg = lazy(() => import("./components/CandidateReg"));
+const CandidateInstruction = lazy(() => import("./components/Candidate/CandidateInstruction"));
+const ProjectUi = lazy(() => import("./components/project-ui/ProjectUI"));
+const ReExamRequest = lazy(() => import("./components/Candidate/AlreadyWrittenExam"));
 
 function App() {
   return (
-    <>
-      <Routes>
-        {/* Public Routes */}
-        <Route index element={<AdminLogin />}></Route>
-        <Route path="/login" element={<AdminLogin />} />
-
-        {/* Private Routes */}
-        <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN"]} />}>
+    <div>
+      <Suspense fallback="Loading...">
+        <Routes>
+          <Route index element={<AdminLogin />}></Route>
+          <Route path="/login" element={<AdminLogin />} />
+          <Route element={<RequireAuth allowedRoles={["ROLE_CANDIDATE"]} />}>
+            <Route path="/project" element={<ProjectUi />} />
+          </Route>
+          <Route path="/thankYou" element={<ThankYouPage />} />
+          <Route path="/candidateinstruction" element={<CandidateInstruction />} />
+          <Route path="/candidate/register/:companyId/:examId" element={<PublicRegister />} />
+          <Route path="/public-candidate/register/:companyId/:examId" element={<CandidateReg />} />
+          <Route path="/candidate/re-exam-request" element={<ReExamRequest />} />
+          <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN"]} />}>
           <Route path="/home" element={<HomePage />} />
         </Route>
         <Route path="/" element={<SuperAdminLayout />} >
@@ -79,46 +87,28 @@ function App() {
             <Route path="/skillsortadmin/add" element={<AddProcessAdmin />} />
           </Route>
         </Route>
-        <Route path="/" element={<Layout />}>
-          <Route element={<RequireAuth allowedRoles={["COLLEGE_ADMIN", "COLLEGE_STAFF"]} />} >
-            <Route path="/college" element={<StudentList />} />
-            <Route
-              path="/college/placement-coordinator"
-              element={<StaffList />}
-            />
-            <Route
-              path="/college/placement-coordinator/add"
-              element={<AddStaff />}
-            />
-            <Route
-              path="/college/collegeReport"
-              element={<CollegeReportList />}
-            />
-            <Route path="/college/add" element={<AddStudent />} />
-          </Route>
-          <Route path="/report" element={<SuperAdminReportLayout />} />
-          <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN"]} />}>
-            {/* <Route path="/report/advance-search" element={<AdvSearchSupAdmin />} />
-          <Route path="/report" element={<CompetitorList />} />
-          <Route path="/individualUser/details" element={<CompetitorDetails />} />
-          <Route path="/individualUser/add/skills" element={<AddSkills />} />
-          <Route path="/individualUser/skills" element={<SkillList />} />
-          <Route path="/individualUser/question/edit" element={<AddQuestion />} />
-          <Route path="/individualUser/question" element={<QuestionList />} />
-          <Route path="/collegeadmin" element={<CollegeList />} />
-          <Route path="/companyadmin" element={<CompanyList />} />
-          <Route path="/panelists" element={<RecruiterList />} />
-          <Route path="/skillsortadmin" element={<ProcessAdminList />} />
-          <Route path="/settings" element={<ListIndustryAndTechnologies />} />
-          <Route path="/report/activity-dashboard" element={<Signupcount />} /> */}
+          {/* Public Routes */}
+          <Route path="/" element={<Layout />}>
+            {/* Protected Routes */}
+            <Route element={<RequireAuth allowedRoles={["COLLEGE_ADMIN", "COLLEGE_STAFF"]} />}>
+              <Route path="/college" element={<StudentList />} />
+              <Route path="/college/student" element={<StudentList />} />
+              <Route path="/college/placement-coordinator" element={<StaffList />} />
+              <Route path="/college/placement-coordinator/add" element={<AddStaff />} />
+              <Route path="/college/collegeReport" element={<CollegeReportList />} />
+            </Route>
+            <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN", "COLLEGE_STAFF"]} />}>
+              <Route path="/companyadmin" element={<CompanyList />} />
+              <Route path="/home" element={<HomePage />} />
+            </Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />
-        </Route>
-      </Routes>
+        </Routes>
+      </Suspense>
       <ToastContainer position="top-right" hideProgressBar={true} newestOnTop={true}
         autoClose={1700} />
-    </>
-  );
+    </div>
+  )
 }
 
 export default App;
