@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
     "@ckeditor/ckeditor5-build-classic": "^40.2.0",
     "@ckeditor/ckeditor5-react": "^6.2.0",
     "@ckeditor/ckeditor5-style": "^40.2.0",
+=======
+>>>>>>> ba69b9d (Project UI (#2))
     "@codemirror/lang-sql": "^6.5.5",
     "@codesandbox/sandpack-react": "^2.11.3",
     "@codesandbox/sandpack-themes": "^2.0.21",
