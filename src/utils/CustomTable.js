@@ -98,7 +98,8 @@ export const CustomTable = (props) => {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{splitDotsAndJoin(keys.key, row)}</StyledTableCell>
               } else if (keys['isFilter']) {
                 return <StyledTableCell style={{color:row[keys.key]==='ACTIVE'? 'green' : 'red' }} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
-              } else {
+              }
+               else {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
               }
             })}

@@ -7,7 +7,7 @@ import CKEditor from "react-ckeditor-component";
 import { Link } from 'react-router-dom';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage } from '../../utils/CommonUtils';
-import  url  from '../../utils/UrlConstant';
+import { url } from '../../utils/UrlConstant';
 import { isEmpty } from '../../utils/Validation';
 
 const SendMail = () => {

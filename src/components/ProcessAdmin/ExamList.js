@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from '../../api/Api';
 import { fallBackLoader } from '../../utils/CommonUtils';
 import Pagination from "../../utils/Pagination";
-import  url  from '../../utils/UrlConstant';import React from 'react'
+import { url } from '../../utils/UrlConstant';import React from 'react'
 
 const ExamList = () => {
 

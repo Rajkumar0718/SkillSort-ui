@@ -3,7 +3,7 @@ import React, { Component ,useState } from 'react';
 import CKEditor from "react-ckeditor-component";
 import { authHeader } from '../../api/Api';
 import { toastMessage } from '../../utils/CommonUtils';
-import  url  from '../../utils/UrlConstant';
+import { url } from '../../utils/UrlConstant';
 
 const FeedbackModel = () => {
     const [skillSortCandidate, setSkillSortCandidate] = useState(props.modelSection.skillSortCandidate);

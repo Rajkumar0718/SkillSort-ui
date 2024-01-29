@@ -2,9 +2,8 @@ import axios from 'axios';
 import React, { Component , useState  , useEffect} from 'react';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage } from '../../utils/CommonUtils';
-
+import { url } from '../../utils/UrlConstant';
 import "../Admin/AddExam.css";
-import url from '../../utils/UrlConstant';
 
 const AddSectionModal = (props) => {
 const [name,setName] = useState("")
