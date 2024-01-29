@@ -1,6 +1,6 @@
-import { LocalizationProvider, DatePicker as MuiDatePicker } from '@mui/x-date-pickers';
+import { DatePicker as MuiDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { de, enGB, zhCN } from 'date-fns/locale';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { enGB } from 'date-fns/locale';
 
 
 export default function DatePick ({className, style, views, minDate, maxDate, value, inputProps, onChange})  {
