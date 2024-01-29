@@ -102,3 +102,14 @@ function App() {
 
 
 export default App;
+// { path: '/testadmin/dashboard', name: 'Dashboard', component: Dashboard },
+// { path: '/testadmin/section', name: 'Sections', component: SectionList },
+// { path: '/testadmin/question', name: 'Questions', component: QuestionList },
+// { path: '/testadmin/question/add', name: 'Add Question', component: AddQuestion },
+// { path: '/testadmin/question/edit', name: 'Edit Question', component: AddQuestion },
+// { path: '/testadmin', name: "Test List", component: QuestionList },
+// { path: '/testadmin/add', name: 'Add Test', component: AddExam },
+// { path: '/testadmin/edit', name: 'Edit Test', component: AddExam },
+// { path: '/testadmin/setting', name: 'Setting List', component: SettingList },
+// { path: "/testadmin/smtp", name: 'SMTP', component: SMTPConfig },
+// { component: PageNotFound }

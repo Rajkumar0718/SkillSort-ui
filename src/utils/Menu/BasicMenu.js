@@ -57,7 +57,7 @@ export default function BasicMenu(props) {
         }}
         onClick={handleClose}
       >
-        {props.header.renderOptions()}
+        {props?.header?.renderOptions()}
       </Menu>
 
     </div>
