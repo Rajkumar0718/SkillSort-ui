@@ -114,13 +114,15 @@ function App() {
             {/* Protected Routes */}
             <Route element={<RequireAuth allowedRoles={["COLLEGE_ADMIN", "COLLEGE_STAFF"]} />}>
               <Route path="/college" element={<StudentList />} />
-              <Route path="/college/student" element={<StudentList />} />
+              <Route path="/college/edit" element={<AddStudent />} />
+              <Route path="/college/add" element={<AddStudent />} />
               <Route path="/college/placement-coordinator" element={<StaffList />} />
               <Route path="/college/placement-coordinator/add" element={<AddStaff />} />
+              <Route path="/college/placement-coordinator/edit" element={<AddStaff />} />
               <Route path="/college/collegeReport" element={<CollegeReportList />} />
             </Route>
             <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN", "COLLEGE_STAFF"]} />}>
-              <Route path="/companyadmin" element={<CompanyList />} />
+              {/* <Route path="/companyadmin" element={<CompanyList />} /> */}
               <Route path="/home" element={<HomePage />} />
             </Route>
             <Route element={<RequireAuth allowedRoles={["TEST_ADMIN"]} />}>
