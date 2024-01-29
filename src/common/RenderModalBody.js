@@ -8,7 +8,7 @@ import {
   DatePicker as MuiDatePicker,
   LocalizationProvider,
 } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { CustomTable } from "../utils/CustomTable";
 
 export const RenderModalBody = (props) => {

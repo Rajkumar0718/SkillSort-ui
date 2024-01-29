@@ -152,7 +152,7 @@ export default class ExamMailModel extends Component {
               })}
             </select>
           </div>
-          <div style={{ paddingTop: "10px", marginLeft: "8px" }}>
+          <div style={{  marginLeft: "8px" }}>
             <button className='btn btn-sm btn-nxt' disabled={(this.state.csvImportObject?.section !== '' && this.state.csvImportObject?.questionType !== '') ? false : true} onClick={this.importSampleFile} ><i className="fa fa-download" aria-hidden="true"></i> Sample Template</button>
             <strong className='ml-2' style={{ color: '#3b489e', position:'relative', left:'1rem' }}>( *must upload this file format )</strong>
           </div>
