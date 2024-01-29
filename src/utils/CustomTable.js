@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import _ from 'lodash';
 import BasicMenu from './Menu/BasicMenu';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { styled } from '@mui/system';
+import { lineHeight, padding, styled } from '@mui/system';
 
 const theme = createTheme({});
 
@@ -19,12 +19,15 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontWeight: '700',
     fontFamily: 'Montserrat',
     padding: theme.spacing(0.45, 0.45, 0.45, 0.2),
-    fontSize: 13,
+    fontSize: 11,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 13,
     fontFamily: 'Montserrat',
     paddingLeft: '2px !important',
+    lineHeight:'0.7',
+    paddingTop:'7px !important',
+    paddingBttom:'7px !important'
   },
 }));
 
@@ -86,6 +89,11 @@ export const CustomTable = (props) => {
                  return  <StyledTableCell className={row[keys.key] === 'INACTIVE' ? 'text-danger' : 'text-success'} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
               }
               else if (keys.key?.includes(".")) {
+              }
+              else if (keys.key === 'status') {
+                 return  <StyledTableCell className={row[keys.key] === 'INACTIVE' ? 'text-danger' : 'text-success'} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
+              }
+              else if (keys.key?.includes(".")) {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{splitDotsAndJoin(keys.key, row)}</StyledTableCell>
               }
                else {
@@ -125,3 +133,4 @@ export const CustomTable = (props) => {
     </ThemeProvider >
   )
 }
+
