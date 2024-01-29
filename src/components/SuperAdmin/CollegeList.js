@@ -131,57 +131,6 @@ const CollegeList = () => {
                                 <div className="table-responsive pagination_table">
                                     <table className="table table-striped" id="dataTable">
                                         <CollegeTable headers={headers} body={body} pageSize={pageSize} currentPage={currentPage}></CollegeTable>
-                                        {/* <thead className="table-dark">
-                           <tr>
-                             <th className='col-lg-1' style={{ textAlign: 'center' }}>S.NO</th>
-                             <th className='col-lg-4' style={{ textAlign: 'left' }}>COLLEGE NAME</th>
-                             <th className='col-lg-2' style={{ textAlign: 'left' }}>STATE</th>
-                             <th className='col-lg-2' style={{ textAlign: 'left' }}>DISTRICT</th>
-                             <th className='col-lg-2' style={{ textAlign: 'center' }}>
-                               <div className="dropdown" >
-                                 <div
-                                   type="button"
-                                   id="dropdownMenuButton"
-                                   data-toggle="dropdown"
-                                   aria-haspopup="true"
-                                   aria-expanded="false"
-
-                                 ><span>STATUS </span>
-                                   <i className="fa fa-filter" aria-hidden="true"></i>
-                                 </div>
-                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ top: '21px' }} >
-                                   <option className="dropdown-item" onClick={handlerStatusFilter} value="ACTIVE" > Active </option>
-                                   <option className="dropdown-item" onClick={handlerStatusFilter} value="INACTIVE" > InActive </option>
-                                 </div>
-                               </div>
-                             </th>
-                             <th className='col-lg-1' style={{ textAlign: 'center' }}>ACTION</th>
-                           </tr>
-                         </thead> */}
-                                        {/* <tbody style={{ textAlign: 'left', textTransform: 'capitalize' }}>
-                                            {college.length > 0 ? (
-                                                _.map(college || [], (college, index) => {
-                                                    return (
-                                                        <tr>
-                                                            <td style={{ textAlign: 'center' }}>{pageSize * currentPage - (i--)}</td>
-                                                            <td style={{ textAlign: 'left', textTransform: 'capitalize' }}>{college.collegeName}</td>
-                                                            <td style={{ textAlign: 'left' }}>{college.state}</td>
-                                                            <td style={{ textAlign: 'left' }}>{college.district}</td>
-                                                            <td style={{ textAlign: 'center' }}>{college.status}</td>
-                                                            <td style={{ textAlign: 'center' }}>
-                                                                <Link className="collapse-item" to={{ pathname: '/collegeadmin/edit', state: { college: college, action: 'Update' } }}>
-                                                                    <i className="fa fa-pencil" aria-hidden="true" ></i></Link>
-                                                            </td>
-
-                                                        </tr>
-                                                    );
-                                                })
-                                            ) : (
-                                                <tr className="text-center">
-                                                    <td colspan="8">No data available in table</td>
-                                                </tr>
-                                            )}
-                                        </tbody> */}
                                     </table>
                                     {numberOfElements === 0 ? '' :
                                         <Pagination
