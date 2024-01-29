@@ -53,7 +53,7 @@ const AdminLogin = () => {
     COLLEGE_ADMIN: "/college",
     COLLEGE_STAFF: "/college",
     COLLEGE_STUDENT: { route: "/student", action: handleLoginEventForStudent },
-    TEST_ADMIN: "/testadmin",
+    TEST_ADMIN: "/testadmin/question",
     TRIAL_ADMIN: "/admin/vacancy",
     COMPETITOR: {
       route: "/competitor/testList",

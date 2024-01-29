@@ -6,6 +6,7 @@ import './style.css';
 
 function Search(props) {
   const title = props.title;
+  console.log(props, "props");
   const [search, setSearch] = useState('');
 
   const onSearch = () => {
@@ -17,15 +18,7 @@ function Search(props) {
   }
 
   return (
-    <div className="search">
-      <div
-        className="row"
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+      <div className="search" style={props.style}>
         <div
           className="col-md-2 col-lg-2 col-sm-2 col-xl-2 p-0"
           style={{
