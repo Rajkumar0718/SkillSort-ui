@@ -17,6 +17,4 @@ const url = {
   LIST_SECTION: '/api2/section/list',
 };
 
-module.exports = {
-  url
-}
+export default url

@@ -5,7 +5,7 @@ import React from "react";
 import { useLocation } from "react-router";
 import { errorHandler } from "../../api/Api";
 import { toastMessage } from "../../utils/CommonUtils";
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 
 const ReExamRequest = (props) => {
   const location = useLocation()

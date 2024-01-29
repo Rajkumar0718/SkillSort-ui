@@ -49,6 +49,8 @@ export const CustomTable = (props) => {
             <BasicMenu header={header} />
           </StyledTableCell>
         )
+      }else if(header.isComponent){
+        return <StyledTableCell align={header.align ? header.align : 'center'}>{header.component}</StyledTableCell>
       } else {
         return <StyledTableCell align={header.align ? header.align : 'center'}>{header.name}</StyledTableCell>
       }

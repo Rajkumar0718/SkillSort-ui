@@ -5,7 +5,7 @@ import { authHeader, getCurrentUser } from '../api/Api';
 import LOGO from '../assests/images/LOGO.svg';
 import DEMO from '../assests/images/admin.png';
 import { toastMessage } from '../utils/CommonUtils';
-import { url } from '../utils/UrlConstant';
+import url from '../utils/UrlConstant';
 import './Common.css';
 
 function Header(props) {
