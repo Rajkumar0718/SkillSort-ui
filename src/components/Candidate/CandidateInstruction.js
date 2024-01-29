@@ -20,6 +20,7 @@ class CandidateInstruction extends Component {
   state = {
     name: "",
     eventTracked: false,
+    eventTracked: false,
     isAppsCompleted: false,
     selectSubject: [],
     subjectName: "",
@@ -30,6 +31,8 @@ class CandidateInstruction extends Component {
     sectionName: "",
     candidateInstruction: null,
     isOnlyProgramming: false,
+    isProjectExam: false,
+    instruction_slider: { 'java': [java_1, java_2], 'csharp': [Csharp_Instruction_1, Csharp_Instruction_2], 'python': [Python_Instruction_1, Python_Instruction_2] },
     isProjectExam: false,
     instruction_slider: { 'java': [java_1, java_2], 'csharp': [Csharp_Instruction_1, Csharp_Instruction_2], 'python': [Python_Instruction_1, Python_Instruction_2] },
     examQuestions: {
@@ -52,6 +55,7 @@ class CandidateInstruction extends Component {
     },
     exam: {},
     haveProgramming: false,
+    haveSql: false,
     haveSql: false,
     languageName: localStorage.getItem("languageName") || "",
     language_id: localStorage.getItem("languageId") || "",
@@ -180,6 +184,7 @@ class CandidateInstruction extends Component {
 
     if ((this.state.isOnlyProgramming && this.state.langSelected ) || this.state.technology === 'PROGRAMMING') {
       if ((this.state.imgVisited)) {
+        return (<Link className="btn btn-info" style={startButtonStyle} to="/program" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)}> {buttonText}</Link>);
         return (<Link className="btn btn-info" style={startButtonStyle} to="/program" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)}> {buttonText}</Link>);
       } else {
         return (<div><Link className="btn btn-info disabled" style={{position:'relative',top:'50%',left:'50%',transform:'translate(-40%,-85%)',padding: '3px 0px 0px 0px'}} to="/program" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)}> {buttonText}</Link>

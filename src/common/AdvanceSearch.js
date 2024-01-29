@@ -19,22 +19,30 @@ function Search(props) {
   }
 
   return (
-    <div className="search" style={props.style}>
+    <div className="search">
       <div
-        className="col-md-2 col-lg-2 col-sm-2 col-xl-2 p-0"
+        className="row"
         style={{
-          maxWidth: "6.5rem",
-          height: "2.5rem",
-          borderRight: "1px solid #3B489E",
-          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
           alignItems: "center",
-          justifyContent: "center",
         }}
       >
-        <span className="title">{title}</span>
-      </div>
-      {props.showSearch ? (
-        <>
+        <div
+          className="col-md-2 col-lg-2 col-sm-2 col-xl-2 p-0"
+          style={{
+            maxWidth: "6.5rem",
+            height: "2.5rem",
+            borderRight: "1px solid #3B489E",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <span className="title">{title}</span>
+        </div>
+        {props.showSearch ? (
+          <>
 
           <div className="form-group has-search mb-0" style={{ marginLeft: props.showCheckBox ? '28%' : '41%', width: '35%' }}>
             {/* <i className="fa fa-search form-control-feedback"></i>
