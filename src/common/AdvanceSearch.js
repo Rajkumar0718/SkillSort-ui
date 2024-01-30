@@ -46,46 +46,46 @@ function Search(props) {
 
                   }}
                 /> */}
-            <TextField
-              sx={{
-                float: 'right',
-                backgroundColor: 'white',
-                borderRadius: '5px',
-                width: '26rem'
-              }}
-              //  style={{float:'right',backgroundColor:'white',borderRadius:'5px',width:'26rem'}}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start" >
-                    <SearchIcon style={{ color: '#aaa', paddingLeft: '5px' }} />
-                  </InputAdornment>
-                ),
-                style: { fontSize: '13px' }
-              }}
-              placeholder={props.placeholder}
-              onChange={onChange}
-              onKeyDown={(e) => e.key === 'Enter' ? onSearch() : ""}
-              variant="standard"
-            />
-          </div>
-          {props.showCheckBox &&
-            <div className='col-md-2 col-lg-2 col-sm-2 col-xl-2 p-0 '>
-              <span className="title" >Trial Companies <Checkbox onChange={() => props.handleTrailCompany()} ></Checkbox></span>
-            </div>}
-          <div className="col-md-1 col-lg-1 col-sm-1 col-xl-1 p-0 ">
-            <button
-              className="btn btn-sm btn-prev pull-right m-0"
-              style={{ marginTop: "5px" }}
-              onClick={onSearch}
-            >
-              search
-            </button>
-          </div>
-        </>
-      ) : (
-        <div className="col-md-5 col-lg-5 col-sm-5 col-xl-5"></div>
-      )}
-    </div>
+              <TextField
+                sx={{
+                  float: 'right',
+                  backgroundColor: 'white',
+                  borderRadius: '5px',
+                  width: '26rem'
+                }}
+                //  style={{float:'right',backgroundColor:'white',borderRadius:'5px',width:'26rem'}}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start" >
+                      <SearchIcon style={{ color: '#aaa', paddingLeft: '5px' }} />
+                    </InputAdornment>
+                  ),
+                  style: { fontSize: '13px' }
+                }}
+                placeholder={props.placeholder}
+                onChange={onChange}
+                onKeyDown={(e) => e.key === 'Enter' ? onSearch() : ""}
+                variant="standard"
+              />
+            </div>
+            {props.showCheckBox &&
+              <div className='col-md-2 col-lg-2 col-sm-2 col-xl-2 p-0 '>
+                <span className="title" >Trial Companies <Checkbox onChange={() => props.handleTrailCompany()} ></Checkbox></span>
+              </div>}
+            <div className="col-md-1 col-lg-1 col-sm-1 col-xl-1 p-0 ">
+              <button
+                className="btn btn-sm btn-prev pull-right m-0"
+                style={{ marginTop: "5px" }}
+                onClick={onSearch}
+              >
+                search
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="col-md-5 col-lg-5 col-sm-5 col-xl-5"></div>
+        )}
+      </div>
   );
 }
 
