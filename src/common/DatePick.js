@@ -1,7 +1,6 @@
-import { DatePicker as MuiDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { de, enGB, zhCN } from 'date-fns/locale';
+import { LocalizationProvider, DatePicker as MuiDatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { de, enGB, zhCN } from 'date-fns/locale';
+import { enGB } from 'date-fns/locale';
 
 
 
