@@ -15,7 +15,7 @@ import { authHeader, errorHandler } from "../../api/Api";
 import url from "../../utils/UrlConstant";
 import States from "../../utils/StatesAndDistricts";
 import moment from "moment";
-import MultiSelectDropDown from "../../utils/MultiselectDropDown";
+import MultiSelectDropDown from "../../utils/MultiSelectDropDown";
 import AdvSearchCandidates from "./AdvSearchCandidates";
 
 const ExpandMore = styled((props) => {

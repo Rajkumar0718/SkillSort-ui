@@ -7,9 +7,9 @@ import Search from '../../common/AdvanceSearch';
 import { fallBackLoader } from '../../utils/CommonUtils';
 import Pagination from '../../utils/Pagination';
 import TableHeader from '../../utils/TableHeader';
-import { url } from '../../utils/UrlConstant';
 import { CustomTable } from '../../utils/CustomTable';
 import { MenuItem } from '@mui/material';
+import url from '../../utils/UrlConstant';
 
 export default class ListHr extends Component {
   constructor(props) {

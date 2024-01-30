@@ -139,8 +139,8 @@ function MultiSelectDropDown(props) {
               <StyledCheckbox
                 checked={
                   isObject
-                    ? value.includes(option[keyValue])
-                    : value.indexOf(option) > -1
+                    ? value?.includes(option[keyValue])
+                    : value?.indexOf(option) > -1
                 }
               />
             </ListItemIcon>

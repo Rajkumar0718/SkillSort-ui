@@ -58,7 +58,6 @@ const sidebar = {
     isSubMenu: true,
     name: 'Test',
     icon: 'fa fa-file-text-o',
-    isDefault: true,
     toolTipMarginTop: '2.5rem',
     toggleValue: 'showSubMenuTest',
     onClick: 'toggleClickedSubMenu',
