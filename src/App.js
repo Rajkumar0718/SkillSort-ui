@@ -22,6 +22,7 @@ import CollegeReportList from "./components/college/CollegeReportList";
 import StaffList from "./components/college/StaffList";
 import StudentList from "./components/college/StudentList";
 import AddExam from "./components/Admin/AddExam";
+import SectionList from "./components/Admin/SectionList";
 
 function App() {
   return (
@@ -70,13 +71,14 @@ function App() {
             <Route path="/admin/vacancy/result" element={<PositionDetails />} />
             <Route path="/admin/setting" element={<SettingList />} />
             <Route path="/admin/hr" element={<ListHr />} />
-          <Route path="/admin/hr/add" element={<AddHr />} />
-          <Route path="/admin/hr/edit" element={<AddHr />} />
-          <Route path="/admin/onGoingTest" element={<OnGoingExam />} />
-          <Route path="/admin/onGoingTest/candidate" element={<CandidateDetailsOnGoingExam />} />
-          <Route path="/admin/test" element={<ExamList />} />
-          <Route path= '/admin/test/add' element ={<AddExam />} />
-          <Route path ='/admin/test/edit' element ={<AddExam />} />
+            <Route path="/admin/hr/add" element={<AddHr />} />
+            <Route path="/admin/hr/edit" element={<AddHr />} />
+            <Route path="/admin/onGoingTest" element={<OnGoingExam />} />
+            <Route path="/admin/onGoingTest/candidate" element={<CandidateDetailsOnGoingExam />} />
+            <Route path="/admin/test" element={<ExamList />} />
+            <Route path='/admin/test/add' element={<AddExam />} />
+            <Route path='/admin/test/edit' element={<AddExam />} />
+            <Route path= '/admin/section' element ={<SectionList />} />
 
           </Route>
           <Route path="*" element={<PageNotFound />} />
