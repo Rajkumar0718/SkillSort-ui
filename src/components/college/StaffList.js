@@ -207,6 +207,12 @@ export default class StaffList extends Component {
             title="Filter"
             showSearch={true}
             placeholder="search "
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              display: 'flex'
+            }}
             onSearch={this.onSearch}
           ></Search>
           <div className="row">
