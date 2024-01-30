@@ -4,8 +4,12 @@ import React, { Component } from "react";
 import { authHeader, errorHandler } from "../../api/Api";
 import { fallBackLoader } from '../../utils/CommonUtils';
 import Pagination from "../../utils/Pagination";
-import { url } from "../../utils/UrlConstant";
 import SectionModal from "./SectionModal";
+import url from "../../utils/UrlConstant";
+import { Link } from "react-router-dom";
+import { CustomTable } from '../../utils/CustomTable';
+import { MenuItem } from '@mui/material';
+import CustomMenuItem from "../../utils/Menu/CustomMenuItem";
 export default class SectionList extends Component {
   constructor(props) {
     super(props);
@@ -24,10 +28,12 @@ export default class SectionList extends Component {
       startPage: 1,
       endPage: 5,
       sectionRoles: 'CANDIDATE',
+      headers: [],
     };
   }
 
   componentDidMount() {
+    this.setTableJson()
     this.setState({ loader: true });
     axios.get(` ${url.ADMIN_API}/section/list?sectionRoles=${this.state.sectionRoles}&status=${this.state.status}&page=${this.state.currentPage}&size=${this.state.pageSize}`, {
       headers: authHeader(),
@@ -41,10 +47,10 @@ export default class SectionList extends Component {
       });
   }
 
-  handleStatusFilter(event, key) {
-    this.setState({ status: event.target.value });
+  handleStatusFilter(value, key) {
+    this.setState({ status:value });
     axios
-      .get(` ${url.ADMIN_API}/section/list?sectionRoles=${this.state.sectionRoles}&${key}=${event.target.value}&page=${this.state.currentPage}&size=${this.state.pageSize}`, {
+      .get(` ${url.ADMIN_API}/section/list?sectionRoles=${this.state.sectionRoles}&${key}=${value}&page=${this.state.currentPage}&size=${this.state.pageSize}`, {
         headers: authHeader(),
       })
       .then((res) => {
@@ -120,6 +126,54 @@ export default class SectionList extends Component {
   onPagination = (pageSize, currentPage) => {
     this.setState({ pageSize: pageSize, currentPage: currentPage }, () => { this.onNextPage() });
   }
+  setTableJson = () => {
+    const headers = [
+      {
+        name: 'S.NO',
+        align: 'center',
+        key: 'S.NO',
+      },
+      {
+        name: 'NAME',
+        align: 'left',
+        key: 'name',
+      },
+      {
+        name: 'DESCRIPTION',
+        align: 'left',
+        key: 'description',
+      },
+      {
+        name: 'STATUS',
+        align: 'left',
+        isFilter: true,
+        key: 'status',
+        renderOptions: () => {
+          return _.map([{ name: 'Active', value: 'ACTIVE' }, { name: 'InActive', value: 'INACTIVE' }], (opt) => (
+            <CustomMenuItem onClick={() => this.handleStatusFilter(opt.value, 'status')} key={opt.value} value={opt.value}>
+              {opt.name}
+            </CustomMenuItem>
+          ));
+        },
+      },
+      {
+        name: 'Action',
+        key: 'action',
+        renderCell: (params) => {
+          return (
+            <i
+            className="fa fa-pencil"
+            style={{ cursor: 'pointer', color: '#3B489E' }}
+            aria-hidden="true"
+            onClick={() =>this.onClickOpenModalAdd(params)}
+          ></i>
+          );
+        },
+      },
+    ]
+    this.setState({ headers: headers });
+  };
+
 
 
   render() {
@@ -131,7 +185,7 @@ export default class SectionList extends Component {
             <span>Section List</span>
             <button type="button" onClick={this.onClickOpenModalAdd} className="btn btn-nxt btn-sm header-button">Add Section</button>
             {this.state.openModalAdd ? <SectionModal modalSection={{ action: "Add", section: this.state.modalSection, }} onCloseModalAdd={this.onCloseModalAdd} /> : null} </div>
-          <div className="row">
+          {/* <div className="row">
             <div className="col-md-12">
               <div className="table-border">
                 <div>
@@ -189,7 +243,22 @@ export default class SectionList extends Component {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
+          <CustomTable headers={this.state.headers} data={this.state.sections} pageSize={this.state.pageSize} currentPage={this.state.currentPage} />
+          {this.state.numberOfElements === 0 ? '' :
+            <Pagination
+              totalPages={this.state.totalPages}
+              currentPage={this.state.currentPage}
+              onPagination={this.onPagination}
+              increment={this.increment}
+              decrement={this.decrement}
+              startPage={this.state.startPage}
+              numberOfElements={this.state.numberOfElements}
+              endPage={this.state.endPage}
+              totalElements={this.state.totalElements}
+              pageSize={this.state.pageSize}
+
+            />}
         </div>
       </main>
     );
