@@ -1,6 +1,6 @@
 import { FormControl, FormHelperText } from "@mui/material";
 import { LocalizationProvider, DatePicker as MuiDatePicker } from '@mui/x-date-pickers';
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import axios from "axios";
 import _ from 'lodash';
 import moment from "moment";
@@ -324,7 +324,7 @@ const CandidateReg = () => {
       setDisable(false)
       return;
     }
-  
+
 
     const formData = new FormData();
     axios.get(`${url.CANDIDATE_API}/candidate/csrf-token`).then((res) => {
