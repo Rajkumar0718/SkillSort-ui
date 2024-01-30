@@ -4,8 +4,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from "../../api/Api";
 import { fallBackLoader } from "../../utils/CommonUtils";
-import { url } from "../../utils/UrlConstant";
+
 import { CustomTable } from "../../utils/CustomTable";
+import url from "../../utils/UrlConstant";
 
 export default class OnGoingExam extends Component {
     constructor(props) {
@@ -78,7 +79,7 @@ export default class OnGoingExam extends Component {
             },
             {
                 name: 'TEST DURATION',
-                align: 'left',
+                align: 'center',
                 renderCell: (params) => {
                     return params?.duration
                 }

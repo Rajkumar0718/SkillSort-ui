@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage, withLocation } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
 import { isEmpty, isValidEmail, isValidMobileNo } from "../../utils/Validation";
 import { FormHelperText } from '@mui/material';
+import url from '../../utils/UrlConstant';
 
  class AddHr extends Component {
   state = {

@@ -8,7 +8,7 @@ import Button from "../../common/Button";
 import url from "../../utils/UrlConstant";
 import DateFnsUtils from "@date-io/date-fns";
 import { authHeader, errorHandler } from "../../api/Api";
-import MultiSelectDropDown from "../../utils/MultiselectDropDown";
+import MultiSelectDropDown from "../../utils/MultiSelectDropDown";
 import { isRoleValidation } from "../../utils/Validation";
 import { fallBackLoader } from "../../utils/CommonUtils";
 import Pagination from "../../utils/Pagination";

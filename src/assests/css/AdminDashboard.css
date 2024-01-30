@@ -1202,7 +1202,7 @@ h4,
 
 .form-control-row {
   display: block;
-  width: 90% !important;
+  /* width: 90% !important; */
   padding: 0.4rem 0.75rem;
   margin-left: 2.2rem;
   margin-right: 4rem;
