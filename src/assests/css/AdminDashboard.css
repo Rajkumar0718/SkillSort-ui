@@ -2276,9 +2276,30 @@ table td {
   width: 200mm;
   margin-top: 15vh;
 }
-.status-addQuestion{
-  display: flex !important;
-  justify-content: flex-start !important;
-  align-items: center !important;
+.close{
+  font-weight: 500 imo !important;
+  opacity: 1.0 !important;
+  color: #f05a28 !important;
+  font-size: 3rem !important;
+  padding: 0 1rem 0 0 !important;
 }
 
+/* Model Pop common css*/
+.model-label{
+  font-size: 13px;
+  font-weight: 400;
+  font-family: "Montserrat", "Times New Roman", Times, serif;
+  margin-left: 2rem;
+  width: 100px;
+}
+.model-input{
+  width: 55%;
+  padding: 0.95rem 0.85rem 0 0rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 0.5;
+  border: none;
+  border-bottom: 1.5px solid black;
+  outline: none; 
+  margin-left: 2rem;
+}
