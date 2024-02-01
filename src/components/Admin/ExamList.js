@@ -266,11 +266,20 @@ export default class ExamList extends Component {
             buttonName="Add Test"
             showLink={true}
           />
-          <Search style={{marginLeft:0, marginRight:0}}
+          <Search style={{
+            marginLeft:0,
+           marginRight:0,
+           display :'flex',
+           alignItems:'center',
+           flexDirection:'row',
+           justifyContent:'space-between'
+          
+          }}
             title='Filter'
             showSearch={true}
             placeholder='search Test by name'
             onSearch={this.onSearch}
+
           ></Search>
           {/* <div className="row">
             <div className="col-md-12">

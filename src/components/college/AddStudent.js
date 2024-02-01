@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { authHeader } from "../../api/Api";
 import { toastMessage, withLocation } from "../../utils/CommonUtils";
-import { url } from "../../utils/UrlConstant";
 import { isEmpty, isValidEmail, isValidName } from "../../utils/Validation";
 import StatusRadioButton from "../../common/StatusRadioButton";
 import InputField from "../../common/Inputfield";
+import url from "../../utils/UrlConstant";
 class AddStudent extends Component {
   constructor() {
     super();

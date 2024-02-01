@@ -3,40 +3,44 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from "../../api/Api";
 import { toastMessage, withLocation } from "../../utils/CommonUtils";
-import { url } from "../../utils/UrlConstant";
 import { isEmpty, isValidEmail, isValidMobileNo } from "../../utils/Validation";
+import StatusRadioButton from "../../common/StatusRadioButton";
+import InputField from "../../common/Inputfield";
 import url from "../../utils/UrlConstant";
-import { authHeader, errorHandler } from "../../api/Api";
-import { toastMessage } from "../../utils/CommonUtils";
-import FormHelperText from "@mui/material/FormHelperText";
-import { Link } from "react-router-dom";
-import Button from "../../common/Button";
-import Input from "../../common/Input";
-const AddStaff = (props) => {
-  const [disabled, setDisabled] = useState(false);
-  const [staff, setStaff] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    role: "",
-    collegeId: JSON.parse(localStorage.getItem("user")).companyId,
-    createdBy: "",
-    department: "",
-    token: localStorage.getItem("token"),
-    status: "ACTIVE",
-  });
-  const [error, setError] = useState({
-    name: false,
-    nameErrorMessage: "",
-    email: false,
-    emailErrorMessage: "",
-    phone: false,
-    phoneErrorMessage: "",
-  });
 
-  const handleChange = (event, key) => {
-    setStaff({ ...staff, [key]: event.target.value });
-    setError({ ...error, [key]: false });
+class AddStaff extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      staff: {
+        name: "",
+        email: "",
+        phone: "",
+        role: "",
+        collegeId: JSON.parse(localStorage.getItem("user")).companyId,
+        createdBy: "",
+        department: "",
+        token: localStorage.getItem("token"),
+        status: "ACTIVE",
+      },
+      disabled: false,
+      // departments: [Mechanicle],
+      error: {
+        name: false,
+        nameErrorMessage: "",
+        email: false,
+        emailErrorMessage: "",
+        phone: false,
+        phoneErrorMessage: "",
+      },
+    };
+  }
+
+  handleChange = (event, key) => {
+    const { staff, error } = this.state;
+    staff[key] = event.target.value;
+    error[key] = false;
+    this.setState({ staff, error });
   };
 
   handleDepartmentChange = (event) => {

@@ -27,7 +27,7 @@ import { Link } from 'react-router-dom';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import EditTextarea from '../../utils/EditableTextArea';
-import { url } from '../../utils/UrlConstant';
+
 import { isEmpty, isRoleValidation } from "../../utils/Validation";
 import "../Candidate/Compiler.css";
 import "../Candidate/Programming.css";
@@ -38,6 +38,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { style } from '@mui/system';
 import { color } from 'echarts';
+import url from '../../utils/UrlConstant';
 class AddQuestion extends Component {
 
   constructor(props) {
@@ -159,9 +160,9 @@ class AddQuestion extends Component {
   }
 
   setQuestions = () => {
-    console.log("setQuestion", this.props.location?.pathname.indexOf('edit'));
+    console.log("setQuestion", this.props.location);
     if (this.props.location?.pathname?.indexOf('edit') > -1) {
-      const { questions } = this.props.location.state
+      const { questions } = this.props?.location?.state
       let questionObject = questions;
       questionObject.javaCode = questions.userFunctionJava;
       questionObject.pythonCode = questions.userFunctionPython;
@@ -903,7 +904,7 @@ class AddQuestion extends Component {
     const steps = questionType === 'programming' && this.state.generateStructure ? ['Type', 'Code Stub', 'TestCase', 'Submit'] : questionType !== 'programming' && !this.state.manualStructure ? ['Type', 'Submit'] : [];
     let action = null;
     if (this.props.location.pathname.indexOf('edit') > -1) {
-      action = this.props.location.state;
+      action = this.props?.location?.state;
     }
     const columns= [
       { field: 'testCase', headerName: 'TestCase', width: 150, editable: false },
@@ -1086,7 +1087,8 @@ class AddQuestion extends Component {
                               <label className="form-label-select" style={{ marginLeft: '-18px' }}>Question<span className='required'></span></label>
                               <CKEditor
                             editor={ClassicEditor}
-                            data=""
+                            data={this.state.questionObject['question']}
+                            
                             onReady={editor => {
                               
                               ClassicEditor

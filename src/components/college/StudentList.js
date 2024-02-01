@@ -1,59 +1,44 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import _ from "lodash";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from "../../api/Api";
 import { fallBackLoader } from "../../utils/CommonUtils";
-import axios from "axios";
+import Pagination from "../../utils/Pagination";
+
+import CustomMenuItem from "../../utils/Menu/CustomMenuItem"; // Make sure to import CustomMenuItem if it's defined
+
+import Search from "../../common/AdvanceSearch";
+import { CustomTable } from "../../utils/CustomTable";
 import url from "../../utils/UrlConstant";
-import { authHeader } from "../../api/Api";
-import { errorHandler } from "../../api/Api";
-const StudentList = () => {
-  const [student, setStudent] = useState([]);
-  const [status, setStatus] = useState("ACTIVE");
-  const [loader, setLoader] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [totalPages, setTotalPages] = useState(0);
-  const [openModal, setOpenModal] = useState(false);
-  const [totalElements, setTotalElements] = useState(0);
-  const [numberOfElements, setNumberOfElements] = useState(0);
-  const [countError, setCountError] = useState(false);
-  const [startPage, setStartPage] = useState(1);
-  const [endPage, setEndPage] = useState(5);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const [searchValue, setSearchValue] = useState("");
-  const btnList = [
-    {
-      type: "button",
-      className: "btn btn-sm btn-nxt ml-1 header-button",
-      onClick: () => onClickOpenModel(),
-      title: "Upload",
-      style: {
-        marginRight: "15px",
-        marginLeft: "5px",
-        display: "flex",
-        flexDirection: "row-reverse",
-        justifyContent: "space-evenly",
-        /* align-content: center; */
-        alignItems: "center",
-      },
-    },
-  ];
+import ExamMailModel from '../Admin/ExamMailModel';
 
-  const addStudentButton = [
-    {
-      type: "button",
-      className: "btn btn-prev btn-sm header-button",
-      title: "Add Student",
-      linkStyle: { textDecoration: "none", color: "white" },
-      to: "/college/add",
-    },
-  ];
+export default class StudentList extends Component {
+  constructor(props) {
+    super(props);
+    const user = JSON.parse(localStorage.getItem("user"));
+    this.state = {
+      student: [],
+      status: "ACTIVE",
+      loader: true,
+      currentPage: 1,
+      pageSize: 10,
+      totalPages: 0,
+      openModal: false,
+      totalElements: 0,
+      numberOfElements: 0,
+      countError: false,
+      startPage: 1,
+      endPage: 5,
+      user: user,
+      searchValue: "",
+    };
+  }
 
-  useEffect(() => {
-    getStudents();
-  }, [currentPage, pageSize, status, searchValue]);
+  componentDidMount() {
+    this.setHeader();
+    this.getStudents();
+  }
 
   getStudents = () => {
     axios
@@ -256,5 +241,4 @@ const StudentList = () => {
     );
   }
 }
-
 

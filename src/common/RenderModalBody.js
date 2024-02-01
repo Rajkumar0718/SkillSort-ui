@@ -1,6 +1,5 @@
 import _ from "lodash";
 import React from "react";
-import MultiSelectDropDown from "../utils/MultiselectDropDown";
 import { isRoleValidation } from "../utils/Validation";
 import { fallBackLoader } from "../utils/CommonUtils";
 import Pagination from "../utils/Pagination";
@@ -10,6 +9,7 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { CustomTable } from "../utils/CustomTable";
+import MultiSelectDropDown from "../utils/MultiSelectDropDown";
 
 export const RenderModalBody = (props) => {
   return (

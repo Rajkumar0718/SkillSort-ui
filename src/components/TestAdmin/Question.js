@@ -10,9 +10,9 @@ import ChipsArray from "../../utils/ChipsArray";
 import { CustomTable } from "../../utils/CustomTable";
 import CustomMenuItem from "../../utils/Menu/CustomMenuItem";
 import Pagination from "../../utils/Pagination";
-import { url } from "../../utils/UrlConstant";
 import { isRoleValidation } from "../../utils/Validation";
 import ExamMailModel from "../Admin/ExamMailModel";
+import url from "../../utils/UrlConstant";
 
 export default class Question extends Component {
   constructor(props) {
@@ -100,7 +100,7 @@ export default class Question extends Component {
   handleDeleteChip = (data) => {
     if(data.label === 'status') {
       return this.handleStatusFilters('ACTIVE')
-    }
+    } 
     this.handleChange(data.label, "");
   }
 
@@ -200,10 +200,9 @@ export default class Question extends Component {
       renderCell: (params) => {
         return (
           <Link className="collapse-item"
-            to={{
-              pathname: isRoleValidation() === "TEST_ADMIN" ? "/testadmin/question/edit" : "/admin/questions/edit",
-              state: { questions: params, action: "Update", difficulty: this.state.difficulty, section: this.state.section, questionType: this.state.questionType, status: this.state.status },
-            }}>
+            to={isRoleValidation() === "TEST_ADMIN" ? "/testadmin/question/edit" : "/admin/questions/edit"}
+            state= {{ questions: params, action: "Update", difficulty: this.state.difficulty, section: this.state.section, questionType: this.state.questionType, status: this.state.status }}
+            >
             <i className="fa fa-pencil" style={{ cursor: 'pointer', color: '#3B489E' }} aria-hidden="true"></i>
           </Link>
         )
@@ -239,7 +238,6 @@ export default class Question extends Component {
                 <button className='btn btn-sm btn-nxt ml-1 header-button' onClick={() => this.onClickOpenModel()} style={{ marginRight: "15px" }} ><i className="fa fa-upload" aria-hidden="true"></i> Upload</button>
               </div>
             </div>
-
           </div>
           <CustomTable data={this.state.questions}
             headers={this.state.headers}

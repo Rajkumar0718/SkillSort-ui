@@ -1,23 +1,13 @@
 import React, { Component } from "react";
 
+import axios from "axios";
 import _ from "lodash";
 import moment from "moment";
-import axios from "axios";
-import Button from "../../common/Button";
-import url from "../../utils/UrlConstant";
-import DateFnsUtils from "@date-io/date-fns";
 import { authHeader, errorHandler } from "../../api/Api";
-import MultiSelectDropDown from "../../utils/MultiSelectDropDown";
-import { isRoleValidation } from "../../utils/Validation";
-import { fallBackLoader } from "../../utils/CommonUtils";
-import Pagination from "../../utils/Pagination";
-import moment from "moment/moment";
-import axios from "axios";
-import { authHeader, errorHandler } from "../../api/Api";
-import ExportXlsx from "../../utils/ExportXlsx";
-import { CustomTable } from "../../utils/CustomTable";
-import { url } from "../../utils/UrlConstant";
 import RenderModalBody from "../../common/RenderModalBody";
+import ExportXlsx from "../../utils/ExportXlsx";
+import url from "../../utils/UrlConstant";
+import { isRoleValidation } from "../../utils/Validation";
 const columns = [
   { header: "Name", key: "firstName" },
   { header: "Email", key: "email" },

@@ -609,7 +609,7 @@ class AddExam extends Component {
       })
 
       _.map(exams.categories, (category) => {
-        axios.get(` ${url.ADMIN_API}/question/${category.sectionName}/questionCount?questionRoles=CANDIDATE`, { headers: authHeader() })
+        axios.get(` ${url.ADMIN_API}/question/${category.sectionName}/questionCount?questionRoles=CANDIDATE&skillSortQuestionBank=${this.state.isSkillSortQuestion}`, { headers: authHeader() })
           .then(res => {
             this.setState({
               section: this.state.sections.push({
