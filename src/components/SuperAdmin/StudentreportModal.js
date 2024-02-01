@@ -3,19 +3,12 @@ import _ from "lodash";
 import moment from "moment";
 import React, { Component } from "react";
 import { authHeader, errorHandler } from "../../api/Api";
-import { calculatePercentage, fallBackLoader } from "../../utils/CommonUtils";
+import { calculatePercentage } from "../../utils/CommonUtils";
 import ExportXlsx from "../../utils/ExportXlsx";
-import MultiSelectDropDown from "../../utils/MultiselectDropDown";
-import Pagination from "../../utils/Pagination";
 import { isRoleValidation } from "../../utils/Validation";
-import { url } from "../../utils/UrlConstant";
+
 import RenderModalBody from "../../common/RenderModalBody";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import DatePick from "../../common/DatePick";
-import { CustomTable } from "../../utils/CustomTable";
-import { th } from "date-fns/locale";
+import url from "../../utils/UrlConstant";
 
 const columnsForCollege = [
   { header: "NAME", key: "firstName", alignment: "left" },
@@ -951,6 +944,7 @@ export default class StudentreportModal extends Component {
                         <label>Year of passing</label>
                         <div style={{ width: "12.5rem" }}>
                           <MultiSelectDropDown
+                        
                             value={this.state.selectedYop}
                             list={this.state.yops}
                             handleChange={(e, isClearAll) =>

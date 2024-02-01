@@ -230,7 +230,7 @@ const sidebar = {
     name: 'Setting',
     icon: 'fa fa-cog',
   }
-  ]
+  ],
 }
 
 

@@ -175,7 +175,12 @@ export default class ListHr extends Component {
             buttonName="Add HR"
             showLink={true}
           />
-          <Search style={{marginLeft:0,marginRight:0}}
+          <Search style={{marginLeft:0,
+           marginRight:0,
+           display :'flex',
+           alignItems:'center',
+           flexDirection:'row',
+           justifyContent:'space-between'}}
             title="Filter"
             showSearch={true}
             placeholder="search Hr by name, email, phone"

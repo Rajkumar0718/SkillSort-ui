@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, { Component, useEffect, useState } from 'react'
-import { url } from '../../utils/UrlConstant'
 import { authHeader, errorHandler } from '../../api/Api'
 import AddSectionModal from './AddSectionModal'
 import Pagination from '../../utils/Pagination'
@@ -8,6 +7,7 @@ import { CustomTable } from '../../utils/CustomTable'
 import CustomMenuItem from '../../utils/Menu/CustomMenuItem'
 import _ from 'lodash'
 import { toastMessage } from '../../utils/CommonUtils'
+import url from '../../utils/UrlConstant'
 
 const GroupTypesList = () => {
     const [groupTypes, setGroupTypes] = useState([]);
