@@ -19,7 +19,7 @@ class CandidateInstruction extends Component {
 
   state = {
     name: "",
-    eventTracked:false,
+    eventTracked: false,
     isAppsCompleted: false,
     selectSubject: [],
     subjectName: "",
@@ -30,8 +30,8 @@ class CandidateInstruction extends Component {
     sectionName: "",
     candidateInstruction: null,
     isOnlyProgramming: false,
-    isProjectExam:false,
-    instruction_slider:  { 'java': [java_1,java_2],'csharp':[Csharp_Instruction_1,Csharp_Instruction_2],'python':[Python_Instruction_1,Python_Instruction_2]},
+    isProjectExam: false,
+    instruction_slider: { 'java': [java_1, java_2], 'csharp': [Csharp_Instruction_1, Csharp_Instruction_2], 'python': [Python_Instruction_1, Python_Instruction_2] },
     examQuestions: {
       categories: [
         {
@@ -52,12 +52,12 @@ class CandidateInstruction extends Component {
     },
     exam: {},
     haveProgramming: false,
-    haveSql : false,
+    haveSql: false,
     languageName: localStorage.getItem("languageName") || "",
     language_id: localStorage.getItem("languageId") || "",
     langSelected: false,
 
-    instruction_image_count : 0,
+    instruction_image_count: 0,
     technology: localStorage.getItem('technology')
   };
   errorMsg = {
@@ -87,20 +87,20 @@ class CandidateInstruction extends Component {
       .then((res) => {
         localStorage.setItem("candidateInstruction", res.data.response.candidateInstruction);
         localStorage.setItem("examSubmitMessage", res.data.response.examSubmitMessage);
-        if(!localStorage.getItem("exam")){
+        if (!localStorage.getItem("exam")) {
           localStorage.setItem("exam", JSON.stringify(res.data.response));
         }
-        let isTechnicalSection = _.filter(res.data.response.categories, { 'sectionName': 'TECHNICAL' }).length > 0 ? true : false;
+        let isTechnicalSection = _.filter(res.data.response.categories, { 'sectionName': 'TECHNICAL' }).length > 0;
         if (isTechnicalSection) {
           this.setState({ isTechnicalSection: isTechnicalSection });
           this.getSections(res.data.response.isSkillSortQuestion);
         }
-        let haveProgramming = _.filter(res.data.response.categories, { 'sectionName': 'PROGRAMMING' }).length > 0 || _.filter(res.data.response.categories, { 'groupQuestionType': 'programming' }).length > 0? true : false;
-        let haveSql = _.filter(res.data.response.categories, { 'groupQuestionType': 'SQL' }).length > 0? true : false;
-        let isOnlyProgramming = haveProgramming && res.data.response.categories.length === 1 ? true : false;
-        let isProjectExam = _.filter(res.data.response.categories, { 'sectionName': 'PROJECT' }).length > 0? true : false;
+        let haveProgramming = _.filter(res.data.response.categories, { 'sectionName': 'PROGRAMMING' }).length > 0 || _.filter(res.data.response.categories, { 'groupQuestionType': 'programming' }).length > 0;
+        let haveSql = _.filter(res.data.response.categories, { 'groupQuestionType': 'SQL' }).length > 0
+        let isOnlyProgramming = haveProgramming && res.data.response.categories.length === 1;
+        let isProjectExam = _.filter(res.data.response.categories, { 'sectionName': 'PROJECT' }).length > 0;
         this.setState({
-          candidateInstruction: res.data.response.candidateInstruction, exam: res.data.response, haveProgramming: haveProgramming, isOnlyProgramming: isOnlyProgramming,haveSql :haveSql,isProjectExam
+          candidateInstruction: res.data.response.candidateInstruction, exam: res.data.response, haveProgramming: haveProgramming, isOnlyProgramming: isOnlyProgramming, haveSql: haveSql, isProjectExam
         }, () =>
         (document.getElementById(
           "candidateInstruction"
@@ -115,7 +115,7 @@ class CandidateInstruction extends Component {
     axios.get(`${url.ADMIN_API}/section?isSkillSort=${value}`, { headers: authHeader() })
       .then(res => {
         let sections = _.filter(res.data.response, { 'description': 'Technical' })?.map(data => data.name);
-        this.setState({ sections: sections },()=>console.log(sections));
+        this.setState({ sections: sections }, () => console.log(sections));
       })
   }
   setSection = (event) => {
@@ -128,13 +128,13 @@ class CandidateInstruction extends Component {
 
     event.preventDefault();
     if (event.target.value === 'java') {
-      this.setState({language_id: 'java',languageName: 'java',langSelected: true,instruction_image_count:0 })
+      this.setState({ language_id: 'java', languageName: 'java', langSelected: true, instruction_image_count: 0 })
     } else if (event.target.value === 'python') {
-      this.setState({ langSelected: true,languageName: 'python',language_id: 'python',instruction_image_count:0})
+      this.setState({ langSelected: true, languageName: 'python', language_id: 'python', instruction_image_count: 0 })
     } else if (event.target.value === 'csharp') {
-      this.setState({ langSelected: true,language_id: 'csharp',languageName: 'csharp',instruction_image_count:0 })
+      this.setState({ langSelected: true, language_id: 'csharp', languageName: 'csharp', instruction_image_count: 0 })
     } else {
-      this.setState({ langSelected: false,languageName: 'Select language',language_id: '' })
+      this.setState({ langSelected: false, languageName: 'Select language', language_id: '' })
     }
 
   }
@@ -175,31 +175,34 @@ class CandidateInstruction extends Component {
 
   }
   getStartButton = () => {
+    let buttonText = "Start";
+    let startButtonStyle = { padding: '3px 0px 0px 0px' };
+
     if ((this.state.isOnlyProgramming && this.state.langSelected ) || this.state.technology === 'PROGRAMMING') {
       if ((this.state.imgVisited)) {
-        return (<Link className="btn btn-info" style={{ padding: '3px 0px 0px 0px' }} to="/program" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)}> Start</Link>);
+        return (<Link className="btn btn-info" style={startButtonStyle} to="/program" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)}> {buttonText}</Link>);
       } else {
-        return (<div><Link className="btn btn-info disabled" style={{ padding: '3px 0px 0px 0px' }} to="/program" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)}> Start</Link>
+        return (<div><Link className="btn btn-info disabled" style={startButtonStyle} to="/program" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)}> {buttonText}</Link>
           <p style={{ fontSize: '15px', fontFamily: 'sans-serif' }}><b>Watch all the images till the end to activate the start button</b></p></div>);
       }
     }else if (this.state.technology === 'DBMS' || this.state.technology === 'BOTH' || this.state.haveSql) {
-      return (<Link className="btn btn-info" style={{ padding: '3px 0px 0px 0px' }} to="/sql" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)} > Start</Link>);
+      return (<Link className="btn btn-info" style={startButtonStyle} to="/sql" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)} > {buttonText}</Link>);
     }
      else if (this.state.haveProgramming && this.state.langSelected) {
-      return (<Link className="btn btn-info" style={{ padding: '3px 0px 0px 0px' }} to="/test" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)}> Start</Link>);
+      return (<Link className="btn btn-info" style={startButtonStyle} to="/test" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)}> {buttonText}</Link>);
     } else if (this.state.haveProgramming && !this.state.langSelected) {
-      return "";
+      return <></>;
     }
     else if(this.state.isProjectExam){
-      return (<Link className="btn btn-info" style={{ padding: '3px 0px 0px 0px' }} to="/project"> Start</Link>);
+      return (<Link className="btn btn-info" style={startButtonStyle} to="/project"> {buttonText}</Link>);
     }
      else {
-      return (<Link className="btn btn-info" style={{ padding: '3px 0px 0px 0px' }} to="/test" onClick={() => this.updateExam()}>Start</Link>);
+      return (<Link className="btn btn-info" style={startButtonStyle} to="/test" onClick={() => this.updateExam()}>{buttonText}</Link>);
     }
   }
 
   updateExam = () => {
-    if(!this.state.eventTracked ){
+    if (!this.state.eventTracked) {
       this.handleEventTrackForExamStart()
     }
     if (this.state.isTechnicalSection) {
@@ -209,8 +212,8 @@ class CandidateInstruction extends Component {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
           "Technical": this.state.sectionName
         }
-      }).then(()=>{
-        const endTime = performance.now(); 
+      }).then(() => {
+        const endTime = performance.now();
         const responseTime = endTime - startTime;
         this.handleEventTrackForExamStartApi(responseTime)
       }).catch(error => {
@@ -218,18 +221,18 @@ class CandidateInstruction extends Component {
       })
     }
   }
-  
 
-  handleEventTrackForExamStart = ()=>{
+
+  handleEventTrackForExamStart = () => {
     const dataLayer = window.dataLayer || []
     console.log(dataLayer);
     window.dataLayer.push({
       event: 'ExamStart'
     });
-    this.setState({eventTracked:true})
+    this.setState({ eventTracked: true })
   }
 
-  handleEventTrackForExamStartApi=()=>{
+  handleEventTrackForExamStartApi = () => {
     const dataLayer = window.dataLayer || []
     console.log(dataLayer);
     window.dataLayer.push({
@@ -248,7 +251,7 @@ class CandidateInstruction extends Component {
   // Image silder
   nextSlide = () => {
     this.setState({
-      instruction_image_count: this.state.instruction_image_count === this.state.instruction_slider[this.state.languageName].length - 1 ? 0 : this.state.instruction_image_count + 1,imgVisited:this.state.instruction_slider[this.state.languageName].length - 1 ? true:false
+      instruction_image_count: this.state.instruction_image_count === this.state.instruction_slider[this.state.languageName].length - 1 ? 0 : this.state.instruction_image_count + 1, imgVisited: this.state.instruction_slider[this.state.languageName].length - 1 ? true : false
     });
   };
 
@@ -261,13 +264,13 @@ class CandidateInstruction extends Component {
   render() {
     return (
       <div className='row can-page'>
-        <header className="can-header" style={{textAlign:'center'}}>
+        <header className="can-header" style={{ textAlign: 'center' }}>
           <span className="can-instruction">
             Candidate Instruction{this.errorMsg.error}
           </span>
         </header>
         <div className="container instruction-container">
-          {(((this.state.haveProgramming || this.state.isOnlyProgramming)&& this.state.technology !=='DBMS' ) && !localStorage.getItem("languageName")) ?
+          {(((this.state.haveProgramming || this.state.isOnlyProgramming) && this.state.technology !== 'DBMS') && !localStorage.getItem("languageName")) ?
             <div className="row can-section">
               <div className="col">
                 In which programming Language would you like to take the test?<span className="required"></span>
@@ -326,8 +329,9 @@ class CandidateInstruction extends Component {
                   </div>
             
           </div>:null}
+
         </div>
-        <footer className="btn start-test">
+        <footer className="start-test" style={{ display: 'flex', justifyContent: 'center' }}>
           {this.getCandidateInstruction()}
         </footer>
       </div>

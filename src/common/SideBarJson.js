@@ -1,12 +1,7 @@
 import { FaClipboard } from "react-icons/fa";
 
 const sidebar = {
-  "ADMIN": [{
-    isSubMenu: false,
-    to: "/admin/dashboard",
-    name: "Dashboard",
-    icon: 'fa fa-tachometer'
-  }, {
+  "ADMIN": [ {
     to: '/admin/hr',
     name: 'HR Users',
     icon: 'fa fa-id-badge'
@@ -37,39 +32,13 @@ const sidebar = {
     }]
   }, {
     isSubMenu: false,
-    name: 'Candidates',
-    to: '/admin/candidates',
-    icon: 'fa fa-user-o'
-  }, {
-    isSubMenu: false,
-    to: '/admin/result',
-    name: 'Result',
-    icon: 'fa fa-newspaper-o'
+    name: 'Vacancy',
+    to: '/admin/vacancy',
+    icon: 'fa fa-user-plus'
   }, {
     to: '/admin/setting',
     name: 'Setting',
     icon: 'fa fa-cogs'
-  }, {
-    isSubMenu: true,
-    name: 'SkillSort',
-    icon: 'fa fa-user-circle-o',
-    toolTipMarginTop: '2.5rem',
-    toggleValue: 'showSubMenuSkillsort',
-    onClick: 'toggleClickedSubMenu',
-    param: 'skillsort',
-    height: ['7.8rem', '3.5rem'],
-    subMenu: [{
-      to: '/admin/adv-search',
-      name: 'Adv Search'
-    },
-    {
-      to: '/admin/shortlisted-candidates',
-      name: 'Shortlisted'
-    },
-    {
-      to: '/admin/skillsort',
-      name: 'Notified'
-    }]
   }, {
     isSubMenu: false,
     name: 'SMTP Configuration',
@@ -188,13 +157,15 @@ const sidebar = {
     isSubMenu: false,
     to: "/college/placement-coordinator",
     name: "Placement Coordinator",
-    icon: 'fa fa-user-circle-o'
+    icon: 'fa fa-user-circle-o',
+    subPath: ['/college/placement-coordinator/add','/college/placement-coordinator/edit']
   }, {
     isSubMenu: false,
     name: 'Students',
     isDefault: true,
     to: '/college',
-    icon: 'fa fa-users'
+    icon: 'fa fa-users',
+    subPath: ['/college/add','/college/edit']
   }, {
     isSubMenu: false,
     to: '/college/collegeReport',
@@ -231,11 +202,33 @@ const sidebar = {
     icon: 'fa fa-bullhorn'
   }
   ],
-  "PROCESS_ADMIN": [{
+  "TEST_ADMIN": [{
     isSubMenu: false,
-    to: "/processadmin/company",
-    name: "Company",
-    icon: 'fa fa-home'
+    to: "/testadmin/dashboard",
+    name: "Dashboard",
+    icon: 'fa fa-tachometer'
+  }, {
+    isSubMenu: false,
+    name: 'Section',
+    to: '/testadmin/section',
+    icon: 'fa fa-columns'
+  }, {
+    isSubMenu: false,
+    to: '/testadmin/grouptypes',
+    name: 'GroupTypes',
+    icon: 'fa fa-podcast'
+  },{
+    isSubMenu: false,
+    isDefault: true,
+    to: '/testadmin/question',
+    name: 'Questions',
+    pathName: '/testadmin',
+    icon: 'fa fa-question-circle-o'
+  },{
+    isSubMenu: false,
+    to: '/testadmin/setting',
+    name: 'Setting',
+    icon: 'fa fa-cog',
   }
   ]
 }

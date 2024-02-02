@@ -316,3 +316,27 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #f5f5f5;
   }
+.status-addQuestion{
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+
+.ck-powered-by {
+    display: none;
+}
+.ck-editor__editable {
+    height: 272px; /* Adjust this value according to your needs */
+    overflow-y: auto; /* This makes the scrollbar appear when the content exceeds the height */
+ }
+ 
+ .data-head{
+    color: #3b489e !important;
+    text-transform: uppercase;
+    font-weight: 700 !important;
+    font-size: 16px!important;
+    font-family: "Montserrat","Times New Roman",Times,serif;
+    line-height: 1;
+    letter-spacing: .2px;
+    background: #e0e1ea!important;
+}

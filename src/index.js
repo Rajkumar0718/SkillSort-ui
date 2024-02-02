@@ -28,7 +28,7 @@ document.body.appendChild(gtmNoscript)
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <StrictMode>
+  <StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <Routes>
@@ -36,5 +36,5 @@ root.render(
         </Routes>
       </AuthProvider>
     </BrowserRouter>
-  // </StrictMode>
+  </StrictMode>
 );
