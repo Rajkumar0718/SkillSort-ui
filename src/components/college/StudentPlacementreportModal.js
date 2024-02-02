@@ -3,13 +3,13 @@ import React, { Component } from "react";
 import axios from "axios";
 import _ from "lodash";
 import moment from "moment";
-import axios from "axios";
-import Button from "../../common/Button";
-import url from "../../utils/UrlConstant";
+
+
+import url from "../../utils/UrlConstant"
 import { authHeader, errorHandler } from "../../api/Api";
 import RenderModalBody from "../../common/RenderModalBody";
 import ExportXlsx from "../../utils/ExportXlsx";
-import url from "../../utils/UrlConstant";
+
 import { isRoleValidation } from "../../utils/Validation";
 const columns = [
   { header: "Name", key: "firstName" },
