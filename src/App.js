@@ -57,8 +57,16 @@ function App() {
           <Route element={<RequireAuth allowedRoles={["ROLE_CANDIDATE"]} />}>
             <Route path="/project" element={<ProjectUi />} />
           </Route>
-          <Route path="/thankYou" element={<ThankYouPage />} />
-          <Route path="/candidateinstruction" element={<CandidateInstruction />} />
+         <Route path='/login/student' element={<StudentFromWebsite/>} />
+         <Route path="/setpassword" component={<StudentFromWebsite/>}/>
+         <Route path="/candidateinstruction" element={<EnhancedCandidateInstruction />} />
+         <Route path="/student/test/selectTech" element={<SelectTech/>}/>
+         <Route path='/test' element={<CandidateInterface />} />
+         <Route path='/thankYou' element={<ThankYouPage />} />
+         <Route path='/program/:token/:examId/:examUsersId/:collegeId' element={<EnhancedProgramUI />} />
+         <Route path='/program/:token/:examId/:examUsersId' element={<EnhancedProgramUI />} />
+         <Route path='/program' element={<EnhancedProgramUI />} />
+         <Route path='/sql' element={<EnhancedQueryUI />} />
           <Route path="/candidate/register/:companyId/:examId" element={<PublicRegister />} />
           <Route path="/public-candidate/register/:companyId/:examId" element={<CandidateReg />} />
           <Route path="/candidate/re-exam-request" element={<ReExamRequest />} />
@@ -135,6 +143,14 @@ function App() {
               <Route path='/testadmin/grouptypes' element={<GroupTypesList />} />
               <Route path='/testadmin/setting' element={<SettingList />} />
             </Route>
+          <Route element={<RequireAuth allowedRoles={["COLLEGE_STUDENT"]} />}>
+           <Route path="/student" element={<StudentFirstTimeLogin />} />
+           <Route path="/student/profile" element={<StudentFirstTimeLogin />} />
+           <Route path="/student/student-test" element={<StudentTestList />} />
+           <Route path="/student/company-offer" element={<CompanyOffers />} />
+           <Route path="/student/student-practice-exam" element={<PracticeExamList />} />
+           <Route path="/student/advertisement" element={<AdvertisementPage />} />
+        </Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

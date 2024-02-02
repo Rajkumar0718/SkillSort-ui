@@ -347,3 +347,4 @@ class CandidateInstruction extends Component {
   }
 }
 export default withLocation(CandidateInstruction)
+export default withLocation(CandidateInstruction)
