@@ -74,7 +74,7 @@ function App() {
               <RequireAuth allowedRoles={["ADMIN"]} />
             }
           >
-            <Route path="admin/vacancy" element={<Position />} />
+            <Route path="/admin/vacancy" element={<Position />} />
             <Route path="/admin/vacancy/history" element={<VacancyHistory />} />
             <Route path="/admin/vacancy/add" element={<PositionDetails />} />
             <Route path="/admin/vacancy/edit" element={<PositionDetails />} />
@@ -94,6 +94,7 @@ function App() {
             <Route path='/admin/questions/add' element={<AddQuestion />} />
             <Route path='/admin/questions/edit' element={<AddQuestion />} />
             <Route path="/admin/smtp" element={<SMTPConfig />} />
+            <Route path="admin/vacancy/Exam-add" element={<AddExam />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
           <Route path="/college/collegeReport"

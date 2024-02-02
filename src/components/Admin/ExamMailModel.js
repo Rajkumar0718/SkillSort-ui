@@ -244,7 +244,7 @@ export default class ExamMailModel extends Component {
                   <span style={{ color: '#F05A28' }}>{this.props.remainingTest}</span> Credits Available
                 </h5>
               )}
-              <button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{border:"none",backgroundColor:"initial",fontSize:'3rem',color:"#F05A28"}}>&times;</button>
+              <button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{position:"relative",left:"24rem",border:"none",backgroundColor:"initial",fontSize:'3rem',color:"#F05A28"}}>&times;</button>
             </div>
             <div className="card-body" style={{ paddingTop: "4px",marginTop:'7rem'}}>
               {this.renderQuestionTemplate()}

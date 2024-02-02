@@ -2840,7 +2840,24 @@ h4,
   border-radius: 5px;
   border: none;
 }
-
+.btn-primary{
+  color: white !important;
+  background-color: #f05a28 !important;
+  border-color: #f05a28 !important;
+  min-width: 6.5rem;
+  height: 2rem;
+}
+.btn-preprimary{
+  color: white !important;
+  background-color: #3b489e !important;
+  border-color: #3b489e !important;
+  padding-right: 10px;
+  min-width: 8rem;
+  height: 2rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+}
 .btn-nxt {
   color: white !important;
   background-color: #f05a28 !important;
@@ -4080,7 +4097,7 @@ table td {
 .fixed-button {
   position: fixed;
   bottom: 10px;
-  right: 54%; 
+  right: 54%;
 }
 
 .model-label{
@@ -4098,7 +4115,7 @@ table td {
   line-height: 0.5;
   border: none;
   border-bottom: 1.5px solid black;
-  outline: none; 
+  outline: none;
   margin-left: 2rem;
 }
 /* .ck .ck-content .ck-editor{
