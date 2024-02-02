@@ -1088,7 +1088,7 @@ class AddQuestion extends Component {
                               <CKEditor
                             editor={ClassicEditor}
                             data={this.state.questionObject['question']}
-                            
+                            className='ckeditor-question'
                             onReady={editor => {
                               
                               ClassicEditor

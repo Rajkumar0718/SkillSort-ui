@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./assests/css/AdminDashboard.css";
 import Layout from "./common/Layout";
 import AddExam from "./components/Admin/AddExam";
@@ -33,20 +33,6 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route index element={<AdminLogin />}></Route>
-        <Route
-          path="/shortlisted-candidate-details/:candidateId"
-          element={<ShortListedResultDetails />}
-        />
-          <Route
-          path="/admin/result/candidate/details/:candidate_id"
-          element={<CandidateResultDetails />}
-        />
-
-        <Route
-          path="/admin/result/candidate/programResult/:candidate_id"
-          element={<ProgramResult />}
-        />
-
         <Route path="/login" element={<AdminLogin />} />
         <Route path="/" element={<Layout />}>
           {/* Protected Routes */}
@@ -79,47 +65,25 @@ function App() {
             <Route path="/admin/vacancy/history" element={<VacancyHistory />} />
             <Route path="/admin/vacancy/add" element={<PositionDetails />} />
             <Route path="/admin/vacancy/edit" element={<PositionDetails />} />
-            <Route
-              path="/admin/vacancy/skillsort"
-              element={<PositionDetails />}
-            />
-            <Route
-              path="/admin/vacancy/Exam-add"
-              element={<PositionDetails />}
-            />
+            <Route path="/admin/vacancy/skillsort" element={<PositionDetails />} />
             <Route path="/admin/vacancy/result" element={<PositionDetails />} />
-            <Route
-              path="/admin/vacancy/shortListed"
-              element={<PositionDetails />}
-            />
             <Route path="/admin/setting" element={<SettingList />} />
-            <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/hr" element={<ListHr />} />
             <Route path="/admin/hr/add" element={<AddHr />} />
             <Route path="/admin/hr/edit" element={<AddHr />} />
             <Route path="/admin/onGoingTest" element={<OnGoingExam />} />
-            <Route
-              path="/admin/onGoingTest/candidate"
-              element={<CandidateDetailsOnGoingExam />}
-            />
+            <Route path="/admin/onGoingTest/candidate" element={<CandidateDetailsOnGoingExam />} />
             <Route path="/admin/test" element={<ExamList />} />
-            <Route path="/admin/test/add" element={<AddExam />} />
-            <Route path="/admin/test/edit" element={<AddExam />} />
-            <Route path="/admin/smtp" element={<SMTPConfig />} />
+            <Route path='/admin/test/add' element={<AddExam />} />
+            <Route path='/admin/test/edit' element={<AddExam />} />
+            <Route path='/admin/section' element={<SectionList />} />
+            <Route path='/admin/questions' element={<Question />} />
+            <Route path='/admin/questions/add' element={<AddQuestion />} />
+            <Route path='/admin/questions/edit' element={<AddQuestion />} />
+
           </Route>
-          <Route
-            element={
-              <RequireAuth
-                allowedRoles={["PROCESS_ADMIN"]}
-              />
-            }
-          >
-
-
-              </Route>
           <Route path="*" element={<PageNotFound />} />
-          <Route
-            path="/college/collegeReport"
+          <Route path="/college/collegeReport"
             element={<CollegeReportList />}
           />
           <Route path="/college/add" element={<AddStudent />} />
@@ -141,5 +105,8 @@ function App() {
   );
 
 }
+
+
+
 
 export default App;

@@ -512,7 +512,7 @@ class AddExam extends Component {
   settingRender() {
     return (
       this.state.setting.id ? (
-        <div>
+        <div style={{position:'relative', left:'5rem'}}>
           <p className="setting-header">Selected Setting</p>
           <div className="card-setting">
             <p style={{ fontSize: '12px' }}><span style={{ fontWeight: 'bold' }}>Setting Name  :</span> {this.state.setting.name}</p>
@@ -693,7 +693,7 @@ class AddExam extends Component {
                           <div className="row">
                             <div className="col">
                               <label className="form-label-row">Name <span style={{ color: 'red' }}>*</span></label>
-                              {!action ? <input className='form-control-row col-7' value={this.state.name} style={{ marginTop: '15px' }} type='text' maxLength="50" onChange={(e) => this.handleChange(e, 'name')} placeholder='Test' /> : <input className='form-control-row col-7' value={this.state.name} type='text' maxLength="50" ></input>}
+                              {!action ? <input className='add-exam-input col-7' value={this.state.name} style={{ marginTop: '15px' }} type='text' maxLength="40" onChange={(e) => this.handleChange(e, 'name')} placeholder='Test' /> : <input className='add-exam-input col-7' value={this.state.name} type='text' maxLength="40" ></input>}
                               <FormHelperText className="helper" style={{ paddingLeft: "35px" }}>{this.state.error.name ? this.state.error.examNameMsg : null}</FormHelperText>
                             </div>
                             <div className="col">
@@ -757,7 +757,7 @@ class AddExam extends Component {
                               <div className="col-md-6">
                                 <div className="form-group">
                                   <label className="form-label-row">MCQ Duration <span style={{ color: 'red' }}>*</span></label>
-                                  {!action ? <input style={{ marginLeft: '31px', marginTop: '10px' }} className='form-control-row col-7' value={this.state.duration} type='number' max="480" onChange={(e) => this.handleChange(e, 'duration')} placeholder='Duration (In minutes)' /> : <input className='form-control-row col-7' value={this.state.duration} type='number' max="480" ></input>}
+                                  {!action ? <input style={{ marginLeft: '31px', marginTop: '10px' }} className='add-exam-input col-7' value={this.state.duration} type='number' max="480" onChange={(e) => this.handleChange(e, 'duration')} placeholder='Duration (In minutes)' /> : <input className='form-control-row col-7' value={this.state.duration} type='number' max="480" ></input>}
                                   <FormHelperText className="helper" style={{ paddingLeft: "35px" }}>{this.state.error.duration ? this.state.error.durationMsg : null}</FormHelperText>
                                 </div>
                               </div>}
