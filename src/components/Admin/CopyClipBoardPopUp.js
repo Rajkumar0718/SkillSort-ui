@@ -30,7 +30,7 @@ const getPublicExamLink = ()=>{
     console.log(res, "hascode");
       setExamUrl(hashCode? `${url.UI_URL}/candidate/register/${hashCode}` : undefined)
     }).catch((er)=>{
-      errorHandler(er)
+      // errorHandler(er)
     })
   }
 

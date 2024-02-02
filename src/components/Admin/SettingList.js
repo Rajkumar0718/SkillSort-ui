@@ -94,7 +94,8 @@ export default class SettingList extends Component {
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     whiteSpace: "nowrap",
-                    width:"12rem"
+                    width:"12rem",
+                    marginBottom: '0'
                   }}
                 >
                   {setting.qualifications?.map((value, _index) => (
@@ -247,7 +248,7 @@ export default class SettingList extends Component {
               <span className="card-title">Settings</span>
             </div>
             <div className="col-md-5"></div>
-            <div className="col-md-2">
+            <div className="col-md-2" style={{paddingLeft:"6.5rem"}}>
               <button
                 type="button"
                 onClick={this.onClickOpenModel}
