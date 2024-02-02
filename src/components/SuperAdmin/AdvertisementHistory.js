@@ -52,7 +52,7 @@ const AdvertisementHistory = () => {
   const deleteAd = (data) => {
     axios
       .post(`${url.ADV_API}/advdetails/remove`, data, { headers: authHeader() })
-      .then((res) => {
+      .then(() => {
         if (totalElements % 10 === 1) {
           setCurrentPage((prevPage) => prevPage - 1);
         }
@@ -81,12 +81,25 @@ const AdvertisementHistory = () => {
         name: 'START DATE',
         align: 'left',
         key: 'startDate',
+
+        renderCell: (params) => {
+          return (
+            moment(params.startDate).format("DD-MM-YYYY")
+          )
+        }
       },
       {
         name: 'END DATE',
         align: 'left',
         key: 'endDate',
+
+        renderCell: (params) => {
+          return (
+            moment(params.endDate).format("DD-MM-YYYY")
+          )
+        }
       },
+
       {
         name: 'DISPLAY ORDER',
         align: 'left',
@@ -97,11 +110,10 @@ const AdvertisementHistory = () => {
         key: 'action',
         renderCell: (params) => (
           <>
-            <Link className="collapse-item" to='/skillsortadmin/advertisement/edit' state= {{ ads: params, action: 'Update' }}>
-              <i className='fa fa-pencil' style={{ cursor: 'pointer', color: '#3B489E' }} aria-hidden='true'></i>
+            <Link className="collapse-item" to='/skillsortadmin/advertisement/edit' state={{ ads: params, action: 'Update' }}>
+              <i className='fa fa-pencil' aria-hidden='true'></i>
             </Link>
-            {/* Uncomment this line if needed */}
-            {/* <i className="fa fa-trash-o" aria-hidden="true" title='Delete' onClick={() => deleteAd(params)} style={{ marginLeft: '1rem', color: '#3B489E', cursor: 'pointer' }}></i> */}
+            <i className="fa fa-trash-o" aria-hidden="true" title='Delete' onClick={() => deleteAd(params)} style={{ marginLeft: '1rem', color: '#3B489E', cursor: 'pointer' }}></i>
           </>
         ),
       },
@@ -136,38 +148,6 @@ const AdvertisementHistory = () => {
                     pageSize={pageSize}
                     currentPage={currentPage}
                   />
-                  {/* <table className="table table-striped" id="dataTable">
-                    <thead className="table-dark" style={{ textAlign: 'center' }}>
-                      <tr>
-                        <th>S.No</th>
-                        <th style={{ textAlign: 'left' }}>Company Name</th>
-                        <th style={{ textAlign: 'left' }}>Start Date</th>
-                        <th style={{ textAlign: 'left' }}>End Date</th>
-                        <th style={{ textAlign: 'left' }}>Display Order</th>
-                        <th>ACTION</th>
-                      </tr>
-                    </thead>
-                    <tbody style={{ textAlign: 'center' }}>
-                      {ads?.length > 0 ? (
-                        ads.map((ad, index) => {
-                          return (
-                            <tr key={ad.id}>
-                              <td>{pageSize * currentPage - (i--)}</td>
-                              <td style={{ textAlign: 'left', textTransform: 'capitalize' }}>{ad.companyName}</td>
-                              <td style={{ textAlign: 'left' }}>{moment(ad.startDate).format('DD-MM-YYYY')}</td>
-                              <td style={{ textAlign: 'left' }}>{moment(ad.endDate).format('DD-MM-YYYY')}</td>
-                              <td style={{ textAlign: 'left' }}>{ad.displayOrder}</td>
-                              <td>
-                                <Link className="collapse-item" to={{ pathname: '/skillsortadmin/advertisement/edit', state: { ads: ad, action: 'Update' } }}>
-                                  <i className="fa fa-pencil" aria-hidden="true"></i>
-                                </Link>
-                                <i className="fa fa-trash-o" aria-hidden="true" title='Delete' onClick={() => deleteAd(ad)} style={{ marginLeft: '1rem', color: '#3B489E', cursor: 'pointer' }}></i>
-                              </td>
-                            </tr>
-                          );
-                        })) : (<tr className="text-center"> <td colspan="8">No data available in table</td> </tr>)}
-                    </tbody>
-                  </table> */}
                   {numberOfElements === 0 ? '' :
                     <Pagination
                       totalPages={totalPages}

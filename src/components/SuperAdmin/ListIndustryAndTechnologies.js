@@ -142,8 +142,8 @@ const ListIndustryAndTechnologies = () => {
       });
   };
 
-  const handleStatusFilter = (event) => {
-    setStatus(event.target.value);
+  const handleStatusFilter = (value) => {
+    setStatus(value);
     getIndustryList();
   };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import IndividualUserReportModal from './IndividualUserReportModal';
-import StudentreportModal from './StudentreportModal';
+import StudentreportModal from './StudentreportModel';
+
 
 const cards = [
   { name: 'Individual User', icon: 'fa fa-users' },

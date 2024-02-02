@@ -83,6 +83,14 @@ const FreeCredits = () => {
         }
     };
 
+    const formFields = [
+        { label: 'Test', name: 'test', type: 'tel', placeholder: 'Enter FreeCredits', value: freeCredits.test },
+        { label: 'Interview', name: 'interview', type: 'tel', placeholder: 'Enter FreeCredits', value: freeCredits.interview },
+        { label: 'Resume', name: 'resume', type: 'tel', placeholder: 'Enter FreeCredits', value: freeCredits.resume },
+        { label: 'Validity In Days', name: 'validity in days', type: 'tel', placeholder: 'Enter FreeCredits', value: freeCredits.validity }
+    ];
+
+
     return (
         <div>
             <>
@@ -99,56 +107,21 @@ const FreeCredits = () => {
                                     <div className="table-border">
                                         <form className="email-compose-body" onSubmit={handleSubmit} >
                                             <div className="send-header">
-                                                <div className="row" >
-                                                    <div className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6">
-                                                        <div className="row" >
-                                                            <div className="col-4 col-sm-4 col-md-4 col-lg-4" >
-                                                                <label className="form-label input-label" for="inputSection">Test<span className='required'></span>
-                                                                    <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{error.test ? error.simpleErrorMsg : null}</FormHelperText>
-                                                                </label></div>
-                                                            <div className="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                                                                <input type="tel" className="profile-page" onChange={(e) => handleChange(e, 'test')} value={freeCredits.test}
-                                                                    name='test' autoComplete="off" placeholder='Enter FreeCredits' />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6">
+                                            <div className="row" style={{marginLeft:"1px"}}>
+                                                {formFields.map((field, index) => (
+                                                    <div className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6" key={index}>
                                                         <div className="row">
                                                             <div className="col-4 col-sm-4 col-md-4 col-lg-4">
-                                                                <label className="form-label input-label" for="inputSection">Interview<span className='required'></span>
-                                                                    <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{error.interview ? error.mediumErrorMsg : null}</FormHelperText>
-                                                                </label></div>
+                                                                <label className="form-label input-label" htmlFor={field.name}>{field.label}<span></span>
+                                                                    <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{error[field.name] ? error[field.name + 'ErrorMsg'] : null}</FormHelperText>
+                                                                </label>
+                                                            </div>
                                                             <div className="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                                                                <input type="tel" className="profile-page" onChange={(e) => handleChange(e, 'interview')} value={freeCredits.interview} name='interview' autoComplete="off" placeholder='Enter FreeCredits' />
+                                                                <input type={field.type} className="profile-page" onChange={(e) => handleChange(e, field.name)} value={field.value} name={field.name} autoComplete="off" placeholder={field.placeholder} />
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6">
-                                                        <div className="row">
-                                                            <div className="col-4 col-sm-4 col-md-4 col-lg-4">
-                                                                <label className="form-label input-label" for="inputSection">Resume<span className='required'></span>
-                                                                    <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{error.resume ? error.complexErrorMsg : null}</FormHelperText>
-                                                                </label></div>
-                                                            <div className="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                                                                <input type="tel" className="profile-page" onChange={(e) => handleChange(e, 'resume')} value={freeCredits.resume} autoComplete="off"
-                                                                    name='resume' placeholder='Enter FreeCredits' />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6">
-                                                        <div className="row">
-                                                            <div className="col-4 col-sm-4 col-md-4 col-lg-4">
-                                                                <label className="form-label input-label" for="inputSection">Validity In Days<span className='required'></span>
-                                                                    <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{error.validity ? error.validityErrorMsg : null}</FormHelperText>
-                                                                </label></div>
-                                                            <div className="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                                                                <input type="tel" className="profile-page" onChange={(e) => handleChange(e, 'validity')} value={freeCredits.validity} autoComplete="off"
-                                                                    name='validity' placeholder='Enter Validity' />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
+                                                ))}
                                                 </div>
                                                 <div className="form-group row" >
                                                     <div className="col-md-11 col-lg-11 col-sm-11 col-11" style={{ paddingRight: '2.5rem' }}>

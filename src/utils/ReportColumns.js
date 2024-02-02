@@ -2,36 +2,40 @@ import { Tooltip } from "@mui/material";
 import moment from "moment";
 
 export const columnsForSignUp = {
-  'signUp' : [
-    { field: 'id', 
-    headerName: 'S.NO', 
-    width: 150, 
-    sortable: false, 
-    align: 'center',
-    headerAlign: 'center',
+  'signUp': [
+    {
+      field: 'id',
+      headerName: 'S.NO',
+      width: 150,
+      sortable: false,
+      align: 'center',
+      headerAlign: 'center',
+      headerClassName: 'super-app-theme--header',
+    },
+    {
+      field: 'companyName',
+      headerName: 'Company Name',
+      width: 200,
+      sortable: false,
+      headerClassName: 'super-app-theme--header',
+    },
+    {
+      field: 'date',
+      headerName: 'Date',
+      width: 200,
+      sortable: false,
+      headerClassName: 'super-app-theme--header',
+      valueFormatter: (params) => moment(params.value).format("DD-MM-YYYY")
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      sortable: false,
+      flex: 1,
+      headerClassName: 'super-app-theme--header',
+    },
 
-  },
-  {
-    field: 'companyName',
-    headerName: 'Company Name',
-    width: 200,
-    sortable: false
-  },
-  {
-    field: 'date',
-    headerName: 'Date',
-    width: 200,
-    sortable: false,
-    valueFormatter: (params) => moment(params.value).format("DD-MM-YYYY")
-  },
-  {
-    field: 'email',
-    headerName: 'Email',
-    width: 200,
-    sortable: false
-  },
-
-],
+  ],
   'login': [
     {
       field: 'id',
@@ -40,12 +44,14 @@ export const columnsForSignUp = {
       sortable: false,
       align: 'center',
       headerAlign: 'center',
+      headerClassName: 'super-app-theme--header',
 
     },
     {
       field: 'companyName',
       headerName: 'Company Name',
       width: 200,
+      headerClassName: 'super-app-theme--header',
       sortable: false
     },
     {
@@ -53,6 +59,7 @@ export const columnsForSignUp = {
       headerName: 'Date',
       width: 200,
       sortable: false,
+      headerClassName: 'super-app-theme--header',
       valueFormatter: (params) => moment(params.value).format("DD-MM-YYYY")
 
     },
@@ -60,6 +67,7 @@ export const columnsForSignUp = {
       field: 'email',
       headerName: 'Email',
       width: 200,
+      headerClassName: 'super-app-theme--header',
       sortable: false
     },
     {
@@ -69,7 +77,8 @@ export const columnsForSignUp = {
       width: 160,
       align: 'center',
       headerAlign: 'center',
-      valueFormatter: (params) => params.value ? 'Yes': 'No'
+      headerClassName: 'super-app-theme--header',
+      valueFormatter: (params) => params.value ? 'Yes' : 'No'
     },
     {
       field: 'isDownloaded',
@@ -78,19 +87,21 @@ export const columnsForSignUp = {
       width: 160,
       align: 'center',
       headerAlign: 'center',
+      headerClassName: 'super-app-theme--header',
       valueFormatter: (params) => params.value ? 'Yes' : 'No'
     },
     {
       field: 'isRecruited',
       headerName: 'Recruited',
       sortable: false,
-      width: 160,
+      flex: 1,
       align: 'center',
       headerAlign: 'center',
+      headerClassName: 'super-app-theme--header',
       valueFormatter: (params) => params.value ? 'Yes' : 'No'
     }
   ],
-  "search":[
+  "search": [
     {
       field: 'id',
       headerName: 'S.NO',
@@ -98,13 +109,18 @@ export const columnsForSignUp = {
       sortable: false,
       align: 'center',
       headerAlign: 'center',
+      headerClassName: 'super-app-theme--header',
+
 
     },
     {
       field: 'companyName',
       headerName: 'Company Name',
       width: 200,
-      sortable: false
+      sortable: false,
+      headerClassName: 'super-app-theme--header',
+
+
     },
     {
       field: 'date',
@@ -112,14 +128,16 @@ export const columnsForSignUp = {
       width: 160,
       sortable: true,
       type: 'dateTime',
+      headerClassName: 'super-app-theme--header',
       valueFormatter: (params) => moment(params.value).format("DD-MM-YYYY"),
-      
+
     },
     {
       field: 'advanceSearchDto.averageMark',
       headerName: 'average mark',
       width: 160,
       sortable: false,
+      headerClassName: 'super-app-theme--header',
       valueGetter: (params) => params.row.advanceSearchDto?.averageMark ? params.row.advanceSearchDto?.averageMark : '-'
     },
 
@@ -130,7 +148,8 @@ export const columnsForSignUp = {
       sortable: false,
       headerAlign: 'center',
       align: 'center',
-      valueGetter: (params) => params.row.advanceSearchDto?.technology ? params.row.advanceSearchDto?.technology: '-'
+      headerClassName: 'super-app-theme--header',
+      valueGetter: (params) => params.row.advanceSearchDto?.technology ? params.row.advanceSearchDto?.technology : '-'
     },
     {
       field: 'advanceSearchDto.ug',
@@ -139,16 +158,19 @@ export const columnsForSignUp = {
       sortable: false,
       headerAlign: 'center',
       align: 'center',
-      valueGetter: (params) => params.row.advanceSearchDto?.ug ? params.row.advanceSearchDto?.ug : '-' 
+      headerClassName: 'super-app-theme--header',
+      valueGetter: (params) => params.row.advanceSearchDto?.ug ? params.row.advanceSearchDto?.ug : '-'
     },
     {
       field: 'advanceSearchDto.hsc',
       headerName: 'hsc %',
-      width: 160,
+
+      flex: 1,
       sortable: false,
       headerAlign: 'center',
       align: 'center',
-      valueGetter: (params) => params.row.advanceSearchDto?.hsc ? params.row.advanceSearchDto?.hsc: '-' 
+      headerClassName: 'super-app-theme--header',
+      valueGetter: (params) => params.row.advanceSearchDto?.hsc ? params.row.advanceSearchDto?.hsc : '-'
     },
   ],
   "download": [
@@ -158,6 +180,7 @@ export const columnsForSignUp = {
       width: 150,
       sortable: false,
       align: 'center',
+      headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
 
     },
@@ -165,6 +188,7 @@ export const columnsForSignUp = {
       field: 'companyName',
       headerName: 'Company Name',
       width: 200,
+      headerClassName: 'super-app-theme--header',
       sortable: false
     },
     {
@@ -173,6 +197,7 @@ export const columnsForSignUp = {
       width: 160,
       sortable: true,
       type: 'dateTime',
+      headerClassName: 'super-app-theme--header',
       valueFormatter: (params) => moment(params.value).format("DD-MM-YYYY"),
 
     },
@@ -180,20 +205,22 @@ export const columnsForSignUp = {
       field: 'count',
       headerName: 'count',
       width: 150,
+      headerClassName: 'super-app-theme--header',
       sortable: false,
     },
     {
       field: 'emails',
       headerName: 'emails',
-      width: 350,
+      flex: 1,
       sortable: false,
+      headerClassName: 'super-app-theme--header',
       renderCell: (params) => (
         <Tooltip title={<i>{params.value?.join()}</i>} arrow>
           <div>{params.value?.join()}</div>
         </Tooltip>
       )
     },
-  ], 
+  ],
   "recruited": [
     {
       field: 'id',
@@ -202,13 +229,17 @@ export const columnsForSignUp = {
       sortable: false,
       align: 'center',
       headerAlign: 'center',
+      headerClassName: 'super-app-theme--header',
+
 
     },
     {
       field: 'companyName',
       headerName: 'Company Name',
       flex: 0.3,
-      sortable: false
+      sortable: false,
+      headerClassName: 'super-app-theme--header',
+
     },
     {
       field: 'date',
@@ -216,6 +247,7 @@ export const columnsForSignUp = {
       width: 160,
       sortable: true,
       type: 'dateTime',
+      headerClassName: 'super-app-theme--header',
       valueFormatter: (params) => moment(params.value).format("DD-MM-YYYY"),
 
     }, {
@@ -223,13 +255,14 @@ export const columnsForSignUp = {
       headerName: 'email',
       width: 250,
       sortable: false,
-      valueGetter: (params) => params.row.skillSortUserProfile?.email 
-    }, 
+      headerClassName: 'super-app-theme--header',
+      valueGetter: (params) => params.row.skillSortUserProfile?.email
+    },
     {
-      field: 'name',
       headerName: 'name',
-      width: 250,
+      flex: 1,
       sortable: false,
+      headerClassName: 'super-app-theme--header',
       valueGetter: (params) => params.row.skillSortUserProfile?.firstName?.concat(" ")?.concat(params.row.skillSortUserProfile?.lastName)
     },
   ]

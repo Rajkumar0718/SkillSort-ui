@@ -1,8 +1,8 @@
 import { FormHelperText } from '@mui/material'
 import axios from 'axios'
 import _ from 'lodash'
-import React, { useEffect, useState } from 'react'
-import { authHeader, errorHandler } from '../../api/Api' 
+import React, { useEffect, useRef, useState } from 'react'
+import { authHeader, errorHandler } from '../../api/Api'
 import { toastMessage, withLocation } from '../../utils/CommonUtils'
 import { isEmpty } from '../../utils/Validation'
 import { url } from "../../utils/UrlConstant"
@@ -11,12 +11,15 @@ import CustomDatePick from '../../common/CustomDatePick';
 
 
 const AddAdvertisement = (props) => {
+  const videoRef = useRef();
 
   const [advertisement, setAdvertisement] = useState({})
   const [image, setImage] = useState(null);
   const [logo, setLogo] = useState(null);
   const [displayLogo, setDisplayLogo] = useState(null)
+  const [displayVideo, setDisplayVideo] = useState(null);
   const [base64Logo, setBase64Logo] = useState(null)
+  const [videoSource, setVideoSource] = useState(null)
   const [error, setError] = useState({
     companyName: false,
     companyNameMsg: '',
@@ -45,33 +48,41 @@ const AddAdvertisement = (props) => {
   useEffect(() => {
     if (props.location.pathname.indexOf('edit') > -1) {
       const ad = props.location.state.ads;
-      setAdvertisement(ad)
-      getLogo(ad)
+      const updatedAd = { ...ad, startDate: new Date(ad.startDate), endDate: new Date(ad.endDate) }
+      setAdvertisement(updatedAd)
+      setDisplayVideo(updatedAd?.path)
+      getLogo(updatedAd)
+      renderVideoOrImage()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [videoSource])
 
   const setDate = (date, key) => {
-    console.log(date,key);
     setAdvertisement((prev) => ({ ...prev, [key]: date }))
   }
 
-  const setImageFile = (event) => {
-    const file = event.target.files[0]
-    if (file.type.includes('image')) {
-      resizeFile(file).then((file) => {
-        setImage(file)
-      })
+  const setAdvertisementFile = (event) => {
+    const file = event.target.files[0];
+    let url;
+    setImage(null);
+    setVideoSource(null);
+    if (file?.type.startsWith('image')) {
+      url = URL.createObjectURL(file);
+      setImage(url);
+    } else if (advertisement.type === 'VIDEO' && file) {
+      url = URL.createObjectURL(file);
+      setVideoSource(url);
     }
-    else {
-      setImage(file)
-    }
-  }
+  };
+
+  useEffect(() => {
+    videoRef.current?.load();
+  }, [videoSource])
+
 
   const setCompanyLogo = (event) => {
     const err = _.clone(error)
     const file = event.target.files[0]
-    if (allowedTypes.includes(file.type)) {
+    if (allowedTypes.includes(file?.type)) {
       resizeFile(file).then((file) => {
         setLogo(file)
       })
@@ -87,6 +98,27 @@ const AddAdvertisement = (props) => {
     }
   }
 
+  const renderVideoOrImage = () => {
+    if (advertisement.type === 'VIDEO') {
+      if (videoSource) {
+        console.log(videoSource, "videoSource")
+        return (<video  style={{ marginTop: '-3rem' }} width="200" height="200" controls autoplay ref={videoRef}>
+          <source src={videoSource} type="video/mp4" />
+        </video>)
+      } else if (advertisement.path) {
+        console.log(advertisement.path, "adv")
+        return (
+          <video style={{ marginTop: '-3rem' }}  width="200" height="200" controls autoplay ref={videoRef}>
+            <source src={advertisement.path} type="video/mp4" />
+          </video>
+        )
+      }
+    } else if (advertisement.type === 'IMAGE') {
+      return <img src={image}  width="200 " height="150"></img>
+    }
+  }
+
+
   const resizeFile = (file) => {
     return new Promise((resolve) => {
       const image = new Image();
@@ -97,8 +129,7 @@ const AddAdvertisement = (props) => {
         canvas.height = 350;
 
         const ctx = canvas.getContext('2d');
-
-        ctx.fillStyle = 'white'; // Set the background color to white
+        ctx.fillStyle = 'white';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
@@ -280,13 +311,12 @@ const AddAdvertisement = (props) => {
             <div className="col-md-12">
               <div className="table-border-cr">
                 <form className="email-compose-body" onSubmit={(e) => handleSubmit(e)}>
-                  <div className="send-header">
+                  <div className="send-header" style={{ marginLeft: "1rem" }}>
                     <div className="row">
                       <div className='col-6 col-lg-6 col-sm-6 col-xl-6'>
                         <div className='row'>
                           <div className='col-4 col-lg-4 col-md-4 col-sm-4'>
                             <label className="form-label input-label">Company Name<span className='required'></span><FormHelperText className="helper helper-candidate" style={{ paddingLeft: "0px", marginTop: '5px' }}>{error.companyName ? error.companyNameMsg : null}</FormHelperText></label>
-
                           </div>
                           <div className='col-8 col-lg-8 col-md-8 col-sm-8'>
                             <input className="profile-page input-mini" maxLength="50"
@@ -319,7 +349,6 @@ const AddAdvertisement = (props) => {
 
                           </div>
                           <div className='col-8 col-lg-8 col-md-8 col-sm-8'>
-                            
                             <CustomDatePick
                               onChange={date => setDate(date, 'startDate')}
                               value={advertisement?.startDate || null}
@@ -335,13 +364,12 @@ const AddAdvertisement = (props) => {
                             <label className="form-label input-label">End Date<span className='required'></span><FormHelperText className="helper helper-candidate" style={{ paddingLeft: "0px", marginTop: '5px' }}>{error.endDate ? error.endDateMsg : null}</FormHelperText></label>
                           </div>
                           <div className='col-8 col-lg-8 col-md-8 col-sm-8'>
-                          <CustomDatePick
+                            <CustomDatePick
                               onChange={date => setDate(date, 'endDate')}
                               value={advertisement?.endDate || null}
                               objectKey='endDate'
                               minDate={advertisement.startDate}
                             />
-                           
                           </div>
 
                         </div>
@@ -351,12 +379,13 @@ const AddAdvertisement = (props) => {
                       <div className='col-6 col-lg-6 col-sm-6 col-xl-6'>
                         <div className='row'>
                           <div className='col-4 col-lg-4 col-md-4 col-sm-4'>
-                            <label className="form-label input-label">Select File<span className='required'></span><FormHelperText className="helper helper-candidate" style={{ paddingLeft: "0px", marginTop: '5px' }}>{error.image ? error.imageMsg : null}</FormHelperText></label>
+                            <label className="form-label input-label">Website<span className='required'></span><FormHelperText className="helper helper-candidate" style={{ paddingLeft: "0px", marginTop: '5px' }}>{error.website ? error.websiteMsg : null}</FormHelperText></label>
                           </div>
                           <div className='col-8 col-lg-8 col-md-8 col-sm-8'>
-                            <input className="profile-page input-mini" maxLength="50"
-                              onChange={(e) => setImageFile(e)}
-                              name='image' id='company' autoComplete="off" type="file" placeholder='' />
+                            <input className="profile-page input-mini"
+                              onChange={(e) => changeHandler(e)}
+                              value={advertisement?.website}
+                              name='website' id='company' autoComplete="off" type="text" placeholder='' />
                           </div>
                         </div>
                       </div>
@@ -385,7 +414,7 @@ const AddAdvertisement = (props) => {
                             <label className="form-label input-label">Description<span className='required'></span><FormHelperText className="helper helper-candidate" style={{ paddingLeft: "0px", marginTop: '5px' }}>{error.description ? error.descriptionMsg : null}</FormHelperText></label>
 
                           </div>
-                          <div className='col-8 col-lg-8 col-md-8 col-sm-8'>
+                          <div className='col-8 col-lg-8 col-md-8 col-sm-8 ' style={{ marginTop: "-1rem" }}>
                             <textarea name="description" className="profile-page input-mini" onChange={(e) => changeHandler(e)} value={advertisement?.description || ''} rows="2"></textarea>
                           </div>
                         </div>
@@ -408,16 +437,19 @@ const AddAdvertisement = (props) => {
                       <div className='col-6 col-lg-6 col-sm-6 col-xl-6'>
                         <div className='row'>
                           <div className='col-4 col-lg-4 col-md-4 col-sm-4'>
-                            <label className="form-label input-label">Website<span className='required'></span><FormHelperText className="helper helper-candidate" style={{ paddingLeft: "0px", marginTop: '5px' }}>{error.website ? error.websiteMsg : null}</FormHelperText></label>
+                            <label className="form-label input-label">Select File<span className='required'></span><FormHelperText className="helper helper-candidate" style={{ paddingLeft: "0px", marginTop: '5px' }}>{error.image ? error.imageMsg : null}</FormHelperText></label>
                           </div>
                           <div className='col-8 col-lg-8 col-md-8 col-sm-8'>
-                            <input className="profile-page input-mini"
-                              onChange={(e) => changeHandler(e)}
-                              value={advertisement?.website}
-                              name='website' id='company' autoComplete="off" type="text" placeholder='' />
+                            <input className="profile-page input-mini" style={{ paddingBottom: '3px' }} maxLength="50"
+                              onChange={(e) => setAdvertisementFile(e)}
+                              name='image' id='company' autoComplete="off" type="file" placeholder='' />
+                          </div>
+                          <div className='col-8 col-lg-8 col-md-8 col-sm-8'>
+                            {renderVideoOrImage()}
                           </div>
                         </div>
                       </div>
+
                       <div className='col-6 col-lg-6 col-sm-6 col-xl-6'>
                         <div className='row'>
                           <div className='col-4 col-lg-4 col-md-4 col-sm-4'>
@@ -426,7 +458,7 @@ const AddAdvertisement = (props) => {
                             {!displayLogo && base64Logo && <img style={{ width: '200px' }} alt='logo' src={`data:image/png;base64,${base64Logo}`} />}
                           </div>
                           <div className='col-8 col-lg-8 col-md-8 col-sm-8'>
-                            <input className="profile-page input-mini" maxLength="50" accept="image/jpeg, image/png"
+                            <input className="profile-page input-mini" style={{ paddingBottom: '3px' }} maxLength="50" accept="image/jpeg, image/png"
                               onChange={(e) => setCompanyLogo(e)}
                               name='logo' id='company' autoComplete="off" type="file" placeholder='' />
                           </div>
@@ -434,7 +466,7 @@ const AddAdvertisement = (props) => {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-9 col-lg-9 col-md-9 col-sm-9" style={{ padding: "0px 0px 0px 10px" }}>
+                      <div className="col-9 col-lg-9 col-md-9 col-sm-9" style={{ padding: "0px 0px 0px 10px", marginLeft: "3rem" }}>
                         <button style={{ float: 'right' }} disabled={disable} type='submit' className='btn btn-primary  float-end'>{action === null ? 'Submit' : 'Update'}</button>
                       </div>
                     </div>

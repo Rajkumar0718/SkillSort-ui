@@ -48,7 +48,3 @@
 .mb-05 {
     margin-bottom: 0.5rem;
 }
-
-.myGrid .MuiDataGrid-columnHeaderTitleContainer {
-    max-height: 40px !important;
-}
