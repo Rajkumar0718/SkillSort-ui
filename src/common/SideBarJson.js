@@ -247,7 +247,7 @@ const sidebar = {
     to: '/report/advance-search',
     name: 'Advance Search',
     icon: 'fa fa-search'
-  },{
+  }, {
     isSubMenu: false,
     to: '/report/activity-dashboard',
     name: 'Activity Report',
