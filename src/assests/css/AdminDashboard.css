@@ -2400,6 +2400,47 @@ table td {
 .fixed-button {
   position: fixed;
   bottom: 10px;
-  right: 54%;
+  right: 54%; 
 }
 
+.model-label{
+  font-size: 13px;
+  font-weight: 400;
+  font-family: "Montserrat", "Times New Roman", Times, serif;
+  margin-left: 2rem;
+  width: 100px;
+}
+.model-input{
+  width: 55%;
+  padding: 0.95rem 0.85rem 0 0rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 0.5;
+  border: none;
+  border-bottom: 1.5px solid black;
+  outline: none; 
+  margin-left: 2rem;
+}
+/* .ck .ck-content .ck-editor{
+
+height: 290px !important;
+} */
+
+.ck .ck-editor__main{
+height: 272px !important;
+}
+.add-exam-input{
+  display: block;
+  /* width: 90% !important; */
+  padding: 0.4rem 0.75rem;
+  margin-left: 2.2rem;
+  margin-right: 4rem;
+  /* margin-top: 1rem; */
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+}
