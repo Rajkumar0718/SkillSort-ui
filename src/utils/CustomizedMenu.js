@@ -6,26 +6,22 @@ import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/system';
 import { Code, Info } from '@mui/icons-material';
 import React from 'react';
+import styled from 'styled-components';
 
-const StyledMenu = styled(Menu)(({ theme }) => ({
-  paper: {
+
+
+const StyledMenu = styled(Menu)`
+ .paper {
     border: '1px solid #d3d4d5',
-  },
-}));
+ }
+`;
 
-export default function CustomizedMenus(props) {
-  const theme = useTheme();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
-    root: {
-      '&:focus': {
-        '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-          color: theme.palette.common.black,
-        },
-      },
-    },
-  }));
+const StyledMenuItem = styled(MenuItem)`
+ &:focus {
+    .MuiListItemIcon-root, .MuiListItemText-primary {
+      color: ${(props) => props?.theme?.palette?.common?.black};
+    }
+ }`;
 
 
   const handleClick = (event) => {
