@@ -13,7 +13,9 @@ import java_1 from '../../assests/images/java_instruction_1.png';
 import java_2 from '../../assests/images/java_instruction_2.png';
 import Csharp_Instruction_1 from '../../assests/images/Csharp_Instructions_1.png';
 import Csharp_Instruction_2 from '../../assests/images/Csharp_Instructions_2.png';
-export default class CandidateInstruction extends Component {
+import { withLocation } from "../../utils/CommonUtils";
+
+class CandidateInstruction extends Component {
 
   state = {
     name: "",
@@ -309,24 +311,25 @@ export default class CandidateInstruction extends Component {
             <h6 style={{ textAlign: "center" }}>{this.errorMsg.error}</h6>
           </div>
         </div>
-        <div>
-          {(this.state.isOnlyProgramming || this.state.technology === 'PROGRAMMING' || this.state.technology === 'BOTH') && this.state.langSelected ?
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div>
-                {this.state.instruction_image_count > 0 ?
-                  <FaArrowAltCircleLeft className={`left-arrow`} onClick={this.prevSlide} style={{ position: 'absolute', transform: 'translate(-110%,250%)', fontSize: '2.5rem', zIndex: '10', color: '#F05A28', cursor: 'pointer', userSelect: 'none' }} />
-                  :
-                  null
-                }
-                <img src={this.state.instruction_slider?.[this.state.languageName]?.[this.state.instruction_image_count]} alt={`Wrong ${this.state.languageName}`} />
-                {this.state.instruction_image_count < this.state.instruction_slider[this.state.languageName]?.length - 1 ?
-                  <FaArrowAltCircleRight className={`right-arrow`} onClick={this.nextSlide} style={{ color: '#f05a28', fontSize: '2.5rem', position: 'absolute', zIndex: '10', transform: 'translate(10%,250%)', cursor: 'pointer', userSelect: 'none', animation: 'blink 1s infinite' }} />
-                  :
-                  null
-                }
-              </div>
+        <div style={{position:'relative',top:'50%',left:'50%',transform:'translate(-50%,-50%)'}}>
+          {(this.state.isOnlyProgramming || this.state.technology === 'PROGRAMMING' || this.state.technology === 'BOTH' ) && this.state.langSelected?
+          <div style={{display:'flex',justifyContent:'center'}}>
+            <div>
+                    {this.state.instruction_image_count > 0 ?
+                      <FaArrowAltCircleLeft className={`left-arrow`} onClick={this.prevSlide} style={{ position: 'absolute', transform:'translate(-110%,250%)', fontSize: '2.5rem', zIndex: '10',color: '#F05A28', cursor: 'pointer', userSelect: 'none' }} />
+                      :
+                      null
+                    }
+                     <img src={this.state.instruction_slider?.[this.state.languageName]?.[this.state.instruction_image_count]} alt={`Wrong ${this.state.languageName}`}  />
+                  {this.state.instruction_image_count < this.state.instruction_slider[this.state.languageName]?.length - 1 ?
+                    <FaArrowAltCircleRight className={`right-arrow`} onClick={this.nextSlide}  style={{color:'#f05a28',fontSize:'2.5rem',position:'absolute',zIndex: '10',transform:'translate(10%,250%)',cursor:'pointer',userSelect:'none',animation: 'blink 1s infinite'}}/>
+                    :
+                    null
+                  }
+                  </div>
+            
+          </div>:null}
 
-            </div> : null}
         </div>
         <footer className="start-test" style={{ display: 'flex', justifyContent: 'center' }}>
           {this.getCandidateInstruction()}
@@ -335,3 +338,4 @@ export default class CandidateInstruction extends Component {
     );
   }
 }
+export default withLocation(CandidateInstruction)

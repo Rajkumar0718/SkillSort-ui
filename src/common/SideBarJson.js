@@ -1,3 +1,4 @@
+import { FaClipboard } from "react-icons/fa";
 
 const sidebar = {
   "ADMIN": [ {
@@ -170,6 +171,35 @@ const sidebar = {
     to: '/college/collegeReport',
     name: 'SkillSort User Report',
     icon: 'fa fa-file-text-o'
+  }
+  ],
+  "COLLEGE_STUDENT": [{
+    isSubMenu: false,
+    to: "/student/student-test",
+    name: "Dashboard",
+    icon: 'fa fa-home'
+  }, {
+    isSubMenu: false,
+    name: 'Profile',
+    to: '/student/profile',
+    isDefault: true,
+    icon: 'fa fa-users'
+  }, {
+    isSubMenu: false,
+    to: '/student/company-offer',
+    name: 'Offered Companies',
+    icon: 'fa fa-briefcase'
+  }, {
+    isSubMenu: false,
+    to: '/student/student-practice-exam',
+    name: 'Practice Exam',
+    icon: () => <FaClipboard style={{ fontSize: '1.3rem', color: '#3b489e' }}/>,
+    isReactIcon:true
+  },{
+    isSubMenu: false,
+    to: '/student/advertisement',
+    name: 'Advertisement',
+    icon: 'fa fa-bullhorn'
   }
   ],
   "TEST_ADMIN": [{
