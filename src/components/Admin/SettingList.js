@@ -7,7 +7,7 @@ import { CustomTable } from "../../utils/CustomTable";
 import Pagination from "../../utils/Pagination";
 import { toastMessage } from "../../utils/CommonUtils";
 
-import {Tooltip as ReactTooltip} from 'react-tooltip';
+import Tooltip from "@mui/material/Tooltip";
 import SettingModel from "./SettingModel";
 
 export default class SettingList extends Component {
@@ -70,28 +70,43 @@ export default class SettingList extends Component {
         renderCell: (setting, index) => {
           return (
             <>
-              <div data-tip data-for={"Qualifications" + index}>
-                <span>{this.renderQualification(setting.qualifications)}</span>
-              </div>
-              <ReactTooltip
+              <Tooltip
+                arrow
                 id={"Qualifications" + index}
-                place="bottom"
-                type="dark"
+                placement="bottom"
+                title={
+                  <>
+                    {setting.qualifications?.map((value, _index) => {
+                      return (
+                        <span key={value}>
+                          {value}
+                          {setting.qualifications.length === _index + 1
+                            ? null
+                            : "/"}
+                        </span>
+                      );
+                    })}
+                  </>
+                }
               >
-
-                <p>
-                  {setting.qualifications?.map((value, _index) => {
-                    return (
-                      <span key={value}>
-                        {value}
-                        {setting.qualifications.length === _index + 1
-                          ? null
-                          : "/"}
-                      </span>
-                    );
-                  })}
+                <p
+                  style={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    width:"12rem"
+                  }}
+                >
+                  {setting.qualifications?.map((value, _index) => (
+                    <span key={`${value}-${_index}`}>
+                      {value}
+                      {setting.qualifications.length === _index + 1
+                        ? null
+                        : "/"}
+                    </span>
+                  ))}
                 </p>
-              </ReactTooltip>
+              </Tooltip>
             </>
           );
         },

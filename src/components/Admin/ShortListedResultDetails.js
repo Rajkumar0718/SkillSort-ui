@@ -300,14 +300,14 @@ export default class ShortListedResultDetails extends Component {
   render() {
     return (
       <div>
-          <div className='header'>
-          <img className='header-logo' src={LOGO} alt="SkillSort" />
+        <div className="header">
+          <img className="header-logo" src={LOGO} alt="SkillSort" />
         </div>
         <div
           className="modal-content"
           style={{
             overflowY: "auto",
-            marginTop:"1rem",
+            marginTop: "1rem",
             paddingRight: "30px",
             // height: 'calc(100vh - 60px)'
           }}
@@ -334,218 +334,238 @@ export default class ShortListedResultDetails extends Component {
             </div>
           </div>
         </div>
-        <div style={{display:'flex',marginTop:"2.5rem",height: 'calc(100vh - 60px)',overflowY:'auto'}}>
-        <div style={{display:'flex',justifyContent:"flex-end",marginRight:"10rem",marginLeft:'4rem'}}>
-          <div className="col-sm-4 user-profile">
-            <div className="row" style={{ display: "contents" }}>
-              <div className="card-block content-align">
-                {this.state.profilePic ? (
-                  <Avatar
-                    id="img"
-                    onClick={this.enlargeImg}
-                    style={{ width: 180, height: 180 }}
-                    src={`data:image/png;base64,${this.state.profilePic}`}
-                    alt="profile"
-                  />
-                ) : (
-                  <img src={profile} alt="profile" />
-                )}
-
-                <h4
-                  className="f-w-600 mt-4"
-                  style={{
-                    fontSize: "1.5rem",
-                    marginBottom: "0.5rem",
-                    lineHeight: "1.2",
-                    color: "#3B489E",
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  {this.state.user.firstName} {this.state.user.lastName}
-                </h4>
-                <h5
-                  style={{
-                    fontWeight: "400",
-                    color: "#000000",
-                    fontSize: "13px",
-                    marginBottom: "18px",
-                  }}
-                >
-                  <img
-                    src={qualification}
-                    alt=""
-                    style={{ width: "30px", marginLeft: "-36px" }}
-                  />{" "}
-                  {this.state.user.qualification}
-                </h5>
-                <p
-                  style={{
-                    fontWeight: "400",
-                    color: "#000000",
-                    fontSize: "13px",
-                    marginBottom: "0px",
-                  }}
-                >
-                  {this.state.user.email}
-                </p>
-                <p
-                  style={{
-                    fontWeight: "400",
-                    color: "#000000",
-                    fontSize: "13px",
-                    marginBottom: "0px",
-                  }}
-                >
-                  {this.state.user.phone}
-                </p>
+        <div className="backPic"
+          style={{
+            display: "flex",
+            height: "calc(100vh - 150px)",
+            overflowY: "auto",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginRight: "2rem",
+              marginLeft: "13rem",
+            }}
+          >
+            <div className="col-sm-4 user-profile">
+              <div className="row" style={{ display: "contents" }}>
+                <div className="card-block content-align">
+                  {this.state.profilePic ? (
+                    <Avatar
+                      id="img"
+                      onClick={this.enlargeImg}
+                      style={{ width: 180, height: 180 }}
+                      src={`data:image/png;base64,${this.state.profilePic}`}
+                      alt="profile"
+                    />
+                  ) : (
+                    <img src={profile} alt="profile" />
+                  )}
+                    <h4
+                      className="f-w-600 mt-4"
+                      style={{
+                        fontSize: "1.5rem",
+                        marginBottom: "0.5rem",
+                        lineHeight: "1.2",
+                        color: "#3B489E",
+                        fontFamily: "Montserrat",
+                        overflow: "hidden",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {this.state.user.firstName} {this.state.user.lastName}
+                    </h4>
+                    <h5
+                      style={{
+                        fontWeight: "400",
+                        color: "#000000",
+                        fontSize: "13px",
+                        marginBottom: "18px",
+                      }}
+                    >
+                      <img
+                        src={qualification}
+                        alt=""
+                        style={{ width: "30px", marginLeft: "-36px" }}
+                      />{" "}
+                      {this.state.user.qualification}
+                    </h5>
+                    <p
+                      style={{
+                        fontWeight: "400",
+                        color: "#000000",
+                        fontSize: "13px",
+                        marginBottom: "0px",
+                      }}
+                    >
+                      {this.state.user.email}
+                    </p>
+                    <p
+                      style={{
+                        fontWeight: "400",
+                        color: "#000000",
+                        fontSize: "13px",
+                        marginBottom: "0px",
+                      }}
+                    >
+                      {this.state.user.phone}
+                    </p>
+                </div>
               </div>
-            </div>
-            <div className="row" style={{ display: "flex", float: "right" }}>
-              <div
-                className="card-block content-align"
-                style={{width:'2.5rem'}}
-              >
-                <button
-                  onClick={() =>
-                    this.setState({
-                      viewProfile: !this.state.viewProfile,
-                      type: "resume",
-                    })
-                  }
-                  className="btn btn-sm btn-nxt"
-                  style={{ fontFamily: "Montserrat",width:'8rem' }}
-                >
-                  View Resume
-                </button>
-              </div>
-              {_.size(this.state.certificateData) > 0 ? (
+              <div className="row" >
                 <div
                   className="card-block content-align"
-                  style={{ paddingTop: "0px" }}
                 >
                   <button
                     onClick={() =>
                       this.setState({
                         viewProfile: !this.state.viewProfile,
-                        type: "certificate",
+                        type: "resume",
                       })
                     }
                     className="btn btn-sm btn-nxt"
-                    style={{ fontFamily: "Montserrat" }}
+                    style={{ fontFamily: "Montserrat", width: "8rem" }}
                   >
-                    View Certficate
+                    View Resume
                   </button>
                 </div>
-              ) : null}
+                {_.size(this.state.certificateData) > 0 ? (
+                  <div
+                    className="card-block content-align"
+                    style={{ paddingTop: "0px" }}
+                  >
+                    <button
+                      onClick={() =>
+                        this.setState({
+                          viewProfile: !this.state.viewProfile,
+                          type: "certificate",
+                        })
+                      }
+                      className="btn btn-sm btn-nxt"
+                      style={{ fontFamily: "Montserrat" }}
+                    >
+                      View Certficate
+                    </button>
+                  </div>
+                ) : null}
               </div>
-
-          </div>
-        </div>
-        <div style={{display:'flex'}}>
-          <div className="verticalline"></div>
-        </div>
-        <div>
-          <div
-            className="card-block"
-            onClick={this.state.profilePic ? this.reSizeImg : null}
-          >
-            <h6
-              className="m-b-20 p-b-5 b-b-default f-w-600"
-              style={{ border: "none", color: "#fc3f06" }}
-            >
-              ACADAMIC
-            </h6>
-            <div className="row">
-              <div className="col-sm-2">
-                <p className="m-b-10 f-w-400">SSLC</p>
-                <h6 className="f-w-600">{this.state.user.sslc}%</h6>
-              </div>
-              <div className="col-sm-2">
-                <p className="m-b-10 f-w-400">HSC</p>
-                <h6 className="f-w-600">{this.state.user.hsc}%</h6>
-              </div>
-              <div className="col-sm-2">
-                <p className="m-b-10 f-w-400">UG</p>
-                <h6 className="f-w-600">{this.state.user.ug}%</h6>
-              </div>
-              {this.state.user.pgPercentage ? (
-                <div className="col-sm-2">
-                  <p className="m-b-10 f-w-400">PG</p>
-                  <h6 className="f-w-600">{this.state.user.pg}%</h6>
-                </div>
-              ) : (
-                ""
-              )}
             </div>
-            <h6
-              className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"
-              style={{
-                border: "none",
-                color: "#fc3f06",
-                marginBottom: "0px",
-                marginTop: "50px",
-              }}
-            >
-              ONLINE TEST SCORE
-            </h6>
+          </div>
+          <div style={{ display: "flex" }}>
+            <div className="verticalline"></div>
+          </div>
+          <div>
             <div
-              className="row"
-              style={{ paddingLeft: "15px", width: "46rem" }}
+              className="card-block"
+              onClick={this.state.profilePic ? this.reSizeImg : null}
             >
-              <table
-                className="table table-hover"
-                style={{ opacity: "65%", marginBottom: "0px" }}
+              <h6
+                className="m-b-20 p-b-5 b-b-default f-w-600"
+                style={{ border: "none", color: "#fc3f06" }}
               >
-                <thead style={{ backgroundColor: "#E0E1EA" }}>
-                  <th
-                    className="col-lg-3 thdesign"
-                    style={{ fontWeight: "2000", color: "#000000" }}
-                  >
-                    Section
-                  </th>
-                  <th
-                    className="col-lg-2 thdesign"
-                    style={{ fontWeight: "2000", color: "#000000" }}
-                  >
-                    Simple %
-                  </th>
-                  <th
-                    className="col-lg-2 thdesign"
-                    style={{ fontWeight: "2000", color: "#000000" }}
-                  >
-                    Medium %
-                  </th>
-                  <th
-                    className="col-lg-2 thdesign"
-                    style={{ fontWeight: "2000", color: "#000000" }}
-                  >
-                    Complex %
-                  </th>
-                  <th
-                    className="col-lg-2 thdesign"
-                    style={{ fontWeight: "2000", color: "#000000" }}
-                  >
-                    Total %
-                  </th>
-                  <th
-                    className="col-lg-2 thdesign"
-                    style={{ fontWeight: "2000", color: "#000000" }}
-                  >
-                    Report
-                  </th>
-                </thead>
-                <tbody>{this.renderTable()}</tbody>
-              </table>
-              <div className="row" style={{ width: "710px", marginTop: "5px" }}>
-                <div className="col-7 col-lg-7">{this.programRender()}</div>
-                <div className="col-5 col-lg-5">
-                  {/* <p style={{ textAlign: 'center', marginLeft: '145px' }}><strong>{this.percentageCal()}</strong></p> */}
+                ACADAMIC
+              </h6>
+              <div className="row">
+                <div className="col-sm-2">
+                  <p className="m-b-10 f-w-400">SSLC</p>
+                  <h6 className="f-w-600">{this.state.user.sslc}%</h6>
+                </div>
+                <div className="col-sm-2">
+                  <p className="m-b-10 f-w-400">HSC</p>
+                  <h6 className="f-w-600">{this.state.user.hsc}%</h6>
+                </div>
+                <div className="col-sm-2">
+                  <p className="m-b-10 f-w-400">UG</p>
+                  <h6 className="f-w-600">{this.state.user.ug}%</h6>
+                </div>
+                {this.state.user.pgPercentage ? (
+                  <div className="col-sm-2">
+                    <p className="m-b-10 f-w-400">PG</p>
+                    <h6 className="f-w-600">{this.state.user.pg}%</h6>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+              <h6
+                className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"
+                style={{
+                  border: "none",
+                  color: "#fc3f06",
+                  marginBottom: "0px",
+                  marginTop: "50px",
+                }}
+              >
+                ONLINE TEST SCORE
+              </h6>
+              <div
+                className="row"
+                style={{ paddingLeft: "15px", width: "46rem" }}
+              >
+                <table
+                  className="table table-hover"
+                  style={{ opacity: "65%", marginBottom: "0px" }}
+                >
+                  <thead style={{ backgroundColor: "#E0E1EA" }}>
+                    <th
+                      className="col-lg-3 thdesign"
+                      style={{ fontWeight: "2000", color: "#000000" }}
+                    >
+                      Section
+                    </th>
+                    <th
+                      className="col-lg-2 thdesign"
+                      style={{ fontWeight: "2000", color: "#000000" }}
+                    >
+                      Simple %
+                    </th>
+                    <th
+                      className="col-lg-2 thdesign"
+                      style={{ fontWeight: "2000", color: "#000000" }}
+                    >
+                      Medium %
+                    </th>
+                    <th
+                      className="col-lg-2 thdesign"
+                      style={{ fontWeight: "2000", color: "#000000" }}
+                    >
+                      Complex %
+                    </th>
+                    <th
+                      className="col-lg-2 thdesign"
+                      style={{ fontWeight: "2000", color: "#000000" }}
+                    >
+                      Total %
+                    </th>
+                    <th
+                      className="col-lg-2 thdesign"
+                      style={{ fontWeight: "2000", color: "#000000" }}
+                    >
+                      Report
+                    </th>
+                  </thead>
+                  <tbody>{this.renderTable()}</tbody>
+                </table>
+                <div
+                  className="row"
+                  style={{ width: "710px", marginTop: "5px" }}
+                >
+                  <div className="col-7 col-lg-7">{this.programRender()}</div>
+                  <div className="col-5 col-lg-5">
+                    {/* <p style={{ textAlign: 'center', marginLeft: '145px' }}><strong>{this.percentageCal()}</strong></p> */}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
+        {this.state.viewProfile ?
+          <div>
+            <ViewProfile type={this.state.type}certificateData={this.state.certificateData} pdfData={this.state.pdfData.data} onClose={this.close} />
+          </div> : ''
+        }
       </div>
     );
   }

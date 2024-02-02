@@ -186,10 +186,13 @@ class AddPosition extends Component {
   };
   sendCloneExam = () => {
     const { clonedExam } = this.state
+    console.log(this.state,"state");
     clonedExam.id = null;
     clonedExam.startDateTime = new Date();
     clonedExam.positionId = this.state.position.id;
-    this.props.navigate('/admin/vacancy/Exam-add', { clonedExam });
+    console.log(clonedExam,"clonedexam");
+    this.onCloseModal()
+    this.props.navigate('/admin/vacancy/Exam-add',{ state: { clonedExam: clonedExam }});
   }
   componentWillMount() {
     if (this.props.location?.state) {
@@ -204,7 +207,8 @@ class AddPosition extends Component {
     this.getExams();
   }
   addExam = () => {
-    this.props.navigate('/admin/vacancy/Exam-add', { position: this.state.position })
+    this.onCloseModal()
+    this.props.navigate('/admin/vacancy/Exam-add', { state : {position: this.state.position }})
   }
 
 
@@ -295,31 +299,42 @@ class AddPosition extends Component {
                             </FormHelperText>
                           </label>
                           <CKEditor
-                            editor={ClassicEditor}
-                            data={this.state.pstn.jobDescription}
-                            onChange={(event, editor) => {
-                              const newContent = editor.getData();
-                              this.setState((prevState) => ({
-                                pstn: {
-                                  ...prevState.pstn,
-                                  jobDescription: newContent,
-                                },
-                              }));
-                            }}
-                            config={{
-                              removePlugins: ["Heading", "Link", "CKFinder"],
-                              toolbar: [
-                                "heading",
-                                "|",
-                                "bold",
-                                "italic",
-                                "link",
-                                "bulletedList",
-                                "numberedList",
-                                "blockQuote",
-                              ],
-                            }}
-                          />
+                          editor={ClassicEditor}
+                          data={this.state.pstn.jobDescription|| ""}
+                          onChange={(event, editor) => {
+                            const newContent = editor.getData();
+                            this.setState((prevState) => ({
+                              pstn: {
+                                ...prevState.pstn,
+                                jobDescription: newContent,
+                              },
+                            }));
+                          }}
+                          onReady={(editor) => {
+                            const container = editor.ui.view.element;
+                            ClassicEditor.create(
+                              editor.editing.view.document.getRoot(),
+                              {
+                                removePlugins: ["Heading", "Link", "CKFinder"],
+                                toolbar: [
+                                  "style",
+                                  "bold",
+                                  "italic",
+                                  "bulletedList",
+                                  "numberedList",
+                                  "blockQuote",
+                                ],
+
+                              }
+                            )
+                              .then(() => {
+
+                              })
+                              .catch((error) => {
+                                console.error(error);
+                              });
+                          }}
+                        />
                         </div>
                       </div>
                       {!this.state.pstn.examId && (

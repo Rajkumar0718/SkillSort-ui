@@ -12,8 +12,9 @@ import { toast } from "react-toastify";
 import { CustomTable } from "../../utils/CustomTable";
 import isRoleValidation from "../../utils/UrlConstant";
 import FeedBackModel from "./FeedBackModel";
-import feedback from '../../assests/images/feedback.png';
+import feedback from "../../assests/images/feedback.png";
 import EmailSortlistedCandidate from "./EmailSortlistedCandidate";
+import BasicMenu from "../../common/BasicMenu";
 export default class SelectedStudentList extends Component {
   constructor(props) {
     super(props);
@@ -112,7 +113,9 @@ export default class SelectedStudentList extends Component {
       });
   };
   handleProps = () => this.props.location?.pathname?.indexOf("skillsort") > -1;
-  downloadAll = (status) => {
+
+  downloadAll = (e, status) => {
+    status = status === "NOTIFIED SKILL SORT" ? "NOTIFIED_TO_SKILL_SORT" : status === "NOTIFIED INTERNALLY" ? "SCHEDULED" : "ALL"
     axios
       .get(
         ` ${url.ADMIN_API}/candidate/download?examId=${this.state.examId}&status=${status}`,
@@ -126,6 +129,10 @@ export default class SelectedStudentList extends Component {
         else toast.info("No data to download");
       });
   };
+  handleStatusFilters(value) {
+
+    this.setState({ statusType: value, currentPage: '1' }, () => this.componentDidMount())
+  }
   setTableJson = () => {
     const gender = !this.handleProps()
       ? ""
@@ -182,22 +189,41 @@ export default class SelectedStudentList extends Component {
     };
 
     const button = {
-      component:!this.handleProps() ? ("") : <span>FEEDBACK</span>,
+      component: !this.handleProps() ? "" : <span>FEEDBACK</span>,
       isComponent: true,
       align: "center",
       renderCell: (params) => {
         return (
           <>
-            {!this.handleProps() ?"": (
-               <button type="button" data-toggle="tooltip" data-placement="top" title="FEEDBACK"
-               onClick={() => this.FBModel()} className="btn btn ml-1" style={{ border: 'none', padding: 'initial' }}>
-               <img src={feedback} style={{ width: '26px' }} alt="SkillSort" />
-             </button>
+            {!this.handleProps() ? (
+              ""
+            ) : (
+              <button
+                type="button"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="FEEDBACK"
+                onClick={() => this.FBModel()}
+                className="btn btn ml-1"
+                style={{ border: "none", padding: "initial" }}
+              >
+                <img src={feedback} style={{ width: "26px" }} alt="SkillSort" />
+              </button>
             )}
           </>
         );
       },
     };
+
+    const getStatus = (params) => {
+      return !this.handleProps() ?
+        <>
+          <span style={{color: this.setStatusColor(params.candidateStatus)}}>{params.candidateStatus === "SELECTED" ? "PENDING" : params.candidateStatus === "SCHEDULED" ? "NOTIFIED INTERNALLY" : "NOTIFIED TO SKILL SORT"}</span>
+        </> :
+        <>
+          <span style={{color: this.setStatusColor(params.candidateStatus)}}>{params.candidateStatus === "SELECTED" ? "SELECTED" : params.candidateStatus === "SCHEDULED" ? "NOTIFIED INTERNALLY" : "PENDING"}</span>
+        </>
+    }
 
     const headers = [
       {
@@ -235,7 +261,7 @@ export default class SelectedStudentList extends Component {
             ],
             (opt) => (
               <MenuItem
-                onClick={() => this.handleActionFilter(opt.value)}
+                onClick={() => this.handleStatusFilters(opt.value)}
                 key={opt.value}
                 value={opt.value}
               >
@@ -246,126 +272,28 @@ export default class SelectedStudentList extends Component {
         },
         renderCell: (params) => {
           return (
-            <div className="row">
-              <div className="col" style={{ minWidth: "5rem" }}>
-                <span
-                  style={{
-                    marginTop: "0px",
-                    color: this.setFontColor(params.candidate?.candidateStatus),
-                  }}
-                >
-                  {params.candidate?.candidateStatus === "HOLD"
-                    ? "HOLD"
-                    : params.candidate?.candidateStatus === "PENDING"
-                    ? "PENDING"
-                    : params.candidate?.candidateStatus === "REJECTED"
-                    ? "REJECTED"
-                    : "SELECTED"}
-                </span>
-              </div>
-              <div className="col">
-                <i
-                  className="fa fa-share-square-o"
-                  aria-hidden="true"
-                  style={{ color: "#3b489e", cursor: "pointer" }}
-                  onClick={() => this.onClickOpenModel(params.id)}
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="SHARE CANDIDATE RESULTS"
-                />
-              </div>
-            </div>
+            getStatus(params)
           );
         },
       },
       checkbox,
-      button
+      button,
     ];
     this.setState({ headers: headers });
   };
+  menuItem = ["ALL", "NOTIFIED SKILL SORT", "NOTIFIED INTERNALLY"];
   render() {
     return (
       <div>
         {fallBackLoader(this.state.loader)}
-        <div className="card-header-new">
-          {this.state.selected.length > 0 ? (
-            <div className="pull-right pull-down" style={{ paddingTop: "8px" }}>
-              <button
-                type="button"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                title="NOTIFY TO SKILL SORT"
-                onClick={() => this.notifyToSkillSort()}
-                className="btn btn-sm btn-nxt"
-                style={{ border: "none" }}
-              >
-                <img
-                  src={notify2}
-                  style={{ width: "15px", marginRight: "5px" }}
-                  alt="notify"
-                ></img>
-                Notify to SkillSort
-              </button>
-              <button
-                type="button"
-                data-toggle="tooltip"
-                data-placement="top"
-                title="SCHEDULE INTERNALLY"
-                onClick={() => this.internallySchedule()}
-                className="btn btn-sm btn-prev"
-                style={{ border: "none", marginLeft: "0.5rem" }}
-              >
-                <img
-                  src={notify}
-                  style={{ width: "15px", marginRight: "5px" }}
-                  alt="schedule"
-                ></img>
-                Schedule Internally
-              </button>
-            </div>
-          ) : null}
-
-          {!this.handleProps() && this.state.selected.length === 0 ? (
-            <div
-              className="dropdown show pull-right"
-              style={{ marginTop: "10px" }}
-            >
-              <div
-                className="btn btn-sm btn-nxt dropdown-toggle"
-                href="#"
-                role="button"
-                id="dropdownMenuLink"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Download
-              </div>
-              <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <div
-                  className="dropdown-item"
-                  onClick={() => this.downloadAll("ALL")}
-                >
-                  ALL
-                </div>
-                <div
-                  className="dropdown-item"
-                  onClick={() => this.downloadAll("NOTIFIED_TO_SKILL_SORT")}
-                >
-                  NOTIFIED SKILL SORT
-                </div>
-                <div
-                  className="dropdown-item"
-                  onClick={() => this.downloadAll("SCHEDULED")}
-                >
-                  NOTIFIED INTERNALLY
-                </div>
-              </div>
-            </div>
-          ) : null}
+        <div className="card-header-new" style={{display:"flex",justifyContent:"flex-end",alignItems:'baseline'}}>
           <span className="black-label pull-right">
             <div>{this.state.planCount || 0}</div>Interviews Available
           </span>
+          {!this.handleProps() && this.state.selected.length === 0 ? (
+            <BasicMenu menuItem={this.menuItem} onClick={this.downloadAll} />
+          ) :
+          null}
         </div>
         <CustomTable
           data={this.state.candidate}
@@ -386,10 +314,17 @@ export default class SelectedStudentList extends Component {
             )}
           </div>
         )}
-         {this.state.openModal ? (
+        {this.state.openModal ? (
           <EmailSortlistedCandidate
-            candidate={{ sendData: this.state.sendData, candidateStatus: this.state.candidateStatus }} onCloseModal={this.onCloseModal} />
-        ) : ("")}
+            candidate={{
+              sendData: this.state.sendData,
+              candidateStatus: this.state.candidateStatus,
+            }}
+            onCloseModal={this.onCloseModal}
+          />
+        ) : (
+          ""
+        )}
       </div>
     );
   }

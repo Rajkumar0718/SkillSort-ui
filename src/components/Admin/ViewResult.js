@@ -10,7 +10,9 @@ import axios from "axios";
 import url from "../../utils/UrlConstant";
 import { authHeader, errorHandler } from "../../api/Api";
 import CopyClipBoardPopUp from "./CopyClipBoardPopUp"
-
+import { Link } from "react-router-dom";
+import LOGO from '../../assests/images/logo.png';
+import { isRoleValidation } from '../../utils/Validation';
 
 let hidden = null;
 let visibilityChange = null;
@@ -177,13 +179,39 @@ export default class ViewResult extends Component {
           return moment(params?.createdDate).format("DD/MM/YYYY");
         },
       },
+    //   {isRoleValidation() !== 'HR' ? <td>
+    //   <Link
+    //     to={{ pathname: '/admin/result/candidate/details/' + result.candidateId }}
+    //     target={'_blank'}
+    //     onClick={() => this.setCandidate(result)}
+    //     style={{ textDecoration: 'none', color: 'blue' }}
+    //   >
+    //     {result.candidate?.firstName} {result.candidate?.lastName}
+    //   </Link>
+    //   {result.candidate?.isFromSkillSort ? <img alt="skillsort" style={{ marginLeft: '7px' }} src={LOGO} ></img> : null}
+    // </td> : <td>{result.candidate?.firstName} {result.candidate?.lastName}
+    //   {result.candidate?.isFromSkillSort ? <img alt="skillsort" style={{ marginLeft: '5px' }} src={LOGO} ></img> : null}
+    // </td>}
       {
         name: "CANDIDATE",
         align: "left",
         renderCell: (params) => {
-          return (
-            params?.candidate?.firstName + " " + params?.candidate?.lastName
-          );
+          return isRoleValidation() !== "HR" ? (
+            <>
+        <Link
+            to={{ pathname: '/admin/result/candidate/details/' + params.candidateId }}
+            target={'_blank'}
+            onClick={() => this.setCandidate(params)}
+            style={{ textDecoration: 'none', color: 'blue' }}
+            >
+            {params.candidate?.firstName} {params.candidate?.lastName}
+            </Link>
+             {params.candidate?.isFromSkillSort ? <img alt="skillsort" style={{ marginLeft: '7px' }} src={LOGO} ></img> : null}
+             </>
+          ) : <>
+          {params.candidate?.firstName} {params.candidate?.lastName}
+           {params.candidate?.isFromSkillSort ? <img alt="skillsort" style={{ marginLeft: '5px' }} src={LOGO} ></img> : null}
+          </>
         },
       },
       {
@@ -283,7 +311,6 @@ export default class ViewResult extends Component {
   render() {
     return (
       <div className="row mt-2">
-        {" "}
         {fallBackLoader(this.state.loader)}
         <AdvSearch
           title="Filter"
