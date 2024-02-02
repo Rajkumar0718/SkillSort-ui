@@ -240,7 +240,7 @@ export default class SettingModel extends Component {
           <div className="modal-content" style={{ borderStyle: 'solid', borderColor: '#af80ecd1', borderRadius: "32px", height: "550px", width: "789px", verticalAlign: "center" }}>
             <div className="modal-header" style={{ padding: "2rem 2rem 0 3.85rem", border: "none" }}>
               <h5 className="setting-title"> Minimum Qualification</h5>
-              <button type='button' onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{ border: 'none' }}>
+              <button type='button' onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{ border: 'none',backgroundColor:"initial"}}>
                 <img src={close} alt="" />
               </button>
             </div>
@@ -259,26 +259,6 @@ export default class SettingModel extends Component {
                   <span className='' style={{ transform: 'translate(100px,20px)' }}>to</span>
                   <input type='number' className="form-control-mini" min="1" autoComplete="off" value={this.state.setting.max} onChange={(event) => this.onMaxAge(event, 'max')} style={{ transform: 'translate(110px,5px)' }} />
                 </div>
-
-                {/* <div className='form-group row'>
-                                    <div className="col-lg-4 col-sm-4 col-md-4" style={{ marginLeft: "265px" }}>
-                                        {this.errorMsgUI()}
-                                        {this.maxMsgUI()}
-                                    </div>
-                                </div> */}
-
-                {/* <div className="mc-3"> */}
-                {/* <div className='row mb-3'>
-                  <label className="col-3 col-form-label lable-text" >Min SSLC %
-                    <FormHelperText className="helper">{this.state.error.sslcPercentage ? this.state.error.sslcErrorMessage : null}</FormHelperText></label>
-                  <input type='number' className="form-control-mini-1" min="1" value={this.state.setting.sslcPercentage} autoComplete="off" onChange={(event) => this.handleChange(event, 'sslcPercentage')} />
-                  <label className="col-3 col-form-label lable-text" >Min HSC %
-                    <FormHelperText className="helper">{this.state.error.hscPercentage ? this.state.error.hscErrorMessage : null}</FormHelperText></label>
-                  <input type='number' className="form-control-mini-1" min="1" value={this.state.setting.hscPercentage} autoComplete="off" onChange={(event) => this.handleChange(event, 'hscPercentage')} />
-                </div> */}
-
-
-                {/* Css Change */}
                 <div style={{ marginTop: "2.5rem",fontFamily:'"Montserrat", "Times New Roman", Times, serif !important',fontSize: '0.775rem',fontWeight: '400',lineHeight: '0.5', marginLeft:'3.2rem'}}>
                   <label>Min SSLC %
                     <FormHelperText className="helper">{this.state.error.sslcPercentage ? this.state.error.sslcErrorMessage : null}</FormHelperText></label>
@@ -287,19 +267,6 @@ export default class SettingModel extends Component {
                     <FormHelperText className="helper">{this.state.error.hscPercentage ? this.state.error.hscErrorMessage : null}</FormHelperText></label>
                   <input type='number'  min="1" value={this.state.setting.hscPercentage} autoComplete="off" onChange={(event) => this.handleChange(event, 'hscPercentage')}  style={{border: 'none',borderBottom: '1.5px solid black', marginLeft:'1rem',outline:'none'}}/>
                 </div>
-
-
-                {/* </div> */}
-                {/* <div className="mc-3"> */}
-                {/* <div className='form-group row' style={{ marginBottom: "0.8rem" }}>
-                  <label className="col-md-3 col-sm-3 col-lg-3 col-form-label lable-text" >Min UG %
-                    <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.ugPercentage ? this.state.error.ugErrorMessage : null}</FormHelperText></label>
-                  <input type='number' className="form-control-mini-1" min="1" value={this.state.setting.ugPercentage} autoComplete="off" onChange={(event) => this.handleChange(event, 'ugPercentage')} />
-                  <label className="form-label min-pg" >Min PG %</label>
-                  <input type='number' className="form-control-mini-1" min="1" value={this.state.setting.pgPercentage} autoComplete="off" onChange={(event) => this.handleChange(event, 'pgPercentage')} />
-                </div> */}
-
-                {/* Css Change */}
                 <div style={{marginTop: "2rem", fontFamily: '"Montserrat", "Times New Roman", Times, serif !important', fontSize: '0.775rem', fontWeight: '400', lineHeight: '0.5', marginLeft: '3.2rem' }}>
                   <label>Min UG %
                     <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.ugPercentage ? this.state.error.ugErrorMessage : null}</FormHelperText></label>
@@ -307,26 +274,6 @@ export default class SettingModel extends Component {
                   <label style={{ marginLeft: '1rem' }}>Min PG %</label>
                   <input type='number' min="1" value={this.state.setting.pgPercentage} autoComplete="off" onChange={(event) => this.handleChange(event, 'pgPercentage')} style={{ border: 'none', borderBottom: '1.5px solid black', marginLeft: '1.6rem', outline: 'none' }} />
                 </div>
-
-
-                {/* </div> */}
-                {/* <div>
-                  <div className='form-group row'>
-                    <label className="col-md-3 col-sm-3 col-lg-3 col-form-label lable-text" required>Test Interval
-                      <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.number ? this.state.error.examIntervalErrorMessage : null}</FormHelperText></label>
-                    <input className='form-control-mini' onChange={(e) => this.msgChange(e, 'number')}
-                      value={this.state.setting.number} autoComplete="off"
-                      name='name' id='section' type="text"  >
-                    </input>
-                    <select className='form-control-mini' style={{ width: '6.9rem', padding: "0px" }}
-                      value={this.state.setting.interval}
-                      onChange={(e) => this.handleDropDown(e, 'interval')}>
-                      {this.state.setting.period.map((key, value) => {
-                        return <option value={key}>{key}</option>
-                      })}
-                    </select>
-                  </div>
-                </div> */}
                 <div>
                   <div style={{marginTop: "2rem", fontFamily: '"Montserrat", "Times New Roman", Times, serif !important', fontSize: '0.775rem', fontWeight: '400', lineHeight: '0.5', marginLeft: '3.2rem' }}>
                     <label required>Test Interval
@@ -335,7 +282,7 @@ export default class SettingModel extends Component {
                       value={this.state.setting.number} autoComplete="off"
                       name='name' id='section' type="text" style={{ border: 'none', borderBottom: '1.5px solid black', marginLeft: '3rem', outline: 'none', width:'100px'}} >
                     </input>
-                    <select style={{ width: '6.9rem', padding: "0px",border: 'none', borderBottom: '1.5px solid black', marginLeft: '1rem', outline: 'none' }}
+                    <select style={{ width: '6.9rem', padding: "0px",border: 'none', borderBottom: '1.5px solid black', marginLeft: '1rem', outline: 'none',backgroundColor:"initial",color:"#3b489e" }}
                       value={this.state.setting.interval}
                       onChange={(e) => this.handleDropDown(e, 'interval')}>
                       {this.state.setting.period.map((key, value) => {
@@ -344,21 +291,6 @@ export default class SettingModel extends Component {
                     </select>
                   </div>
                 </div>
-
-
-
-                {/* <div className='form-group row' style={{ marginBottom: "0px" }}>
-                  <div style={{ width: "11.80rem" }}>
-                    <label className='col-md-3 col-sm-3 col-lg-3 col-form-label lable-text' >Qualifications
-                      <FormHelperText className="helper" style={{ paddingLeft: "0px", width: "11.80rem" }}>{this.state.error.qualifications ? this.state.error.qualificationsErrorMessage : null}</FormHelperText></label>
-                  </div>
-                  <div className="col-lg-5 col-sm-4 col-md-4" style={{ marginLeft: "-15px", marginTop: "1rem", height: "6.2rem", minHeight: "6rem", overflowX: "hidden", overflowY: "auto" }}>
-                    <CreatableSelect isMulti onChange={this.handleMultiSelect} options={this.state.setting.options} styles />
-                  </div>
-                  <div style={{ margin: "auto" }}>
-                    <button disabled={this.state.setting.countError} type="submit" className="btn btn-sm btn-nxt">Save</button>
-                  </div>
-                </div> */}
                 <div  style={{ marginBottom: "0px" }}>
                   <div style={{marginTop: "3rem", fontFamily: '"Montserrat", "Times New Roman", Times, serif !important', fontSize: '0.775rem', fontWeight: '400', lineHeight: '0.5', marginLeft: '3.2rem' }}>
                     <label>Qualifications

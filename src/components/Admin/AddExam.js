@@ -91,6 +91,7 @@ class AddExam extends Component {
 
   componentDidMount() {
     this.initialCall();
+    console.log(this.props, "Add Exam Props")
     const position = this.state.position;
     const examId = this.state.examId
     if (examId || position?.examId) {

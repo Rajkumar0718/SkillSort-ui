@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import TableHeader from "../../utils/TableHeader";
 import Divider from "@mui/material/Divider";
@@ -15,33 +15,38 @@ import AddExam from "./AddExam";
 
 const PositionDetails = (props) => {
   const [activeTab, setActiveTab] = useState(0);
+
   const location = useLocation();
   const navigate = useNavigate();
+
   const isSkillSort = window.location.pathname === "/admin/vacancy/skillsort";
   const isResult = window.location.pathname === "/admin/vacancy/result";
   const isAddVacany = window.location.pathname === "/admin/vacancy/add";
   const isEditVacany = window.location.pathname === "/admin/vacancy/edit";
   const isAddExam = window.location.pathname === "/admin/vacancy/Exam-add";
-  const isshortListed =
-    window.location.pathname === "/admin/vacancy/shortListed";
-  const examId = location?.state?.position?.examId;
-  const updateExamId = (examId) => {
-  const updatedPosition = { ...location.state.position, examId: examId };
-  navigate.replace({ ...location, state: { position: updatedPosition } });
-  }
-  const [formVisible, setFormVisible] = useState(() => {
+  const isshortListed = window.location.pathname === "/admin/vacancy/shortListed";
+  const [formVisible, setFormVisible] = useState('')
+
+  useEffect(()=>{
     if (isSkillSort) {
-      return "AdvanceSearch";
-    } else if (isshortListed) {
-      return "Shortlisted";
-    } else if (isResult) {
-      return "Result";
-    } else if (isAddVacany || isEditVacany) {
-      return "vacancy";
-    } else if (isAddExam) {
-      return "Exam";
+          setFormVisible("AdvanceSearch");
+        } else if (isshortListed) {
+          setFormVisible("Shortlisted");
+        } else if (isResult) {
+          setFormVisible("Result");
+        } else if (isAddVacany || isEditVacany) {
+          setFormVisible("vacancy");
+        } else if (isAddExam) {
+          setFormVisible("Exam");
+        }
+  },[])
+
+  const examId = location?.state?.position?.examId;
+
+    const updateExamId = (examId) => {
+      const updatedPosition = { ...location.state.position, examId: examId };
+      navigate({ state: { position: updatedPosition } });
     }
-  });
   const handleFormChange = (name) => {
     setFormVisible(name);
   };

@@ -10,7 +10,7 @@ import Box from "@mui/system/Box";
 import Grid from "@mui/system/Unstable_Grid";
 import _ from "lodash";
 import CustomCard from "../../utils/CustomCard";
-import PersonAddRoundedIcon from '@mui/icons-material/PersonAddRounded';
+import PersonAddRoundedIcon from "@mui/icons-material/PersonAddRounded";
 
 const Position = () => {
   const [positions, setPositions] = useState([]);
@@ -74,8 +74,8 @@ const Position = () => {
   }, []);
 
   useEffect(() => {
-      handleFilterByDate()
-  },[name])
+    handleFilterByDate();
+  }, [name]);
 
   const handleVaccancyPageViewEventTrack = () => {
     window.dataLayer?.push({
@@ -163,10 +163,8 @@ const Position = () => {
               <>
                 <Link
                   className="btn btn-sm btn-nxt float-right"
-                  to={{
-                    pathname: "/admin/vacancy/history",
-                    state: { position: positions },
-                  }}
+                  to="/admin/vacancy/history"
+                  state={{ position: positions }}
                   style={{
                     position: "relative",
                     marginTop: "-45px",
@@ -222,7 +220,10 @@ const Position = () => {
                     }}
                     sx={{ p: 2, border: "1px dashed grey" }}
                   >
-                    <PersonAddRoundedIcon sx={{color:'#3b489e',fontSize:"4rem"}} titleAccess="Add Position" />
+                    <PersonAddRoundedIcon
+                      sx={{ color: "#3b489e", fontSize: "4rem" }}
+                      titleAccess="Add Position"
+                    />
                   </Box>
                 </Link>
               </Grid>

@@ -343,8 +343,15 @@ export default class ExamMailModel extends Component {
                         }}
                       />
                     </div>
-                    <div className="col-md-11" style={{ display: "flex",justifyContent: "flex-end" }}>
-                      <button disabled={!this.state.selectedFile && this.props.mailModalSection?.exam===null } type="button" onClick={() => this.sendExamLink(this.props.mailModalSection.exam || this.state.exam)} className="btn btn-sm btn-nxt" >Send Mail</button>
+                    <div className="col-md-11" style={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem" }}>
+                      <button
+                        disabled={!this.state.selectedFile && this.props.mailModalSection?.exam === null}
+                        type="button"
+                        onClick={() => this.sendExamLink(this.props.mailModalSection.exam || this.state.exam)}
+                        className="btn btn-sm btn-nxt"
+                      >
+                        Send Mail
+                      </button>
                     </div>
                   </form>
                 )}

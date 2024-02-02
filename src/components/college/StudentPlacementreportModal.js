@@ -4,6 +4,9 @@ import axios from "axios";
 import _ from "lodash";
 import DatePick from "../../common/DatePick";
 import moment from "moment";
+import axios from "axios";
+import Button from "../../common/Button";
+import url from "../../utils/UrlConstant";
 import { authHeader, errorHandler } from "../../api/Api";
 import RenderModalBody from "../../common/RenderModalBody";
 import ExportXlsx from "../../utils/ExportXlsx";
@@ -404,38 +407,11 @@ export default class StudentreportModal extends Component {
                 </button>
               </div>
             </div>
-            <RenderModalBody
-              onChange={this.onChange}
-              report={this.state.report}
-              renderTable={this.renderTable}
-              numberOfElements={this.state.numberOfElements}
-              totalPages={this.state.totalPages}
-              startPage={this.state.startPage}
-              endPage={this.state.endPage}
-              pageSize={this.state.pageSize}
-              loader={this.state.loader}
-              currentPage={this.state.currentPage}
-              onPagination={this.onPagination}
-              onNextPage={this.onNextPage}
-              decrement={this.decrement}
-              increment={this.increment}
-              totalElements={this.state.totalElements}
-              renderTableForCollege={this.renderTableForCollege}
-              headers={this.state.headers}
-              data={this.state.student}
-              selectedYop={this.state.selectedYop}
-              yops={this.state.yops}
-              handleYopChange={this.handleYopChange}
-              pageChange={this.pageChange}
-              handleReset={this.handleReset}
-              department={this.state.department}
-              type ='PLACEMENT'
-              toggleClick={this.state.toggleClick}
-            />
-
           </div>
         </div>
       </div>
-    );
-  }
+
+  );
+};
+
 }

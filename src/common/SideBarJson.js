@@ -35,7 +35,7 @@ const sidebar = {
     name: 'Vacancy',
     to: '/admin/vacancy',
     icon: 'fa fa-user-plus',
-     subPath: ['/admin/vacancy/history'],
+     subPath: ['/admin/vacancy/history','/admin/vacancy/result'],
   }, {
     to: '/admin/setting',
     name: 'Setting',
