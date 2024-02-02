@@ -235,9 +235,9 @@ export default class ExamMailModel extends Component {
     return (
       <div className="modal fade show" id="myModal" role="dialog" style={{ paddingRight: '15px', display: 'flex', justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.90)' }} aria-hidden="true">
         {fallBackLoader(this.state.loader)}
-        <div className="modal-dialog" style={{ width: "700px", maxWidth: "770px" }}>
+        <div className="modal-dialog" style={{ width: "710px", maxWidth: "770px" }}>
           <div className="modal-content" style={{ borderStyle: 'solid', borderColor: '#af80ecd1', borderRadius: "32px" }}>
-            <div className="modal-header" style={{  border: "none" }}>
+            <div className="modal-header" style={{  border: "none",position:"fixed" }}>
               <h5 className="setting-title">Upload {this.props.modalSection?.type === "Email" ? "Candidates" : this.props.modalSection?.type}</h5>
               {this.props.modalSection?.type === "Email" && (
                 <h5 className="setting-title" style={{ marginRight:"7rem"}}>
@@ -246,7 +246,7 @@ export default class ExamMailModel extends Component {
               )}
               <button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{border:"none",backgroundColor:"initial",fontSize:'3rem',color:"#F05A28"}}>&times;</button>
             </div>
-            <div className="card-body" style={{ paddingTop: "4px" }}>
+            <div className="card-body" style={{ paddingTop: "4px",marginTop:'7rem'}}>
               {this.renderQuestionTemplate()}
               {(this.props.mailModalSection?.exam === null && this.props.modalSection.type === "Email") ||
                 this.props.modalSection?.type === "Student" ? (
@@ -258,7 +258,7 @@ export default class ExamMailModel extends Component {
                     ( *You can add more candidates, but the file must be in CSV format )
                   </strong>
                 ) : null}
-              <hr className="rounded" />
+              <hr className="rounded" style={{width:"43rem",marginLeft:".5rem"}}/>
               <div style={{ display: "flex", justifyContent: "space-between", paddingLeft: "5px" }}>
                 <input
                   style={{ color: "#3b489e", paddingLeft: "2rem", paddingBottom: "1rem" }}

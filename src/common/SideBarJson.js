@@ -34,7 +34,7 @@ const sidebar = {
     name: 'Vacancy',
     to: '/admin/vacancy',
     icon: 'fa fa-user-plus',
-     subPath: ['/admin/vacancy/history','/admin/vacancy/result'],
+     subPath: ['/admin/vacancy/history','/admin/vacancy/result','/admin/vacancy/edit','/admin/vacancy/add','/admin/vacancy/skillsort'],
   }, {
     to: '/admin/setting',
     name: 'Setting',

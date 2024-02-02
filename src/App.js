@@ -23,7 +23,7 @@ import Dashboard from "./components/TestAdmin/Dashboard"
 import AddStudent from "./components/college/AddStudent";
 import CollegeReportList from "./components/college/CollegeReportList";
 import GroupTypesList from "./components/TestAdmin/GroupTypesList"
-import ProgramResult from "./components/Admin/ProgramResult ";
+import ProgramResult from "./components/Admin/ProgramResult";
 import SMTPConfig from "./components/Admin/SMTPConfig";
 import CandidateResultDetails from "./components/Admin/CandidateResultDetails";
 import ShortListedResultDetails from "./components/Admin/ShortListedResultDetails"

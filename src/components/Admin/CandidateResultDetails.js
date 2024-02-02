@@ -32,15 +32,9 @@ export default class CandidateResultDetails extends Component {
       localStorage.removeItem(path);
     }
     data = JSON.parse(sessionStorage.getItem(path));
-    let l = data.results
-    _.map(l,e=>{
-      l.push(e)
-    })
-    _.map(data.results,r=>{
-      l.push(r)
-    })
+
     this.state = {
-      results: l,
+      results: data.results,
       user: data.candidate,
       id: '',
       pdfData: {},
@@ -382,8 +376,7 @@ export default class CandidateResultDetails extends Component {
             </div>
           </div>
         </div>
-
-        {this.state.viewProfile ? <ViewProfile pdfData={this.state.pdfData.data} onClose={this.close} />: null}
+        {this.state.viewProfile ? <ViewProfile type="resume" pdfData={this.state.pdfData.data} onClose={this.close} />: null}
         {this.state.screenShotModal ?
           <div>
             <ScreenShotModal screenShots={this.state.mcqScreenShots} onCloseModal={this.onCloseModal} />

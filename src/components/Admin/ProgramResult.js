@@ -30,6 +30,7 @@ export default class ProgramResult extends Component {
 
         let data = result
         let submittedExam = [];
+        console.log(data, "data");
         if (data.sqlRound && !data.programmingRound) {
             submittedExam = _.filter(data.submittedExam, 'question.actualQuery')
         } else if (!data.sqlRound && data.programmingRound) {

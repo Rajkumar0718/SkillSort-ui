@@ -563,7 +563,7 @@ export default class ShortListedResultDetails extends Component {
         </div>
         {this.state.viewProfile ?
           <div>
-            <ViewProfile type={this.state.type}certificateData={this.state.certificateData} pdfData={this.state.pdfData.data} onClose={this.close} />
+            <ViewProfile type={this.state.type} certificateData={this.state.certificateData} pdfData={this.state.pdfData.data} onClose={this.close} />
           </div> : ''
         }
       </div>
