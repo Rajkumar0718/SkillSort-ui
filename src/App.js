@@ -31,6 +31,19 @@ function App() {
   return (
     <>
       <Routes>
+      <Route
+          path="/shortlisted-candidate-details/:candidateId"
+          element={<ShortListedResultDetails />}
+        />
+          <Route
+          path="/admin/result/candidate/details/:candidate_id"
+          element={<CandidateResultDetails />}
+        />
+
+        <Route
+          path="/admin/result/candidate/programResult/:candidate_id"
+          element={<ProgramResult />}
+        />
         {/* Public Routes */}
         <Route index element={<AdminLogin />}></Route>
         <Route path="/login" element={<AdminLogin />} />
@@ -80,7 +93,7 @@ function App() {
             <Route path='/admin/questions' element={<Question />} />
             <Route path='/admin/questions/add' element={<AddQuestion />} />
             <Route path='/admin/questions/edit' element={<AddQuestion />} />
-
+            <Route path="/admin/smtp" element={<SMTPConfig />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
           <Route path="/college/collegeReport"

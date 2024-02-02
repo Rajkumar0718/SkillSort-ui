@@ -5,37 +5,22 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Code, Info } from '@mui/icons-material';
 import React from 'react';
-import styled from "styled-components";
-const StyledMenu = styled({
-  paper: {
-    border: '1px solid #d3d4d5',
-  },
-})((props) => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
-    }}
-    {...props}
-  />
-));
+import styled from 'styled-components';
 
-const StyledMenuItem = styled((theme) => ({
-  root: {
-    '&:focus': {
-      // backgroundColor: theme.palette.primary.main,
-      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-        color: theme.palette.common.black,
-      },
-    },
-  },
-}))(MenuItem);
+
+
+const StyledMenu = styled(Menu)`
+ .paper {
+    border: '1px solid #d3d4d5',
+ }
+`;
+
+const StyledMenuItem = styled(MenuItem)`
+ &:focus {
+    .MuiListItemIcon-root, .MuiListItemText-primary {
+      color: ${(props) => props?.theme?.palette?.common?.black};
+    }
+ }`;
 
 export default function CustomizedMenus(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);

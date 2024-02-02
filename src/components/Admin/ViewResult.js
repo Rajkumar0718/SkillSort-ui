@@ -31,6 +31,7 @@ export default class ViewResult extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
       results: [],
       exportResult: [],
       anchorEl: false,
@@ -310,13 +311,13 @@ export default class ViewResult extends Component {
   onPagination = (pageSize, currentPage) => {
     this.setState({ pageSize: pageSize, currentPage: currentPage }, () => { this.onNextPage() });
   }
-  onSearch = ( fromDate, toDate) => {
+
+  onSearch = (value, fromDate, toDate) => {
     this.setState(
-      {  currentPage: 1, fromDate: fromDate, toDate: toDate },
+      { mark: value, currentPage: 1, fromDate: fromDate, toDate: toDate },
       this.handleFilterByDate
     );
   };
-
   render() {
     return (
       <div className="row mt-2">

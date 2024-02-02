@@ -10,12 +10,15 @@ import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-monokai";
 import AnalyticsModel from './AnalyticsModel';
-import { Divider, Grid, Link, List } from "@mui/material";
-import CustomizedMenus from "../../utils/CustomizedMenu";
+import Divider from "@mui/material/Divider"
+import Grid from "@mui/material/Grid"
+import Link from "@mui/material/Link"
+import List from "@mui/material/List"
+import CustomizedMenu from "../../utils/CustomizedMenu";
 import HintModal from "../Candidate/HintModal";
 
 
-export default class ProgramResult extends Component {
+export default  class ProgramResult extends Component {
 
     constructor(props) {
         super(props);
@@ -30,7 +33,7 @@ export default class ProgramResult extends Component {
 
         let data = result
         let submittedExam = [];
-        console.log(data, "data");
+
         if (data.sqlRound && !data.programmingRound) {
             submittedExam = _.filter(data.submittedExam, 'question.actualQuery')
         } else if (!data.sqlRound && data.programmingRound) {
@@ -187,6 +190,7 @@ export default class ProgramResult extends Component {
 
     render() {
         return (
+
             <>
                 <Grid container spacing={0} style={{ overflowY: 'auto', height: '100vh' }}>
                     <Grid item xs={5} xl={5} sm={12} lg={5} md={5} style={{ overflowY: 'auto', height: '100vh' }}>
@@ -220,18 +224,10 @@ export default class ProgramResult extends Component {
                                         </div>
                                     </div>
                                     <div className="col-md-6" >
-                                        <div
-                                            className="cursor-pointer"
-                                            onClick={(e) => {
-                                                this.next(e);
-                                            }}
-                                            disable={this.state.disabledNext}
-                                            title="Next"
-                                            style={{ fontSize: "30px", color: "#5B6263", width: '90px', marginTop: '10px' }}
-                                        >
+                                        <div className="cursor-pointer" onClick={(e) => { this.next(e); }} disable={this.state.disabledNext} title="Next" style={{ fontSize: "30px", color: "#5B6263", width: '90px', marginTop: '10px' }} >
                                             {this.state.questionIndex === this.state.questions.length - 1 ? (
                                                 "") : (
-                                                <div className="p-1" style={{ marginTop: '-15px' }}><button type='button' className='btn-sm btn-nxt'>Next &raquo;</button></div>
+                                                <button type='button' className='btn btn-primary' style={{backgroundColor:"coral !important"}}>Next &raquo;</button>
                                             )}
                                         </div>
                                     </div>
@@ -252,7 +248,7 @@ export default class ProgramResult extends Component {
                         {this.state.questions[this.state.questionIndex].questionType !== 'SQL'  ?
                             <div className='row' style={{ marginLeft: '0.5rem' }}>
                                 <div className='col-lg-8 col-md-8'>
-                                    <CustomizedMenus disableHint={this.state.hintDisable}
+                                    <CustomizedMenu disableHint={this.state.hintDisable}
                                         disablePseudo={this.state.pseudoDisable} disable={this.state.showHelpTaken} name={'Took Help'}
                                         handleHelp={(type) => this.handleHintModal(type)}
                                         hintColor={this.state.hintDisable ? 'inherit' : 'red'} pseudoColor={this.state.pseudoDisable ? 'inherit' : 'red'} />
@@ -279,3 +275,4 @@ export default class ProgramResult extends Component {
         );
     }
 }
+
