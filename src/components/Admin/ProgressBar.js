@@ -1,6 +1,5 @@
-import { Chip } from '@mui/material';
+import Chip from '@mui/material/Chip';
 import React from "react";
-import { styled } from '@mui/system';
 
 
 const ProgressBar = ({ bgColor, barColor, borderRadius, margin, progress, height, width, value, unit, fontWeight, count, baseCount }) => {
@@ -12,15 +11,6 @@ const ProgressBar = ({ bgColor, barColor, borderRadius, margin, progress, height
     margin: margin + 'px',
     // backgroundColor: bgColor,
   }
-
-  const StyledChip = styled(Chip)(({ theme }) => ({
-    margin: theme.spacing(0.5),
-    textTransform: 'capitalize',
-    fontWeight: '400',
-    backgroundColor: '#3b489e !important',
-    color: 'white',
-    borderRadius:'5px !important'
-   }));
 
   const Childdiv = {
     height: height + 'px',
@@ -36,13 +26,13 @@ const ProgressBar = ({ bgColor, barColor, borderRadius, margin, progress, height
   //   fontWeight: fontWeight
   // }
 
-  // const chip = {
-  //   paddingRight: '15px',
-  //   paddingLeft: '15px',
-  //   color: 'white',
-  //   fontWeight: 'bold',
-  //   backgroundColor: '#6db3c9',
-  // }
+  const chip = {
+    paddingRight: '15px',
+    paddingLeft: '15px',
+    color: 'white',
+    fontWeight: 'bold',
+    backgroundColor: '#6db3c9',
+  }
 
   // const box = { paddingBottom: '10px', }
 
@@ -56,13 +46,7 @@ const ProgressBar = ({ bgColor, barColor, borderRadius, margin, progress, height
           </div>
         </div>
         <div className='col-lg-3'>
-          {/* <Chip style={chip} color={"black"} label={value} /> */}
-          <StyledChip
-            size="small"
-            // label={`${data.value}`}
-            // onDelete={handleDelete(data)}
-            // deleteIcon= {<StyledDeleteIcon style={{cursor: 'pointer'}}/>}
-          />
+        <Chip style={chip} color="primary" label={value} />
         </div>
       </div>
     </>

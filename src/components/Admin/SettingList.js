@@ -81,7 +81,8 @@ export default class SettingList extends Component {
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     whiteSpace: "nowrap",
-                    width:"12rem"
+                    width:"12rem",
+                    marginBottom: '0'
                   }}
                 >
                   {setting.qualifications?.map((value, _index) => (
@@ -224,9 +225,20 @@ export default class SettingList extends Component {
               <span className="card-title">Settings</span>
             </div>
             <div className="col-md-5"></div>
-            <div className='col-md-2'>
-              <button type="button" onClick={this.onClickOpenModel} className="btn btn-sm btn-nxt float-right" style={{ marginTop: "5px" }}>Add Setting</button>
-              {this.state.openModal ? (<SettingModel onCloseModal={this.onCloseModal} />) : ("")}
+            <div className="col-md-2" style={{paddingLeft:"6.5rem"}}>
+              <button
+                type="button"
+                onClick={this.onClickOpenModel}
+                className="btn btn-sm btn-nxt float-right"
+                style={{ marginTop: "5px" }}
+              >
+                Add Setting
+              </button>
+              {this.state.openModal ? (
+                <SettingModel onCloseModal={this.onCloseModal} />
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
