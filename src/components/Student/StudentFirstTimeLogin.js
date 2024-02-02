@@ -10,7 +10,7 @@ import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage, ToggleStatus } from '../../utils/CommonUtils';
 import States from '../../utils/StatesAndDistricts';
 import { isEmpty, isVaildnum, isValidMobileNo, isValidName } from "../../utils/Validation";
-import  url  from '../../utils/UrlConstant';
+import { url } from '../../utils/UrlConstant';
 import skillsort from '../../assests/images/av.jpg';
 import DatePick from '../../common/DatePick';
 import { useNavigate } from 'react-router-dom';
@@ -412,7 +412,7 @@ const StudentFirstTimeLogin = () => {
                           <FormHelperText className='helper helper-login'>{error.lastName ? error?.lastNameErrorMessage : null}</FormHelperText></label>
                       </div>
                       <div className="col-4">
-                        <input className="profile-page" type='name' label='Last Name' name='lastName' maxLength="50" value={student?.lastName} onChange={(e) => handleChange(e, 'lastName')} id='lastName' aria-label="default input example"></input>
+                        <input className="profile-page" type='name' label='Last Name' name='lastName' maxLength="50" value={student?.lastName} onChange={(e) => handleChange(e, 'lastName')} id='lastName' aria-label="default input example"></input><span className='required'></span>
                       </div>
                       <div className="col-2 competitor-input">
                         <label className="form-label text-label" for="form12">Email*</label>

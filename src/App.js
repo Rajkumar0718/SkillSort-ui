@@ -36,9 +36,13 @@ import AdvertisementHistory from "./components/SuperAdmin/AdvertisementHistory";
 import Payment from "./components/SuperAdmin/Payment";
 import FreeCredits from "./components/SuperAdmin/FreeCredits";import AddStudent from "./components/college/AddStudent"
 import StudentList from "./components/college/StudentList"
+import CandidateInterface from "./components/Candidate/CandidateInterface";
 import StaffList from "./components/college/StaffList"
 import AddStaff from "./components/college/AddStaff"
 import CollegeReportList from "./components/college/CollegeReportList"
+import PracticeExamList from "./components/Student/PracticeExamList";
+import StudentFirstTimeLogin from "./components/Student/StudentFirstTimeLogin";
+import StudentTestList from "./components/Student/StudentTestList";
 const AdminLogin = lazy(() => import("./components/Admin/AdminLogin"));
 const PageNotFound = lazy(() => import("./components/PageNotFound"));
 const RequireAuth = lazy(() => import("./components/RequireAuth"));
@@ -49,6 +53,16 @@ const CandidateReg = lazy(() => import("./components/CandidateReg"));
 const CandidateInstruction = lazy(() => import("./components/Candidate/CandidateInstruction"));
 const ProjectUi = lazy(() => import("./components/project-ui/ProjectUI"));
 const ReExamRequest = lazy(() => import("./components/Candidate/AlreadyWrittenExam"));
+import ProgramUI from "./components/Candidate/ProgramUI";
+import { withLocation } from "./utils/CommonUtils";
+import AdvertisementPage from "./components/Student/AdvertisementPage";
+import QueryUi from "./components/Candidate/QueryUi";
+import SelectTech from "./components/Candidate/SelectTech";
+
+
+const EnhancedCandidateInstruction = withLocation(CandidateInstruction);
+const EnhancedProgramUI = withLocation(ProgramUI)
+const EnhancedQueryUI = withLocation(QueryUi)
 
 function App() {
   return (
@@ -60,8 +74,16 @@ function App() {
           <Route element={<RequireAuth allowedRoles={["ROLE_CANDIDATE"]} />}>
             <Route path="/project" element={<ProjectUi />} />
           </Route>
-          <Route path="/thankYou" element={<ThankYouPage />} />
-          <Route path="/candidateinstruction" element={<CandidateInstruction />} />
+         <Route path='/login/student' element={<StudentFromWebsite/>} />
+         <Route path="/setpassword" component={<StudentFromWebsite/>}/>
+         <Route path="/candidateinstruction" element={<EnhancedCandidateInstruction />} />
+         <Route path="/student/test/selectTech" element={<SelectTech/>}/>
+         <Route path='/test' element={<CandidateInterface />} />
+         <Route path='/thankYou' element={<ThankYouPage />} />
+         <Route path='/program/:token/:examId/:examUsersId/:collegeId' element={<EnhancedProgramUI />} />
+         <Route path='/program/:token/:examId/:examUsersId' element={<EnhancedProgramUI />} />
+         <Route path='/program' element={<EnhancedProgramUI />} />
+         <Route path='/sql' element={<EnhancedQueryUI />} />
           <Route path="/candidate/register/:companyId/:examId" element={<PublicRegister />} />
           <Route path="/public-candidate/register/:companyId/:examId" element={<CandidateReg />} />
           <Route path="/candidate/re-exam-request" element={<ReExamRequest />} />
@@ -124,6 +146,14 @@ function App() {
               <Route path='/testadmin/grouptypes' element={<GroupTypesList />} />
               <Route path='/testadmin/setting' element={<SettingList />} />
             </Route>
+          <Route element={<RequireAuth allowedRoles={["COLLEGE_STUDENT"]} />}>
+           <Route path="/student" element={<StudentFirstTimeLogin />} />
+           <Route path="/student/profile" element={<StudentFirstTimeLogin />} />
+           <Route path="/student/student-test" element={<StudentTestList />} />
+           <Route path="/student/company-offer" element={<CompanyOffers />} />
+           <Route path="/student/student-practice-exam" element={<PracticeExamList />} />
+           <Route path="/student/advertisement" element={<AdvertisementPage />} />
+        </Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

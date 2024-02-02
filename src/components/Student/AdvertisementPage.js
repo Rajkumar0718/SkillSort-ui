@@ -4,7 +4,7 @@ import { authHeader } from "../../api/Api";
 import SliderWithVideo from "./SliderWithVideo ";
 import _ from "lodash";
 import { useLocation } from "react-router-dom";
-import  url  from "../../utils/UrlConstant";
+import { url } from "../../utils/UrlConstant";
 
 
 

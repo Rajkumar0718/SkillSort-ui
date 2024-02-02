@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { authHeader, errorHandler } from '../../api/Api';
 import axios from 'axios';
-import  url  from '../../utils/UrlConstant';
+import { url } from '../../utils/UrlConstant';
 
 const SliderWithVideo = (props) => {
 

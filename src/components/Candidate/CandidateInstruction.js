@@ -16,6 +16,9 @@ import Csharp_Instruction_2 from '../../assests/images/Csharp_Instructions_2.png
 import { withLocation } from "../../utils/CommonUtils";
 
 class CandidateInstruction extends Component {
+import { withLocation } from "../../utils/CommonUtils";
+
+class CandidateInstruction extends Component {
 
   state = {
     name: "",
@@ -332,7 +335,7 @@ class CandidateInstruction extends Component {
                     null
                   }
                   </div>
-
+            
           </div>:null}
 
         </div>

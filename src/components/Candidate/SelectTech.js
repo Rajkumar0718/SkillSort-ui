@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import url  from '../../utils/UrlConstant'
+import { url } from '../../utils/UrlConstant'
 
 export default function SelectTech(props) {
   const [selectedTech, setSelectTech] = useState('')
