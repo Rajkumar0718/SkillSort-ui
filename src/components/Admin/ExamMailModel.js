@@ -315,10 +315,14 @@ export default class ExamMailModel extends Component {
         {fallBackLoader(this.state.loader)}
         <div className="modal-dialog" style={{ width: "710px", maxWidth: "770px" }}>
           <div className="modal-content" style={{ borderStyle: 'solid', borderColor: '#af80ecd1', borderRadius: "32px" }}>
-            <div className="modal-header" style={{ border: "none" }}>
-              <h5 className="setting-title" style={{marginLeft:'1rem'}}>Upload {this.props.modalSection?.type === "Email" ? "Candidates" : this.props.modalSection?.type }</h5>
-              {this.props.modalSection?.type === "Email" ? <h5 className="setting-title" style={{ paddingLeft: '0.5rem' }}><span style={{ color: '#F05A28' }}>{this.props.remainingTest}</span>   Credits Available</h5> : ''}
-              <button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{ border: "none" }}>&times;</button>
+            <div className="modal-header" style={{  border: "none",position:"fixed" }}>
+              <h5 className="setting-title">Upload {this.props.modalSection?.type === "Email" ? "Candidates" : this.props.modalSection?.type}</h5>
+              {this.props.modalSection?.type === "Email" && (
+                <h5 className="setting-title" style={{ marginRight:"7rem"}}>
+                  <span style={{ color: '#F05A28' }}>{this.props.remainingTest}</span> Credits Available
+                </h5>
+              )}
+              <button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{position:"relative",left:"24rem",border:"none",backgroundColor:"initial",fontSize:'3rem',color:"#F05A28"}}>&times;</button>
             </div>
             <div className="card-body" style={{ paddingTop: "4px" }}>
               <div>

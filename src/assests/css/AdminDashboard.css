@@ -2400,7 +2400,7 @@ table td {
 .fixed-button {
   position: fixed;
   bottom: 10px;
-  right: 54%; 
+  right: 54%;
 }
 
 .model-label{
@@ -2418,7 +2418,7 @@ table td {
   line-height: 0.5;
   border: none;
   border-bottom: 1.5px solid black;
-  outline: none; 
+  outline: none;
   margin-left: 2rem;
 }
 /* .ck .ck-content .ck-editor{

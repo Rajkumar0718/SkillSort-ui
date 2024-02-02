@@ -1090,7 +1090,7 @@ class AddQuestion extends Component {
                             data={this.state.questionObject['question']}
                             className='ckeditor-question'
                             onReady={editor => {
-                              
+
                               ClassicEditor
                                 .create(editor.editing.view.document.getRoot(), {
                                          removePlugins: ['Heading', 'Link', 'CKFinder'],
@@ -1241,7 +1241,7 @@ class AddQuestion extends Component {
                           <div className="mt-4" style={{ display: 'flex', justifyContent: 'flex-end', paddingLeft: '50rem' }}>
                             <div className="col-md-10">
                               <button type="submit" className="btn btn-primary">{action !== null ? 'Update ' : 'Add '} Question</button>
-                              <Link className="btn btn-default" to={{ pathname: isRoleValidation() === "TEST_ADMIN" ? "/testadmin/question" : "/admin/questions", state: { difficulty: this.props.location?.state?.difficulty, section: this.props.location?.state?.section, questionType: this.props.location?.state?.questionType, status: this.props.location?.state?.status } }}>Back</Link>
+                              <Link className="btn btn-default" to={{ pathname: isRoleValidation() === "TEST_ADMIN" ? "/testadmin/question" : "/admin/questions", state: { difficulty: this.props.location?.state?.difficulty, section: this.props.location?.state?.section, questionType: this.props.location?.state?.questionType, status: this.props.location?.state?.status } }}>Cancel</Link>
                             </div>
                           </div>
 
@@ -1337,15 +1337,15 @@ class AddQuestion extends Component {
                               field: 'testCase', headerName: 'TestCase', flex: 1, editable: false ,headerClassName:'data-head'
                             },
                             ...this.state.parameters.map(p => ({ field: p.name, headerName: p.name, flex: 1, headerClassName:'data-head',editable: true,sortable:false,
-                            valueFormatter: (params) => params.value ? params.value : 'Enter param value', 
+                            valueFormatter: (params) => params.value ? params.value : 'Enter param value',
                             renderEditCell: (params) => <EditTextarea {...params}/> })),
                             {
-                              field: 'output', headerName: 'Output', flex: 1, headerClassName:'data-head', 
+                              field: 'output', headerName: 'Output', flex: 1, headerClassName:'data-head',
                               editable: true,
                               sortable:false,
                               valueFormatter:(params) =>  params.value ? params.value :'Enter value',
                               renderEditCell:(params) => <EditTextarea {...params}/>
-                            },                            
+                            },
                           ]}
                            sx={{marginTop:'10px'}}
                           style={{color:'#3b489e!important'}}
