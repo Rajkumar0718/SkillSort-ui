@@ -10,7 +10,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Baskervville&family=DM+Sans&family=Fira+Sans:wght@200&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Baskervville&family=DM+Sans&family=Fira+Sans:wght@200&display=swap");
+:root {
+  --bs-table-bg: none;
+  --bs-table-color: #3B489E !important;
+  --bs-emphasis-color: #3B489E !important;
+}
 
+#dataTable .table-dark-custom {
+  color: #3B489E !important;
+  background-color: #E0E1EA !important;
+}
+
+.table {
+  --bs-table-bg: none
+}
 ul#accordionSidebar {
   background-color: #94939317;
   border-color: #94939317;

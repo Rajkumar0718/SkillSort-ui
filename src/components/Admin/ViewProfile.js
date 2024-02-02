@@ -29,7 +29,7 @@ ViewProfile(props) {
             <div className="col-md">
               {
                 props.type === 'resume' ?
-                  <iframe title="Profile" src={props.pdfData} style={{ width: '100%', height: 'calc(100vh - 9.5rem)', border: 'none' }} /> : props.certificateData.length === 1 ?
+                  <iframe title="Profile" src={props.pdfData} style={{ width: '100%', height: 'calc(100vh - 9.5rem)', border: 'none' }} /> : props?.certificateData?.length === 1 ?
                     <iframe title="Profile" src={props.certificateData[0].preSignedUrl} style={{ width: '100%', height: 'calc(100vh - 12rem)', border: 'none' }} /> : viewCarousel()
               }
             </div>

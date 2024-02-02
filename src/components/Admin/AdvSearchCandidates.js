@@ -31,14 +31,14 @@ export default function AdvSearchCandidates(props) {
   const [shortListedCandidates, setShortListedCandidates] = useState([]);
   const [pageSize, setPageSize] = useState(1);
   const [plans, setPlans] = useState();
-  const [tableHeaders, setTableHeaders] = useState([]);
+
   const [planCount, setPlanCount] = useState(0);
   const bottomRef = useRef(null);
   const role = isRoleValidation();
   const vertical = "top";
   const horizontal = "right";
   useEffect(() => {
-    setTableJson();
+
     getCompanyPlans();
   }, []);
 
@@ -135,11 +135,11 @@ export default function AdvSearchCandidates(props) {
 
     return _.size(candidates) > 0 ? (
       _.map(candidates, (candidate,index) => {
-        const isEvenRow = index % 2 === 0;
+
         const skillSortScore = Math.round(candidate.skillSortScore);
         return (
           <>
-          <tr style={{ backgroundColor: isEvenRow ? "#E0E1EA" : "" }} key={index}>
+          <tr  key={index}>
               <td style={{ textAlign: "center" }}>
                 {pageSize * currentPage - i--}
               </td>
@@ -242,127 +242,9 @@ export default function AdvSearchCandidates(props) {
     setShortListedCandidates(isReset ? [] : totalCandidates);
   };
 
-  const setTableJson = () => {
-    const tableRole =
-      role === "SUPER_ADMIN"
-        ? {
-            name: "ROLE",
-            align: "center",
-            key: "role",
-          }
-        : null;
 
-    const headers = [
-      {
-        name: "S.NO",
-        align: "center",
-        key: "S.NO",
-      },
-      {
-        name: "NAME",
-        align: "left",
-        renderCell: (params) => {
-          return role === "SUPER_ADMIN" ? (
-            <Link
-              onClick={() => setCandidate(params.candidate)}
-              to={{ pathname: "/examResult/" + params.candidate.id }}
-              target={"_blank"}
-              style={{ color: "blue" }}
-            >
-              {params.firstName?.concat(" ")?.concat(params.lastName)}
-            </Link>
-          ) : (
-            params.firstName?.concat(" ")?.concat(params.lastName)
-          );
-        },
-      },
-      {
-        name: "SSLC %	",
-        align: "center",
-        key: "sslc",
-      },
-      {
-        name: "HSC %",
-        align: "center",
-        key: "hsc",
-      },
-      {
-        name: "UG %	",
-        align: "center",
-        key: "ug",
-      },
-      {
-        name: "SKILLSORT SCORE %",
-        align: "center",
-        renderCell: (params) => {
-          let skillSortScore = Math.round(params.skillSortScore);
-          return (
-            <span>
-              {skillSortScore === 0 ? "-" : skillSortScore}
-              {skillSortScore >= 70 ? (
-                <i
-                  className="fa fa-star"
-                  aria-hidden="true"
-                  style={{ color: "gold" }}
-                />
-              ) : (
-                ""
-              )}
-            </span>
-          );
-        },
-      },
-      {
-        align: "center",
-        isComponent: true,
-        component: (
-          <input
-            checked={shortListedCandidates.length === totalCandidates.length}
-            type="checkbox"
-            onChange={() => onSelectAllCandidate()}
-          />
-        ),
-        renderCell: (params) => {
-          return (
-            <>
 
-              {console.log(shortListedCandidates,totalCandidates.length,"error")}
-              <input
-                type="checkbox"
-                checked={shortListedCandidates.includes(params)}
-                onChange={() => handleChange(params)}
-              />
-            </>
-          );
-        },
-      },
-      // {
-      //   component: role !== "SUPER_ADMIN" ? (
-      // <input
-      //   checked={shortListedCandidates.length === totalCandidates.length}
-      //   type='checkbox'
-      //   onChange={() => onSelectAllCandidate()}
-      // />
-      //   ) : null,
-      //   align: "center",
-      //   isComponent: true,
-      //   renderCell: (params) => {
-      //     console.log(params,"param");
-      //     return (
-      //       <>
-      //         {role!=="SUPER_ADMIN" ? (
-      //           <input type="checkbox" checked={shortListedCandidates.includes(params)} onChange={() => handleChange(params)} />
-      //         ) : null}
-      //       </>
-      //     );
-      //   },
-      // },
 
-      // tableRole,
-      // checkbox,
-    ];
-    setTableHeaders(headers);
-  };
 
   return (
     <>
@@ -420,23 +302,17 @@ export default function AdvSearchCandidates(props) {
         <CardContent>
           <div className="row"></div>
           <div className="col-md-12">
-            {/* <CustomTable
-              data={candidates}
-              headers={tableHeaders}
-              pageSize={pageSize}
-              currentPage={currentPage}
-            /> */}
            <table className="table tb-hover" id="dataTable">
-  <thead className="table-dark" style={{ textAlign: 'right', backgroundColor: "#E0E1EA" }}>
+  <thead className="table-dark-custom" style={{ textAlign: 'right'}}>
     <tr>
-      <th style={{ textAlign: 'center',backgroundColor: "#E0E1EA",color:"#3B489E" }} className="col-lg-1 col-xl-1">S.NO</th>
-      <th style={{ textAlign: 'left' ,backgroundColor: "#E0E1EA",color:"#3B489E" }} className="col-lg-3 col-xl-3">Name</th>
-      <th style={{ textAlign: role === 'SUPER_ADMIN' ? 'center' : null ,backgroundColor: "#E0E1EA",color:"#3B489E" }} className="col-lg-1 col-xl-1">SSLC %</th>
-      <th style={{ textAlign: role === 'SUPER_ADMIN' ? 'center' : null,backgroundColor: "#E0E1EA",color:"#3B489E" }} className="col-lg-1 col-xl-1">HSC %</th>
-      <th style={{ textAlign: role === 'SUPER_ADMIN' ? 'center' : null,backgroundColor: "#E0E1EA",color:"#3B489E" }} className="col-lg-1 col-xl-1">UG %</th>
-      <th style={{ textAlign: role === 'SUPER_ADMIN' ? 'center' : null ,backgroundColor: "#E0E1EA",color:"#3B489E" }} className="col-lg-3 col-xl-3">SKILLSORT SCORE %</th>
-      {role === 'SUPER_ADMIN' ? <th style={{ textAlign: 'center',backgroundColor: "#E0E1EA",color:"#3B489E"  }} className="col-lg-2 col-xl-2">ROLE</th> : null}
-      {role !== 'SUPER_ADMIN' ? <th style={{ textAlign: 'center',backgroundColor: "#E0E1EA",color:"#3B489E" }} className="col-lg-2 col-xl-2">
+      <th style={{ textAlign: 'center' }} className="col-lg-1 col-xl-1">S.NO</th>
+      <th style={{ textAlign: 'left'  }} className="col-lg-3 col-xl-3">Name</th>
+      <th style={{ textAlign: role === 'SUPER_ADMIN' ? 'center' : null  }} className="col-lg-1 col-xl-1">SSLC %</th>
+      <th style={{ textAlign: role === 'SUPER_ADMIN' ? 'center' : null }} className="col-lg-1 col-xl-1">HSC %</th>
+      <th style={{ textAlign: role === 'SUPER_ADMIN' ? 'center' : null }} className="col-lg-1 col-xl-1">UG %</th>
+      <th style={{ textAlign: role === 'SUPER_ADMIN' ? 'center' : null  }} className="col-lg-3 col-xl-3">SKILLSORT SCORE %</th>
+      {role === 'SUPER_ADMIN' ? <th style={{ textAlign: 'center'  }} className="col-lg-2 col-xl-2">ROLE</th> : null}
+      {role !== 'SUPER_ADMIN' ? <th style={{ textAlign: 'center' }} className="col-lg-2 col-xl-2">
         <input type='checkbox' checked={shortListedCandidates.length === totalCandidates.length} onChange={() => onSelectAllCandidate()} />
       </th> : null}
     </tr>

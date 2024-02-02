@@ -160,7 +160,9 @@ export default class ViewResult extends Component {
         this.setState({ loader: false });
       });
   };
-
+  handleChange = (event) => {
+    this.setState({ mark: event.target.value })
+  }
   getTotalTestCase = (result) => {
     return _.filter(result.submittedExam, "question.input").length * 5;
   };
@@ -308,6 +310,13 @@ export default class ViewResult extends Component {
   onPagination = (pageSize, currentPage) => {
     this.setState({ pageSize: pageSize, currentPage: currentPage }, () => { this.onNextPage() });
   }
+  onSearch = ( fromDate, toDate) => {
+    this.setState(
+      {  currentPage: 1, fromDate: fromDate, toDate: toDate },
+      this.handleFilterByDate
+    );
+  };
+
   render() {
     return (
       <div className="row mt-2">
@@ -318,6 +327,7 @@ export default class ViewResult extends Component {
           showDate={true}
           placeholder="Search Mark  Eg: <=10, =10"
           onSearch={this.onSearch}
+
         />
         <CustomTable
           data={this.state.results}

@@ -246,7 +246,7 @@ class AddPosition extends Component {
                                     className="required"
                                     style={{ color: "red", marginLeft: "5px" }}
                                   >
-                                    *
+
                                   </span>
                                   <FormHelperText
                                     style={{ paddingLeft: "0px" }}
@@ -286,7 +286,7 @@ class AddPosition extends Component {
                               className="required"
                               style={{ color: "red", marginLeft: "5px" }}
                             >
-                              *
+
                             </span>
                             <FormHelperText
                               style={{ paddingLeft: "0px" }}

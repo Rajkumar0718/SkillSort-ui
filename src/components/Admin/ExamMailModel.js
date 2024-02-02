@@ -313,7 +313,7 @@ export default class ExamMailModel extends Component {
         aria-hidden="true"
       >
         {fallBackLoader(this.state.loader)}
-        <div className="modal-dialog" style={{ width: "700px", maxWidth: "770px" }}>
+        <div className="modal-dialog" style={{ width: "710px", maxWidth: "770px" }}>
           <div className="modal-content" style={{ borderStyle: 'solid', borderColor: '#af80ecd1', borderRadius: "32px" }}>
             <div className="modal-header" style={{ border: "none" }}>
               <h5 className="setting-title" style={{marginLeft:'1rem'}}>Upload {this.props.modalSection?.type === "Email" ? "Candidates" : this.props.modalSection?.type }</h5>
