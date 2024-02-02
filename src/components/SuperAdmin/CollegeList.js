@@ -38,7 +38,6 @@ const CollegeList = () => {
     axios.get(`${url.COLLEGE_API}/college/list?status=${event || searchKey}`, { headers: authHeader() })
       .then(res => {
         setCollege(res?.data?.response);
-        console.log(res)
       }).catch(err => {
         errorHandler(err);
       });

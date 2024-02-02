@@ -1,13 +1,13 @@
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { styled } from '@mui/system';
 import _ from 'lodash';
 import BasicMenu from './Menu/BasicMenu';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { lineHeight, padding, styled } from '@mui/system';
 
 const theme = createTheme({});
 
@@ -19,7 +19,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontWeight: '700',
     fontFamily: 'Montserrat',
     padding: theme.spacing(0.45, 0.45, 0.45, 0.2),
-    fontSize: 12,
+    fontSize: 13,
     marginTop: '10px',
     paddingTop: '4px',
   },
@@ -28,8 +28,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontFamily: 'Montserrat',
     paddingLeft: '2px !important',
     paddingTop: '7px !important',
-    paddingBottom:'7px !important',
-    lineHeight: '0.7', // Adjust the line height as needed
+    paddingBottom: '7px !important',
+    lineHeight: '1', // Adjust the line height as needed
+
   },
 }));
 
@@ -42,12 +43,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export const CustomTable = (props) => {
 
-
   const getHeader = () => {
     return _.map(props.headers, header => {
       if (header.isFilter) {
         return (
-          <StyledTableCell align={header.align ? header.align : 'center'} sx={{minWidth: '20%'}}>
+          <StyledTableCell align={header.align ? header.align : 'center'} sx={{ minWidth: '20%' }}>
             <BasicMenu header={header} />
           </StyledTableCell>
         )
@@ -85,13 +85,12 @@ export const CustomTable = (props) => {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{concatKeys(keys.key, row)}</StyledTableCell>
               }
               else if (keys.key?.toUpperCase() === 'S.NO') {
-                return <StyledTableCell align={'center'} >{props.pageSize ?( props.pageSize * props.currentPage - (i--)): index+1}</StyledTableCell>
+                return <StyledTableCell align={'center'} >{props.pageSize ? (props.pageSize * props.currentPage - (i--)) : index + 1}</StyledTableCell>
               } else if (keys.key?.includes(".")) {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{splitDotsAndJoin(keys.key, row)}</StyledTableCell>
               } else if (keys['isFilter']) {
-                return <StyledTableCell style={{color:row[keys.key]==='ACTIVE'? 'green' : 'red' }} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
-              }
-               else {
+                return <StyledTableCell style={{ color: row[keys.key] === 'ACTIVE' ? 'green' : 'red' }} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
+              } else {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
               }
             })}
@@ -105,7 +104,7 @@ export const CustomTable = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <TableContainer style={{ overflowX: 'inherit', width:'100%'}}>
+      <TableContainer style={{ overflowX: 'inherit', width: '100%' }}>
         <Table
           size="small"
           aria-label="a dense table"
@@ -128,4 +127,3 @@ export const CustomTable = (props) => {
     </ThemeProvider >
   )
 }
-

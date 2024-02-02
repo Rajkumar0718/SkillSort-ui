@@ -40,10 +40,13 @@ const ActivityReport = (props) => {
   const getDateRange = () => {
     if (duration === 'week') {
       setFromDate(new Date(new Date().setDate(new Date().getDate() - 7)));
+      getReportData();
     } else if (duration === 'month') {
       setFromDate(new Date(new Date().setDate(new Date().getDate() - 30)));
+      getReportData();
     } else {
       setFromDate(new Date(new Date().setMonth(new Date().getMonth() - 3)));
+      getReportData();
     }
   }
 

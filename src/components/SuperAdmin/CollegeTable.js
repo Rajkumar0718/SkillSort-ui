@@ -20,7 +20,6 @@ export const CollegeTable = (props) => {
             <tbody style={{ textAlign: 'left', textTransform: 'capitalize' }}>
                 {props.body.map((rowData, rowIndex) => (
                     <tr key={rowIndex}>
-                        {console.log(rowIndex, "rowIndex")}
                         {props.headers.map((header, cellIndex) => (
                             <>
                             {header === 'S.No' ? <td style={{ textAlign: 'center' }}>{rowIndex+1}</td> :

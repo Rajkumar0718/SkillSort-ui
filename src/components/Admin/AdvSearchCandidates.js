@@ -141,8 +141,6 @@ export default function AdvSearchCandidates(props) {
     limit = limit ? ` (${limit})` : '';
     setMessage(`You are about to exceed max limit${limit}`);
     setOpen(true)
-    // toast(`You are about to exceed max limit${limit ? ` (${limit})` : ''}`,
-    //   { style: { backgroundColor: 'rgb(255, 244, 229)', color: 'rgb(102, 60, 0)' }, autoClose: 5000, closeOnClick: true })
   }
 
   const onSelectAllCandidate = () => {
@@ -185,7 +183,7 @@ export default function AdvSearchCandidates(props) {
           <div className="row"></div>
           <div className="col-md-12">
             <table className="table tb-hover" id="dataTable">
-              <thead className="table-dark" style={{ textAlign: 'right' }}>
+              <thead className="table-dark-custom" style={{ textAlign: 'right' }}>
                 <tr>
                   <th style={{ textAlign: 'center' }} className="col-lg-1 col-xl-1">S.NO</th>
                   <th style={{ textAlign: 'left' }} className="col-lg-3 col-xl-3">Name</th>

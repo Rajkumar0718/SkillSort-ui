@@ -12,18 +12,17 @@ import HomePage from "./components/SuperAdmin/HomePage";
 import ListIndustryAndTechnologies from "./components/SuperAdmin/ListIndustryAndTechnologies";
 import ProcessAdminList from "./components/SuperAdmin/ProcessAdminList";
 import RecruiterList from "./components/SuperAdmin/RecruiterList";
-import AddStaff from "./components/college/AddStaff";
-import AddStudent from "./components/college/AddStudent";
-import CollegeReportList from "./components/college/CollegeReportList";
-import StaffList from "./components/college/StaffList";
-import StudentList from "./components/college/StudentList";
+import AddStaff from "./components/College/AddStaff";
+import AddStudent from "./components/College/AddStudent";
+import CollegeReportList from "./components/College/CollegeReportList";
+import StaffList from "./components/College/StaffList";
+import StudentList from "./components/College/StudentList";
 import SuperAdminReportLayout from "./container/SuperAdminReportLayout";
 import AddCollege from "./components/SuperAdmin/AddCollege";
 import CollegeAdminList from "./components/SuperAdmin/CollegeAdminList";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddCollegeAdmin from "./components/SuperAdmin/AddCollegeAdmin";
-import AddPlan from "./components/SuperAdmin/AddPlan";
 import CompanyPlans from "./components/SuperAdmin/CompanyPlans";
 import AddCompany from "./components/SuperAdmin/AddCompany";
 import AdminList from "./components/SuperAdmin/AdminList";
@@ -35,6 +34,17 @@ import AddAdvertisement from "./components/SuperAdmin/AddAdvertisement";
 import AdvertisementHistory from "./components/SuperAdmin/AdvertisementHistory";
 import Payment from "./components/SuperAdmin/Payment";
 import FreeCredits from "./components/SuperAdmin/FreeCredits";
+import SectionWeightage from "./components/SuperAdmin/SectionWeightage";
+import SMTPConfig from "./components/Admin/SMTPConfig";
+import DepatmentList from "./components/College/DepartmentList";
+import PlanMaster from "./components/SuperAdmin/PlanMaster";
+import PracticeExam from "./components/SuperAdmin/PracticeExam";
+import PracticeExamTest from "./components/SuperAdmin/PracticeExamTest";
+import TestList from "./components/SuperAdmin/TestList";
+import Test from "./components/SuperAdmin/Test";
+import AdvSearch from "./components/Admin/AdvanceSearch";
+import Signupcount from "./components/SuperAdmin/Signupcount";
+
 
 
 function App() {
@@ -55,15 +65,26 @@ function App() {
             <Route path="/companyadmin" element={<CompanyList />} />
             <Route path="/panelists" element={<RecruiterList />} />
             <Route path="/panelists/payment" element={<Payment />} />
-            <Route path="/settings/freeCredits" element={<FreeCredits />} />
+            <Route path="/settings/department" element={<DepatmentList />} />
+            <Route path="/settings/practiceExam" element={<PracticeExam />} />
+            <Route path="/settings/practiceExam/addPracticeExam" element={<PracticeExamTest/>} />
+            <Route path="/settings/practiceExam/viewPracticeExam" element={<PracticeExamTest/>} />
+            <Route path="/settings/test" element={<TestList/>} />
+            <Route path="/settings/test/addtest" element={<Test/>} />
+            <Route path="/settings/test/view" element={<Test/>} />
+            <Route path="/settings/plan-master" element={<PlanMaster />} />
             <Route path="/skillsortadmin" element={<ProcessAdminList />} />
             <Route path="/skillsortadmin/edit" element={<AddProcessAdmin />} />
             <Route path="/skillsortadmin/testadmin" element={<TestAdminList />} />
-            <Route path="/skillsortadmin/testadmin/add" element={<AddTestAdmin/>} />
-            <Route path="/skillsortadmin/testadmin/edit" element={<AddTestAdmin/>} />
-            <Route path="/skillsortadmin/advertisement" element={<AdvertisementHistory/>} />
-            <Route path="/skillsortadmin/advertisement/add" element={<AddAdvertisement/>} />
+            <Route path="/skillsortadmin/testadmin/add" element={<AddTestAdmin />} />
+            <Route path="/skillsortadmin/testadmin/edit" element={<AddTestAdmin />} />
+            <Route path="/skillsortadmin/advertisement" element={<AdvertisementHistory />} />
+            <Route path="/skillsortadmin/advertisement/add" element={<AddAdvertisement />} />
+            <Route path="/skillsortadmin/advertisement/edit" element={<AddAdvertisement />} />
             <Route path="/settings" element={<ListIndustryAndTechnologies />} />
+            <Route path="/settings/smtp" element={<SMTPConfig />} />
+            <Route path="/settings/weightage" element={<SectionWeightage />} />
+            <Route path="/settings/freeCredits" element={<FreeCredits />} />
             <Route path="/report" element={<CompetitorList />} />
             <Route caseSensitive path="/collegeadmin/add" name="Add" element={<AddCollege />} />
             <Route path="/collegeadmin/edit" name="edit" element={<AddCollege />} />
@@ -77,6 +98,9 @@ function App() {
             <Route path='/companyadmin/admin/add' name="Add" element={<AddAdmin />} />
             <Route path='/companyadmin/admin/edit' name="edit" element={<AddAdmin />} />
             <Route path="/skillsortadmin/add" element={<AddProcessAdmin />} />
+            <Route path="/report/advance-search" element={<AdvSearch />}/>
+            <Route path="/report/activity-dashboard" element={<Signupcount/>} /> 
+            
           </Route>
         </Route>
         <Route path="/" element={<Layout />}>

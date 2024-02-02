@@ -6,11 +6,9 @@ import React, { useState } from 'react';
 
 function Search(props) {
   const title = props.title;
-  console.log(props, "props");
   const [search, setSearch] = useState('');
   
   const onSearch = () => {
-    console.log(search, "sear")
     props.onSearch(search);
   }
   
@@ -22,20 +20,28 @@ function Search(props) {
     <>
       <div className="search">
         <div
-          className="col-md-2 col-lg-2 col-sm-2 col-xl-2 p-0"
+          className="row"
           style={{
-            maxWidth: "6.5rem",
-            height: "2.5rem",
-            borderRight: "1px solid #3B489E",
-            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
             alignItems: "center",
-            justifyContent: "center",
           }}
         >
-          <span className="title">{title}</span>
-        </div>
-        {props.showSearch ? (
-          <>
+          <div
+            className="col-md-2 col-lg-2 col-sm-2 col-xl-2 p-0"
+            style={{
+              maxWidth: "6.5rem",
+              height: "2.5rem",
+              borderRight: "1px solid #3B489E",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <span className="title">{title}</span>
+          </div>
+          {props.showSearch ? (
+            <>
 
               <div className="form-group has-search mb-0" style={{ marginLeft: props.showCheckBox ? '25%' : '41%', width: '35%' }}>
               {/* <i className="fa fa-search form-control-feedback"></i>

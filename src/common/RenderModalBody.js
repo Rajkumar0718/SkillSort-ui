@@ -1,6 +1,5 @@
 import _ from "lodash";
 import React from "react";
-import MultiSelectDropDown from "../utils/MultiselectDropDown";
 import { isRoleValidation } from "../utils/Validation";
 import { fallBackLoader } from "../utils/CommonUtils";
 import Pagination from "../utils/Pagination";
@@ -10,8 +9,10 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { CustomTable } from "../utils/CustomTable";
+import MultiSelectDropDown from "../utils/MultiSelectDropDown";
 
 export const RenderModalBody = (props) => {
+
   return (
     <div className="modal-body">
       <div className="row">
@@ -244,10 +245,10 @@ export const RenderModalBody = (props) => {
                 className="dash-text"
                 style={{ fontWeight: "400", marginLeft: "1.4rem" }}
               >
-                Student Report
+                {props.type === "INDIVIDUAL_USER" ? "Individual User Report" : 'Student Report'}
               </span>
               <span className="dash-text" style={{ marginRight: "1.4rem" }}>
-                Total Students : {props.totalElements}
+              {props.type === "INDIVIDUAL_USER" ? "Total Registered Users": 'Total Students'} : {props.totalElements}
               </span>
             </div>
             <div
@@ -257,80 +258,17 @@ export const RenderModalBody = (props) => {
                 overflowY: "auto",
               }}
               className="table-border"
-            >
+            > 
               <div>
                 <div className="table-responsive pagination_table">
                   {isRoleValidation() === "SUPER_ADMIN" ? (
-                    <table
-                      className="table table-hover"
-                      id="dataTable"
-                      style={{ textAlign: "center" }}
-                    >
-                      <thead className="table-dark">
-                        <tr>
-                          <th
-                            className="col-lg-1"
-                            style={{
-                              textAlign: "center",
-                              fontSize: props.toggleClick ? null : "11px",
-                            }}
-                          >
-                            S.No
-                          </th>
-                          <th
-                            className="col-lg-2"
-                            style={{ textAlign: "left" }}
-                          >
-                            NAME
-                          </th>
-                          <th
-                            className="col-lg-2"
-                            style={{ textAlign: "left" }}
-                          >
-                            Email
-                          </th>
-                          {isRoleValidation() === "SUPER_ADMIN" &&
-                          props.report.role === "STUDENT" ? (
-                            <th
-                              className="col-lg-3"
-                              style={{ textAlign: "left" }}
-                            >
-                              College
-                            </th>
-                          ) : null}
-                          {props.report.role === "STUDENT" ? (
-                            <th
-                              className="col-lg-3"
-                              style={{ textAlign: "left" }}
-                            >
-                              Department
-                            </th>
-                          ) : (
-                            <>
-                              <th
-                                className="col-lg-2 col-xl-2"
-                                style={{ textAlign: "left" }}
-                              >
-                                Reg Date
-                              </th>
-                              <th
-                                className="col-lg-4 col-xl-1"
-                                style={{ textAlign: "left" }}
-                              >
-                                Yop
-                              </th>
-                            </>
-                          )}
-                          <th
-                            className="col-lg-1"
-                            style={{ textAlign: "left" }}
-                          >
-                            SkillsortScore
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>{props.renderTable()}</tbody>
-                    </table>
+                    <CustomTable
+                      headers={props.superAdminHeader}
+                      loader={props.loader}
+                      pageSize={props.pageSize}
+                      currentPage={props.currentPage}
+                      data={props.data}
+                    />
                   ) : (
                     <CustomTable
                       headers={props.headers}

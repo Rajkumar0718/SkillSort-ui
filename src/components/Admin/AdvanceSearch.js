@@ -47,6 +47,8 @@ export default function AdvSearch(props) {
   const [college, setCollege] = useState({});
   const [technology, setTechnology] = useState('');
   const [isStudent, setIsStudent] = useState(true);
+
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -115,7 +117,6 @@ export default function AdvSearch(props) {
       .then(res => {
         let sections = _.filter(res.data.response, { 'description': 'Technical' })?.map(data => data.name);
         setTechnologies(sections)
-        console.log(sections)
       })
   }
 
@@ -231,7 +232,7 @@ export default function AdvSearch(props) {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>
                 <form className="email-compose-body" style={{ paddingLeft: '0.5rem' }}>
-                  <div className="form-group row">
+                  <div className="form-group row" style={{marginTop:'1.5rem'}}>
                     <div className="col-12 col-lg-6 col-sm-12 col-xl-6">
                       <div className='row'>
                         <div className='col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3'>
@@ -259,7 +260,7 @@ export default function AdvSearch(props) {
                       </div>
                     </div>
                   </div>
-                  <div className="form-group row">
+                  <div className="form-group row" style={{marginTop:'1.5rem'}}>
                     <div className="col-12 col-lg-6 col-sm-12 col-xl-6">
                       <div className='row'>
                         <div className='col-3 col-sm-3 col-md-3 col-lg-3'>
@@ -278,7 +279,7 @@ export default function AdvSearch(props) {
                         <div className='col-3 col-sm-3 col-md-3 col-xl-3 col-lg-3'>
                           <label className="form-label input-label">Department</label>
                         </div>
-                        <div className='col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9  '>
+                        <div className='col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9' style={{position:'relative',bottom:'1rem'}}>
                           <MultiSelectDropDown
                             value={selectedDepartment}
                             list={departments}
@@ -293,13 +294,13 @@ export default function AdvSearch(props) {
                       </div>
                     </div>
                   </div>
-                  <div className="form-group row">
+                  <div className="form-group row" style={{marginTop:'1.5rem'}}>
                     <div className="col-12 col-lg-6 col-sm-12 col-xl-6">
                       <div className='row'>
                         <div className='col-3 col-sm-3 col-md-3 col-xl-3 col-lg-3'>
                           <label className="form-label input-label">Year of Passing</label>
                         </div>
-                        <div className='col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9  '>
+                        <div className='col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9' style={{position:'relative',bottom:'1rem'}}>
                           <MultiSelectDropDown
                             value={selectedYop}
                             list={yop}
@@ -323,7 +324,7 @@ export default function AdvSearch(props) {
                       </div>
                     </div>
                   </div>
-                  <div className="form-group row">
+                  <div className="form-group row" style={{marginTop:'1.5rem'}}>
                     <div className="col-12 col-lg-6 col-sm-12 col-xl-6">
                       <div className='row'>
                         <div className='col-3 col-sm-3 col-md-3 col-xl-3 col-lg-3'>
@@ -336,7 +337,8 @@ export default function AdvSearch(props) {
                              value={states}
                              isObject={false}
                              selectExam={handleStateChange}
-                             data={Object.keys(States)} >
+                             data={Object.keys(States)} 
+                             >                             
                            </AutoComplete>
                         </div>
                       </div>
@@ -346,7 +348,7 @@ export default function AdvSearch(props) {
                         <div className='col-3 col-sm-3 col-md-3 col-lg-3'>
                           <label className="form-label input-label">District</label>
                         </div>
-                        <div className='col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9  '>
+                        <div className='col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9' style={{position:'relative',bottom:'1rem'}}>
                           <MultiSelectDropDown
                             value={districts}
                             list={States[states]}
@@ -359,7 +361,7 @@ export default function AdvSearch(props) {
                       </div>
                     </div>
                   </div>
-                  <div className="form-group row">
+                  <div className="form-group row" style={{marginTop:'1.5rem'}}>
                     <div className="col-12 col-lg-6 col-sm-12 col-xl-6">
                       <div className='row'>
                         <div className='col-3 col-sm-3 col-md-3 col-xl-3 col-lg-3'>
@@ -412,7 +414,7 @@ export default function AdvSearch(props) {
                         </div>
                       </div> : null}
                     {
-                      isStudent && isRoleValidation() === 'SUPER_ADMIN' ? <div className="col-12 col-lg-6 col-sm-12 col-xl-6">
+                      isStudent && isRoleValidation() === 'SUPER_ADMIN' ? <div className="col-12 col-lg-6 col-sm-12 col-xl-6" style={{marginTop:'1.5rem'}}>
                         <div className='row'>
                           <div className='col-3 col-sm-3 col-md-3 col-xl-3 col-lg-3'>
                             <label className="form-label input-label">College</label>

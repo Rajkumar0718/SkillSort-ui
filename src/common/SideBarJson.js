@@ -246,7 +246,7 @@ const sidebar = {
     to: '/report/advance-search',
     name: 'Advance Search',
     icon: 'fa fa-search'
-  },{
+  }, {
     isSubMenu: false,
     to: '/report/activity-dashboard',
     name: 'Activity Report',
@@ -424,49 +424,57 @@ const sidebar = {
 }
 ],
 
-  "SUPER_ADMIN_SETTINGS": [{
-    isSubMenu: false,
-    to: "/settings",
-    name: "Industry Type",
-    icon: 'fa fa-universal-access'
-  }, {
-    isSubMenu: false,
-    name: 'Department',
-    isDefault: true,
-    to: '/settings/department',
-    icon: 'fa fa-sitemap'
-  }, {
-    isSubMenu: false,
-    to: '/settings/practiceExam',
-    name: 'PracticeExam',
-    icon: 'fa fa-graduation-cap'
-  }, {
-    isSubMenu: false,
-    to: '/settings/smtp',
-    name: 'SMTP Config',
-    icon: 'fa fa-cogs'
-  }, {
-    isSubMenu: false,
-    to: '/settings/test',
-    name: 'Test',
-    icon: 'fa fa-th-list'
-  }, {
-    isSubMenu: false,
-    to: '/settings/plan-master',
-    name: 'Plan',
-    icon: 'fa fa-battery-three-quarters'
-  }, {
-    isSubMenu: false,
-    to: '/settings/weightage',
-    name: 'Weightage',
-    icon: 'fa fa-balance-scale'
-  },{
-    isSubMenu: false,
-    to: '/settings/freeCredits',
-    name: 'FreeCredits',
-    icon: 'fa fa-ticket'
-  }
-]
+  "SUPER_ADMIN_SETTINGS": [
+    {
+      isSubMenu: false,
+      to: "/home",
+      name: "HOME",
+      icon: 'fa fa-home'
+    },
+    {
+      isSubMenu: false,
+      to: "/settings",
+      name: "Industry Type",
+      icon: 'fa fa-universal-access'
+    },
+    {
+      isSubMenu: false,
+      name: 'Department',
+      isDefault: true,
+      to: '/settings/department',
+      icon: 'fa fa-sitemap'
+    }, {
+      isSubMenu: false,
+      to: '/settings/practiceExam',
+      name: 'PracticeExam',
+      icon: 'fa fa-graduation-cap'
+    }, {
+      isSubMenu: false,
+      to: '/settings/smtp',
+      name: 'SMTP Config',
+      icon: 'fa fa-cogs'
+    }, {
+      isSubMenu: false,
+      to: '/settings/test',
+      name: 'Test',
+      icon: 'fa fa-th-list'
+    }, {
+      isSubMenu: false,
+      to: '/settings/plan-master',
+      name: 'Plan',
+      icon: 'fa fa-battery-three-quarters'
+    }, {
+      isSubMenu: false,
+      to: '/settings/weightage',
+      name: 'Weightage',
+      icon: 'fa fa-balance-scale'
+    }, {
+      isSubMenu: false,
+      to: '/settings/freeCredits',
+      name: 'FreeCredits',
+      icon: 'fa fa-ticket'
+    }
+  ]
 
 }
 
