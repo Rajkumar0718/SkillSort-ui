@@ -5,6 +5,9 @@ import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useState } from 'react';
 import './style.css';
+import DatePick from './DatePick';
+import StyledPaper from './StyledPaper';
+
 
 import {
   DatePicker as MuiDatePicker,
@@ -12,10 +15,10 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 const AdvSearch = (props) => {
- const title = props.title;
- const [search, setSearch] = useState('');
- const [fromDate, setFromDate] = useState('');
- const [toDate, setToDate] = useState('');
+    const title = props.title;
+    const [search, setSearch] = useState('');
+    const [fromDate, setFromDate] = useState('');
+    const [toDate, setToDate] = useState('');
 
  const onSearch = () => {
    props.onSearch(search, fromDate, toDate);
