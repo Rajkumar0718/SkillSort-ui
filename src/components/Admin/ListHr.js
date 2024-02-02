@@ -237,7 +237,10 @@ export default class ListHr extends Component {
             </div>
           </div> */}
            <CustomTable headers={this.state.headers} data={this.state.hr} pageSize={this.state.pageSize} currentPage={this.state.currentPage} ></CustomTable> 
-
+           {this.state.numberOfElements ? <Pagination totalPages={this.state.totalPages} currentPage={this.state.currentPage}
+                  onPagination={this.onPagination} increment={this.increment} decrement={this.decrement} startPage={this.state.startPage}
+                  numberOfElements={this.state.numberOfElements} endPage={this.state.endPage} totalElements={this.state.totalElements}
+                  pageSize={this.state.pageSize} /> : null}
         </div>
       </main>
     );
