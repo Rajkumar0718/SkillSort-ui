@@ -6,7 +6,7 @@ import url from "../../utils/UrlConstant";
 import TableHeader from "../../utils/TableHeader";
 import { Link } from "react-router-dom";
 import Search from "../../common/AdvanceSearch";
-import Box from "@mui/system/Box";
+import Box, { display } from "@mui/system/Box";
 import Grid from "@mui/system/Unstable_Grid";
 import _ from "lodash";
 import CustomCard from "../../utils/CustomCard";
@@ -190,6 +190,15 @@ const Position = () => {
             )}
           </div>
           <Search
+          style={{
+            marginLeft:0,
+           marginRight:0,
+           display :'flex',
+           alignItems:'center',
+           flexDirection:'row',
+           justifyContent:'space-between'
+
+          }}
             title="Filter"
             showSearch={true}
             placeholder="search by vacancy name"

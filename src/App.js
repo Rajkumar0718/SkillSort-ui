@@ -65,8 +65,8 @@ import StudentList from "./components/college/StudentList";
 import AddExam from "./components/Admin/AddExam";
 import ProgramResult from "./components/Admin/ProgramResult ";
 import SMTPConfig from "./components/Admin/SMTPConfig";
-import Dashboard from "./components/Admin/Dashboard";
 import CandidateResultDetails from "./components/Admin/CandidateResultDetails";
+import ShortListedResultDetails from "./components/Admin/ShortListedResultDetails"
 function App() {
   return (
     <div>
