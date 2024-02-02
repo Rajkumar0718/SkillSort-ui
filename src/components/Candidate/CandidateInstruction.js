@@ -13,7 +13,9 @@ import java_1 from '../../assests/images/java_instruction_1.png';
 import java_2 from '../../assests/images/java_instruction_2.png';
 import Csharp_Instruction_1 from '../../assests/images/Csharp_Instructions_1.png';
 import Csharp_Instruction_2 from '../../assests/images/Csharp_Instructions_2.png';
-export default class CandidateInstruction extends Component {
+import { withLocation } from "../../utils/CommonUtils";
+
+class CandidateInstruction extends Component {
 
   state = {
     name: "",
@@ -306,7 +308,7 @@ export default class CandidateInstruction extends Component {
             <h6 style={{ textAlign: "center" }}>{this.errorMsg.error}</h6>
           </div>
         </div>
-        <div>
+        <div style={{position:'relative',top:'50%',left:'50%',transform:'translate(-50%,-50%)'}}>
           {(this.state.isOnlyProgramming || this.state.technology === 'PROGRAMMING' || this.state.technology === 'BOTH' ) && this.state.langSelected?
           <div style={{display:'flex',justifyContent:'center'}}>
             <div>
@@ -332,3 +334,4 @@ export default class CandidateInstruction extends Component {
     );
   }
 }
+export default withLocation(CandidateInstruction)

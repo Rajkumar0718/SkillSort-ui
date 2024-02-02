@@ -1604,6 +1604,14 @@ h4,
   border-top: none !important;
 }
 
+.close {
+  font-weight: 500 !important;
+  opacity: 1.0 !important;
+  color: #F05A28 !important;
+  font-size: 3rem !important;
+  padding: 0 1rem 0 0 !important
+}
+
 
 /* .close:hover {
    color: #F05A28 !important;

@@ -128,7 +128,8 @@ export default class TestingSidebar extends Component {
               <div className="row link">
                 <div className="col-3">
                   <div>
-                    <i className={sideBar.icon} aria-hidden="true" style={{ color: '#3b489E', fontSize: '1.3rem' }}></i>
+                    {sideBar.isReactIcon ? sideBar.icon():
+                    <i className={sideBar.icon} aria-hidden="true" style={{ color: '#3b489E', fontSize: '1.3rem' }}></i>}
                   </div>
                 </div>
                 <div className="col-9 menu-name">

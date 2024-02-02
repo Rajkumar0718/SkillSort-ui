@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Baskervville&family=DM+Sans&family=Fira+Sans:wght@200&display=swap');
+
+.full-screen-view {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100vh;
+    background-color: #F5F5F5;
+}
+
+.full-screen-header {
+    background-color: rgb(186 199 181 / 27%);
+    height: 60px;
+}
+
+.full-screen-header,
+.full-screen-header .align-left-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-wrap {
+    margin: 0 20px;
+}
+
+.align-right-container {
+    color: #738f93;
+}
+
+.align-right-container .restoreScreen {
+    font-size: 16px;
+}
+
+.full-screen-header .align-right-container .restoreScreen,
+.full-screen-header .align-right-container span {
+    margin-right: 15px;
+}
+
+.full-screen-header .restoreScreen {
+    color: #738f93;
+    cursor: pointer;
+}
+
+.full-screen-header .nav-link-home {
+    display: block;
+    line-height: 0;
+}
+
+/* .full-screen-header .logo-wrap img {
+    height: 20px;
+} */
+
+.text-content {
+    color: var(--color-shade-dark, #F5F5F5);
+    letter-spacing: 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.full-screen-view .fs-pains-container {
+    display: flex;
+}
+
+.full-screen-view .fs-left-pane,
+.full-screen-view .fs-right-pane,
+.full-screen-view .gutter-horizontal {
+    overflow: auto;
+    height: calc(100vh - 50px);
+}
+
+.full-screen-view .left-pane-container {
+    display: flex;
+    overflow: hidden;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 84%;
+    overflow: auto;
+    padding-left: 2rem;
+}
+
+.full-screen-view .left-pane-content {
+    flex: 1;
+}
+
+.full-screen-view .problem-statement-container {
+    min-height: 100%;
+}
+
+.theme-m.challenge-text {
+    padding: 15px 30px;
+}
+
+.challenge-problem .hackdown-container {
+    background-color: var(--card-shadow-1);
+}
+
+.full-screen-view .gutter.gutter-horizontal {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    cursor: ew-resize;
+}
+
+.full-screen-view .challenge-page-wrap.theme-m-content {
+    height: 100%;
+}
+
+.full-screen-view .code-editor-section.split {
+    height: 100%;
+    width: 100%;
+}
+
+.code-editor-section {
+    position: relative;
+}
+
+.hr-monaco-editor-wrapper .hr-monaco-editor-with-statusbar {
+    /* box-shadow: 0 6px 16px 0 rgb(0 0 0 / 20%); */
+    border: 0;
+    border-top: 1px solid #e7eeef;
+    border-top: 1px solid var(--color-shade-light);
+    background-color: #f3f7f7;
+    background-color: var(--color-shade-lighter);
+}
+
+.hr-monaco-editor-wrapper .hr-monaco-editor .editor-toolbar {
+    padding: 10px 0;
+    border-bottom: 1px solid #e7eeef;
+    ;
+    background-color: #f3f7f7;
+    ;
+}
+
+.hr-monaco-editor .editor-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.hr-monaco-editor .editor-toolbar .toolbar-left,
+.hr-monaco-editor .editor-toolbar .toolbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.monaco-editor .editor-toolbar .toolbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.monaco-editor-parent {
+    position: relative;
+}
+
+.program-top {
+    justify-content: space-between;
+    padding-left: 1rem;
+    /* padding-top: 1rem; */
+    align-items: center;
+}
+
+.test-case {
+    /* display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: space-between;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 1.5rem; */
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 2.5rem;
+}
+
+.test-caseExpanded {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 3.2rem;
+}
+
+.save-run {
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    justify-content: flex-end;
+}
+
+.without-expand {
+    width: calc(100vw - 40rem);
+    box-shadow: rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px;
+    margin-top: 1rem;
+    overflow: hidden !important;
+    height: calc(100vh - 6rem) !important;
+}
+
+.with-expand {
+    width: 90rem;
+    box-shadow: rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px;
+    margin-top: 0rem;
+    overflow: hidden !important;
+    height: calc(100vh - 5rem) !important;
+}
+
+.footer-btn {
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.time-text {
+    font-weight: 400;
+    font-size: 28px;
+    color: #F05A28;
+}
+
+.enlarge {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* padding-right: 3.3rem; */
+}
+
+.dropdown-toggle::after {
+    color: #3B489E;
+    display: none;
+}
+
+.title-text {
+    padding-left: 10px;
+    padding-top: 10px;
+    font-size: 42px;
+    font-weight: 400;
+    font-family: 'Baskervville', serif;
+}
+
+.q-text {
+    padding-bottom: 1rem;
+    padding-left: 10px;
+    font-weight: 700;
+    font-size: 13px;
+    color: #3B489E;
+}
+
+.instructions {
+    margin-top: 1rem;
+}
+
+.hr-tag {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    width: 96%;
+}
+
+.auth-page .theme-m,
+.careerfair-page .theme-m,
+.certificate-id-page .theme-m,
+.companydetails-page .theme-m,
+.companyroot-page .theme-m,
+.custompage-page .theme-m,
+.dashboard-page .theme-m,
+.default-page .theme-m,
+.editorial-page .theme-m,
+.interview-page .theme-m,
+.jobs-page .theme-m,
+.leaderboard-page .theme-m,
+.mocktestshome-page .theme-m,
+.onboarding-page .theme-m,
+.problem-page .theme-m,
+.profile-page .theme-m,
+.skillsdirectory-page .theme-m,
+.skillsverification-page .theme-m,
+.skillsverificationroot-page .theme-m,
+.submission-page .theme-m,
+.submissiondetail-page .theme-m {
+    min-width: auto;
+}
+
+/* a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, p, pre, q, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: baseline;
+} */
+
+/* width */
+::-webkit-scrollbar {
+    width: 1px;
+    height: 70%;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #f5f5f5;
+    border-radius: 10px;
+    margin-top: 2rem;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #c5c4c4b0;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #f5f5f5;
+  }

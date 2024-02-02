@@ -3,7 +3,6 @@ import { Breadcrumbs as MUIBreadcrumbs, Link, Typography } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { isRoleValidation } from "../utils/Validation";
 import breadcrumb from "./BreadcrumbJson";
-import _ from "lodash";
 
 const Breadcrumbs = () => {
   const [homeLink, setHomeLink] = useState(null);
@@ -13,8 +12,6 @@ const Breadcrumbs = () => {
   const location = useLocation();
   const { pathname } = location || {};
   const pathnames = pathname ? pathname.split("/").filter((x) => x) : [];
-  const [home_condition, setHome_condition] = useState(false);
-  const [condition, setCondition] = useState(false);
 
   useEffect(() => {
     let isMounted = true;

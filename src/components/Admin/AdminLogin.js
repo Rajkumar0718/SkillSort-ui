@@ -69,9 +69,10 @@ const AdminLogin = () => {
 
   const navigateBasedOnRole = (role) => {
     const mapping = roleMappings[role];
-    if(from) {
-      return navigate(from, {replace : true})
-    }
+    // if(from) {
+    //   console.log(from)
+    //   return navigate(from)
+    // }
     if (mapping) {
       if (typeof mapping === "string") {
         navigate(mapping);
