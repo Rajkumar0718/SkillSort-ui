@@ -349,12 +349,14 @@ export default class ViewResult extends Component {
     return (
       <div className="row mt-2">
         {fallBackLoader(this.state.loader)}
+        {_.size(this.state.results)>0?
         <div className="card-header-new" style={{display:"flex",justifyContent:"flex-end",alignItems:'baseline'}}>
          <button className="btn btn-sm btn-nxt pull-right m-0" onClick={()=>this.matchResumes()}>
           Match Resumes
          </button>
 
-        </div>
+        </div>:null
+  }
         <AdvSearch
           title="Filter"
           showSearch={true}
