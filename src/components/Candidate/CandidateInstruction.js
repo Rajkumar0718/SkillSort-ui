@@ -182,7 +182,7 @@ class CandidateInstruction extends Component {
       if ((this.state.imgVisited)) {
         return (<Link className="btn btn-info" style={startButtonStyle} to="/program" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)}> {buttonText}</Link>);
       } else {
-        return (<div><Link className="btn btn-info disabled" style={startButtonStyle} to="/program" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)}> {buttonText}</Link>
+        return (<div><Link className="btn btn-info disabled" style={{position:'relative',top:'50%',left:'50%',transform:'translate(-40%,-85%)',padding: '3px 0px 0px 0px'}} to="/program" onClick={() => this.setLanguageInLocalStorage(this.state.language_id, this.state.languageName)}> {buttonText}</Link>
           <p style={{ fontSize: '15px', fontFamily: 'sans-serif' }}><b>Watch all the images till the end to activate the start button</b></p></div>);
       }
     }else if (this.state.technology === 'DBMS' || this.state.technology === 'BOTH' || this.state.haveSql) {

@@ -69,15 +69,20 @@ export default class QueryUi extends Component {
     window.addEventListener("blur", this.getTabSwitchCount);
     const sessionQuestions = localStorage.getItem("AnsweredState");
     const exam = JSON.parse(localStorage.getItem('exam'));
+    let callbackExecuted = false;
+  
     this.setState({ isPracticeExam: exam?.isPracticeExam }, () => {
-      if (!sessionQuestions) {
-        this.getQuestion()
-      } else {
-        this.sessionStart()
+      if (!callbackExecuted) {
+        callbackExecuted = true;
+        if (!sessionQuestions) {
+          this.getQuestion();
+        } else {
+          this.sessionStart();
+        }
       }
-    })
-
+    });
   }
+  
 
   handleEventTrackForAbondedExam = () => {
     localStorage.setItem('status', 'closed')
@@ -98,8 +103,14 @@ export default class QueryUi extends Component {
       let currentCatQuestion = res.data.response
       let indx = _.findIndex(currentCatQuestion.categories, { 'sectionName': 'PROGRAMMING' });
       this.setState({ programCategory: currentCatQuestion.categories[indx] });
-      this.setState({ questions: questionsFlatten, examQuestions: res.data.response, currentQuestion: questionsFlatten[this.state.questionIndex].question, queryHasCamera: res.data.response.isSqlCamera }, () => { this.setInput(); this.checkCameraAndGetScreenShotTime() });
-      this.saveOnGoingExam();
+      this.setState({ questions: questionsFlatten, examQuestions: res.data.response, currentQuestion: questionsFlatten[this.state.questionIndex].question, queryHasCamera: res.data.response.isSqlCamera }, 
+        () => { 
+              this.setInput(); 
+              this.checkCameraAndGetScreenShotTime();
+              this.setInput(() =>{
+                this.saveOnGoingExam();
+              })
+             });
     })
   }
 
@@ -156,8 +167,9 @@ export default class QueryUi extends Component {
       if (!localStorage.getItem('seconds')) {
         this.setInitStateForSession(answeredState)
       }
-    }).catch(() => {
-      toastMessage('error', "Oops something went wrong!");
+    }).catch((error) => {
+      console.log(error)
+      toastMessage('error', "Error while saving exam");
     });
   }
 
@@ -200,11 +212,12 @@ export default class QueryUi extends Component {
     let idx = _.findIndex(sessionQuestions?.categories, { 'sectionName': 'PROGRAMMING' });
     let programCategory = sessionQuestions?.categories[idx];
     localStorage.setItem("examDuration", sessionQuestions?.sqlDuration)
-    let sqlQuestions = _.filter(sessionQuestions.categories, this.state.isPracticeExam ? { groupQuestionType: 'SQL' } : { sectionName: 'SQL' });
+    let sqlQuestions = _.filter(sessionQuestions?.categories, this.state.isPracticeExam ? { groupQuestionType: 'SQL' } : { sectionName: 'SQL' });
     let questions = _.map(sqlQuestions, 'questions')
     let questionsFlatten = _.flatten(questions);
     this.setState({ questions: questionsFlatten, examQuestions: sessionQuestions, currentQuestion: questionsFlatten[this.state.questionIndex].question, programCategory: programCategory }, () => { this.setInput() });
-    if (localStorage.getItem("startDate"))
+    const startDate = localStorage.getItem('startDate');
+    if (startDate)
       this.setState({ start: true })
   }
 
@@ -577,7 +590,7 @@ export default class QueryUi extends Component {
           </div> :
           <Grid style={{ padding: '1rem' }} container spacing={2} >
             <Grid item xs={this.state.isExpand ? 4 : 5}>
-              <div style={{ height: 'calc(100vh  - 200px)', overflowY: 'auto' }}>
+              <div style={{ height: 'calc(100vh  - 200px)', overflow: 'auto' }}>
                 <div>
                   {this.state.queryHasCamera ?
                     <Webcam style={{ textDecoration: 'none' }}

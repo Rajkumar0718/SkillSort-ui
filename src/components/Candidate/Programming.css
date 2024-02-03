@@ -340,3 +340,7 @@
     letter-spacing: .2px;
     background: #e0e1ea!important;
 }
+
+pre {
+    text-wrap: wrap;
+}

@@ -129,8 +129,19 @@ export default class ProgramUi extends Component {
             }).then((res) => {
                 let questionsFlatten = _.flatten(_.map(res.data.response.categories, 'questions'));
                 localStorage.setItem("examDuration", res.data.response.programmingDuration)
-                this.setState({ questions: questionsFlatten, examQuestions: res.data.response, instructions: questionsFlatten[this.state.questionIndex].question }, () => { this.setInput() });
-                this.saveCode(false);
+                this.setState(
+                    {
+                        questions: questionsFlatten,
+                        examQuestions: res.data.response,
+                        instructions: questionsFlatten[this.state.questionIndex].question
+                    },
+                    async () => {
+                        await this.setInput()
+                        this.saveCode(false)
+                     
+                    }
+                );
+
             })
         } else {
             this.sessionStart();
@@ -293,8 +304,10 @@ export default class ProgramUi extends Component {
         let questions = _.map(programQuestions, 'questions')
         let questionsFlatten = _.flatten(questions);
         this.setState({ questions: questionsFlatten, examQuestions: sessionQuestions, instructions: questionsFlatten[this.state.questionIndex].question }, () => { this.setInput() });
-        if (localStorage.getItem("startDate"))
+        const startDate = localStorage.getItem('startDate');
+        if (startDate) {
             this.setState({ start: true })
+        }
     }
 
     input = (event) => {
@@ -445,6 +458,7 @@ export default class ProgramUi extends Component {
         let sessionUser = JSON.parse(localStorage.getItem('user'));
         if (_.size(_.map(category, "sectionName")) > 0 && !localStorage.getItem('startTime')) {
             let startTime = new Date()
+            console.log(startTime,'date');
             localStorage.setItem("startTime", startTime);
             if (!localStorage.getItem('examStartTime')) {
                 localStorage.setItem('examStartTime', startTime)
@@ -870,7 +884,7 @@ export default class ProgramUi extends Component {
                                                     showLineNumbers: true,
                                                     tabSize: 2,
                                                 }} />
-                                            <div style={{ paddingRight: this.state.isExpand ? '3rem' : '2rem', display:'flex', justifyContent: 'space-between' }}>
+                                            <div style={{ paddingRight: this.state.isExpand ? '3rem' : '2rem', display: 'flex', justifyContent: 'space-between' }}>
                                                 <div style={{ paddingLeft: '1.5rem' }}>
                                                     <button
                                                         style={{ marginTop: '10px' }}
@@ -882,7 +896,7 @@ export default class ProgramUi extends Component {
                                                     </button>
                                                     {this.state.openModal ? (<SubmitPopup submit={this.submitExam} close={this.onCloseModal} />) : ("")}
                                                 </div>
-                                                <div style={{display:'flex',gap:'10px'}}>
+                                                <div style={{ display: 'flex', gap: '10px' }}>
                                                     <button
                                                         style={{ marginTop: '10px' }}
                                                         type="submit"

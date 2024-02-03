@@ -25,7 +25,7 @@ export default function DatePick ({className, style, views, minDate, maxDate, va
               color: '#3b489e' // Change the ornament color to white
             },
             '& .MuiInputBase-root' : {
-              width:'12rem',
+              width:'15.5rem',
               background: 'none'
             }
           }}

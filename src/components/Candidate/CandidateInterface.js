@@ -564,7 +564,7 @@ export default function CandidateInterface(props) {
               {<span className='dash-text'>Waiting for camera permission</span>}<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
             </div> :
             <div className='container-fluid' style={{ height: 'auto', marginTop: "-10px" }}>
-              <div className="row">
+              <div style={{display:'flex'}}>
                 <div className="mt-2" style={{ width: 'calc(100vw - 14rem)', marginRight: '0.9rem' }} >
                   <div className='examBody'>
                     <div className='line1'>
@@ -610,7 +610,7 @@ export default function CandidateInterface(props) {
                     </div>
                   </div>
                 </div>
-                <div className="mt-2" style={{ width: '13rem', paddingLeft: '0', paddingRight: "0.5rem", paddingTop: '1rem' }}>
+                <div className="mt-2" style={{ width: '13rem', paddingLeft: '0', paddingRight: "0.5rem", paddingTop: '1rem' , marginRight:'-1rem'}}>
                   <Section
                     section={examQuestions}
                     categoryIndex={categoryIndex}

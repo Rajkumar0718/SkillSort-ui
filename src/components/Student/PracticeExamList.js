@@ -198,7 +198,7 @@ class PracticeExamList extends Component {
   }
 
   clearStorage = () => {
-    const keysToRemove = ["examSubmitMessage", "candidateInstruction", "examId", "jwtToken", "exam", "count", "startDate", "startTime", "onGoingExamId", "examDuration", "AnsweredState", "languageId", "languageName", "examTimeUp", "count", "practiceExamId"];
+    const keysToRemove = ["seconds","examSubmitMessage", "candidateInstruction", "examId", "jwtToken", "exam", "count", "startDate", "startTime", "onGoingExamId", "examDuration", "AnsweredState", "languageId", "languageName", "examTimeUp", "count", "practiceExamId","examStartDate","questionId","status"];
     keysToRemove.forEach(k => localStorage.removeItem(k))
   }
 

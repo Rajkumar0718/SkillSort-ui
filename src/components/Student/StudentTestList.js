@@ -305,9 +305,9 @@ export default class StudentTestList extends Component  {
       const levelColor = level.level > 1 ? '#FFFFFF' : '#3B489E';
       return <div className="row level-cards">
         <div className={paidLevelBgColor[level.level || 0]}>
-          <h5 className="level-title" style={{ color: levelColor }}>Level {level.level}</h5>
-          <div style={{ textAlign: 'center' }}><span style={{ color: levelColor }}> {levelType[level.level - 1]}</span></div>
-          <hr style={{ background: '#FFFFFF' }}></hr>
+          <h5 className="level-title" style={{ color: levelColor, position:'relative', top:'1rem' }}>Level {level.level}</h5>
+          <div style={{ textAlign: 'center' }}><span style={{ color: levelColor, position:'relative', top:'0.5rem' }}> {levelType[level.level - 1]}</span></div>
+          <hr style={{ backgroundColor: 'rgb(255, 255, 255)', width:'15rem', position:'relative', left:'1.8rem', color:'white', height:'2px' }}></hr>
           <p className="level-info" style={{ color: levelColor }}>You have {credit?.available_credits && credit?.available_credits >= 0 ? credit.available_credits : 0} credits Available.
           </p>
           {this.sectionWiseResult(credit, results, level)}

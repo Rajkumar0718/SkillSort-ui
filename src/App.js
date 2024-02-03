@@ -19,6 +19,15 @@ import CollegeReportList from "./components/college/CollegeReportList"
 import PracticeExamList from "./components/Student/PracticeExamList";
 import StudentFirstTimeLogin from "./components/Student/StudentFirstTimeLogin";
 import StudentTestList from "./components/Student/StudentTestList";
+import CompanyOffers from './components/Student/CompanyOffers';
+import StudentFromWebsite from './components/Admin/StudentFromWebsite';
+import ProgramUI from "./components/Candidate/ProgramUI";
+import { withLocation } from "./utils/CommonUtils";
+import AdvertisementPage from "./components/Student/AdvertisementPage";
+import QueryUi from "./components/Candidate/QueryUi";
+import SelectTech from "./components/Candidate/SelectTech";
+import CompetitorFirstTimeLogin from './components/Competitor/CompetitorFirstTimeLogin';
+
 const AdminLogin = lazy(() => import("./components/Admin/AdminLogin"));
 const PageNotFound = lazy(() => import("./components/PageNotFound"));
 const RequireAuth = lazy(() => import("./components/RequireAuth"));
@@ -29,11 +38,6 @@ const CandidateReg = lazy(() => import("./components/CandidateReg"));
 const CandidateInstruction = lazy(() => import("./components/Candidate/CandidateInstruction"));
 const ProjectUi = lazy(() => import("./components/project-ui/ProjectUI"));
 const ReExamRequest = lazy(() => import("./components/Candidate/AlreadyWrittenExam"));
-import ProgramUI from "./components/Candidate/ProgramUI";
-import { withLocation } from "./utils/CommonUtils";
-import AdvertisementPage from "./components/Student/AdvertisementPage";
-import QueryUi from "./components/Candidate/QueryUi";
-import SelectTech from "./components/Candidate/SelectTech";
 
 
 const EnhancedCandidateInstruction = withLocation(CandidateInstruction);
@@ -50,6 +54,7 @@ function App() {
           <Route element={<RequireAuth allowedRoles={["ROLE_CANDIDATE"]} />}>
             <Route path="/project" element={<ProjectUi />} />
           </Route>
+         {/* <Route path='/competitor/login' element={<CompetitorFirstTimeLogin/>} /> */}
          <Route path='/login/student' element={<StudentFromWebsite/>} />
          <Route path="/setpassword" component={<StudentFromWebsite/>}/>
          <Route path="/candidateinstruction" element={<EnhancedCandidateInstruction />} />
