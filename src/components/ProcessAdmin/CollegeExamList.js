@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from '../../api/Api';
 import { fallBackLoader } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import  url  from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 const CollegeExamList = () => {
     const [exam, setExam] = useState([]);

@@ -9,7 +9,7 @@ import LOGO from '../../assests/images/LOGO.svg';
 // import { logEvent } from '../../utils/Analytics';
 import { toastMessage } from '../../utils/CommonUtils';
 import TimeCounter from '../../utils/TimeCounter';
-import { url } from '../../utils/UrlConstant';
+import  url  from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 import ProjectInit from './ProjectInit';
 import SubmitPopup from '../Candidate/SubmitPopup';

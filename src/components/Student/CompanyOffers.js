@@ -3,7 +3,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { authHeader, errorHandler } from '../../api/Api';
 import { fallBackLoader, toastMessage, ToggleStatus } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import  url  from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 
 const MAIN_COLORS = ["#3B489E", "#F05A28"];

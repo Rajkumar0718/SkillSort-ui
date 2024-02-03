@@ -10,7 +10,7 @@ import axios from "axios";
 import _ from "lodash";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { url } from "../../utils/UrlConstant";
+import  url  from "../../utils/UrlConstant";
 import { authHeader } from "../../api/Api";
 
 export default function ProjectResultView() {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, FormHelperText } from '@mui/material';
 import axios from 'axios';
 import LOGO from '../../assets/images/LOGO.svg';
-import { url } from '../../utils/UrlConstant';
+import  url  from '../../utils/UrlConstant';
 import { isEmpty, isValidEmail, isValidPassword } from '../../utils/Validation';
 
 const StudentSetPassword = (props) => {

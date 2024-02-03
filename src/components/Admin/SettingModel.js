@@ -6,8 +6,8 @@ import CreatableSelect from 'react-select/creatable';
 import { authHeader, errorHandler } from '../../api/Api';
 import close from '../../assests/images/close.png';
 import { toastMessage } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
 import { isEmpty, isValidName } from "../../utils/Validation";
+import url from '../../utils/UrlConstant';
 
 export default class SettingModel extends Component {
   state = {

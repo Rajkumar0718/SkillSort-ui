@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { authHeader, errorHandler } from "../../api/Api";
 import { fallBackLoader, toastMessage } from "../../utils/CommonUtils";
-import { url } from "../../utils/UrlConstant";
 import { isEmpty, isRoleValidation } from "../../utils/Validation";
 import SocialMediaShareModal from "./SocialMediaShareModal";
+import url from "../../utils/UrlConstant";
 
 
 const paidLevelBgColor = {

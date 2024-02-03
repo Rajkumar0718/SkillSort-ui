@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { authHeader, errorHandler } from '../../api/Api';
 import '../../assests/css/AdminDashboard.css';
 import qualification from '../../assests/images/degree.png';
-import { url } from '../../utils/UrlConstant';
+import  url  from '../../utils/UrlConstant';
 import ViewProfile from '../Admin/ViewProfile';
 
 const CandidateResultDetails = () => {

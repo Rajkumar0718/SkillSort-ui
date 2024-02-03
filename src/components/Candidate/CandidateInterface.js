@@ -9,7 +9,6 @@ import LOGO from '../../assests/images/LOGO.svg';
 import { logEvent } from '../../utils/Analytics';
 import { toastMessage } from "../../utils/CommonUtils";
 import TimeCounter from "../../utils/TimeCounter";
-import { url } from "../../utils/UrlConstant";
 import { isRoleValidation } from "../../utils/Validation";
 import Footer from "./Footer";
 import InstructionForCamera from "./InstructionForCamera";
@@ -19,6 +18,7 @@ import SubmitPopup from "./SubmitPopup";
 import UnplugedModal from "./UnplugedModal";
 import './Styles.css'
 import { useNavigate } from 'react-router-dom';
+import url from '../../utils/UrlConstant';
 
 export default function CandidateInterface(props) {
   const [start, setStart] = useState(false);
