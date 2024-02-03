@@ -75,14 +75,14 @@ const AddTechnologies = (props) => {
                     <div className="modal-header" style={{ padding: "1rem 2rem 0 3.85rem", border: "none" }}>
                         <h5 className="setting-title" >{props.modalSection.action} Technology</h5>
                         {props.modalSection.action === 'Update' ?
-                            <button type="button" onClick={props.onCloseModal} className="close" data-dismiss="modal" style={{ background: 'none', border: 'none', padding: '0 1rem 0 0 !important', fontSize: '3rem ', color: '#F05A28' }}>&times;</button> :
-                            <button type="button" onClick={props.onCloseModalAdd} className="close" data-dismiss="modal" style={{ background: 'none', border: 'none', padding: '0 1rem 0 0 !important', fontSize: '3rem ', color: '#F05A28' }}>&times;</button>}
+                            <button type="button" onClick={props.onCloseModal} className="close" data-dismiss="modal" style={{background:'none',border:'none'}}>&times;</button> :
+                            <button type="button" onClick={props.onCloseModalAdd} className="close" data-dismiss="modal" style={{background:'none',border:'none'}}>&times;</button>}
                     </div>
-                    <div className="modal-body" style={{ bottom: '1rem' }}>
+                    <div className="modal-body" style={{bottom:'1rem'}}>
                         <form onSubmit={handleSubmitAddSection}>
                             <div className="form-group row">
                                 <label className='col-md-3 col-sm-3 col-lg-3 col-form-label lable-text' htmlFor="question">Industry Type</label>
-                                <select className="form-control-mini" style={{ marginLeft: "6rem", width: '22.90rem', marginBottom: '1.5rem' }}
+                                <select className="form-control-mini" style={{  marginLeft: "6rem", width: '22.90rem',marginBottom:'1.5rem'}}
                                     value={state.industryType.name}
                                     required='true'
                                     onChange={(e) => setState((prev) => ({ ...prev, industryType: { name: e.target.value } }))}
@@ -95,7 +95,7 @@ const AddTechnologies = (props) => {
                             </div>
                             <div className="form-group row">
                                 <label className="col-md-3 col-sm-3 col-lg-3 col-form-label lable-text" htmlFor="question">Technology</label>
-                                <input className="form-control-mini" required='true' style={{ marginLeft: "6rem", width: '22.90rem', marginBottom: '1rem' }}
+                                <input className="form-control-mini" required='true' style={{ marginLeft: "6rem", width: '22.90rem', marginBottom:'1rem'}}
                                     onChange={(e) => setState((prev) => ({ ...prev, skillName: e.target.value }))}
                                     value={state.skillName}
                                     name='skillName' id='section' type="text" placeholder='Enter Technology' />
