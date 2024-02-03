@@ -255,7 +255,7 @@ ul#accordionSidebar {
     -webkit-animation: none;
     animation: none;
   }
- 
+
   .sidebar .nav-item .collapse .collapse-inner {
     border-radius: 0;
     box-shadow: none;
@@ -277,7 +277,7 @@ ul#accordionSidebar {
     padding: 1rem;
     width: 14rem;
   }
-  
+
   .sidebar .nav-item .nav-link i {
     font-size: 0.85rem;
     margin-right: 0.25rem;
@@ -287,7 +287,7 @@ ul#accordionSidebar {
     font-size: 0.95rem;
     display: inline;
   }
-  
+
   .sidebar .nav-item .nav-link[data-toggle="collapse"]::after {
     width: 1rem;
     text-align: center;
@@ -310,7 +310,7 @@ ul#accordionSidebar {
   .sidebar .sidebar-brand .sidebar-brand-text {
     display: inline;
   }
- 
+
   .sidebar .sidebar-heading {
     text-align: left;
   }
@@ -319,7 +319,7 @@ ul#accordionSidebar {
     overflow: visible;
     width: 7.5rem !important;
   }
-  
+
   .sidebar.toggled .nav-item .collapse {
     position: absolute;
     left: calc(6.5rem + 1.5rem / 2);
@@ -340,7 +340,7 @@ ul#accordionSidebar {
     box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
     border-radius: 0.35rem;
   }
- 
+
   .sidebar.toggled .nav-item .collapsing {
     display: none;
     transition: none;
@@ -350,7 +350,7 @@ ul#accordionSidebar {
   .sidebar.toggled .nav-item .collapsing {
     margin: 0;
   }
-  
+
   .sidebar.toggled .nav-item:last-child {
     margin-bottom: 1rem;
   }
@@ -370,7 +370,7 @@ ul#accordionSidebar {
     margin-right: 0;
     font-size: 1.65rem;
   }
- 
+
   .sidebar.toggled .nav-item .nav-link[data-toggle="collapse"]::after {
     display: none;
   }
@@ -378,7 +378,7 @@ ul#accordionSidebar {
   .sidebar.toggled .sidebar-brand .sidebar-brand-icon i {
     font-size: 2rem;
   }
-  
+
   .sidebar.toggled .sidebar-brand .sidebar-brand-text {
     display: none;
   }
@@ -386,7 +386,7 @@ ul#accordionSidebar {
   .sidebar.toggled .sidebar-heading {
     text-align: center;
   }
-  
+
 
   /* .nav-item .collapse{ display: none; }
   /* .nav-item .collapse{ display: none; }
@@ -1170,7 +1170,7 @@ h4,
 }
 
 .card-header-new {
-  padding: 0.75rem 1.25rem;
+  /* padding: 0.75rem 1.25rem; */
   margin-bottom: 0.5%;
   background-color: #ffffff;
   /* border: 1px solid rgb(224, 221, 221); */
@@ -2306,11 +2306,11 @@ table td {
 }
 .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred{
   overflow-y: auto;
-  height: 12rem;
+  /* height: 12rem; */
 }
 .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-focused{
   overflow-y: auto;
-  height: 12rem;
+  /* height: 12rem; */
 }
 .language {
   display: inline;
