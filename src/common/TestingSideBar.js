@@ -78,9 +78,9 @@ export default class TestingSidebar extends Component {
   }
 
   renderSubMenu = (sideBar) => {
-    return (<div className='row' style={{ marginTop: '12px', marginLeft: '20px', display: 'flex', flexDirection: 'column' }}>
+    return (<div className='row' style={{ marginTop: '10px', marginLeft: 'auto', display: 'flex', flexDirection: 'column' }}>
       {_.map(sideBar.subMenu, menu => {
-        return <><Link to={menu.to} key={menu.name}><span style={{ color: 'black' }}><span style={{ color: '#F05A28' }}>▶&nbsp;</span>{menu.name}</span></Link><br /></>
+        return <><Link to={menu.to} key={menu.name} style={{ textDecoration: 'none' }}><span style={{ color: 'black' }}><span style={{ color: '#F05A28' }}>▶&nbsp;</span>{menu.name}</span></Link><br /></>
       })}
     </div>)
   }
@@ -102,7 +102,7 @@ export default class TestingSidebar extends Component {
               </div>
               <div className='col-9 menu-name'>
                 <div style={{ height: '20px', maxWidth: '8.5rem' }}>{sideBar.name}
-                  {this.state[sideBar.toggleValue] ? <div> {this.renderSubMenu(sideBar)} </div> : ''}
+                  {this.state[sideBar.toggleValue] ? this.renderSubMenu(sideBar)  : ''}
                 </div>
               </div>
             </div>
