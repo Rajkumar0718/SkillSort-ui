@@ -49,8 +49,6 @@ const Breadcrumbs = () => {
       )}
 
       {pathnames.map((name, index) => {
-        let linkName = breadcrumb[role].name
-        console.log(linkName,"linkname");
         const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
         const isLast = index === pathnames.length - 1;
         return isLast && name !== targetString ? (
@@ -70,11 +68,7 @@ const Breadcrumbs = () => {
             }}
           >
             {breadCrumbJSON[routeTo] ? breadCrumbJSON[routeTo] : name.charAt(0).toUpperCase() + name.slice(1)}
-       {/* {Array.isArray(breadcrumb[role]) && breadcrumb[role].includes("/"+linkName + "/" + name)
-                ? breadcrumb[role]["/"+linkName + "/" + name]
-                : name.charAt(0).toUpperCase() + name.slice(1)} */}
 
-            {/* {name.charAt(0).toUpperCase() + name.slice(1)} */}
           </Link>
         ) : (
           ""
