@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Webcam from 'react-webcam';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage, withLocation } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import  url  from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 import InstructionForCamera from './InstructionForCamera';
 import UnplugedModal from './UnplugedModal';

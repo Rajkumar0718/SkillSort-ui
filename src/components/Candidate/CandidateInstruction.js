@@ -335,7 +335,7 @@ class CandidateInstruction extends Component {
                     null
                   }
                   </div>
-            
+
           </div>:null}
 
         </div>

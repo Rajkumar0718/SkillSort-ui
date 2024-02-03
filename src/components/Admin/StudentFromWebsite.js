@@ -8,7 +8,7 @@ import '../../assests/css/Login.css';
 import "../../assests/css/ReactToast.css";
 import skillsort from '../../assests/images/Frame.png';
 import { toastMessage } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import  url  from '../../utils/UrlConstant';
 import { isEmpty, isValidEmail, isValidPassword } from '../../utils/Validation';
 
 

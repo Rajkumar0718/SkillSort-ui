@@ -240,6 +240,7 @@ export default class SettingModel extends Component {
           <div className="modal-content" style={{ borderStyle: 'solid', borderColor: '#af80ecd1', borderRadius: "32px", height: "550px", width: "789px", verticalAlign: "center" }}>
             <div className="modal-header" style={{ padding: "2rem 2rem 0 3.85rem", border: "none" }}>
               <h5 className="setting-title"> Minimum Qualification</h5>
+              <button type='button' onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{ border: 'none',backgroundColor:"initial"}}>
               <button type='button' onClick={this.props.onCloseModal} className="close" data-dismiss="modal">
                 <img src={close} alt="" />
               </button>

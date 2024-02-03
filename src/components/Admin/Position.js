@@ -155,20 +155,22 @@ const Position = () => {
         </div>
       ) : (
         <div>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "baseline" }}>
             <TableHeader title="Vacancies" />
             {positions?.length === 0 ? (
               ""
             ) : (
-
-              <div style={{position:"relative",left:"52rem"}}>
+              <>
                 <Link
                   className="btn btn-sm btn-nxt float-right"
                   to="/admin/vacancy/history"
                   state={{ position: positions }}
                   style={{
                     position: "relative",
-right:"1rem"
+                    marginTop: "-45px",
+                    marginRight: "49px",
+
+                    marginLeft: "46rem",
                   }}
                 >
                   Vacancy History
@@ -176,16 +178,15 @@ right:"1rem"
                 <Link
                   className="btn btn-sm btn-nxt float-right"
                   to="/admin/vacancy/add"
-                  // style={{
-                  //   position: "relative",
-                  //   marginTop: "-45px",
-                  //   marginRight: "20px",
-                  // }}
+                  style={{
+                    position: "relative",
+                    marginTop: "-45px",
+                    marginRight: "20px",
+                  }}
                 >
                   Add Vacancy
                 </Link>
-                </div>
-
+              </>
             )}
           </div>
           <Search

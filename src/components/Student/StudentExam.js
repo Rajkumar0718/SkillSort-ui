@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import axios from "axios";
 import _ from "lodash";
 import { authHeader } from "../../api/Api";
-import { url } from "../../utils/UrlConstant";
+import  url  from "../../utils/UrlConstant";
 import { isRoleValidation } from "../../utils/Validation";
 
 const StudentExam = () => {
