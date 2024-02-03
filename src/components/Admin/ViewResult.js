@@ -13,6 +13,7 @@ import CopyClipBoardPopUp from "./CopyClipBoardPopUp"
 import { Link } from "react-router-dom";
 import LOGO from '../../assests/images/logo.png';
 import { isRoleValidation } from '../../utils/Validation';
+import MatchResumeModal from "./MatchResumeModal";
 
 let hidden = null;
 let visibilityChange = null;
@@ -64,6 +65,8 @@ export default class ViewResult extends Component {
       action: "ALL",
       sharableLink: "",
       examMonitor: [],
+      matchResumeData:[],
+      resumeMatchModal:false,
     };
   }
   componentDidMount() {
@@ -166,6 +169,30 @@ export default class ViewResult extends Component {
   }
   getTotalTestCase = (result) => {
     return _.filter(result.submittedExam, "question.input").length * 5;
+  };
+
+  matchResumes = ()=>{
+    const resumeDto ={
+    'jobDescription':this.props.position.jobDescription,
+    'skills':'java,python,react,angular,postgres,sqllite',
+    'candidates':[]
+    }
+    _.map(this.state.results,r=>{
+      let matchResumesDto = {}
+      matchResumesDto['path'] = r.candidate.resume
+      matchResumesDto['studentName'] = r.candidate.firstName +' '+r.candidate.lastName
+      resumeDto.candidates.push(matchResumesDto)
+    })
+    axios.post(`http://192.168.1.22:8000/chatbot/resume-filter`,resumeDto)
+    .then(res=>{
+    this.setState({matchResumeData:res.data.message,resumeMatchModal:true})
+    }).catch((err)=>{
+    errorHandler(err)
+    })
+  }
+
+  onCloseResumeMatchModal = () => {
+    this.setState({ resumeMatchModal: !this.state.resumeMatchModal });
   };
 
   setTableJson = () => {
@@ -322,6 +349,12 @@ export default class ViewResult extends Component {
     return (
       <div className="row mt-2">
         {fallBackLoader(this.state.loader)}
+        <div className="card-header-new" style={{display:"flex",justifyContent:"flex-end",alignItems:'baseline'}}>
+         <button className="btn btn-sm btn-nxt pull-right m-0" onClick={()=>this.matchResumes()}>
+          Match Resumes
+         </button>
+
+        </div>
         <AdvSearch
           title="Filter"
           showSearch={true}
@@ -355,6 +388,7 @@ export default class ViewResult extends Component {
             onCloseModal={this.onCloseModal}
           />
         ) }
+        {this.state.resumeMatchModal && <MatchResumeModal onCloseModal={this.onCloseResumeMatchModal} data={this.state.matchResumeData}/>}
       </div>
     );
   }
