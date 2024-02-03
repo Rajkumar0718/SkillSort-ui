@@ -3,8 +3,7 @@ import { de, enGB, zhCN } from 'date-fns/locale';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 
-export default function DatePick ({className, views, minDate, maxDate, value, inputProps, onChange, format, disabled, onError})  {
-
+export default function DatePick ({className,style, views, minDate, maxDate, value, inputProps, onChange, format, disabled, onError})  {
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGB}>
         <MuiDatePicker
