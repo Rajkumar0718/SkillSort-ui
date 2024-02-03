@@ -412,7 +412,7 @@ const StudentFirstTimeLogin = () => {
                           <FormHelperText className='helper helper-login'>{error.lastName ? error?.lastNameErrorMessage : null}</FormHelperText></label>
                       </div>
                       <div className="col-4">
-                        <input className="profile-page" type='name' label='Last Name' name='lastName' maxLength="50" value={student?.lastName} onChange={(e) => handleChange(e, 'lastName')} id='lastName' aria-label="default input example"></input><span className='required'></span>
+                        <input className="profile-page" type='name' label='Last Name' name='lastName' maxLength="50" value={student?.lastName} onChange={(e) => handleChange(e, 'lastName')} id='lastName' aria-label="default input example"></input>
                       </div>
                       <div className="col-2 competitor-input">
                         <label className="form-label text-label" for="form12">Email*</label>
