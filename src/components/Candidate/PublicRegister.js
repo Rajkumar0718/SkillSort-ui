@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { errorHandler } from '../../api/Api';
 import LOGO from '../../assests/images/LOGO.svg';
 import { withLocation } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import  url  from '../../utils/UrlConstant';
 import { isEmpty, isValidEmail } from '../../utils/Validation';
 
 function PublicRegister() {

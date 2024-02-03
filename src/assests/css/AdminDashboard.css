@@ -10,7 +10,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Baskervville&family=DM+Sans&family=Fira+Sans:wght@200&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Baskervville&family=DM+Sans&family=Fira+Sans:wght@200&display=swap");
+:root {
+  --bs-table-bg: none;
+  --bs-table-color: #3B489E !important;
+  --bs-emphasis-color: #3B489E !important;
+}
 
+#dataTable .table-dark-custom {
+  color: #3B489E !important;
+  background-color: #E0E1EA !important;
+}
+
+.table {
+  --bs-table-bg: none
+}
 ul#accordionSidebar {
   background-color: #94939317;
   border-color: #94939317;
@@ -1202,7 +1215,7 @@ h4,
 
 .form-control-row {
   display: block;
-  width: 90% !important;
+  /* width: 90% !important; */
   padding: 0.4rem 0.75rem;
   margin-left: 2.2rem;
   margin-right: 4rem;
@@ -2276,9 +2289,158 @@ table td {
   width: 200mm;
   margin-top: 15vh;
 }
-.status-addQuestion{
-  display: flex !important;
-  justify-content: flex-start !important;
-  align-items: center !important;
+
+.content-align {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+.backPic {
+  background-repeat: no-repeat;
+  background-image: url('../images/skillsortposition.png');
+  background-position: right 0px bottom 2rem;
+  opacity: 65;
+}
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred{
+  overflow-y: auto;
+  height: 12rem;
+}
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-focused{
+  overflow-y: auto;
+  height: 12rem;
+}
+.language {
+  display: inline;
+  width: 150px;
 }
 
+.heading {
+  font-size: 20px;
+}
+
+#source {
+  background: #cccccc52;
+  font-size: 15px;
+  resize: vertical;
+  font-family: monospace !important;
+}
+
+#input {
+  background: #cccccc52;
+  width: 45.6%;
+  height: 17vh;
+  resize: vertical;
+  font-size: 17px;
+}
+
+#output {
+  background: #cccccc52;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 7.6%;
+  font-size: 18px;
+  right: 0;
+  resize: none;
+  overflow-y: auto;
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.left {
+  left: 0;
+  /* top: 60px; */
+  background-color: white;
+  padding-left: 20px;
+}
+
+.right {
+  right: 0;
+  /* top: 60px; */
+  background-color: black;
+  padding-left: 10px;
+}
+
+.row-f {
+  display: flex;
+  flex-wrap: wrap;
+  /* margin-top: 45px; */
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.ace_editor,
+.ace_editor div * {
+  font-family: Menlo, Consolas, "DejaVu Sans Mono", Courier, monospace;
+}
+
+.ace_editor {
+  font-family: Menlo, Consolas, "DejaVu Sans Mono", Courier, monospace;
+  line-height: 1.5;
+}
+
+.result {
+  margin-top: 10px;
+  width: 95%;
+  padding-left: 10px;
+  background-color: black;
+}
+
+.fixed-button {
+  position: fixed;
+  bottom: 10px;
+  right: 54%;
+}
+
+.model-label{
+  font-size: 13px;
+  font-weight: 400;
+  font-family: "Montserrat", "Times New Roman", Times, serif;
+  margin-left: 2rem;
+  width: 100px;
+}
+.model-input{
+  width: 55%;
+  padding: 0.95rem 0.85rem 0 0rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 0.5;
+  border: none;
+  border-bottom: 1.5px solid black;
+  outline: none;
+  margin-left: 2rem;
+}
+/* .ck .ck-content .ck-editor{
+
+height: 290px !important;
+} */
+
+.ck .ck-editor__main{
+height: 272px !important;
+}
+.add-exam-input{
+  display: block;
+  /* width: 90% !important; */
+  padding: 0.4rem 0.75rem;
+  margin-left: 2.2rem;
+  margin-right: 4rem;
+  /* margin-top: 1rem; */
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+}

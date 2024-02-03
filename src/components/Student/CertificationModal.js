@@ -4,7 +4,7 @@ import { toastMessage } from '../../utils/CommonUtils';
 import { authHeader, errorHandler } from '../../api/Api';
 import { isEmpty } from '../../utils/Validation';
 import FormHelperText from '@mui/material/FormHelperText';
-import { url } from '../../utils/UrlConstant';
+import  url  from '../../utils/UrlConstant';
 
 const CertificationModal = ({ onCloseModal, studentId, isNewStudent }) => {
   const [certificate, setCertificate] = useState({

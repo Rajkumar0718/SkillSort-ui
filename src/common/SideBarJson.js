@@ -9,7 +9,7 @@ const sidebar = {
     isSubMenu: true,
     name: 'Test',
     icon: 'fa fa-file-text-o',
-    isDefault: true,
+
     toolTipMarginTop: '2.5rem',
     toggleValue: 'showSubMenuTest',
     onClick: 'toggleClickedSubMenu',
@@ -34,7 +34,8 @@ const sidebar = {
     isSubMenu: false,
     name: 'Vacancy',
     to: '/admin/vacancy',
-    icon: 'fa fa-user-plus'
+    icon: 'fa fa-user-plus',
+     subPath: ['/admin/vacancy/history','/admin/vacancy/result','/admin/vacancy/edit','/admin/vacancy/add','/admin/vacancy/skillsort'],
   }, {
     to: '/admin/setting',
     name: 'Setting',
@@ -58,7 +59,6 @@ const sidebar = {
     isSubMenu: true,
     name: 'Test',
     icon: 'fa fa-file-text-o',
-    isDefault: true,
     toolTipMarginTop: '2.5rem',
     toggleValue: 'showSubMenuTest',
     onClick: 'toggleClickedSubMenu',
@@ -230,7 +230,7 @@ const sidebar = {
     name: 'Setting',
     icon: 'fa fa-cog',
   }
-  ]
+  ],
 }
 
 

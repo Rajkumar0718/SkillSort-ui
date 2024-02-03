@@ -51,4 +51,3 @@ const CollegeReportList = (props) => {
 
 export default CollegeReportList;
 
-

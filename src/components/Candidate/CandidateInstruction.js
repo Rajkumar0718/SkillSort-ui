@@ -3,7 +3,7 @@ import _ from "lodash";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from "../../api/Api";
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import { isEmpty, isRoleValidation } from "../../utils/Validation";
 
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
@@ -327,7 +327,7 @@ class CandidateInstruction extends Component {
                     null
                   }
                   </div>
-            
+
           </div>:null}
 
         </div>

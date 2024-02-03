@@ -1,13 +1,15 @@
-import axios from 'axios';
-import _ from 'lodash';
-import React, { Component } from 'react';
-import { authHeader, errorHandler } from '../../api/Api';
-import { toastMessage } from '../../utils/CommonUtils';
-import { CustomTable } from '../../utils/CustomTable';
-import Pagination from '../../utils/Pagination';
-import { url } from '../../utils/UrlConstant';
-import SettingModel from '../Admin/SettingModel';
-import { Tooltip } from 'react-tooltip';
+import axios from "axios";
+import _ from "lodash";
+import React, { Component } from "react";
+import { authHeader, errorHandler } from "../../api/Api";
+import url from "../../utils/UrlConstant";
+import { CustomTable } from "../../utils/CustomTable";
+import Pagination from "../../utils/Pagination";
+import { toastMessage } from "../../utils/CommonUtils";
+
+import Tooltip from "@mui/material/Tooltip";
+import SettingModel from "./SettingModel";
+
 export default class SettingList extends Component {
 
   state = {
@@ -37,62 +39,108 @@ export default class SettingList extends Component {
   }
 
   setTableJson = () => {
-    const headers = [{
-      name: 'S.NO',
-      align: 'center',
-      key: 'S.NO',
-    }, {
-      name: 'Name',
-      align: 'left',
-      key: 'name'
-    }, {
-      name: 'Qualification',
-      align: 'left',
-      key: 'qualifications',
-      renderCell: (setting, index) => {
-        return (<>
-          <div data-tip data-for={"Qualifications" + index}>
-            <span>{this.renderQualification(setting.qualifications)}</span>
-          </div>
-          <Tooltip
-            id={"Qualifications" + index}
-            place="bottom"
-            type="dark"
-          > <p>{setting.qualifications?.map((value, _index) => {
-            return <span key={value}>{value}{setting.qualifications.length === _index + 1 ? null : "/"}</span>
-          })}</p>
-          </Tooltip>
-        </>)
-      }
-    }, {
-      name: 'AGE LIMIT',
-      align: 'left',
-      key: ['min', ' ', '-', ' ', 'max'],
-      concat: true
-    }, {
-      name: 'sslc score',
-      align: 'right',
-      key: 'sslcPercentage'
-    }, {
-      name: 'hsc score',
-      align: 'right',
-      key: 'hscPercentage'
-    }, {
-      name: 'Ug score',
-      align: 'right',
-      key: 'ugPercentage'
-    }, {
-      name: 'interval',
-      key: ['number', ' ', 'interval'],
-      concat: true
-    }, {
-      name: 'Action',
-      key: 'action',
-      renderCell: (setting) => <i className="fa fa-trash-o" aria-hidden="true" onClick={() => this.deleteSettingHandler(setting)} title='Delete Setting' style={{ cursor: 'pointer', color: '#3B489E' }}></i>
-    }
-    ]
-    this.setState({ headers })
-  }
+    const headers = [
+      {
+        name: "S.NO",
+        align: "center",
+        key: "S.NO",
+      },
+      {
+        name: "Name",
+        align: "left",
+        key: "name",
+      },
+      {
+        name: "Qualification",
+        align: "left",
+        key: "qualifications",
+        renderCell: (setting, index) => {
+          return (
+            <>
+              <Tooltip
+                arrow
+                id={"Qualifications" + index}
+                placement="bottom"
+                title={
+                  <>
+                    {setting.qualifications?.map((value, _index) => {
+                      return (
+                        <span key={value}>
+                          {value}
+                          {setting.qualifications.length === _index + 1
+                            ? null
+                            : "/"}
+                        </span>
+                      );
+                    })}
+                  </>
+                }
+              >
+                <p
+                  style={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    width:"12rem",
+                    marginBottom: '0'
+                  }}
+                >
+                  {setting.qualifications?.map((value, _index) => (
+                    <span key={`${value}-${_index}`}>
+                      {value}
+                      {setting.qualifications.length === _index + 1
+                        ? null
+                        : "/"}
+                    </span>
+                  ))}
+                </p>
+              </Tooltip>
+            </>
+          );
+        },
+      },
+      {
+        name: "AGE LIMIT",
+        align: "left",
+        key: ["min", " ", "-", " ", "max"],
+        concat: true,
+      },
+      {
+        name: "sslc score",
+        align: "right",
+        key: "sslcPercentage",
+      },
+      {
+        name: "hsc score",
+        align: "right",
+        key: "hscPercentage",
+      },
+      {
+        name: "Ug score",
+        align: "right",
+        key: "ugPercentage",
+      },
+      {
+        name: "interval",
+        key: ["number", " ", "interval"],
+        concat: true,
+      },
+      {
+        name: "Action",
+        key: "action",
+        renderCell: (setting) => (
+          <i
+            className="fa fa-trash-o"
+            aria-hidden="true"
+            onClick={() => this.deleteSettingHandler(setting)}
+            title="Delete Setting"
+            style={{ cursor: "pointer", color: "#3B489E" }}
+          ></i>
+        ),
+      },
+    ];
+    this.setState({ headers });
+  };
 
   increment = (_event) => {
     this.setState({
@@ -177,9 +225,20 @@ export default class SettingList extends Component {
               <span className="card-title">Settings</span>
             </div>
             <div className="col-md-5"></div>
-            <div className='col-md-2'>
-              <button type="button" onClick={this.onClickOpenModel} className="btn btn-sm btn-nxt float-right" style={{ marginTop: "5px" }}>Add Setting</button>
-              {this.state.openModal ? (<SettingModel onCloseModal={this.onCloseModal} />) : ("")}
+            <div className="col-md-2" style={{paddingLeft:"6.5rem"}}>
+              <button
+                type="button"
+                onClick={this.onClickOpenModel}
+                className="btn btn-sm btn-nxt float-right"
+                style={{ marginTop: "5px" }}
+              >
+                Add Setting
+              </button>
+              {this.state.openModal ? (
+                <SettingModel onCloseModal={this.onCloseModal} />
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

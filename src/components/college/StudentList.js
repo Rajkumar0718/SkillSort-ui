@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import _ from "lodash";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from "../../api/Api";
 import { fallBackLoader } from "../../utils/CommonUtils";
 import Pagination from "../../utils/Pagination";
-import { url } from "../../utils/UrlConstant";
+import  url  from "../../utils/UrlConstant";
 import CustomMenuItem from "../../utils/Menu/CustomMenuItem"; // Make sure to import CustomMenuItem if it's defined
 
 import Search from "../../common/AdvanceSearch";
@@ -241,5 +241,4 @@ export default class StudentList extends Component {
     );
   }
 }
-
 

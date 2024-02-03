@@ -25,7 +25,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 13,
     fontFamily: 'Montserrat',
     paddingLeft: '2px !important',
-    lineHeight:'0.7',
+    lineHeight:'1.2',
     paddingTop:'7px !important',
     paddingBttom:'7px !important'
   },
@@ -49,6 +49,8 @@ export const CustomTable = (props) => {
             <BasicMenu header={header} />
           </StyledTableCell>
         )
+      }else if(header.isComponent){
+        return <StyledTableCell align={header.align ? header.align : 'center'}>{header.component}</StyledTableCell>
       } else {
         return <StyledTableCell align={header.align ? header.align : 'center'}>{header.name}</StyledTableCell>
       }
@@ -69,6 +71,12 @@ export const CustomTable = (props) => {
     return data[name[0]][name[1]]
   }
 
+  const getDuration = (data) =>{
+    let duration = 0
+    duration = data.duration + data.programmingDuration+ data.projectDuration+data.sqlDuration
+    return duration
+  }
+
   const getRowData = () => {
     let i = props.pageSize - 1;
     if (_.size(props.data) > 0) {
@@ -85,6 +93,12 @@ export const CustomTable = (props) => {
               else if (keys.key?.toUpperCase() === 'S.NO') {
                 return <StyledTableCell align={'center'}>{props.pageSize * props.currentPage - (i--)}</StyledTableCell>
               }
+              else if (keys.key?.toUpperCase() === 'CATEGORIES') {
+                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{_.size(row[keys.key])}</StyledTableCell>
+              }
+              else if (keys.key?.toUpperCase() === 'DURATION') {
+                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{getDuration(row)}</StyledTableCell>
+              }
               else if (keys.key === 'status') {
                  return  <StyledTableCell className={row[keys.key] === 'INACTIVE' ? 'text-danger' : 'text-success'} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
               }
@@ -95,6 +109,9 @@ export const CustomTable = (props) => {
               }
               else if (keys.key?.includes(".")) {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{splitDotsAndJoin(keys.key, row)}</StyledTableCell>
+              }
+              else if (keys.key?.toUpperCase() === "MISSING SKILLS") {
+                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key].join(' , ')}</StyledTableCell>
               }
                else {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>

@@ -1,4 +1,4 @@
-const StatusRadioButton = ({ handleChange, status, style }) => {
+const StatusRadioButton = ({ handleChange, status, style, adminStyle }) => {
   return (
     <>
       <div className="col-3 col-sm-3 col-md-3 col-lg-3" style={{width:'20%'}}>

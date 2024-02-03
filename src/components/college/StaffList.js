@@ -7,9 +7,9 @@ import { authHeader, errorHandler } from "../../api/Api";
 import Search from "../../common/AdvanceSearch";
 import { fallBackLoader } from "../../utils/CommonUtils";
 import Pagination from "../../utils/Pagination";
-import { url } from "../../utils/UrlConstant";
 import { CustomTable } from "../../utils/CustomTable";
 import CustomMenuItem from "../../utils/Menu/CustomMenuItem";
+import url from "../../utils/UrlConstant";
 export default class StaffList extends Component {
   constructor(props) {
     super(props);

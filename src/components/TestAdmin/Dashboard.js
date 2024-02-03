@@ -3,8 +3,8 @@ import axios from 'axios';
 import ReactEcharts from "echarts-for-react";
 import React, { Component } from 'react';
 import { authHeader, errorHandler } from '../../api/Api';
-import { url } from '../../utils/UrlConstant';
 import ProgressBar from '../Admin/ProgressBar';
+import url from '../../utils/UrlConstant';
 
 export default class Dashboard extends Component {
 

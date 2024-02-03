@@ -17,9 +17,9 @@ import silver from '../../assests/images/silverMedal.jpg';
 import AdvSearch from '../../common/Search';
 import { fallBackLoader, withLocation } from '../../utils/CommonUtils';
 import TableHeader from '../../utils/TableHeader';
-import { url } from "../../utils/UrlConstant";
 import { isRoleValidation } from '../../utils/Validation';
 import SocialMediaShareModal from "./SocialMediaShareModal";
+import url from '../../utils/UrlConstant';
 
 
 class PracticeExamList extends Component {

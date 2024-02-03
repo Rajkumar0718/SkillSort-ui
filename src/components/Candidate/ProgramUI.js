@@ -36,7 +36,7 @@ import { logEvent } from '../../utils/Analytics';
 import { toastMessage } from "../../utils/CommonUtils";
 import CustomizedMenus from "../../utils/CustomizedMenu";
 import TimeCounter from "../../utils/TimeCounter";
-import { url } from "../../utils/UrlConstant";
+import  url  from "../../utils/UrlConstant";
 import { isRoleValidation } from "../../utils/Validation";
 import "./Compiler.css";
 import HintModal from "./HintModal";

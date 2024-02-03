@@ -9,7 +9,7 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import { errorHandler } from "../api/Api";
 import LOGO from '../assests/images/LOGO.svg';
-import { url } from "../utils/UrlConstant";
+import  url  from "../utils/UrlConstant";
 import { isEmpty, isValidEmail, isValidMobileNo, isValidName } from "../utils/Validation";
 import ExamTimeOver from "./Candidate/ExamTimeOver";
 import TakePicture from "./Candidate/TakePicture";

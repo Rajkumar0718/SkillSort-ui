@@ -6,7 +6,7 @@ import { CustomTable } from "../../utils/CustomTable";
 import Pagination from "../../utils/Pagination";
 import SectionModal from "./AddSectionModal";
 import CustomMenuItem from "../../utils/Menu/CustomMenuItem";
-import { url } from "../../utils/UrlConstant";
+import  url  from "../../utils/UrlConstant";
 const SectionList = () => {
   const [sections, setSections] = useState([]);
   const [openModal, setOpenModal] = useState(false);
