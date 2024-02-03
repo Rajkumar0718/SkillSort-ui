@@ -25,7 +25,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 13,
     fontFamily: 'Montserrat',
     paddingLeft: '2px !important',
-    lineHeight:'0.7',
+    lineHeight:'1.2',
     paddingTop:'7px !important',
     paddingBttom:'7px !important'
   },
@@ -109,6 +109,9 @@ export const CustomTable = (props) => {
               }
               else if (keys.key?.includes(".")) {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{splitDotsAndJoin(keys.key, row)}</StyledTableCell>
+              }
+              else if (keys.key?.toUpperCase() === "MISSING SKILLS") {
+                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key].join(' , ')}</StyledTableCell>
               }
                else {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
