@@ -40,7 +40,7 @@ const TableHeader = (props) => {
                         </div>}
                 {props.showLink ?
                     <div className="col-md-4">
-                        {buttonName === null ? '' :<Link to={link} className="btn btn-sm btn-nxt float-right" style={{ marginTop: "5px" ,float:'right' }}>{buttonName}</Link>}
+                        {buttonName === null ? '' :<Link to={link} className="btn btn-sm btn-nxt float-end" style={{ marginTop: "5px" }}>{buttonName}</Link>}
                     </div> : ""}
                 {props.showButton && !props.showSendButton ?<div className= {props.showSendButton ? "col-md-2" : "col-md-4"} style={{ textAlign: 'end' }}>
                     <button className="btn btn-sm btn-nxt" style={{ marginTop: "5px" }} onClick={onButtonClick}>{btnName}</button>

@@ -160,7 +160,6 @@ const ProjectUi = () => {
         }
       })
       .catch((err) => {
-        console.log(err)
         toastMessage('error', 'Oops something went wrong!');
       });
   };

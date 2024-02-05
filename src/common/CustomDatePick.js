@@ -1,13 +1,13 @@
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider, DatePicker as MuiDatePicker } from "@mui/x-date-pickers";
 
-const CustomDatePick = ({onChange, objectKey, value,disabled, minDate, format}) => {
+const CustomDatePick = ({onChange, objectKey, value,disabled, minDate}) => {
     return (<LocalizationProvider dateAdapter={AdapterDateFns}>
         <MuiDatePicker
             onChange={(date) => onChange(date, objectKey)}
             value={value}
             disabled={disabled}
-            format= {!format ?"dd/MM/yyyy":format}
+            format="dd/MM/yyyy"
             minDate={minDate}
             slotProps={{
                 textField: {

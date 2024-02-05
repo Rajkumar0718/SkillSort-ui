@@ -191,12 +191,6 @@ export default class StudentList extends Component {
             </button>
           </div>
           <Search
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              display:'flex'
-            }}
             title="Filter"
             showSearch={true}
             placeholder="search By first name,email"

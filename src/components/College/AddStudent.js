@@ -1,24 +1,24 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { authHeader, errorHandler } from "../../api/Api";
+import { toast } from "react-toastify";
+import { authHeader } from "../../api/Api";
 import { toastMessage, withLocation } from "../../utils/CommonUtils";
-import { isEmpty, isValidEmail, isValidMobileNo } from "../../utils/Validation";
+import { url } from "../../utils/UrlConstant";
+import { isEmpty, isValidEmail, isValidName } from "../../utils/Validation";
 import StatusRadioButton from "../../common/StatusRadioButton";
 import InputField from "../../common/Inputfield";
-import url from "../../utils/UrlConstant";
-
-class AddStaff extends Component {
-  constructor(props) {
-    super(props);
+class AddStudent extends Component {
+  constructor() {
+    super();
     this.state = {
-      staff: {
-        name: "",
+      student: {
+        firstName: "",
+        lastName: "",
         email: "",
         phone: "",
         role: "",
         collegeId: JSON.parse(localStorage.getItem("user")).companyId,
-        createdBy: "",
         department: "",
         token: localStorage.getItem("token"),
         status: "ACTIVE",
@@ -26,44 +26,48 @@ class AddStaff extends Component {
       disabled: false,
       // departments: [Mechanicle],
       error: {
-        name: false,
+        firstName: false,
         nameErrorMessage: "",
+        lastName: false,
+        lastNameErrorMessage: "",
         email: false,
         emailErrorMessage: "",
-        phone: false,
-        phoneErrorMessage: "",
       },
     };
   }
 
   handleChange = (event, key) => {
-    const { staff, error } = this.state;
-    staff[key] = event.target.value;
+    const { student, error } = this.state;
+    student[key] = event.target.value;
     error[key] = false;
-    this.setState({ staff, error });
-  };
-
-  handleDepartmentChange = (event) => {
-    let data = this.state.staff;
-    data.department = event.target.value;
-    this.setState({ staff: data });
+    this.setState({ student, error });
   };
 
   handleSubmit = (event) => {
-    const { staff, error } = this.state;
-    if (isEmpty(staff.name?.trim())) {
-      error.name = true;
-      error.nameErrorMessage = isEmpty(staff.name)
+    const { student, error } = this.state;
+    if (isEmpty(student.firstName?.trim()) || !isValidName(student.firstName)) {
+      error.firstName = true;
+      error.nameErrorMessage = isEmpty(student.firstName)
         ? "Field Required !"
         : "Enter Valid Input";
       this.setState({ error });
     } else {
-      error.name = false;
+      error.firstName = false;
       this.setState({ error });
     }
-    if (isEmpty(staff.email) || !isValidEmail(staff.email)) {
+    if (isEmpty(student.lastName?.trim())) {
+      error.lastName = true;
+      error.lastNameErrorMessage = isEmpty(student.lastName)
+        ? "Field Required !"
+        : "Enter Valid Input";
+      this.setState({ error });
+    } else {
+      error.lastName = false;
+      this.setState({ error });
+    }
+    if (isEmpty(student.email) || !isValidEmail(student.email)) {
       error.email = true;
-      error.emailErrorMessage = isEmpty(staff.email)
+      error.emailErrorMessage = isEmpty(student.email)
         ? "Field Required !"
         : "Enter Valid Input";
       this.setState({ error });
@@ -71,78 +75,62 @@ class AddStaff extends Component {
       error.email = false;
       this.setState({ error });
     }
-    if (isEmpty(staff.phone) || !isValidMobileNo(staff.phone)) {
-      error.phone = true;
-      error.phoneErrorMessage = isEmpty(staff.phone)
-        ? "Field Required !"
-        : "Enter Valid Input";
-      this.setState({ error });
-    } else {
-      error.phone = false;
-      this.setState({ error });
-    }
     event.preventDefault();
-    if (!error.name && !error.email && !error.phone) {
+    if (!error.firstName && !error.email) {
       this.setState({ disabled: true });
+      const formData = new FormData();
+      formData.append("student", JSON.stringify(this.state.student));
       axios
-        .post(
-          ` ${url.COLLEGE_API}/placement-coordinate/save`,
-          this.state.staff,
-          { headers: authHeader() }
-        )
+        .post(` ${url.COLLEGE_API}/student/save`, formData, {
+          headers: authHeader(),
+        })
         .then((res) => {
           if (this.props.location.pathname.indexOf("edit") > -1) {
-            console.log(
-              "if ",
-              this.props.location.pathname.indexOf("edit") > -1
-            );
-            toastMessage(
-              "success",
-              "Placement coordinator Details Updated Successfully..!"
-            );
+            toastMessage("success", "Student Details Updated Successfully..!");
           } else {
-            console.log(
-              "else",
-              this.props.location.pathname.indexOf("edit") > -1
-            );
-            toastMessage(
-              "success",
-              "Placement coordinator Added Successfully..!"
-            );
+            toastMessage("success", "Student Added Successfully..!");
           }
-          this.props.navigate("/college/placement-coordinator");
+          this.props.navigate("/college");
         })
         .catch((error) => {
           this.setState({ disabled: false });
-          errorHandler(error);
+          toast.error(error.response.data.message);
         });
     }
   };
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.location?.pathname.indexOf("edit") > -1) {
-      let staff = this.props.location.state.staff;
-      let staffData = this.state.staff;
-      staffData.id = staff.id;
-      staffData.authId = staff.authId;
-      staffData.name = staff.name;
-      staffData.department = staff.department;
-      staffData.collegeId = staff.collegeId;
-      staffData.email = staff.email;
-      staffData.phone = staff.phone;
-      staffData.password = staff.password;
-      staffData.status = staff.status;
-      this.setState({ staff: staffData });
+      let student = this.props.location.state.student;
+      let staffData = this.state.student;
+      staffData.id = student.id;
+      staffData.authId = student.authId;
+      staffData.role = student.role;
+      staffData.firstName = student.firstName;
+      staffData.lastName = student.lastName;
+      staffData.department = student.department;
+      staffData.collegeId = student.collegeId;
+      staffData.email = student.email;
+      staffData.phone = student.phone;
+      staffData.password = student.password;
+      staffData.status = student.status;
+      this.setState({ student: staffData });
     }
   }
 
   render() {
     const fields = [
       {
-        label: "Name",
-        name: "name",
+        label: "First Name",
+        name: "firstName",
         type: "text",
-        placeholder: "Enter User Name",
+        placeholder: "Enter User First Name",
+      },
+      {
+        label: "Last Name",
+        name: "lastName",
+        type: "text",
+        placeholder: "Enter User Last Name",
       },
       {
         label: "Email",
@@ -166,9 +154,7 @@ class AddStaff extends Component {
         <div>
           <div className="container-fluid cf-1">
             <div className="card-header-new">
-              <span>
-                {action !== null ? "Update" : "Add"} Placement Coordinator
-              </span>
+              <span>{action !== null ? "Update" : "Add"} Student</span>
             </div>
             <div className="row">
               <div className="col-md-12">
@@ -191,7 +177,7 @@ class AddStaff extends Component {
                                 this.state.error[`${field.name}ErrorMessage`]
                               }
                               onChange={this.handleChange}
-                              value={this.state.staff[field.name]}
+                              value={this.state.student[field.name]}
                               name={field.name}
                               type={field.type}
                               placeholder={field.placeholder}
@@ -199,15 +185,22 @@ class AddStaff extends Component {
                           </div>
                         ))}
 
-                        <div className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6">
-                          <div className="row" style={{ paddingLeft: "11px" }}>
-                            <StatusRadioButton
-                              handleChange={this.handleChange}
-                              status={this.state.staff.status}
-                              style={{ marginTop: "0.1rem" }}
-                            />
+                        {action !== null ? (
+                          <div
+                            className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6"
+                            style={{ paddingLeft: "25px" }}
+                          >
+                            <div className="row">
+                              <StatusRadioButton
+                                handleChange={this.handleChange}
+                                status={this.state.student.status}
+                                style={{ marginTop: "0.4rem" }}
+                              />
+                            </div>
                           </div>
-                        </div>
+                        ) : (
+                          ""
+                        )}
                       </div>
 
                       <div className="row">
@@ -215,11 +208,7 @@ class AddStaff extends Component {
                           <div
                             style={{ float: "right", marginRight: "3.9rem" }}
                           >
-                            <Link
-                              className="btn btn-default"
-                              to="/college/placement-coordinator"
-                              style={{}}
-                            >
+                            <Link className="btn btn-default" to="/college">
                               Cancel
                             </Link>
                             <button
@@ -243,5 +232,4 @@ class AddStaff extends Component {
     );
   }
 }
-
-export default withLocation(AddStaff);
+export default withLocation(AddStudent);

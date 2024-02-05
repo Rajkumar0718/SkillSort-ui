@@ -2,11 +2,11 @@ import _ from 'lodash';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../assests/css/SuperAdminDashboard.css';
-import HomeHeader from '../../common/Header';
 import { useNavigate } from 'react-router-dom';
+import HomeHeader from '../../common/Header';
 
 const HomePage = () => {
-    const [showSidenav,setShowSidenav] = useState(false);
+    const [showSidenav,setShowSidenav] = useState(false); 
     const navigate = useNavigate();
 
     const toggleButtonClicked = () => {
@@ -32,7 +32,7 @@ const HomePage = () => {
   return (
     <div>
         <div className='foot-bg' style={{ height: '100vh', overflow: 'hidden' }}>
-            {/* <HomeHeader onClickToggled={toggleButtonClicked} logOut={() => logOut()} showSidenav={showSidenav}></HomeHeader> */}
+            <HomeHeader onClickToggled={toggleButtonClicked} logOut={() => logOut()} showSidenav={showSidenav}></HomeHeader>
             <div style={{ padding: '30px 10px 10px 10px' }}>
             <div className='dash-head'>SkillSort Dashboard</div>
             <div className="row" style={{ justifyContent: 'center' }}>
@@ -44,7 +44,7 @@ const HomePage = () => {
                         : <img src={s.img} alt={s.name} className="sidenav-img" style={{ margin: 'auto' }} />}
                     </Link>
                     </div>
-                    <Link to={s.path} style={{ textAlign: "center" }}>
+                    <Link to={s.path} style={{ textAlign: "center",textDecoration:'none',cursor:'pointer' }}>
                     <div className='dash-text'>{s.name}</div>
                     </Link>
                 </div>)}

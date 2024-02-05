@@ -1,38 +1,37 @@
-import { LocalizationProvider, DatePicker as MuiDatePicker } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { DatePicker as MuiDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { de, enGB, zhCN } from 'date-fns/locale';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 
-export default function DatePick ({className, views, minDate, maxDate, value, inputProps, onChange,format,placeholder,})  {
 
+export default function DatePick ({className,style, views, minDate, maxDate, value, inputProps, onChange, format, disabled, onError})  {
     return (
-      <LocalizationProvider dateAdapter={AdapterDayjs} >
-      <DemoContainer components={['DatePicker']}>
+      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGB}>
         <MuiDatePicker
+          className={className}
           views={views}
+          slotProps={{ textField: { variant: 'filled' } }}
           minDate={minDate}
           maxDate={maxDate}
           value={value}
           inputProps={inputProps}
           onChange={onChange}
           format={format}
-          label={placeholder}
-          slotProps={{ textField: { variant: 'filled',size: "small",
-          sx:{
-            borderRadius: "3rem",
+          disabled={disabled}
+          onError={onError}
+          sx={{
             '& .MuiInputBase-input': {
               backgroundColor: 'white',
               paddingTop:'0px !important',
               height: "2rem",
             },
             '& .MuiSvgIcon-root': {
-              color: 'currentcolor'
+              color: '#3b489e', // Change the ornament color to white
             },
             '& .MuiInputBase-root' : {
-              width:'12rem',
-              background: 'none',
-              position:"relative",
-              bottom:"13px"
+              // width: 250
+              width: style?.width ? style?.width : 250,
+              background:'none'
             }
           },
 

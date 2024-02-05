@@ -36,9 +36,9 @@ const CustomSwitch = styled(Switch)(({ theme }) => ({
     },
 }));
 
-export const ToggleStatus = () => {
-    return <CustomSwitch />;
-};
+export const ToggleStatus = ({ checked, onChange, name }) => {
+    return <CustomSwitch checked={checked} onChange={onChange} name={name} />;
+};;
 
 export function fallBackLoader(value) {
     return (<div style={{ position: "fixed", top: "45%", left: "45%", transform: "translate(-50%, -50%)" }}>
