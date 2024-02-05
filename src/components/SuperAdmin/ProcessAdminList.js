@@ -7,7 +7,7 @@ import Search from '../../common/AdvanceSearch';
 import { fallBackLoader } from '../../utils/CommonUtils';
 import Pagination from '../../utils/Pagination';
 import { isRoleValidation } from '../../utils/Validation';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { CustomTable } from '../../utils/CustomTable';
 import { MenuItem } from "@mui/material";
 

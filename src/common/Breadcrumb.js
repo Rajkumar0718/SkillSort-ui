@@ -8,7 +8,6 @@ const Breadcrumbs = () => {
   const [homeLink, setHomeLink] = useState(null);
   const [name, setName] = useState(null);
   const role = isRoleValidation()
-  const role = isRoleValidation()
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location || {};

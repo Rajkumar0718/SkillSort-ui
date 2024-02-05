@@ -13,7 +13,7 @@ import QueryOutputTable from "../../common/QueryOutputTable";
 import { logEvent } from "../../utils/Analytics";
 import { toastMessage } from "../../utils/CommonUtils";
 import TimeCounter from "../../utils/TimeCounter";
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import { isRoleValidation } from "../../utils/Validation";
 import "./Programming.css";
 import SubmitPopup from "./SubmitPopup";

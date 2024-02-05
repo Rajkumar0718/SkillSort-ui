@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash';
 import React, { Component } from 'react';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant'
+import url from '../../utils/UrlConstant'
 
 export default class SectionModal extends Component {
   constructor() {

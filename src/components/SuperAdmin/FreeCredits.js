@@ -4,7 +4,7 @@ import { isEmpty } from '../../utils/Validation';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage } from '../../utils/CommonUtils';
 import axios from 'axios';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 
 const FreeCredits = () => {
     const [freeCredits, setFreeCredits] = useState({

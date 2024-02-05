@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { authHeader, errorHandler } from '../../api/Api';
 import CustomDatePick from '../../common/CustomDatePick';
 import { ToggleStatus, toastMessage, withLocation } from '../../utils/CommonUtils';
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 
 
 class CompanyPlans extends Component {

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage, withLocation } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isEmpty } from "../../utils/Validation";
 import './SuperAdmin.css';
 import StatusRadioButton from '../../common/StatusRadioButton';

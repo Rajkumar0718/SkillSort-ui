@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { authHeader, errorHandler } from '../../api/Api';
 import Search from '../../common/AdvanceSearch';
 import { ToggleStatus, fallBackLoader } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 import TableHeader from '../../utils/TableHeader';
 import Pagination from '../../utils/Pagination';

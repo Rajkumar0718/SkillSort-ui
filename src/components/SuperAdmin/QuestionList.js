@@ -7,7 +7,7 @@ import {Tooltip} from "react-tooltip";
 import { authHeader, errorHandler } from "../../api/Api";
 import Pagination from "../../utils/Pagination";
 import BulkUploadModel from "./BulkUploadModel";
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 
 const QuestionList = () => {
     const [questions, setQuestions] = useState([]);

@@ -8,7 +8,7 @@ import AdvSearch from '../../common/Search';
 import { CustomTable } from '../../utils/CustomTable';
 import Pagination from '../../utils/Pagination';
 import { authHeader, errorHandler } from '../../api/Api';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 
 const AdminList = () => {
   const [adminData, setAdminData] = useState([]);

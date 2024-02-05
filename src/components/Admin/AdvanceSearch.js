@@ -8,7 +8,7 @@ import { authHeader, errorHandler } from "../../api/Api";
 import States from "../../utils/StatesAndDistricts";
 import { isRoleValidation } from "../../utils/Validation";
 import AdvSearchCandidates from "./AdvSearchCandidates";
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import AutoComplete from '../../common/AutoComplete'
 import MultiSelectDropDown from "../../utils/MultiSelectDropDown";
 

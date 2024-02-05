@@ -4,7 +4,7 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage } from '../../utils/CommonUtils';
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import './SuperAdmin.css';
 
 

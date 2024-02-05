@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/Table';
 import { toast } from 'react-toastify';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage, withLocation } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isEmpty, isValidEmail, isValidMobileNo, isValidName } from "../../utils/Validation";
 import './SuperAdmin.css';
 import Select from '@mui/material/Select';

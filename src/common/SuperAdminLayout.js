@@ -36,7 +36,7 @@ export const SuperAdminLayout = () => {
             showSidenav={showSidenav}
           />
           <div style={{ margin: "25px 0px 0px 25px" }}>
-          <Breadcrumbs />
+          {/* <Breadcrumbs /> */}
             <div className="container-fluid">
               <Suspense
                 fallback={

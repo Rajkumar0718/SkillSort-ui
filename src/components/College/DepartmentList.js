@@ -5,7 +5,7 @@ import { authHeader, errorHandler } from '../../api/Api';
 import Search from '../../common/AdvanceSearch';
 import { fallBackLoader } from '../../utils/CommonUtils';
 import Pagination from "../../utils/Pagination";
-import { url } from '../../utils/UrlConstant';
+import  url  from '../../utils/UrlConstant';
 import DepartmentModal from '../College/DepartmentModal';
 import { CustomTable } from '../../utils/CustomTable';
 import { MenuItem } from "@mui/material";

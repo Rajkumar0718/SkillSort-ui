@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { authHeader, errorHandler } from '../../api/Api'
 import { toastMessage, withLocation } from '../../utils/CommonUtils'
 import { isEmpty } from '../../utils/Validation'
-import { url } from "../../utils/UrlConstant"
+import url from "../../utils/UrlConstant"
 import { useNavigate } from 'react-router-dom';
 import CustomDatePick from '../../common/CustomDatePick';
 

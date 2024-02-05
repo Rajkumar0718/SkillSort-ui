@@ -3,7 +3,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { authHeader, errorHandler } from '../../api/Api';
 import { ToggleStatus, fallBackLoader, toastMessage } from '../../utils/CommonUtils';
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import { CustomTable } from '../../utils/CustomTable';
 import { MenuItem } from "@mui/material";
 // import Switch from '@mui/material/Switch';

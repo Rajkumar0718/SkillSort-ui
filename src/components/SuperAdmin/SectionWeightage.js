@@ -3,7 +3,7 @@ import axios from 'axios';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage } from '../../utils/CommonUtils';
 import { isEmpty } from '../../utils/Validation';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import FormHelperText from '@mui/material/FormHelperText';
 
 

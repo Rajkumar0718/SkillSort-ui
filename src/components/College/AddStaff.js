@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from "../../api/Api";
 import { toastMessage, withLocation } from "../../utils/CommonUtils";
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import { isEmpty, isValidEmail, isValidMobileNo } from "../../utils/Validation";
 import StatusRadioButton from "../../common/StatusRadioButton";
 import InputField from "../../common/Inputfield";

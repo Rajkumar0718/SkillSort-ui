@@ -6,7 +6,7 @@ import { saveAs } from 'file-saver';
 import React, { Component } from 'react';
 import { authHeader, logOut } from '../../api/Api';
 import { fallBackLoader, toastMessage } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 
 export default class BulkUploadModel extends Component {

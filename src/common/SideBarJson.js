@@ -1,8 +1,7 @@
 import { FaClipboard } from "react-icons/fa";
 
 const sidebar = {
-  "ADMIN": [ {
-  "ADMIN": [ {
+  "ADMIN": [{
     to: '/admin/hr',
     name: 'HR Users',
     icon: 'fa fa-id-badge'
@@ -36,7 +35,7 @@ const sidebar = {
     name: 'Vacancy',
     to: '/admin/vacancy',
     icon: 'fa fa-user-plus',
-     subPath: ['/admin/vacancy/history','/admin/vacancy/result','/admin/vacancy/edit','/admin/vacancy/add','/admin/vacancy/skillsort'],
+    subPath: ['/admin/vacancy/history', '/admin/vacancy/result', '/admin/vacancy/edit', '/admin/vacancy/add', '/admin/vacancy/skillsort'],
   }, {
     to: '/admin/setting',
     name: 'Setting',
@@ -159,14 +158,14 @@ const sidebar = {
     to: "/college/placement-coordinator",
     name: "Placement Coordinator",
     icon: 'fa fa-user-circle-o',
-    subPath: ['/college/placement-coordinator/add','/college/placement-coordinator/edit']
+    subPath: ['/college/placement-coordinator/add', '/college/placement-coordinator/edit']
   }, {
     isSubMenu: false,
     name: 'Students',
     isDefault: true,
     to: '/college',
     icon: 'fa fa-users',
-    subPath: ['/college/add','/college/edit']
+    subPath: ['/college/add', '/college/edit']
   }, {
     isSubMenu: false,
     to: '/college/collegeReport',
@@ -253,30 +252,30 @@ const sidebar = {
     name: 'Activity Report',
     icon: 'fa fa-file'
   }
-],
-"SUPER_ADMIN_SKILL_SORT_ADMIN": [{
-  isSubMenu: false,
-  to: "/home",
-  name: "HOME",
-  icon: 'fa fa-home'
-}, {
-  isSubMenu: false,
-  name: 'Process Admin',
-  isDefault: true,
-  to: '/skillsortadmin',
-  icon: 'fa fa-user'
-}, {
-  isSubMenu: false,
-  to: '/skillsortadmin/testadmin',
-  name: 'Activity Report',
-  icon: 'fa fa-user-circle'
-},{
-  isSubMenu: false,
-  to: '/skillsortadmin/advertisement',
-  name: 'Advertisement',
-  icon: 'fa fa-bullhorn'
-}
-],
+  ],
+  "SUPER_ADMIN_SKILL_SORT_ADMIN": [{
+    isSubMenu: false,
+    to: "/home",
+    name: "HOME",
+    icon: 'fa fa-home'
+  }, {
+    isSubMenu: false,
+    name: 'Process Admin',
+    isDefault: true,
+    to: '/skillsortadmin',
+    icon: 'fa fa-user'
+  }, {
+    isSubMenu: false,
+    to: '/skillsortadmin/testadmin',
+    name: 'Activity Report',
+    icon: 'fa fa-user-circle'
+  }, {
+    isSubMenu: false,
+    to: '/skillsortadmin/advertisement',
+    name: 'Advertisement',
+    icon: 'fa fa-bullhorn'
+  }
+  ],
 
   "SUPER_ADMIN_SETTINGS": [{
     isSubMenu: false,
@@ -314,7 +313,7 @@ const sidebar = {
     to: '/settings/weightage',
     name: 'Weightage',
     icon: 'fa fa-balance-scale'
-  },{
+  }, {
     isSubMenu: false,
     to: '/settings/freeCredits',
     name: 'FreeCredits',
@@ -400,30 +399,30 @@ const sidebar = {
     name: 'Activity Report',
     icon: 'fa fa-file'
   }
-],
-"SUPER_ADMIN_SKILL_SORT_ADMIN": [{
-  isSubMenu: false,
-  to: "/home",
-  name: "HOME",
-  icon: 'fa fa-home'
-}, {
-  isSubMenu: false,
-  name: 'Process Admin',
-  isDefault: true,
-  to: '/skillsortadmin',
-  icon: 'fa fa-user'
-}, {
-  isSubMenu: false,
-  to: '/skillsortadmin/testadmin',
-  name: 'Activity Report',
-  icon: 'fa fa-user-circle'
-},{
-  isSubMenu: false,
-  to: '/skillsortadmin/advertisement',
-  name: 'Advertisement',
-  icon: 'fa fa-bullhorn'
-}
-],
+  ],
+  "SUPER_ADMIN_SKILL_SORT_ADMIN": [{
+    isSubMenu: false,
+    to: "/home",
+    name: "HOME",
+    icon: 'fa fa-home'
+  }, {
+    isSubMenu: false,
+    name: 'Process Admin',
+    isDefault: true,
+    to: '/skillsortadmin',
+    icon: 'fa fa-user'
+  }, {
+    isSubMenu: false,
+    to: '/skillsortadmin/testadmin',
+    name: 'Activity Report',
+    icon: 'fa fa-user-circle'
+  }, {
+    isSubMenu: false,
+    to: '/skillsortadmin/advertisement',
+    name: 'Advertisement',
+    icon: 'fa fa-bullhorn'
+  }
+  ],
 
   "SUPER_ADMIN_SETTINGS": [{
     isSubMenu: false,
@@ -461,7 +460,7 @@ const sidebar = {
     to: '/settings/weightage',
     name: 'Weightage',
     icon: 'fa fa-balance-scale'
-  },{
+  }, {
     isSubMenu: false,
     to: '/settings/freeCredits',
     name: 'FreeCredits',
@@ -541,36 +540,36 @@ const sidebar = {
     to: '/report/advance-search',
     name: 'Advance Search',
     icon: 'fa fa-search'
-  },{
+  }, {
     isSubMenu: false,
     to: '/report/activity-dashboard',
     name: 'Activity Report',
     icon: 'fa fa-file'
   }
-],
-"SUPER_ADMIN_SKILL_SORT_ADMIN": [{
-  isSubMenu: false,
-  to: "/home",
-  name: "HOME",
-  icon: 'fa fa-home'
-}, {
-  isSubMenu: false,
-  name: 'Process Admin',
-  isDefault: true,
-  to: '/skillsortadmin',
-  icon: 'fa fa-user'
-}, {
-  isSubMenu: false,
-  to: '/skillsortadmin/testadmin',
-  name: 'Activity Report',
-  icon: 'fa fa-user-circle'
-},{
-  isSubMenu: false,
-  to: '/skillsortadmin/advertisement',
-  name: 'Advertisement',
-  icon: 'fa fa-bullhorn'
-}
-],
+  ],
+  "SUPER_ADMIN_SKILL_SORT_ADMIN": [{
+    isSubMenu: false,
+    to: "/home",
+    name: "HOME",
+    icon: 'fa fa-home'
+  }, {
+    isSubMenu: false,
+    name: 'Process Admin',
+    isDefault: true,
+    to: '/skillsortadmin',
+    icon: 'fa fa-user'
+  }, {
+    isSubMenu: false,
+    to: '/skillsortadmin/testadmin',
+    name: 'Activity Report',
+    icon: 'fa fa-user-circle'
+  }, {
+    isSubMenu: false,
+    to: '/skillsortadmin/advertisement',
+    name: 'Advertisement',
+    icon: 'fa fa-bullhorn'
+  }
+  ],
 
   "SUPER_ADMIN_SETTINGS": [
     {

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from '../../api/Api';
 import { fallBackLoader, withLocation } from '../../utils/CommonUtils';
 import Pagination from '../../utils/Pagination';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 import ExamMailModel from '../Admin/ExamMailModel';
 import { CustomTable } from '../../utils/CustomTable';

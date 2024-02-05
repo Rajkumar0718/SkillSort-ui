@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage, withLocation } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isEmpty, isValidEmail, isValidMobileNo, isValidName } from "../../utils/Validation";
 import './SuperAdmin.css';
 import StatusRadioButton from '../../common/StatusRadioButton';

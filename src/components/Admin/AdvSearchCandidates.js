@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage } from '../../utils/CommonUtils';
 import Pagination from "../../utils/Pagination";
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 
 

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { Component } from 'react'
 import { authHeader, errorHandler } from '../../api/Api'
-import { url } from '../../utils/UrlConstant'
+import url from '../../utils/UrlConstant'
 import { LogReport } from './LogReport'
 import { FaUserCheck } from 'react-icons/fa'
 const keyTypes = {

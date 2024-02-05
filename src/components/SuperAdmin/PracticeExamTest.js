@@ -5,7 +5,7 @@ import _ from "lodash";
 import React, { Component } from 'react';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage, withLocation } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isEmpty, isRoleValidation } from '../../utils/Validation';
 import AddSectionModal from '../TestAdmin/AddSectionModal';
 import AutoComplete from '../../common/AutoComplete';

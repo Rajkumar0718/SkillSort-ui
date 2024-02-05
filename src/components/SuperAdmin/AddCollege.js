@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage, ToggleStatus, withLocation } from '../../utils/CommonUtils';
 import States from '../../utils/StatesAndDistricts';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isEmpty, isValidWebSite } from '../../utils/Validation';
 import '../SuperAdmin/SuperAdmin.css';
 import FormHelperText from '@mui/material/FormHelperText';

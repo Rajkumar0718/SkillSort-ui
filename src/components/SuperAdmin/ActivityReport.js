@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { authHeader } from "../../api/Api";
 import { toastMessage } from "../../utils/CommonUtils";
 import { columnsForSignUp } from "../../utils/ReportColumns";
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import DataGridDemo from "./CustomDataGrid";
 
 const ActivityReport = (props) => {

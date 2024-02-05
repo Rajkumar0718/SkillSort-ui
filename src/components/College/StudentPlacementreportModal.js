@@ -6,7 +6,7 @@ import Button from "../../common/Button";
 import { fallBackLoader } from "../../utils/CommonUtils";
 import MultiSelectDropDown from "../../utils/MultiSelectDropDown";
 import Pagination from "../../utils/Pagination";
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import { isRoleValidation } from "../../utils/Validation";
 import moment from "moment";
 

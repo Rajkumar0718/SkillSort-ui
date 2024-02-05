@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { authHeader, errorHandler } from "../../api/Api";
 import { calculatePercentage } from '../../utils/CommonUtils';
 import ExportXlsx from "../../utils/ExportXlsx";
-import { url } from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import { isRoleValidation } from "../../utils/Validation";
 import { RenderModalBody } from "../../common/RenderModalBody"
 

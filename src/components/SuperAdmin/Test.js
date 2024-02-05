@@ -10,7 +10,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabPanel from '@mui/lab/TabPanel';
 import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage, withLocation } from '../../utils/CommonUtils';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isEmpty, isRoleValidation, isVaildnum } from '../../utils/Validation';
 import SettingModel from '../Admin/SettingModel';
 import { CKEditor } from '@ckeditor/ckeditor5-react';

@@ -7,7 +7,7 @@
 // import { toastMessage, ToggleStatus } from '../../utils/CommonUtils';
 // import States from '../../utils/StatesAndDistricts';
 // import { isEmpty, isVaildnum, isValidMobileNo, isValidName } from "../../utils/Validation";
-// import { url } from '../../utils/UrlConstant';
+// import url from '../../utils/UrlConstant';
 // import skillsort from '../../assests/images/av.jpg';
 // import DatePick from '../../common/DatePick';
 

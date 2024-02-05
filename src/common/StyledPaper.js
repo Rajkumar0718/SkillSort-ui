@@ -6,8 +6,8 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  marginBottom: '1rem',
  height: '58px',
  backgroundColor: 'rgba(59, 72, 158, 0.3)',
- marginLeft: '0.5rem',
- width: '98%',
+ marginLeft: '0rem',
+ width: '100%',
 }));
 
 export default StyledPaper;

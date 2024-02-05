@@ -5,7 +5,7 @@ import moment from 'moment/moment';
 import { authHeader, errorHandler } from '../../api/Api';
 import { fallBackLoader } from '../../utils/CommonUtils';
 import Pagination from '../../utils/Pagination';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { CustomTable } from '../../utils/CustomTable';
 
 const AdvertisementHistory = () => {

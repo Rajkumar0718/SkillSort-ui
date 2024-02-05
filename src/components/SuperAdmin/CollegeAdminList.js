@@ -8,7 +8,7 @@ import AdvSearch from '../../common/Search';
 import { CustomTable } from '../../utils/CustomTable';
 import Pagination from '../../utils/Pagination';
 import TableHeader from '../../utils/TableHeader';
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 
 

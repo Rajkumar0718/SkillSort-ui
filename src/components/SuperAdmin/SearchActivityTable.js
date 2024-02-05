@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react'
-import { url } from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import axios from 'axios';
 import { authHeader, errorHandler } from '../../api/Api';
 
