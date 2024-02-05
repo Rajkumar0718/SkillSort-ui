@@ -313,15 +313,12 @@ const AddCollege = (props) => {
                         </div>
                       </div>
                       {action !== null ? (
-                        <div
-                          className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6"
-                        >
+                        <div className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6">
                           <div className="row">
-
                             <StatusRadioButton
                               handleChange={handleChange}
                               status={college.status}
-                              style={{ marginTop: "0.6rem" }}
+                              style={{marginTop: "0.5rem"}}
                             />
                           </div>
                         </div>
@@ -338,7 +335,6 @@ const AddCollege = (props) => {
                     <div className="row">
                       <div className="mb-3 col-lg-11" style={{ paddingRight: '7px' }}>
                         <button type="submit" disabled={disabled} className="btn btn-sm btn-prev" style={{ float: 'right' }}>{action !== null ? 'Update' : 'Add'}</button>
-                        {/* <Link className="btn btn-default" to="/collegeadmin">Cancel</Link> */}
                       </div>
                     </div>
                   </div>

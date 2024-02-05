@@ -8,7 +8,6 @@ import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import { url } from '../../utils/UrlConstant';
 import { isEmpty, isValidEmail, isValidMobileNo } from "../../utils/Validation";
 import './SuperAdmin.css';
-import StatusRadioButton from '../../common/StatusRadioButton';
 
 
 

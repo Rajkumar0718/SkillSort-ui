@@ -30,6 +30,7 @@ const CollegeList = () => {
   const [startPage, setStartPage] = useState(1);
   const [endPage, setEndPage] = useState(5);
 
+  
   useEffect(() => {
     getCollegeSerachList();
   }, [currentPage, pageSize]);

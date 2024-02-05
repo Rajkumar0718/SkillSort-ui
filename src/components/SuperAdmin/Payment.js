@@ -22,19 +22,24 @@ const Payment = () => {
         const user = JSON.parse(localStorage.getItem('user'));
         const recruiterId = user.id;
         setRecruiterId(recruiterId);
+        getPayment(recruiterId);
 
-        axios.get(`/api1/payment/get?recruiterId=${recruiterId}`, { headers: authHeader() })
-            .then(res => {
-                if (res.data.payload !== null) {
-                    setAmount(res.data.payload.amount);
-                    setHour(res.data.payload.hour);
-                    setId(res.data.payload.id);
-                }
-            })
-            .catch(error => {
-                errorHandler(error);
-            });
-    }, []);
+        
+    },[]);
+
+    const getPayment =async (recruiterId)=>{
+        await axios.get(`/api1/payment/get?recruiterId=${recruiterId}`, { headers: authHeader() })
+        .then(res => {
+            if (res.data.payload !== null) {
+                setAmount(res.data.payload.amount);
+                setHour(res.data.payload.hour);
+                setId(res.data.payload.id);
+            }
+        })
+        .catch(error => {
+            errorHandler(error);
+        });
+    }
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -60,7 +65,7 @@ const Payment = () => {
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="table-border-cr">
-                                    <form className="email-compose-body" onSubmit={handleSubmit}>
+                                    <form className="email-compose-body" onSubmit={(e)=>handleSubmit(e)}>
                                         <div className="send-header">
                                             <div className="row">
                                                 <div className="col-sm-3">

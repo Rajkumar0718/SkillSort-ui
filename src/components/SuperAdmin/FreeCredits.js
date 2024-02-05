@@ -112,7 +112,7 @@ const FreeCredits = () => {
                                                     <div className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6" key={index}>
                                                         <div className="row">
                                                             <div className="col-4 col-sm-4 col-md-4 col-lg-4">
-                                                                <label className="form-label input-label" htmlFor={field.name}>{field.label}<span></span>
+                                                                <label className="form-label input-label" htmlFor={field.name}>{field.label}<span className='required'></span>
                                                                     <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{error[field.name] ? error[field.name + 'ErrorMsg'] : null}</FormHelperText>
                                                                 </label>
                                                             </div>

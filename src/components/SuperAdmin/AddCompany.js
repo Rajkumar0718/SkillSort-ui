@@ -7,6 +7,8 @@ import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import { url } from '../../utils/UrlConstant';
 import { isEmpty } from "../../utils/Validation";
 import './SuperAdmin.css';
+import StatusRadioButton from '../../common/StatusRadioButton';
+
 
 class AddCompany extends Component {
 
@@ -214,7 +216,7 @@ class AddCompany extends Component {
                         <div className='col-6 col-lg-6 col-sm-6 col-xl-6'>
                           <div className='row'>
                             <div className='col-4 col-lg-4 col-md-4 col-sm-4'>
-                              <label className="form-label input-label">Location<FormHelperText className="helper helper-candidate" style={{ paddingLeft: "0px", marginTop: '5px' }}>{this.state.error.location ? this.state.error.locationErrorMessage : null}</FormHelperText></label>
+                              <label className="form-label input-label">Location<span className='required'></span><FormHelperText className="helper helper-candidate" style={{ paddingLeft: "0px", marginTop: '5px' }}>{this.state.error.location ? this.state.error.locationErrorMessage : null}</FormHelperText></label>
                             </div>
                             <div className='col-8 col-lg-8 col-md-8 col-sm-8'>
                               <input className="profile-page input-mini" maxLength="50"
@@ -245,7 +247,7 @@ class AddCompany extends Component {
                         <div className='col-6 col-lg-6 col-sm-6 col-xl-6'>
                           <div className='row'>
                             <div className='col-4 col-lg-4 col-md-4 col-sm-4'>
-                              <label className="form-label input-label">Domain<FormHelperText className="helper helper-candidate" style={{ paddingLeft: "0px", marginTop: '5px' }}>{this.state.error.domain ? this.state.error.domainErrorMessage : null}</FormHelperText></label>
+                              <label className="form-label input-label">Domain<span className='required'></span><FormHelperText className="helper helper-candidate" style={{ paddingLeft: "0px", marginTop: '5px' }}>{this.state.error.domain ? this.state.error.domainErrorMessage : null}</FormHelperText></label>
                             </div>
                             <div className='col-8 col-lg-8 col-md-8 col-sm-8'>
                               <input className="profile-page input-mini" maxLength="50"
@@ -271,6 +273,12 @@ class AddCompany extends Component {
                         </div>
                       </div>
                       <div className="row">
+                        <StatusRadioButton
+                          labelClassName="col-2 col-sm-2 col-md-2 col-lg-2"
+                          handleChange={this.handleChange}
+                          status={this.state.company.status}
+                          style={{ marginTop: "0.6rem" }}
+                        />
                       </div>
                       <div className="form-group row">
                         <div className="col-md-12">

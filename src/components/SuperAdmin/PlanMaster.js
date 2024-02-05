@@ -26,10 +26,10 @@ const PlanMaster = () => {
       },
     },
     '& .MuiSwitch-switchBase+ .MuiSwitch-track': {
-      backgroundColor: red[600],  
+      backgroundColor: red[600],
     },
   }));
-  
+
   useEffect(() => {
     getPlanMasters();
   }, [showActive]);
@@ -47,7 +47,8 @@ const PlanMaster = () => {
       .catch(error => errorHandler(error));
   };
 
-  const updatePlan = (plan) => {
+  const updatePlan = (e, plan) => {
+    e.preventDefault();
     axios.post(`${url.ADMIN_API}/plan/plan-master`, plan, { headers: authHeader() })
       .then(_res => {
         toastMessage('success', 'Plan Details Updated Successfully..!');
@@ -56,10 +57,10 @@ const PlanMaster = () => {
       .catch(error => errorHandler(error));
   };
 
-  const togglePlan = (planMaster) => {
+  const togglePlan = (e, planMaster) => {
     const plan = _.clone(planMaster);
     plan.status = planMaster.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
-    updatePlan(plan);
+    updatePlan(e, plan);
   }
 
 
@@ -119,30 +120,36 @@ const PlanMaster = () => {
         },
         renderCell: (params) => {
           return (
-            params?.status === 'INACTIVE' ?
-            <div style={{display: 'flex', alignItems: 'center'}}>
-              <SwitchItem
-              checked={params?.status === 'ACTIVE'}
-              onChange={() => togglePlan(params)}
-              inputProps={{ 'aria-label': 'controlled' }}
-              />
+            // params?.status === 'INACTIVE' ?
+            <>
+              <ToggleStatus checked={params?.status === 'ACTIVE'} onChange={(e) => togglePlan(e, params)} />
               <span className={showActive === 'INACTIVE' ? 'text-danger' : 'text-success'}>
-                  {showActive}
-                </span>
-            </div>
-            :
-            <div style={{display: 'flex', alignItems: 'center'}}>
-              <Switch
-              checked={params?.status === 'ACTIVE'}
-              onChange={() => togglePlan(params)}
-              color={params?.status === 'ACTIVE' ? 'success' : 'default'}
-              inputProps={{ 'aria-label': 'controlled' }}
-              />
-              <span className={showActive === 'ACTIVE' ? 'text-success' : 'text-danger'}>
-                  {showActive}
-                </span>
-            </div>
-            
+                {showActive}
+              </span>
+            </>
+            // <div style={{display: 'flex', alignItems: 'center'}}>
+            //   <SwitchItem
+            //   checked={params?.status === 'ACTIVE'}
+            //   onChange={() => togglePlan(params)}
+            //   inputProps={{ 'aria-label': 'controlled' }}
+            //   />
+            // <span className={showActive === 'INACTIVE' ? 'text-danger' : 'text-success'}>
+            //     {showActive}
+            //   </span>
+            // </div>
+            // :
+            // <div style={{display: 'flex', alignItems: 'center'}}>
+            //   <Switch
+            //   checked={params?.status === 'ACTIVE'}
+            //   onChange={() => togglePlan(params)}
+            //   color={params?.status === 'ACTIVE' ? 'success' : 'default'}
+            //   inputProps={{ 'aria-label': 'controlled' }}
+            //   />
+            //   <span className={showActive === 'ACTIVE' ? 'text-success' : 'text-danger'}>
+            //       {showActive}
+            //     </span>
+            // </div>
+
           );
         }
       },
@@ -167,7 +174,7 @@ const PlanMaster = () => {
           <div className="table-border">
             {fallBackLoader(loader)}
             <div className="table-responsive pagination_table">
-              
+
               <CustomTable headers={headers} data={planMasters}></CustomTable>
 
             </div>

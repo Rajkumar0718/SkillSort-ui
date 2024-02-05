@@ -235,7 +235,7 @@ class AddProcessAdmin extends Component {
                             <StatusRadioButton
                               handleChange={this.handleChange}
                               status={this.state.process.status}
-                              style={{ marginTop: "0.5rem",marginLeft:"4rem " }}
+                              style={{ marginTop: "0.5rem"}}
                             />
                           </div>
                         </div>

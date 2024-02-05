@@ -110,7 +110,7 @@ const SectionWeightage = () => {
 		{ label: 'Level 2', name: 'level2', type: 'tel', placeholder: 'Enter Weightage', value: weightage.level2 },
 		{ label: 'Level 3', name: 'level2', type: 'tel', placeholder: 'Enter Weightage', value: weightage.level3 },
 		{ label: 'Scholarship', name: 'level2', type: 'tel', placeholder: 'Enter Weightage', value: weightage.scholarShip },
-		{ label: 'ScreenShot Time', name: 'level2', type: 'tel', placeholder: 'Enter Weightage', value: weightage.screenShortTime },
+		{ label: 'ScreenShot Time', name: 'level2', type: 'tel', placeholder: 'Enter Weightage', value:screenShortTime.screenShortTimer},
 	];
 
 	return (
@@ -134,7 +134,7 @@ const SectionWeightage = () => {
 														<div className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6" key={index}>
 															<div className="row">
 																<div className="col-4 col-sm-4 col-md-4 col-lg-4">
-																	<label className="form-label input-label" htmlFor={field.name}>{field.label}<span></span>
+																	<label className="form-label input-label" htmlFor={field.name}>{field.label}<span className='required'></span>
 																		<FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{error[field.name] ? error[field.name + 'ErrorMsg'] : null}</FormHelperText>
 																	</label>
 																</div>

@@ -193,9 +193,10 @@ class AddTestAdmin extends Component {
                       <div className="row">
 
                             <StatusRadioButton
+                              labelClassName="col-1 col-sm-1 col-md-1 col-lg-1"
                               handleChange={this.handleChange}
                               status={this.state.testAdmin.status}
-                              style={{ marginTop: "0.4rem",marginLeft:"-2rem  " }}
+                              style={{ marginTop: "0.4rem",marginLeft:"3rem"}}
                             />
                           </div>
                       <div className="row">

@@ -128,7 +128,7 @@ const SMTPConfig = () => {
                                                     <div className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6" key={index}>
                                                         <div className="row" style={{ lineHeight: '2.5rem' }}>
                                                             <div className="col-4 col-sm-4 col-md-4 col-lg-4">
-                                                                <label className="form-label input-label" htmlFor={field.name}>{field.label}<span></span>
+                                                                <label className="form-label input-label" htmlFor={field.name}>{field.label}<span className='required'></span>
                                                                     <FormHelperText className="helper" style={{ paddingLeft: "0px", color: 'red' }}>{error[field.name] ? error[field.name + 'ErrorMsg'] : null}</FormHelperText>
                                                                 </label></div>
                                                             <div className="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">

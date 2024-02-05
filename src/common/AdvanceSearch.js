@@ -15,7 +15,7 @@ function Search(props) {
   const onChange = (event) => {
     setSearch(event.target.value);
   }
-
+  
   return (
       <div className="search">
         <div

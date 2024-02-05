@@ -27,7 +27,6 @@ const RecruiterList = () => {
     const [recruiter, setRecruiter] = useState({});
 
     const handleAllOptionClick = () => {
-        getStatus();
         setLoader(true);
         setVerifiedStatus('');
         setTableJson();
@@ -50,6 +49,7 @@ const RecruiterList = () => {
 
     useEffect(() => {
         handleAllOptionClick();
+        getStatus();
     }, [currentPage, pageSize]);
 
     const getStatus = () => {
