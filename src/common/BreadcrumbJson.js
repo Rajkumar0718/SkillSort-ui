@@ -11,6 +11,10 @@ const breadcrumb = {
     "/admin/section": "sections"
 
   },
-  TEST_ADMIN: { homeLink: "/testadmin/question", name: "testadmin", "/testadmin/question": "Questions", "/testadmin/setting": "settings", "/testadmin/section": "sections" }
+  TEST_ADMIN: { homeLink: "/testadmin/question", name: "testadmin", "/testadmin/question": "Questions", "/testadmin/setting": "settings", "/testadmin/section": "sections" },
+  PROCESS_ADMIN : {
+    homeLink: "/processadmin" , name:"processadmin" ,
+    "/processadmin/company/test":"Test"
+  },
 };
 export default breadcrumb;

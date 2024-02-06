@@ -61,7 +61,7 @@ export default class ExamList extends Component {
         {
             name: 'SECTION',
             align: 'left',
-            key: 'categories',
+            key: 'section',
         },
         {
             name: 'STATUS',

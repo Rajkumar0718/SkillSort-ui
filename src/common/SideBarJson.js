@@ -621,6 +621,14 @@ const sidebar = {
       name: 'FreeCredits',
       icon: 'fa fa-ticket'
     }
+  ],
+  PROCESS_ADMIN:[
+    {
+      isSubMenu: false,
+      to: "/processadmin",
+      name: "HOME",
+      icon: 'fa fa-building-o'
+    }
   ]
 
 }

@@ -31,7 +31,6 @@ import AdvertisementHistory from "./components/SuperAdmin/AdvertisementHistory";
 import Payment from "./components/SuperAdmin/Payment";
 import FreeCredits from "./components/SuperAdmin/FreeCredits";
 import SectionWeightage from "./components/SuperAdmin/SectionWeightage";
-import SMTPConfig from "./components/Admin/SMTPConfig";
 import DepatmentList from "./components/College/DepartmentList";
 import PlanMaster from "./components/SuperAdmin/PlanMaster";
 import PracticeExam from "./components/SuperAdmin/PracticeExam";
@@ -49,16 +48,20 @@ import AddHr from "./components/Admin/AddHr";
 import OnGoingExam from "./components/Admin/OnGoingExam";
 import CandidateDetailsOnGoingExam from "./components/Admin/CandidateDetailsOnGoingExam";
 import ExamList from "./components/Admin/ExamList";
+
+import ExamListProcess from "./components/ProcessAdmin/ExamList";
+
 import AddExam from "./components/Admin/AddExam";
 import SectionList from "./components/Admin/SectionList";
 import AddQuestion from "./components/TestAdmin/AddQuestion";
 import Question from "./components/TestAdmin/Question";
 import Dashboard from "./components/TestAdmin/Dashboard"
 import GroupTypesList from "./components/TestAdmin/GroupTypesList"
-
-
-
-
+import ProgramResult from "./components/Admin/ProgramResult";
+import SMTPConfig from "./components/Admin/SMTPConfig";
+import CandidateResultDetails from "./components/Admin/CandidateResultDetails";
+import ShortListedResultDetails from "./components/Admin/ShortListedResultDetails"
+import CandidateList from "./components/ProcessAdmin/CandidateList";
 function App() {
   return (
     <>
@@ -156,6 +159,17 @@ function App() {
             <Route path='/testadmin/question/edit' element={<AddQuestion />} />
             <Route path='/testadmin/grouptypes' element={<GroupTypesList />} />
             <Route path='/testadmin/setting' element={<SettingList />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["PROCESS_ADMIN"]} />}>
+            <Route path="/processadmin/company/test" element={<ExamListProcess
+             />} />
+            <Route path="/processadmin/company" element={<CompanyList />} />
+            <Route path="/processadmin" element={<CompanyList />} />
+
+
+            <Route path="/processadmin/company/test/candidate" element={<CandidateList />} />
+
+    
           </Route>
         </Route>
       </Routes>
