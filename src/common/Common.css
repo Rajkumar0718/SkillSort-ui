@@ -83,7 +83,7 @@
 .medals-pic {
     width: 2rem;
     height: 2rem;
-   
+
 }
 .search {
     background-color: rgba(59, 72, 158, 0.3);
@@ -91,11 +91,11 @@
     margin-bottom: .5%;
     color: #111111;
     height: 58px;
-    vertical-align: -webkit-baseline-middle; 
+    vertical-align: -webkit-baseline-middle;
     border-radius: 2px;
     /* font-weight: 600; */
     margin-left: 19.6px;
-    margin-right: 19.6px;
+    /* margin-right: 19.6px; */
 
 }
 

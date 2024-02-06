@@ -209,19 +209,7 @@ export default class ViewResult extends Component {
           return moment(params?.createdDate).format("DD/MM/YYYY");
         },
       },
-    //   {isRoleValidation() !== 'HR' ? <td>
-    //   <Link
-    //     to={{ pathname: '/admin/result/candidate/details/' + result.candidateId }}
-    //     target={'_blank'}
-    //     onClick={() => this.setCandidate(result)}
-    //     style={{ textDecoration: 'none', color: 'blue' }}
-    //   >
-    //     {result.candidate?.firstName} {result.candidate?.lastName}
-    //   </Link>
-    //   {result.candidate?.isFromSkillSort ? <img alt="skillsort" style={{ marginLeft: '7px' }} src={LOGO} ></img> : null}
-    // </td> : <td>{result.candidate?.firstName} {result.candidate?.lastName}
-    //   {result.candidate?.isFromSkillSort ? <img alt="skillsort" style={{ marginLeft: '5px' }} src={LOGO} ></img> : null}
-    // </td>}
+
       {
         name: "CANDIDATE",
         align: "left",
@@ -347,7 +335,7 @@ export default class ViewResult extends Component {
   };
   render() {
     return (
-      <div className="row mt-2">
+      <div >
         {fallBackLoader(this.state.loader)}
         {_.size(this.state.results)>0?
         <div className="card-header-new" style={{display:"flex",justifyContent:"flex-end",alignItems:'baseline'}}>

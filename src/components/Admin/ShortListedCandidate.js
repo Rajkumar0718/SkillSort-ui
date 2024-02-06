@@ -13,6 +13,7 @@ import TableHeader from "../../utils/TableHeader";
 import TableHeaderWithDate from "../../utils/TableHeaderWithDate";
 import ConfirmationModal from "../Student/ConfirmationModal";
 import { CustomTable } from "../../utils/CustomTable";
+import styled from 'styled-components';
 
 const statusColors = {
   OFFER_RELEASED: "green",
@@ -20,7 +21,13 @@ const statusColors = {
   ON_HOLD: "#3b489e",
   NO_SHOW: "black",
 };
-
+const StyledLink = styled(Link)`
+ color: black !important;
+ text-decoration: none;
+ &:hover {
+    color: blue !important; // Change color to red on hover
+ }
+`;
 export default function ShortListedCandidates(props) {
   const [candidates, setCandidates] = useState([]);
   const [candidateStatus, setCandidateStatus] = useState([]);
@@ -425,14 +432,14 @@ export default function ShortListedCandidates(props) {
         align: "left",
         renderCell: (params) => {
           return (
-            <Link
+            <StyledLink
               to={{ pathname: `/shortlisted-candidate-details/${params.id}` }}
               target="_blank"
               onClick={() => setCandidate(params)}
-              style={{ color: "black", textDecoration: "none" }}
+              style={{ color: "black", textDecoration: "none", color: "blue"}}
             >
               {`${params.firstName} ${params.lastName}`}
-            </Link>
+            </StyledLink>
           );
         },
       },

@@ -219,7 +219,7 @@ export default  class ProgramResult extends Component {
                                         >
                                             {this.state.questionIndex === 0 ? (""
                                             ) : (
-                                                <div className="p-1" style={{ marginTop: '-15px' }}><button type='button' className='btn-sm btn-preprimary'>&laquo; Previous</button></div>
+                                                <div className="p-1" style={{ marginTop: '-15px' }}><button type='button' className='btn-sm btn-newpre'>&laquo; Previous</button></div>
                                             )}
                                         </div>
                                     </div>
@@ -227,7 +227,7 @@ export default  class ProgramResult extends Component {
                                         <div className="cursor-pointer" onClick={(e) => { this.next(e); }} disable={this.state.disabledNext} title="Next" style={{ fontSize: "30px", color: "#5B6263", width: '90px', marginTop: '10px' ,}} >
                                             {this.state.questionIndex === this.state.questions.length - 1 ? (
                                                 "") : (
-                                                <button type='button' className='btn btn-primary' >Next &raquo;</button>
+                                                <button type='button' className='btn btn-newnext' >Next &raquo;</button>
                                             )}
                                         </div>
                                     </div>

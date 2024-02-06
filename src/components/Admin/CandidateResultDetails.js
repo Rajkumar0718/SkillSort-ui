@@ -209,7 +209,7 @@ export default class CandidateResultDetails extends Component {
         if (program.section === 'PROGRAMMING') {
           return (
             // <div className='col-4 col-lg-4'>
-            <Link style={{color:'#3b489e'}} to={{ pathname: '/admin/result/candidate/programResult/' + this.state.user.id }} onClick={() => this.setCandidate()} target={'_blank'}>View program and Images</Link>
+            <Link style={{color:'#3b489e', position:"relative",right:"1rem"}} to={{ pathname: '/admin/result/candidate/programResult/' + this.state.user.id }} onClick={() => this.setCandidate()} target={'_blank'}>View program and Images</Link>
             // </div>
           )
         }

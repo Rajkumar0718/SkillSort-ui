@@ -4,10 +4,23 @@ import _ from "lodash";
 import React, { Component } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import styled from 'styled-components';
 import { authHeader, errorHandler, logOut } from "../../api/Api";
 import { fallBackLoader, toastMessage } from "../../utils/CommonUtils";
 import url from "../../utils/UrlConstant";
+const StyledCKEditorWrapper = styled.div`
+  .ck-editor__editable {
+    &.ck-rounded-corners.ck-editor__editable_inline.ck-focused {
+      overflow-y: auto;
+      height: 12rem;
+    }
+    &.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
+      overflow-y: auto;
+      height:  12rem;
+    }
 
+  }
+`;
 
 export default class ExamMailModel extends Component {
   state = {
@@ -282,12 +295,14 @@ export default class ExamMailModel extends Component {
                 <form onSubmit={this.handleSubmit}>
                   <div className="form-row" style={{ marginTop: "1rem", paddingLeft: "11px", paddingRight: "11px", height: "18rem" }}>
                     <div className="form-group col-12" style={{height:"16rem"}}>
+                      <StyledCKEditorWrapper>
                       <CKEditor
                         editor={ClassicEditor}
                         data={this.state.mailMsg || ""}
                         onChange={this.handleEditorChange}
                         config={{}}
                       />
+                      </StyledCKEditorWrapper>
                     </div>
                     <div className="col-md-11" style={{ display: "flex", justifyContent: "flex-end",position:'relative',bottom:'.5rem'}}>
                       <button

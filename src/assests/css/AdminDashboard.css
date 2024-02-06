@@ -346,7 +346,7 @@ ul#accordionSidebar {
     margin-bottom: 1rem;
   }
 
- 
+
   .sidebar.toggled .nav-item .nav-link {
     text-align: center;
     padding: 0.75rem 1rem;
@@ -1099,7 +1099,7 @@ h4,
 }
 
 .card-header-new {
-  padding: 0.75rem 1.25rem;  
+  padding: 0.75rem 1.25rem;
   margin-bottom: 0.5%;
   background-color: #ffffff;
   /* border: 1px solid rgb(224, 221, 221); */
@@ -1526,7 +1526,23 @@ h4,
   height: 2rem;
   border-radius: 5px;
 }
-
+.btn-newpre{
+  color: white !important;
+  background-color: #3b489e !important;
+  border-color: #3b489e !important;
+ width: max-content;
+ font-size: 1rem;
+ border-radius: 5px;
+ height: 40px;
+ position: relative;
+ top: 8px;
+}
+.btn-newnext{
+  color: white !important;
+  background-color: #f05a28 !important;
+  border-color: #f05a28 !important;
+  width:6rem;
+}
 .btn-prev {
   color: white !important;
   background-color: #3b489e !important;
@@ -2349,4 +2365,19 @@ height: 272px !important;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
+}
+.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-8.css-vok43g-MuiGrid-root{
+  padding-top: 0px;
+  padding-left: 1rem;
+}
+.MuiGrid-root>.MuiGrid-item {
+  padding-top: 0px !important;
+}
+
+.vac-result{
+  margin-bottom: 0px !important;
+  cursor: pointer;
+}
+.vac-result span {
+  margin-left: 0.5rem;
 }

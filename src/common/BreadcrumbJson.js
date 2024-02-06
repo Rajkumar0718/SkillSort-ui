@@ -1,5 +1,5 @@
 const breadcrumb = {
-  COLLEGE_ADMIN: { homeLink: "/college", name: "college" },
+  COLLEGE_ADMIN: { homeLink: "/college", name: "college","/college/placement-coordinator":"Placement-Coordinators" },
   ADMIN: {
     homeLink: "admin/dashboard",
     name: "admin",

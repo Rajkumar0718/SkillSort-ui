@@ -155,22 +155,20 @@ const Position = () => {
         </div>
       ) : (
         <div>
-          <div style={{ display: "flex", alignItems: "baseline" }}>
+          <div style={{ display: "flex", alignItems: "center",justifyContent:'space-between' }}>
             <TableHeader title="Vacancies" />
             {positions?.length === 0 ? (
               ""
             ) : (
-              <>
+
+              <div >
                 <Link
                   className="btn btn-sm btn-nxt float-right"
                   to="/admin/vacancy/history"
                   state={{ position: positions }}
                   style={{
                     position: "relative",
-                    marginTop: "-45px",
-                    marginRight: "49px",
-
-                    marginLeft: "46rem",
+                    right: "1rem"
                   }}
                 >
                   Vacancy History
@@ -178,27 +176,23 @@ const Position = () => {
                 <Link
                   className="btn btn-sm btn-nxt float-right"
                   to="/admin/vacancy/add"
-                  style={{
-                    position: "relative",
-                    marginTop: "-45px",
-                    marginRight: "20px",
-                  }}
                 >
                   Add Vacancy
                 </Link>
-              </>
+              </div>
+
             )}
           </div>
           <Search
-          style={{
-            marginLeft:0,
-           marginRight:0,
-           display :'flex',
-           alignItems:'center',
-           flexDirection:'row',
-           justifyContent:'space-between'
+            style={{
+              marginLeft: 0,
+              marginRight: 0,
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'row',
+              justifyContent: 'space-between'
 
-          }}
+            }}
             title="Filter"
             showSearch={true}
             placeholder="search by vacancy name"

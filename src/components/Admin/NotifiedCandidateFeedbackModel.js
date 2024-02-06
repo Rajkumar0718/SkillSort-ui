@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import styled from 'styled-components';
 
+const StyledCKEditorWrapper = styled.div`
+  .ck-editor__editable {
+    &.ck-rounded-corners.ck-editor__editable_inline.ck-focused {
+      overflow-y: auto;
+      height: 12rem;
+    }
+    &.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
+      overflow-y: auto;
+      height:  12rem;
+    }
 
-
+  }
+`;
 export default class NotifiedCandidateFeedbackModel extends Component {
 
     constructor(props) {
@@ -32,24 +46,21 @@ export default class NotifiedCandidateFeedbackModel extends Component {
                                 <h5 className="setting-title" >Feedback</h5>
                                 <button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal">&times;</button>
                             </div>
-                            <div className="modal-body" style={{ paddingTop: "5px" }}>
+                            <div className="modal-body" style={{ paddingTop: "5px" ,height:"20rem"}}>
                                 <div className='container'>
-                                    <div className='row' style={{ paddingLeft: "16px" }}>
+                                    <div style={{position:"relative",bottom:"19px"}} >
                                         <label className='form-group'>Status: &nbsp;</label>
                                         <span style={{ color: this.setFontColor(this.state.skillSortCandidate.panelistCandidateStatus?.toUpperCase(), this.state.skillSortCandidate.skillSortFeedBack) }}>{this.state.skillSortCandidate.skillSortFeedBack ? this.state.skillSortCandidate.panelistCandidateStatus?.toUpperCase() : 'PENDING'}</span>
                                     </div>
-                                    <label className='form-group'>Skill Sort Feedback&nbsp;</label>
-                                    {/* <CKEditor
-                                        content={this.state.skillSortCandidate.skillSortFeedBack}
-                                        config={{
-                                            readOnly: true,
-                                            removePlugins: 'elementspath',
-                                            resize_enabled: false,
-                                            removeButtons: 'About,Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript,Link,Unlink,Image,Source,Bold',
-                                            copyFormatting_allowedContexts: false,
-                                            removeDialogTabs: 'link:advanced'
-                                        }}
-                                    /> */}
+                                    <label className='form-group' style={{position:"relative",bottom:"9px"}}>Skill Sort Feedback&nbsp;</label>
+                                    <StyledCKEditorWrapper>
+                                        <CKEditor
+                                            editor={ClassicEditor}
+                                            data={this.state.mailMsg || ""}
+                                            onChange={this.handleEditorChange}
+                                            config={{}}
+                                        />
+                                    </StyledCKEditorWrapper>
                                 </div>
                             </div>
                         </div>

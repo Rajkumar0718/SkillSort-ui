@@ -39,7 +39,7 @@ const Breadcrumbs = () => {
           style={{
             cursor: "pointer",
             color: "#3f51b5",
-            marginLeft: "2rem",
+            marginLeft: "1rem",
           }}
         >
         {breadCrumbJSON.name==="testadmin"?"Test":"Home"}

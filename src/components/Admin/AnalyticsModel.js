@@ -88,6 +88,15 @@ function AnalyticsModel(props) {
                     id="demo-simple-select"
                     value={filterValue}
                     onChange={(e) => filterBy(e)}
+                    sx={{
+                      '.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'transparent',
+                      },
+                      '.MuiOutlinedInput-notchedOutline': {
+                        border: 'none',
+                      },
+                      boxShadow: 'none',
+                    }}
                   >
                     <MenuItem value={''}>All</MenuItem>
                     <MenuItem value={'SCREENSHOT'}>Camera Images</MenuItem>

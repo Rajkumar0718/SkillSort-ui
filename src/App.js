@@ -55,10 +55,12 @@ import AddQuestion from "./components/TestAdmin/AddQuestion";
 import Question from "./components/TestAdmin/Question";
 import Dashboard from "./components/TestAdmin/Dashboard"
 import GroupTypesList from "./components/TestAdmin/GroupTypesList"
-
-
-
-
+import CandidateResultDetails from "./components/Admin/CandidateResultDetails";
+import ShortListedResultDetails from "./components/Admin/ShortListedResultDetails"
+import ProgramResult from "./components/Admin/ProgramResult";
+import StudentList from "./components/College/StudentList"
+import StaffList from "./components/College/StaffList"
+import AddStaff from "./components/College/AddStaff"
 function App() {
   return (
     <>
@@ -66,6 +68,9 @@ function App() {
         {/* Public Routes */}
         <Route index element={<AdminLogin />}></Route>
         <Route path="/login" element={<AdminLogin />} />
+        <Route path="/shortlisted-candidate-details/:candidateId" element={<ShortListedResultDetails />} />
+        <Route path="/admin/result/candidate/details/:candidate_id" element={<CandidateResultDetails />} />
+        <Route path="/admin/result/candidate/programResult/:candidate_id" element={<ProgramResult />} />
 
         {/* Private Routes */}
         <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN"]} />}>
@@ -115,6 +120,18 @@ function App() {
           </Route>
         </Route>
         <Route path="/" element={<Layout />}>
+
+          <Route
+            element={
+              <RequireAuth allowedRoles={["COLLEGE_ADMIN", "COLLEGE_STAFF"]} />
+            }
+          >
+            <Route path="/college" element={<StudentList />} />
+            <Route path="/college/placement-coordinator" element={<StaffList />} />
+            <Route path="/college/collegeReport" element={<CollegeReportList />} />
+            <Route path="/college/add" element={<AddStudent />} />
+            <Route path="/college/placement-coordinator/add" element={<AddStaff />} />
+          </Route>
           <Route
             element={
               <RequireAuth allowedRoles={["ADMIN"]} />

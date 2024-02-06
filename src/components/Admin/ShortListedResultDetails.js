@@ -443,7 +443,7 @@ export default class ShortListedResultDetails extends Component {
                           type: "certificate",
                         })
                       }
-                      className="btn btn-sm btn-nxt"
+                      className="btn btn-sm btn-newnext"
                       style={{ fontFamily: "Montserrat" }}
                     >
                       View Certficate
