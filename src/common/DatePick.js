@@ -1,9 +1,10 @@
 import { LocalizationProvider, DatePicker as MuiDatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { parseISO } from 'date-fns';
 import { enGB } from 'date-fns/locale';
 
 
-export default function DatePick ({className, style, views, minDate, maxDate, value, inputProps, onChange})  {
+export default function DatePick({className, style, views, minDate, maxDate, value, inputProps, onChange }) {
 
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGB}>
@@ -25,7 +26,7 @@ export default function DatePick ({className, style, views, minDate, maxDate, va
               color: '#3b489e' // Change the ornament color to white
             },
             '& .MuiInputBase-root' : {
-              width:'12rem',
+              width:'15.5rem',
               background: 'none'
             }
           }}

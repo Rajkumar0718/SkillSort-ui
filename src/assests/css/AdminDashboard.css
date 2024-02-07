@@ -1826,6 +1826,20 @@ h4,
   font-weight: 400;
 }
 
+.paid-taketest:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+.paid-taketest {
+    background: #3b489e;
+    color: #fff;
+    border: none;
+    width: 8.8rem;
+    height: 2rem;
+    font-size: 13px;
+    border-radius: 5px;
+}
+
 .level-title {
   text-align: center;
   margin-bottom: 0.75rem;

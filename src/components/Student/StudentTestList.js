@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, {Component } from "react";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import _ from "lodash";
@@ -312,7 +312,7 @@ export default class StudentTestList extends Component  {
           </p>
           {this.sectionWiseResult(credit, results, level)}
         </div>
-        {level.level === 3 && isRoleValidation().includes('DEMO_ROLE') ? <button style={{ marginTop: '1rem' }} onClick={() => this.deleteExamResults()} className="btn btn-sm btn-prev" >Clear Exam Results</button> : null}
+        {level.level === 3 && isRoleValidation().includes('DEMO_ROLE') ? <button style={{ marginTop: '1rem',width:'10rem' }} onClick={() => this.deleteExamResults()} className="btn btn-sm btn-prev" >Clear Exam Results</button> : null}
       </div>
     }
   
@@ -437,7 +437,7 @@ export default class StudentTestList extends Component  {
           </div>
         </div> :
         <>
-          <div style={{ paddingLeft: '0.5rem', height: "calc(100vh - 5rem)", overflowY: 'auto' }}>
+          <div style={{ paddingLeft: '0.5rem', height: "calc(100vh - 5rem)", overflowY: 'auto',overflowX:'hidden' }}>
             {fallBackLoader(this.state.loader)}
             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '0.5rem 3rem' }}>
                <div className="score-card">

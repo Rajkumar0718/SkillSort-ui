@@ -1,73 +1,122 @@
+import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import { withLocation } from "./utils/CommonUtils";
+
+import { CircleLoader } from "react-spinners";
+import 'react-toastify/dist/ReactToastify.css';
 import './assests/css/AdminDashboard.css';
 import Layout from "./common/Layout";
 import SuperAdminLayout from "./common/SuperAdminLayout";
-import AdminLogin from "./components/Admin/AdminLogin";
-import PageNotFound from "./components/PageNotFound";
-import RequireAuth from "./components/RequireAuth";
-import CollegeList from "./components/SuperAdmin/CollegeList";
-import CompanyList from "./components/SuperAdmin/CompanyList";
-import CompetitorList from "./components/SuperAdmin/CompetitorList";
-import HomePage from "./components/SuperAdmin/HomePage";
-import ListIndustryAndTechnologies from "./components/SuperAdmin/ListIndustryAndTechnologies";
-import ProcessAdminList from "./components/SuperAdmin/ProcessAdminList";
-import RecruiterList from "./components/SuperAdmin/RecruiterList";
-import AddStudent from "./components/College/AddStudent";
-import CollegeReportList from "./components/College/CollegeReportList";
-import AddCollege from "./components/SuperAdmin/AddCollege";
-import CollegeAdminList from "./components/SuperAdmin/CollegeAdminList";
-import { ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import AddCollegeAdmin from "./components/SuperAdmin/AddCollegeAdmin";
-import CompanyPlans from "./components/SuperAdmin/CompanyPlans";
-import AddCompany from "./components/SuperAdmin/AddCompany";
-import AdminList from "./components/SuperAdmin/AdminList";
-import AddAdmin from "./components/SuperAdmin/AddAdmin";
-import AddProcessAdmin from "./components/SuperAdmin/AddProcessAdmin";
-import TestAdminList from "./components/SuperAdmin/TestAdminList";
-import AddTestAdmin from "./components/SuperAdmin/AddTestAdmin";
-import AddAdvertisement from "./components/SuperAdmin/AddAdvertisement";
-import AdvertisementHistory from "./components/SuperAdmin/AdvertisementHistory";
-import Payment from "./components/SuperAdmin/Payment";
-import FreeCredits from "./components/SuperAdmin/FreeCredits";
-import SectionWeightage from "./components/SuperAdmin/SectionWeightage";
-import SMTPConfig from "./components/Admin/SMTPConfig";
-import DepatmentList from "./components/College/DepartmentList";
-import PlanMaster from "./components/SuperAdmin/PlanMaster";
-import PracticeExam from "./components/SuperAdmin/PracticeExam";
-import PracticeExamTest from "./components/SuperAdmin/PracticeExamTest";
-import TestList from "./components/SuperAdmin/TestList";
-import Test from "./components/SuperAdmin/Test";
-import AdvSearch from "./components/Admin/AdvanceSearch";
-import Signupcount from "./components/SuperAdmin/Signupcount";
-import Position from "./components/Admin/Position";
-import VacancyHistory from "./components/Admin/VacancyHistory";
-import PositionDetails from "./components/Admin/PositionDetails";
-import SettingList from "./components/Admin/SettingList";
-import ListHr from "./components/Admin/ListHr";
-import AddHr from "./components/Admin/AddHr";
-import OnGoingExam from "./components/Admin/OnGoingExam";
-import CandidateDetailsOnGoingExam from "./components/Admin/CandidateDetailsOnGoingExam";
-import ExamList from "./components/Admin/ExamList";
-import AddExam from "./components/Admin/AddExam";
-import SectionList from "./components/Admin/SectionList";
-import AddQuestion from "./components/TestAdmin/AddQuestion";
-import Question from "./components/TestAdmin/Question";
-import Dashboard from "./components/TestAdmin/Dashboard"
-import GroupTypesList from "./components/TestAdmin/GroupTypesList"
-import CandidateResultDetails from "./components/Admin/CandidateResultDetails";
-import ShortListedResultDetails from "./components/Admin/ShortListedResultDetails"
-import ProgramResult from "./components/Admin/ProgramResult";
-import StudentList from "./components/College/StudentList"
-import StaffList from "./components/College/StaffList"
-import AddStaff from "./components/College/AddStaff"
+
+const AddExam = React.lazy(() => import("./components/Admin/AddExam"));
+const AddHr = React.lazy(() => import("./components/Admin/AddHr"));
+const AdminLogin = React.lazy(() => import("./components/Admin/AdminLogin"));
+const AdvSearch = React.lazy(() => import("./components/Admin/AdvanceSearch"));
+const CandidateDetailsOnGoingExam = React.lazy(() => import("./components/Admin/CandidateDetailsOnGoingExam"));
+const CandidateResultDetails = React.lazy(() => import("./components/Admin/CandidateResultDetails"));
+const ProgramUI = React.lazy(()=> import("./components/Candidate/ProgramUI"));
+const ExamList = React.lazy(() => import("./components/Admin/ExamList"));
+const ListHr = React.lazy(() => import("./components/Admin/ListHr"));
+const OnGoingExam = React.lazy(() => import("./components/Admin/OnGoingExam"));
+const Position = React.lazy(() => import("./components/Admin/Position"));
+const PositionDetails = React.lazy(() => import("./components/Admin/PositionDetails"));
+const ProgramResult = React.lazy(() => import("./components/Admin/ProgramResult"));
+const SMTPConfig = React.lazy(() => import("./components/Admin/SMTPConfig"));
+const SectionList = React.lazy(() => import("./components/Admin/SectionList"));
+const SettingList = React.lazy(() => import("./components/Admin/SettingList"));
+const ShortListedResultDetails = React.lazy(() => import("./components/Admin/ShortListedResultDetails"));
+const StudentFromWebsite = React.lazy(() => import("./components/Admin/StudentFromWebsite"));
+const VacancyHistory = React.lazy(() => import("./components/Admin/VacancyHistory"));
+const ReExamRequest = React.lazy(() => import("./components/Candidate/AlreadyWrittenExam"));
+const CandidateInstruction = React.lazy(() => import("./components/Candidate/CandidateInstruction"));
+const CandidateInterface = React.lazy(() => import("./components/Candidate/CandidateInterface"));
+const PublicRegister = React.lazy(() => import("./components/Candidate/PublicRegister"));
+const QueryUi = React.lazy(() => import("./components/Candidate/QueryUi"));
+const SelectTech = React.lazy(() => import("./components/Candidate/SelectTech"));
+const TakePicture = React.lazy(() => import("./components/Candidate/TakePicture"));
+const ThankYouPage = React.lazy(() => import("./components/Candidate/ThankYouPage"));
+const CandidateReg = React.lazy(() => import("./components/CandidateReg"));
+const AddStaff = React.lazy(() => import("./components/College/AddStaff"));
+const AddStudent = React.lazy(() => import("./components/College/AddStudent"));
+const CollegeReportList = React.lazy(() => import("./components/College/CollegeReportList"));
+const DepatmentList = React.lazy(() => import("./components/College/DepartmentList"));
+const StaffList = React.lazy(() => import("./components/College/StaffList"));
+const StudentList = React.lazy(() => import("./components/College/StudentList"));
+const CompetitorFirstTimeLogin = React.lazy(() => import("./components/Competitor/CompetitorFirstTimeLogin"));
+const CompetitorUpdate = React.lazy(() => import("./components/Competitor/CompetitorUpdate"));
+const PageNotFound = React.lazy(() => import("./components/PageNotFound"));
+const RequireAuth = React.lazy(() => import("./components/RequireAuth"));
+const AdvertisementPage = React.lazy(() => import("./components/Student/AdvertisementPage"));
+const CompanyOffers = React.lazy(() => import("./components/Student/CompanyOffers"));
+const PracticeExamList = React.lazy(() => import("./components/Student/PracticeExamList"));
+const StudentFirstTimeLogin = React.lazy(() => import("./components/Student/StudentFirstTimeLogin"));
+const StudentTestList = React.lazy(() => import("./components/Student/StudentTestList"));
+const AddAdmin = React.lazy(() => import("./components/SuperAdmin/AddAdmin"));
+const AddAdvertisement = React.lazy(() => import("./components/SuperAdmin/AddAdvertisement"));
+const AddCollege = React.lazy(() => import("./components/SuperAdmin/AddCollege"));
+const AddCollegeAdmin = React.lazy(() => import("./components/SuperAdmin/AddCollegeAdmin"));
+const AddCompany = React.lazy(() => import("./components/SuperAdmin/AddCompany"));
+const AddProcessAdmin = React.lazy(() => import("./components/SuperAdmin/AddProcessAdmin"));
+const AddTestAdmin = React.lazy(() => import("./components/SuperAdmin/AddTestAdmin"));
+const AdminList = React.lazy(() => import("./components/SuperAdmin/AdminList"));
+const AdvertisementHistory = React.lazy(() => import("./components/SuperAdmin/AdvertisementHistory"));
+const CollegeAdminList = React.lazy(() => import("./components/SuperAdmin/CollegeAdminList"));
+const CollegeList = React.lazy(() => import("./components/SuperAdmin/CollegeList"));
+const CompanyList = React.lazy(() => import("./components/SuperAdmin/CompanyList"));
+const CompanyPlans = React.lazy(() => import("./components/SuperAdmin/CompanyPlans"));
+const CompetitorList = React.lazy(() => import("./components/SuperAdmin/CompetitorList"));
+const FreeCredits = React.lazy(() => import("./components/SuperAdmin/FreeCredits"));
+const HomePage = React.lazy(() => import("./components/SuperAdmin/HomePage"));
+const ListIndustryAndTechnologies = React.lazy(() => import("./components/SuperAdmin/ListIndustryAndTechnologies"));
+const Payment = React.lazy(() => import("./components/SuperAdmin/Payment"));
+const PlanMaster = React.lazy(() => import("./components/SuperAdmin/PlanMaster"));
+const PracticeExam = React.lazy(() => import("./components/SuperAdmin/PracticeExam"));
+const PracticeExamTest = React.lazy(() => import("./components/SuperAdmin/PracticeExamTest"));
+const ProcessAdminList = React.lazy(() => import("./components/SuperAdmin/ProcessAdminList"));
+const RecruiterList = React.lazy(() => import("./components/SuperAdmin/RecruiterList"));
+const SectionWeightage = React.lazy(() => import("./components/SuperAdmin/SectionWeightage"));
+const Signupcount = React.lazy(() => import("./components/SuperAdmin/Signupcount"));
+const Test = React.lazy(() => import("./components/SuperAdmin/Test"));
+const TestAdminList = React.lazy(() => import("./components/SuperAdmin/TestAdminList"));
+const TestList = React.lazy(() => import("./components/SuperAdmin/TestList"));
+const AddQuestion = React.lazy(() => import("./components/TestAdmin/AddQuestion"));
+const Dashboard = React.lazy(() => import("./components/TestAdmin/Dashboard"));
+const GroupTypesList = React.lazy(() => import("./components/TestAdmin/GroupTypesList"));
+const Question = React.lazy(() => import("./components/TestAdmin/Question"));
+const ProjectUi = React.lazy(() => import("./components/project-ui/ProjectUI"));
+
+
+const EnhancedCandidateInstruction = withLocation(CandidateInstruction);
+const EnhancedProgramUI = withLocation(ProgramUI)
+const EnhancedQueryUI = withLocation(QueryUi)
+const EnhancedCompetitorUpdate = withLocation(CompetitorUpdate)
+
+
 function App() {
   return (
-    <>
+    <Suspense fallback={<div className="animated fadeIn pt-1" style={{ position: 'fixed', top: "45%", left: "45%", transform: "translate(-50%, -50%)" }}> <CircleLoader color={'#0000FF'} loading={true} size={150} /></div>}>
       <Routes>
         {/* Public Routes */}
         <Route index element={<AdminLogin />}></Route>
         <Route path="/login" element={<AdminLogin />} />
+        <Route element={<RequireAuth allowedRoles={["ROLE_CANDIDATE"]} />}>
+          <Route path="/project" element={<ProjectUi />} />
+        </Route>
+        <Route path='/competitor/login' element={<CompetitorFirstTimeLogin />} />
+        <Route path='/login/student' element={<StudentFromWebsite />} />
+        <Route path="/setpassword" component={<StudentFromWebsite />} />
+        <Route path="/candidateinstruction" element={<EnhancedCandidateInstruction />} />
+        <Route path="/student/test/selectTech" element={<SelectTech />} />
+        <Route path='/test' element={<CandidateInterface />} />
+        <Route path='/thankYou' element={<ThankYouPage />} />
+        <Route path='/program/:token/:examId/:examUsersId/:collegeId' element={<EnhancedProgramUI />} />
+        <Route path='/program/:token/:examId/:examUsersId' element={<EnhancedProgramUI />} />
+        <Route path='/program' element={<EnhancedProgramUI />} />
+        <Route path='/sql' element={<EnhancedQueryUI />} />
+        <Route path="/candidate/register/:companyId/:examId" element={<PublicRegister />} />
+        <Route path="/public-candidate/register/:companyId/:examId" element={<CandidateReg />} />
+        <Route path="/candidate/re-exam-request" element={<ReExamRequest />} />
         <Route path="/shortlisted-candidate-details/:candidateId" element={<ShortListedResultDetails />} />
         <Route path="/admin/result/candidate/details/:candidate_id" element={<CandidateResultDetails />} />
         <Route path="/admin/result/candidate/programResult/:candidate_id" element={<ProgramResult />} />
@@ -174,11 +223,25 @@ function App() {
             <Route path='/testadmin/grouptypes' element={<GroupTypesList />} />
             <Route path='/testadmin/setting' element={<SettingList />} />
           </Route>
+          <Route element={<RequireAuth allowedRoles={["COLLEGE_STUDENT", "COMPETITOR", "DEMO_ROLE"]} />}>
+            <Route path="/student" element={<StudentFirstTimeLogin />} />
+            <Route path="/student/profile" element={<StudentFirstTimeLogin />} />
+            <Route path="/student/student-test" element={<StudentTestList />} />
+            <Route path="/student/company-offer" element={<CompanyOffers />} />
+            <Route path="/student/student-practice-exam" element={<PracticeExamList />} />
+            <Route path="/student/advertisement" element={<AdvertisementPage />} />
+            <Route path='/competitor/testList' element={<StudentTestList />} />
+            <Route path='/competitor/update' element={<EnhancedCompetitorUpdate />} />
+            <Route path='/competitor/company-offer' element={<CompanyOffers />} />
+            <Route path='/competitor/test/takePicture' element={<TakePicture />} />
+            <Route path='/competitor/test/selectTech' element={<SelectTech />} />
+          </Route>
         </Route>
+
       </Routes>
       <ToastContainer position="top-right" hideProgressBar={true} newestOnTop={true}
         autoClose={1700} />
-    </>
+    </Suspense>
   );
 
 }

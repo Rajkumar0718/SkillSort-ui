@@ -3,7 +3,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { authHeader, errorHandler } from '../../api/Api';
 import { fallBackLoader, toastMessage, ToggleStatus } from '../../utils/CommonUtils';
-import  url  from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 
 const MAIN_COLORS = ["#3B489E", "#F05A28"];
@@ -11,14 +11,14 @@ const SHADE_COLORS = ["#F5F6FF", "#FFF7F5"];
 const USER_STATUS = [{ name: 'ACCEPTED', color: 'green' }, { name: 'DECLINED', color: 'red' }];
 
 const CompanyOffers = () => {
-    const [editCompany, setEditCompany] = useState({});
-    const [selectCompany, setSelectCompany] = useState({});
-    const [offeredCompanies, setOfferedCompanies] = useState([]);
-    const [showOfferContent, setShowOfferContent] = useState(false);
-    const [role, setRole] = useState(isRoleValidation());
-    const [base64CompanyLogo, setBase64CompanyLogo] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [interviewStatus, setInterviewStatus] = useState(false);
+  const [editCompany, setEditCompany] = useState({});
+  const [selectCompany, setSelectCompany] = useState({});
+  const [offeredCompanies, setOfferedCompanies] = useState([]);
+  const [showOfferContent, setShowOfferContent] = useState(false);
+  const [role, setRole] = useState(isRoleValidation());
+  const [base64CompanyLogo, setBase64CompanyLogo] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [interviewStatus, setInterviewStatus] = useState(false);
 
   useEffect(() => {
     getOfferedCompanies();
@@ -170,22 +170,23 @@ const CompanyOffers = () => {
                         {company.userResponseStatus}
                       </span> :
                       <span className='dropdown' style={{ marginLeft: '0.5rem' }}>
-                        <span
+                        <button
                           type="button"
                           id="dropdownMenuButton"
-                          data-toggle="dropdown"
+                          data-bs-toggle="dropdown"
                           aria-haspopup="true"
                           aria-expanded="false"
+                          style={{border:'none',backgroundColor:'inherit'}}
                         >
                           <span>
                             {editCompany.companyId === company.companyId ?
                               editCompany.userResponseStatus || "Update status" : "Update status"}
                             <i style={{ marginLeft: "0.5rem" }} className="fa fa-caret-down" aria-hidden="true"></i>
                           </span>
-                        </span>
+                        </button>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           {USER_STATUS.map((v) =>
-                            <option
+                            <button
                               key={v.name}
                               className="dropdown-item"
                               style={{ color: v.color }}
@@ -193,9 +194,11 @@ const CompanyOffers = () => {
                               value={v.name}
                             >
                               {v.name}
-                            </option>)}
+                            </button>
+                          )}
                         </div>
                       </span>
+
                     }
                   </div>
                   <div style={{ marginBottom: "0.5rem" }}>Comment :</div>

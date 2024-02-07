@@ -104,12 +104,10 @@ export default class QueryUi extends Component {
       let indx = _.findIndex(currentCatQuestion.categories, { 'sectionName': 'PROGRAMMING' });
       this.setState({ programCategory: currentCatQuestion.categories[indx] });
       this.setState({ questions: questionsFlatten, examQuestions: res.data.response, currentQuestion: questionsFlatten[this.state.questionIndex].question, queryHasCamera: res.data.response.isSqlCamera }, 
-        () => { 
-              this.setInput(); 
-              this.checkCameraAndGetScreenShotTime();
-              this.setInput(() =>{
-                this.saveOnGoingExam();
-              })
+         async () => { 
+              await this.setInput(); 
+              await this.checkCameraAndGetScreenShotTime();
+              this.saveOnGoingExam()
              });
     })
   }

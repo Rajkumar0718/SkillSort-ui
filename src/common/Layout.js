@@ -1,15 +1,15 @@
-import { Suspense, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import ZZ5H from "../assests/images/SVKl-unscreen.gif";
+import { isRoleValidation } from "../utils/Validation";
 import Breadcrumbs from "./Breadcrumb";
 import Header from "./Header";
 import TestingSidebar from "./TestingSideBar";
-import { isRoleValidation } from "../utils/Validation";
 
 export const Layout = () => {
   const [showSidenav, setShowSidenav] = useState(false);
   const navigate = useNavigate();
   const role = useMemo(() => isRoleValidation())
+  const dontShowBreadCrumbs = ["COLLEGE_STUDENT","COMPETITOR","DEMO_ROLE"]
 
   const toggleButtonClicked = () => {
     setShowSidenav(!showSidenav);
@@ -38,25 +38,9 @@ export const Layout = () => {
             showSidenav={showSidenav}
           />
           <div style={{ margin: "25px 0px 0px 25px" }}>
-            {role === 'COLLEGE_STUDENT' ? <></> : <Breadcrumbs />}
+            {dontShowBreadCrumbs.includes(role) ? <></> : <Breadcrumbs />}
             <div className="container-fluid">
-              <Suspense
-                fallback={
-                  <div
-                    className="animated fadeIn pt-1"
-                    style={{ position: "fixed", top: "40%", left: "45%" }}
-                  >
-                    <img
-                      src={ZZ5H}
-                      width={150}
-                      height={150}
-                      alt="loading"
-                    ></img>
-                  </div>
-                }
-              >
                 <Outlet />
-              </Suspense>
             </div>
           </div>
         </div>

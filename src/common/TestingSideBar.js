@@ -42,7 +42,7 @@ export default class TestingSidebar extends Component {
 
   componentDidMount() {
     const role = isRoleValidation();
-    this.setState({ role: role }, this.setEventListener)
+    this.setState({ role: role === 'DEMO_ROLE' ? 'COMPETITOR': role}, this.setEventListener)
     document.addEventListener("mousedown", this.handleClickOutside);
   }
 

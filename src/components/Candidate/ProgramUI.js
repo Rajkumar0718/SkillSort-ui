@@ -113,6 +113,7 @@ export default class ProgramUi extends Component {
     }
 
     componentDidMount() {
+        this.codeSaved = false;
         window.addEventListener("unload", this.handleEventTrackForAbondedExam);
         window.addEventListener("blur", this.getTabSwitchCount);
         window.addEventListener("keydown", this.handleKeyDown);
@@ -137,7 +138,11 @@ export default class ProgramUi extends Component {
                     },
                     async () => {
                         await this.setInput()
-                        this.saveCode(false)
+                        if (!this.codeSaved) {
+                            this.saveCode(false);
+                            // Set the flag to true after saving the code
+                            this.codeSaved = true;
+                        }
                      
                     }
                 );
