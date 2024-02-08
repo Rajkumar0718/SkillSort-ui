@@ -230,7 +230,7 @@ export default class SettingList extends Component {
                 type="button"
                 onClick={this.onClickOpenModel}
                 className="btn btn-sm btn-nxt float-right"
-                style={{ marginTop: "5px" }}
+                style={{ marginTop: "5px"  , position:'absolute' , right:'2rem'}}
               >
                 Add Setting
               </button>

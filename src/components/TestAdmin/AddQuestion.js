@@ -201,24 +201,37 @@ class AddQuestion extends Component {
   }
 
   componentDidMount() {
-    let AllowedTestCase = isRoleValidation() === "TEST_ADMIN" ? 5 : 4;
-    this.setState(prevState => ({
-      testCase: [...prevState.testCase, ...Array.from({ length: AllowedTestCase }, () => ({
-        values: {}, output: '',
-      }))]
-    }));
-    this.setQuestions()
-    axios.get(` ${url.ADMIN_API}/section/list?sectionRoles=CANDIDATE&status=${'ACTIVE'}&page=${1}&size=${100}`, { headers: authHeader() })
-      .then(res => {
-        let selectSection = [];
-        for (let key in res.data.response.content) {
-          selectSection.push(res.data.response.content[key]['name']);
-        }
-        this.setState({ selectSection: selectSection, masterSection: selectSection }, () => this.setSelectedSection(this.state?.questionObject?.questionType));
-      }).catch(error => {
-        errorHandler(error);
-      })
-    this.getGroupType()
+    if (!this.state.hasMounted) {
+      let AllowedTestCase = isRoleValidation() === "TEST_ADMIN" ? 5 : 4;
+
+      // Your code here
+      this.setState(prevState => ({
+        testCase: [...prevState.testCase, ...Array.from({ length: AllowedTestCase }, () => ({
+          values: {},
+          output: ''
+        }))]
+      }), () => {
+        this.setQuestions();
+        axios.get(`${url.ADMIN_API}/section/list?sectionRoles=CANDIDATE&status=ACTIVE&page=1&size=100`, {
+          headers: authHeader()
+        })
+        .then(res => {
+          let selectSection = Object.values(res.data.response.content).map(item => item.name);
+          this.setState({
+            selectSection: selectSection,
+            masterSection: selectSection
+          }, () => this.setSelectedSection(this.state?.questionObject?.questionType));
+        })
+        .catch(error => {
+          errorHandler(error);
+        });
+        this.getGroupType();
+      });
+
+      this.setState({
+        hasMounted: true
+      });
+    }
   }
 
   getGroupType = () => {
@@ -707,7 +720,7 @@ class AddQuestion extends Component {
         {i < 7 ?
           <Grid container spacing={2} style={{ marginLeft: '10px', marginBottom: '10px' }}>
             <Grid item sm={6}>
-              <div key={"dataType" + i} style={{ marginBottom: '10px' }}>
+              <div key={"dataType" + i} style={{ marginBottom: '10px' , marginTop:'10px' }}>
                 <select className='profile-page' name='dataType' required style={{ background: 'none' }}
                   value={el.dataType || ''}
                   onChange={(e) => this.handleDataTypeChange(e, i)}>
@@ -723,6 +736,7 @@ class AddQuestion extends Component {
                 <div key={"name" + i}>
                   <input name="name" className="profile-page"
                     placeholder='Parameter Name'
+                    style={{marginTop:'12px'}}
                     value={el.name || ''}
                     onChange={(e) => this.handleDataTypeChange(e, i)}
                     autoComplete="off" />
@@ -1295,7 +1309,7 @@ class AddQuestion extends Component {
                                 </div>
                               </div>
                               {this.createDynamicAddingData()}
-                              <div className='row' style={{ marginLeft: '10px', marginBottom: '10px' }}>
+                              <div className='row' style={{ marginLeft: '10px', marginBottom: '10px' , marginTop:'10px' }}>
                                 <div className='col-6 col-lg-6 col-sm-6 col-xl-6'>
                                   <button type='button' className="btn btn-primary" onClick={() => this.generateProgramCode()}>Generate Code</button>
                                 </div>

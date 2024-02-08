@@ -3,8 +3,6 @@ import axios from "axios";
 import _ from "lodash";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Tooltip } from 'react-tooltip';
-
 import { authHeader, errorHandler } from "../../api/Api";
 import ChipsArray from "../../utils/ChipsArray";
 import { CustomTable } from "../../utils/CustomTable";
@@ -13,6 +11,23 @@ import Pagination from "../../utils/Pagination";
 import { isRoleValidation } from "../../utils/Validation";
 import ExamMailModel from "../Admin/ExamMailModel";
 import url from "../../utils/UrlConstant";
+import { styled } from '@mui/material/styles';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+
+
+const HtmlTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: '#fab35f',
+    color: 'black',
+    maxWidth: 500,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9',
+    padding: 20,
+    lineHeight: 2
+  },
+}));
 
 export default class Question extends Component {
   constructor(props) {
@@ -51,13 +66,13 @@ export default class Question extends Component {
   setChipperData = () => {
     let chipperData = [];
     const chipKeys = ['questionType', 'section', 'difficulty']
-    if(this.state.status === 'INACTIVE') {
+    if (this.state.status === 'INACTIVE') {
       chipKeys.push('status')
     }
     let keys = Object.keys(this.state);
     _.map(keys, (name) => {
       if ((chipKeys.includes(name) && this.state[name])) {
-          chipperData.push({ label: name, value: name === 'questionType' ? "Question Type" : name })
+        chipperData.push({ label: name, value: name === 'questionType' ? "Question Type" : name })
       }
     })
     _.map(chipperData, (chip, index) => {
@@ -98,9 +113,9 @@ export default class Question extends Component {
   }
 
   handleDeleteChip = (data) => {
-    if(data.label === 'status') {
+    if (data.label === 'status') {
       return this.handleStatusFilters('ACTIVE')
-    } 
+    }
     this.handleChange(data.label, "");
   }
 
@@ -127,6 +142,25 @@ export default class Question extends Component {
     this.getSections()
   }
 
+  getContent = (question, index) => {
+    return (
+      <>
+        <div className="questionAdmin">
+          <div>Question:</div>
+          <div className={"questionSubdiv" + index} dangerouslySetInnerHTML={{ __html: this.state.tooltipQuestion }}></div>
+        </div>
+        <div className="questionAdmin">
+          <div>Options:</div> {_.map(question.options, (list) => <div className="quesOption">
+            <div className="row">
+              <div>{list.name + " : " + list.value}</div>
+              {/* <div>{list.value}</div> */}
+            </div> </div>)}
+        </div>
+        <div className="questionAdmin">Answer: {question.answer}</div>
+      </>
+    )
+  }
+
   setTableJson = () => {
     const headers = [{
       name: 'S.NO',
@@ -139,32 +173,22 @@ export default class Question extends Component {
       key: 'section',
       renderOptions: () => _.map(this.state.sections, section => (
         <CustomMenuItem key={section} onClick={() => this.handleChange('section', section)}
-         value={section}>{section}</CustomMenuItem>))
+          value={section}>{section}</CustomMenuItem>))
     }, {
       name: 'QUESTION',
       align: 'left',
       key: 'question',
       renderCell: (question, index) => {
-        return (<>
-          <div data-tip data-for={"questionTip" + index}
-            onMouseEnter={() => this.setQuestionForTooltip(question.question)}>
-            {question.question.slice(0, 50).replace(/(<([^>]+)>)/ig, '')}
-          </div>
-          <Tooltip id={"questionTip" + index} place="top"
-            // effect="solid"
-            type="warning"
-          >
-            <div className="questionAdmin">
-              <div>Question:</div>
-              <div className={"questionSubdiv" + index} dangerouslySetInnerHTML={{ __html: this.state.tooltipQuestion }}></div>
-            </div>
-            <div className="questionAdmin">
-              <div>Options:</div> {_.map(question.options, (list) => <div className="quesOption"> <div className="row">
-                <div>{list.name}</div>&nbsp;:&nbsp; <div>{list.value}</div></div> </div>)}
-            </div>
-            <div className="questionAdmin">Answer: {question.answer}</div>
-          </Tooltip>
-        </>)
+        return (
+          <>
+            <HtmlTooltip title={this.getContent(question, index)}>
+              <div data-tip data-for={"my-tooltip"}
+                onMouseEnter={() => this.setQuestionForTooltip(question.question)}>
+                {question.question.slice(0, 50).replace(/(<([^>]+)>)/ig, '')}
+              </div>
+            </HtmlTooltip>
+          </>
+        )
       }
     }, {
       name: 'QUESTION TYPE',
@@ -181,7 +205,7 @@ export default class Question extends Component {
       key: 'difficulty',
       isFilter: true,
       renderOptions: () => _.map(this.state.selectDifficulty, difficulty => (
-        <CustomMenuItem  key={difficulty} value={difficulty}
+        <CustomMenuItem key={difficulty} value={difficulty}
           onClick={() => this.handleChange('difficulty', difficulty)}>
           {difficulty} </CustomMenuItem>))
     },
@@ -191,7 +215,7 @@ export default class Question extends Component {
       isFilter: true,
       key: 'status',
       renderOptions: () => {
-       return _.map([{name:'Active',value:'ACTIVE'},{name:'InActive',value:'INACTIVE'}], opt =><MenuItem  onClick={() => this.handleStatusFilters(opt.value)} key={opt.value} value={opt.value}>{opt.name}</MenuItem>)
+        return _.map([{ name: 'Active', value: 'ACTIVE' }, { name: 'InActive', value: 'INACTIVE' }], opt => <MenuItem onClick={() => this.handleStatusFilters(opt.value)} key={opt.value} value={opt.value}>{opt.name}</MenuItem>)
       }
     },
     {
@@ -201,8 +225,8 @@ export default class Question extends Component {
         return (
           <Link className="collapse-item"
             to={isRoleValidation() === "TEST_ADMIN" ? "/testadmin/question/edit" : "/admin/questions/edit"}
-            state= {{ questions: params, action: "Update", difficulty: this.state.difficulty, section: this.state.section, questionType: this.state.questionType, status: this.state.status }}
-            >
+            state={{ questions: params, action: "Update", difficulty: this.state.difficulty, section: this.state.section, questionType: this.state.questionType, status: this.state.status }}
+          >
             <i className="fa fa-pencil" style={{ cursor: 'pointer', color: '#3B489E' }} aria-hidden="true"></i>
           </Link>
         )

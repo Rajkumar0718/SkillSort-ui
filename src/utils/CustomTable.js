@@ -29,7 +29,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     paddingLeft: '2px !important',
     paddingTop: '7px !important',
     paddingBottom: '7px !important',
-    lineHeight: '1', // Adjust the line height as needed
+    lineHeight: '1.5', // Adjust the line height as needed
 
   },
 }));
@@ -97,8 +97,15 @@ export const CustomTable = (props) => {
               } else if (keys.key?.includes(".")) {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{splitDotsAndJoin(keys.key, row)}</StyledTableCell>
               } else if (keys['isFilter']) {
-                return <StyledTableCell style={{ color: row[keys.key] === 'ACTIVE' ? 'green' : 'red' }} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
-              } else {
+                return <StyledTableCell style={{ color: row[keys.key] === 'ACTIVE' ? 'green' : row[keys.key] === 'INACTIVE' ?'red':'' }} align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
+              }
+              else if (keys.key?.toUpperCase() === 'DURATION') {
+                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{getDuration(row)}</StyledTableCell>
+              }
+              else if (keys.key?.toUpperCase() === 'CATEGORIES') {
+                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{_.size(row[keys.key])}</StyledTableCell>
+              }              
+               else {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key]}</StyledTableCell>
               }
             })}
