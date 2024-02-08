@@ -166,6 +166,7 @@ function App() {
             <Route path="/skillsortadmin/add" element={<AddProcessAdmin />} />
             <Route path="/report/advance-search" element={<AdvSearch />} />
             <Route path="/report/activity-dashboard" element={<Signupcount />} />
+
           </Route>
         </Route>
         <Route path="/" element={<Layout />}>
@@ -245,8 +246,6 @@ function App() {
   );
 
 }
-
-
 
 
 export default App;

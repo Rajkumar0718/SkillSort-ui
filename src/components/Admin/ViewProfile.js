@@ -3,13 +3,12 @@ import React from "react";
 import Carousel from "react-material-ui-carousel";
 // import '../../assests/css/SuperAdminDashboard.css'
 
-export default function
-ViewProfile(props) {
+export default function ViewProfile(props) {
 
   const viewCarousel = () => {
     return (
       <Carousel autoPlay navButtonsAlwaysVisible>
-        {_.map(props.certificateData, (item) =>
+        {_.map(props?.certificateData, (item) =>
           <div key={item} style={{ padding: '0 4rem 0 4rem', margin: 'auto' }}>
             <iframe title='profile' src={item?.preSignedUrl} style={{ width: '100%', height: 'calc(100vh - 12rem)' }}></iframe>
           </div>
@@ -28,9 +27,9 @@ ViewProfile(props) {
           <div className="row" style={{ margin: '10px' }}>
             <div className="col-md">
               {
-                props.type === 'resume' ?
-                  <iframe title="Profile" src={props.pdfData} style={{ width: '100%', height: 'calc(100vh - 7.5rem)', border: 'none' }} /> : props?.certificateData?.length === 1 ?
-                    <iframe title="Profile" src={props.certificateData[0].preSignedUrl} style={{ width: '100%', height: 'calc(100vh - 12rem)', border: 'none' }} /> : viewCarousel()
+                props?.type === 'resume' ?
+                  <iframe title="Profile" src={props?.pdfData} style={{ width: '100%', height: 'calc(100vh - 12.5rem)', border: 'none' }} /> : props?.certificateData?.length === 1 ?
+                    <iframe title="Profile" src={props?.certificateData[0].preSignedUrl} style={{ width: '100%', height: 'calc(100vh - 12rem)', border: 'none' }} /> : viewCarousel()
               }
             </div>
           </div>

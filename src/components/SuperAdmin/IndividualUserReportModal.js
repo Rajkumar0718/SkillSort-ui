@@ -4,7 +4,7 @@ import moment from "moment";
 import React, { Component } from 'react';
 import { authHeader, errorHandler } from "../../api/Api";
 import ExportXlsx from "../../utils/ExportXlsx";
-import url from "../../utils/UrlConstant";
+import  url  from "../../utils/UrlConstant";
 import RenderModalBody from "../../common/RenderModalBody";
 
 
@@ -327,8 +327,10 @@ export default class IndividualUserReportModal extends Component {
                             className="modal-header"
                             style={{ border: "none", height: "3rem" }}
                         >
-                            {this.state.toggleClick ? "" : <span>options </span>}
-                            <i onClick={this.togleOption} style={{ fontSize: '1.5rem', marginLeft:'-42rem', marginRight: this.state.toggleClick ? _.size(this.state.individualUser) > 0 ? '45rem' : '54rem' : null }} className="fa fa-filter" aria-hidden="true"></i>
+                            <div>
+                            {this.state.toggleClick ? "" : <span style={{marginRight: '12rem'}}>options </span>}
+                            <i onClick={this.togleOption} style={{ fontSize: '1.5rem', marginRight: this.state.toggleClick ? _.size(this.state.individualUser) > 0 ? '45rem' : '54rem' : null }} className="fa fa-filter" aria-hidden="true"></i> 
+                            </div>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 {_.size(this.state.individualUser) > 0 ? (
                                     <button
@@ -352,7 +354,7 @@ export default class IndividualUserReportModal extends Component {
                             </div>
                         </div>
                         <RenderModalBody
-                            onChange={this.onChange}
+                            onChange={this.handleChange}
                             report={this.state.report}
                             numberOfElements={this.state.numberOfElements}
                             totalPages={this.state.totalPages}

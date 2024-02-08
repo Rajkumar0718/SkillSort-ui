@@ -120,36 +120,13 @@ const PlanMaster = () => {
         },
         renderCell: (params) => {
           return (
-            // params?.status === 'INACTIVE' ?
+         
             <>
               <ToggleStatus checked={params?.status === 'ACTIVE'} onChange={(e) => togglePlan(e, params)} />
               <span className={showActive === 'INACTIVE' ? 'text-danger' : 'text-success'}>
                 {showActive}
               </span>
             </>
-            // <div style={{display: 'flex', alignItems: 'center'}}>
-            //   <SwitchItem
-            //   checked={params?.status === 'ACTIVE'}
-            //   onChange={() => togglePlan(params)}
-            //   inputProps={{ 'aria-label': 'controlled' }}
-            //   />
-            // <span className={showActive === 'INACTIVE' ? 'text-danger' : 'text-success'}>
-            //     {showActive}
-            //   </span>
-            // </div>
-            // :
-            // <div style={{display: 'flex', alignItems: 'center'}}>
-            //   <Switch
-            //   checked={params?.status === 'ACTIVE'}
-            //   onChange={() => togglePlan(params)}
-            //   color={params?.status === 'ACTIVE' ? 'success' : 'default'}
-            //   inputProps={{ 'aria-label': 'controlled' }}
-            //   />
-            //   <span className={showActive === 'ACTIVE' ? 'text-success' : 'text-danger'}>
-            //       {showActive}
-            //     </span>
-            // </div>
-
           );
         }
       },
