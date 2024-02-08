@@ -361,7 +361,7 @@ export default class ExamList extends Component {
               )}
             </div>
           </div> */}
-          <CustomTable headers={this.state.headers} data={this.state.exams} pageSize={this.state.pageSize} currentPage={this.state.currentPage} />
+          <CustomTable headers={this.state.headers} data={this.state.exams} pageSize={this.state.pageSize} currentPage={this.state.currentPage} style ={{width:'97%' , marginLeft:'18px'}} />
           {this.state.numberOfElements === 0 ? '' :
                     <Pagination
                       totalPages={this.state.totalPages}

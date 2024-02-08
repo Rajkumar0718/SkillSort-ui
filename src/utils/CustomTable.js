@@ -119,7 +119,7 @@ export const CustomTable = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <TableContainer style={{ overflowX: 'inherit', width: '100%' }}>
+      <TableContainer style={{ overflowX: 'inherit', ...props?.style }}>
         <Table
           size="small"
           aria-label="a dense table"
