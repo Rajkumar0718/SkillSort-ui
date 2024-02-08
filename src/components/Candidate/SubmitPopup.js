@@ -6,9 +6,14 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function SubmitPopup(props) {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const handleSubmit = () => {
+        props.submit(); 
+        setIsSubmitting(true); 
+    };
     return (
         <Dialog
             open={true}
@@ -35,7 +40,7 @@ export default function SubmitPopup(props) {
                     {!localStorage.getItem("practiceExamId") ? "Once the test has been submitted it can't be re-taken, Make sure you have attended all the questions." : "Thank you for taking practice Exam, Make sure you have attended all the questions."}
                 </DialogContentText>
                 <DialogActions>
-                    <button className="btn btn-sm btn-nxt" onClick={props.submit}>Yes</button>
+                    <button className="btn btn-sm btn-nxt" onClick={handleSubmit} disabled={isSubmitting}>Yes</button>
                     <button className="btn btn-sm btn-prev" onClick={props.close}>No</button>
                 </DialogActions>
             </DialogContent>

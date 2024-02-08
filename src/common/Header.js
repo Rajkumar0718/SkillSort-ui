@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { authHeader, getCurrentUser } from '../api/Api';
 import LOGO from '../assests/images/LOGO.svg';
@@ -7,17 +7,20 @@ import DEMO from '../assests/images/admin.png';
 import { toastMessage } from '../utils/CommonUtils';
 import url from '../utils/UrlConstant';
 import './Common.css';
+import { isRoleValidation } from '../utils/Validation';
+import { Badge } from '@mui/material';
+import _ from 'lodash';
 
 function Header(props) {
   const [candidates, setCandidates] = useState([]);
   const location = useLocation();
   const pathname = location.pathname;
 
-  // useEffect(() => {
-  //   if (isRoleValidation() === 'ADMIN' || isRoleValidation() === 'HR') {
-  //     getReexamCandidateCount();
-  //   }
-  // }, [location]);
+  useEffect(() => {
+    if (isRoleValidation() === 'ADMIN' || isRoleValidation() === 'HR') {
+      getReexamCandidateCount();
+    }
+  }, [location]);
 
   const getReexamCandidateCount = () => {
     let companyId = JSON.parse(localStorage.getItem('user')).companyId;
@@ -43,9 +46,9 @@ function Header(props) {
         <img className='header-logo' src={LOGO} alt='SkillSort' />
         <div className='header-right'>
           <div className='header-right-a'>
-            {/* {(isRoleValidation() === 'HR' || isRoleValidation() === 'ADMIN') &&
+            {(isRoleValidation() === 'HR' || isRoleValidation() === 'ADMIN') &&
             pathname !== '/admin/candidates' ? (
-              <Link to={{ pathname: '/admin/candidates', state: { candidates: candidates } }}>
+              <Link to='/admin/candidates' state= {{candidates: candidates } }>
                 <Badge color='secondary' badgeContent={_.size(candidates)}>
                   <i
                     className='fa fa-user-o'
@@ -55,7 +58,7 @@ function Header(props) {
                   ></i>
                 </Badge>
               </Link>
-            ) : null} */}
+            ) : null}
           </div>
           <hr className='vr' />
           <div className='header-right-a header-name-content'>

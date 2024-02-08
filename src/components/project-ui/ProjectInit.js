@@ -66,6 +66,7 @@ const MyComponent = ({ onGoingExam }) => {
     packageJson.dependencies[jsonName.name] = jsonName.version
     const updatedPackageJson = JSON.stringify(packageJson, null, 2);
     sandpack.updateFile('package.json', updatedPackageJson, true)
+    sandpack.openFile('/package.json')
     sandpack.runSandpack()
   }
 
