@@ -183,11 +183,13 @@ const sidebar = {
     name: 'College',
     isDefault: true,
     to: '/collegeadmin',
+    subPath: ['/collegeadmin/add', '/collegeadmin/edit'],
     icon: 'fa fa-building-o'
   }, {
     isSubMenu: false,
     to: '/collegeadmin/admin',
     name: 'College Admin',
+    subPath: ['/collegeadmin/admin/add', '/collegeadmin/admin/edit'],
     icon: 'fa fa-user-circle-o'
   },
   ],
@@ -202,13 +204,13 @@ const sidebar = {
     name: 'Company',
     isDefault: true,
     to: '/companyadmin',
-    subPath: ['/companyadmin/add'],
+    subPath: ['/companyadmin/add', '/companyadmin/edit'],
     icon: 'fa fa-building-o'
   }, {
     isSubMenu: false,
     to: '/companyadmin/admin',
     name: 'Company Admin',
-    subPath: ['/companyadmin/admin/add'],
+    subPath: ['/companyadmin/admin/add', '/companyadmin/admin/edit'],
     icon: 'fa fa-user-circle-o'
   }
   ],
@@ -263,21 +265,29 @@ const sidebar = {
     name: 'Process Admin',
     isDefault: true,
     to: '/skillsortadmin',
+    subPath: ['/skillsortadmin/add', '/skillsortadmin/edit'],
     icon: 'fa fa-user'
   }, {
     isSubMenu: false,
     to: '/skillsortadmin/testadmin',
     name: 'Activity Report',
+    subPath: ['/skillsortadmin/testadmin/add', '/skillsortadmin/testadmin/edit'],
     icon: 'fa fa-user-circle'
   }, {
     isSubMenu: false,
     to: '/skillsortadmin/advertisement',
     name: 'Advertisement',
+    subPath: ['/skillsortadmin/advertisement/add'],
     icon: 'fa fa-bullhorn'
   }
   ],
 
   "SUPER_ADMIN_SETTINGS": [{
+    isSubMenu: false,
+    to: "/home",
+    name: "HOME",
+    icon: 'fa fa-home'
+  }, {
     isSubMenu: false,
     to: "/settings",
     name: "Industry Type",
@@ -292,6 +302,7 @@ const sidebar = {
     isSubMenu: false,
     to: '/settings/practiceExam',
     name: 'PracticeExam',
+    subPath: ['/settings/practiceExam/addPracticeExam', '/settings/practiceExam/viewPracticeExam'],
     icon: 'fa fa-graduation-cap'
   }, {
     isSubMenu: false,
@@ -302,6 +313,7 @@ const sidebar = {
     isSubMenu: false,
     to: '/settings/test',
     name: 'Test',
+    subPath: ['/settings/test/addtest', '/settings/test/view'],
     icon: 'fa fa-th-list'
   }, {
     isSubMenu: false,
@@ -340,9 +352,9 @@ const sidebar = {
     isSubMenu: false,
     to: '/student/student-practice-exam',
     name: 'Practice Exam',
-    icon: () => <FaClipboard style={{ fontSize: '1.3rem', color: '#3b489e' }}/>,
-    isReactIcon:true
-  },{
+    icon: () => <FaClipboard style={{ fontSize: '1.3rem', color: '#3b489e' }} />,
+    isReactIcon: true
+  }, {
     isSubMenu: false,
     to: '/student/advertisement',
     name: 'Advertisement',
@@ -354,12 +366,12 @@ const sidebar = {
     to: "/competitor/testList",
     name: "Dashboard",
     icon: 'fa fa-home'
-  },{
+  }, {
     isSubMenu: false,
     to: "/competitor/company-offer",
     name: "Offered Companies",
     icon: 'fa fa-briefcase'
-  },{
+  }, {
     isSubMenu: false,
     to: "/competitor/update",
     name: "Profile",
@@ -381,14 +393,14 @@ const sidebar = {
     to: '/testadmin/grouptypes',
     name: 'GroupTypes',
     icon: 'fa fa-podcast'
-  },{
+  }, {
     isSubMenu: false,
     isDefault: true,
     to: '/testadmin/question',
     name: 'Questions',
     pathName: '/testadmin',
     icon: 'fa fa-question-circle-o'
-  },{
+  }, {
     isSubMenu: false,
     to: '/testadmin/setting',
     name: 'Setting',
