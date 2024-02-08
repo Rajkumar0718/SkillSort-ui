@@ -32,7 +32,7 @@ export default class ListHr extends Component {
 }
 
   componentDidMount() {
-    
+
     this.setTableJson();
     this.getHrList();
   }
@@ -115,7 +115,7 @@ export default class ListHr extends Component {
            align:'left',
            key:'email'
         },
-        
+
         {
            name:'PHONE NUMBER',
            align:'left',
@@ -175,68 +175,13 @@ export default class ListHr extends Component {
             buttonName="Add HR"
             showLink={true}
           />
-          <Search style={{marginLeft:0,
-           marginRight:0,
-           display :'flex',
-           alignItems:'center',
-           flexDirection:'row',
-           justifyContent:'space-between'}}
+          <Search
             title="Filter"
             showSearch={true}
             placeholder="search Hr by name, email, phone"
             onSearch={this.onSearch}
           ></Search>
-          {/* <div className="row">
-            <div className="col-md-12">
-              <div className="table-border">
-                <table className="table table-striped" style={{ textAlign: 'center' }}>
-                  <thead className="table-dark">
-                    <tr>
-                      <th>S.NO</th>
-                      <th style={{ textAlign: 'left' }}>Name</th>
-                      <th style={{ textAlign: 'left' }}>Qualification</th>
-                      <th style={{ textAlign: 'left' }}>Role</th>
-                      <th style={{ textAlign: 'left' }}>Email</th>
-                      <th>Phone Number</th>
-                      <th>
-                        <div className="dropdown">
-                          <div type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                            <span>STATUS </span> <i className="fa fa-filter" aria-hidden="true"></i>
-                          </div>
-                          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ fontSize: "13px", minWidth: "5rem" }} >
-                            <option className="dropdown-item" onClick={(e) => this.handleStatusFilter(e, "status")} value="ACTIVE" > Active </option>
-                            <option className="dropdown-item" onClick={(e) => this.handleStatusFilter(e, "status")} value="INACTIVE" > InActive </option>
-                          </div>
-                        </div>
-                      </th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.Hr?.length > 0 ?
-                      _.map(this.state.Hr, (Hr) => <tr>
-                        <td> {this.state.pageSize * this.state.currentPage - i--} </td>
-                        <td style={{ textAlign: 'left' }}>{Hr.userName}</td>
-                        <td style={{ textAlign: 'left' }}>{Hr.qualification}</td>
-                        <td style={{ textAlign: 'left' }}>{Hr.role?.replace("_"," ")}</td>
-                        <td style={{ textAlign: 'left' }}>{Hr.email}</td>
-                        <td>{Hr.phone}</td>
-                        <td className={Hr.status === "INACTIVE" ? "text-danger" : "text-success"} > {Hr.status} </td>
-                        <td>
-                          <Link className="collapse-item" to={{ pathname: "/admin/hr/edit", state: { Hr: Hr, action: "Update" }, }}>
-                            <i className="fa fa-pencil" aria-hidden="true"></i> </Link>
-                        </td>
-                      </tr>) : <tr className="text-center"> <td colspan="8">No data available</td> </tr>}
-                  </tbody>
-                </table>
-                {this.state.numberOfElements ? <Pagination totalPages={this.state.totalPages} currentPage={this.state.currentPage}
-                  onPagination={this.onPagination} increment={this.increment} decrement={this.decrement} startPage={this.state.startPage}
-                  numberOfElements={this.state.numberOfElements} endPage={this.state.endPage} totalElements={this.state.totalElements}
-                  pageSize={this.state.pageSize} /> : null}
-              </div>
-            </div>
-          </div> */}
-           <CustomTable headers={this.state.headers} data={this.state.hr} pageSize={this.state.pageSize} currentPage={this.state.currentPage} style ={{width:'97%' , marginLeft:'18px'}}></CustomTable> 
+           <CustomTable headers={this.state.headers} data={this.state.hr} pageSize={this.state.pageSize} currentPage={this.state.currentPage} style ={{width:'97%' , marginLeft:'18px'}}></CustomTable>
            {this.state.numberOfElements ? <Pagination totalPages={this.state.totalPages} currentPage={this.state.currentPage}
                   onPagination={this.onPagination} increment={this.increment} decrement={this.decrement} startPage={this.state.startPage}
                   numberOfElements={this.state.numberOfElements} endPage={this.state.endPage} totalElements={this.state.totalElements}

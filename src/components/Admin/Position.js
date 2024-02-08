@@ -12,6 +12,7 @@ import _ from "lodash";
 import CustomCard from "../../utils/CustomCard";
 import PersonAddRoundedIcon from "@mui/icons-material/PersonAddRounded";
 
+
 const Position = () => {
   const [positions, setPositions] = useState([]);
   const [disabled, setDisabled] = useState(false);
@@ -155,7 +156,7 @@ const Position = () => {
         </div>
       ) : (
         <div>
-          <div style={{ display: "flex", alignItems: "center",justifyContent:'space-between' }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: 'space-between' }}>
             <TableHeader title="Vacancies" />
             {positions?.length === 0 ? (
               ""
@@ -185,19 +186,23 @@ const Position = () => {
           </div>
           <Search
             style={{
-              marginLeft: 0,
-              marginRight: 0,
-              display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'space-between'
-
+              backgroundColor: 'rgba(59, 72, 158, 0.3)',
+              padding: '0.60rem 1.25rem',
+              marginBottom: '0.5%',
+              color: '#111111',
+              height: '58px',
+              verticalAlign: '-webkit-baseline-middle',
+              borderRadius: '2px',
+              /* fontWeight: '600', */
+              marginLeft: '19.6px',
+              marginRight: '0px',
             }}
             title="Filter"
             showSearch={true}
-            placeholder="search by vacancy name"
+            placeholder="Search by vacancy name"
             onSearch={onSearch}
           />
+
           <div
             style={{
               marginLeft: "2rem",

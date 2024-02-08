@@ -15,9 +15,9 @@ function Search(props) {
   const onChange = (event) => {
     setSearch(event.target.value);
   }
-  
+
   return (
-      <div className="search">
+      <div className="search" style={props.style}>
         <div
           className="row"
           style={{

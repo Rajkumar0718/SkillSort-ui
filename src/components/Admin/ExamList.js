@@ -266,101 +266,25 @@ export default class ExamList extends Component {
             buttonName="Add Test"
             showLink={true}
           />
-          <Search style={{
-            marginLeft:0,
-           marginRight:0,
-           display :'flex',
-           alignItems:'center',
-           flexDirection:'row',
-           justifyContent:'space-between'
-          
-          }}
+          <Search
+           style={{
+              backgroundColor: 'rgba(59, 72, 158, 0.3)',
+              padding: '0.60rem 1.25rem',
+              marginBottom: '0.5%',
+              color: '#111111',
+              height: '58px',
+              verticalAlign: '-webkit-baseline-middle',
+              borderRadius: '2px',
+              /* fontWeight: '600', */
+              marginLeft: '19.6px',
+              marginRight: '19.6px',
+            }}
             title='Filter'
             showSearch={true}
             placeholder='search Test by name'
             onSearch={this.onSearch}
 
           ></Search>
-          {/* <div className="row">
-            <div className="col-md-12">
-              {fallBackLoader(this.state.loader)}
-              <div className="table-border">
-                <div className="table-responsive pagination_table">
-                  <table className="table table-striped">
-                    <thead className="table-dark">
-                      <tr>
-                        <th className='col-lg-1 col-sm-1 col-md-1 col-1' style={{ textAlign: 'center' }}>S.No</th>
-                        <th className='col-lg-3 col-sm-2 col-md-2 col-2' style={{ textAlign: 'left' }}>Name</th>
-                        <th className='col-lg-2 col-sm-2 col-md-2 col-2'>Duration</th>
-                        <th className='col-lg-2 col-sm-2 col-md-2 col-2'>Section</th>
-                        <th className='col-lg-2 col-sm-2 col-md-2 col-2'>
-                          <div className="row">
-                            Status
-                            <div className="col-sm">
-                              <div className="dropdown">
-                                <div
-                                  className="dropdown-toggle"
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-toggle="dropdown"
-                                  aria-haspopup="true"
-                                  aria-expanded="false"
-                                >
-                                  <i className="fa fa-filter" aria-hidden="true"></i>
-                                </div>
-                                <div
-                                  className="dropdown-menu"
-                                  aria-labelledby="dropdownMenuButton"
-                                  style={{ fontSize: '13px', minWidth: '5rem !important' }}
-                                >
-                                  <option
-                                    className="dropdown-item"
-                                    onClick={(e) =>
-                                      this.handleStatusFilter(e, "status")
-                                    }
-                                    value="ACTIVE"
-                                  >
-                                    Active
-                                  </option>
-                                  <option
-                                    className="dropdown-item"
-                                    onClick={(e) =>
-                                      this.handleStatusFilter(e, "status")
-                                    }
-                                    value="INACTIVE"
-                                  >
-                                    InActive
-                                  </option>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </th>
-                        <th className='col-lg-2 col-sm-2 col-md-2 col-2' style={{ textAlign: 'center', paddingLeft: '1rem' }}>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.renderTable()}
-                    </tbody>
-                  </table>
-          
-                </div>
-              </div>
-              {this.state.openModal ? (
-                <ExamMailModel
-                  modalSection={{
-                    type: "Email",
-                    exam: this.state.modalSection,
-                  }}
-                  onCloseModal={this.onCloseModal}
-                  mailModalSection={{ exam: this.state.modalSection }} onMailCloseModal={this.onMailCloseModal}
-                  remainingTest={_.sumBy(this.state.plans || [], p => p.residue || 0)}
-                />
-              ) : (
-                ""
-              )}
-            </div>
-          </div> */}
           <CustomTable headers={this.state.headers} data={this.state.exams} pageSize={this.state.pageSize} currentPage={this.state.currentPage} style ={{width:'97%' , marginLeft:'18px'}} />
           {this.state.numberOfElements === 0 ? '' :
                     <Pagination

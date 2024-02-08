@@ -5,26 +5,30 @@ import { authHeader } from "../../api/Api";
 import Search from '../../common/AdvanceSearch';
 import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import TableHeader from '../../utils/TableHeader';
-import url  from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 import '../Candidate/Styles.css'
+import { CustomTable } from '../../utils/CustomTable';
+import moment from 'moment/moment';
 class CandidateList extends Component {
 
   constructor(props) {
     const company = JSON.parse(localStorage.getItem('user'))
     super(props);
-    console.log(this.props.location?.state?.candidates)
     this.state = {
       searchValue: '',
       candidates: this.props.location?.state?.candidates || [],
       companyId: company.companyId,
     }
   }
+  componentDidMount() {
+    this.setTableJson();
+  }
 
   updateState = (candidate) => {
     const { history, location } = this.props;
-    const updatedState = { ...location.state, candidates: _.remove(this.state.candidates,c=>c.id === candidate.id)};
-    history.replace({ ...location, state: updatedState });
+    const updatedState = { ...location.state, candidates: _.remove(this.state.candidates, c => c.id === candidate.id) };
+    this.props.navigate({ ...location, state: updatedState }, { replace: true });
   }
 
 
@@ -66,29 +70,62 @@ class CandidateList extends Component {
     }
     return (dt + '/' + month + '/' + year);
   }
+  setTableJson = () => {
+    const headers = [
+      {
+        name: "S.NO",
+        align: "center",
+        key: "S.NO",
+      },
+      {
+        name: "NAME	",
+        align: "left",
+        renderCell: (params) => {
+          return `${params.firstName} ${params.lastName}`;
+        },
+      },
 
+      {
+        name: "EMAIL",
+        align: "left",
+        key: "email",
+      },
 
-  renderTable = () => {
-    return this.state.candidates?.length > 0 ? _.map(this.state.candidates, (candidate, index) => {
-      return (
-        <tr>
-          <td style={{textAlign: 'center'}}>{index + 1}</td>
-          <td style={{ textTransform: 'capitalize', textAlign: 'left' }}>{candidate.firstName} {candidate.lastName}</td>
-          <td style={{ textAlign: 'left' }}>{candidate.email}</td>
-          <td>{candidate.phone}</td>
-          <td>{this.toDate(candidate.lastExamDate)}</td>
-          <td>{candidate.requestedExamName}</td>
-          {isRoleValidation() !== 'HR' ? <td>
-            <div className='row'>
-                <button type='button' className='col-2 btn-prev btn-sm' onClick={() => this.acceptOrReject(candidate, "ACCEPT")} style={{marginRight:".5rem"}}>&#10003; Permit</button>
-                <button type='button' className='col-2 btn-nxt btn-sm' onClick={() => this.acceptOrReject(candidate, "REJECT")}>&#10007; Reject</button>
+      {
+        name: "PHONE",
+        align: "center",
+        key: "phone"
+      },
+      {
+        name: "Last Exam Date",
+        align: "center",
+        renderCell: (params) => {
+          return moment(params).format("DD-MM-YYYY");
+        },
+      },
+
+      {
+        name: "Requested Exam",
+        align: "center",
+        renderCell: (params) => {
+          return moment(params).format("DD-MM-YYYY");
+        },
+      },
+      {
+        align: "center",
+        renderCell: (params) => (
+          isRoleValidation() !== 'HR' ? (
+            <div className='row' style={{ position: "relative", left: "3rem" }}>
+              <button type='button' className='col-2 btn-prev btn-sm' onClick={() => this.acceptOrReject(params, "ACCEPT")} style={{ marginRight: ".5rem" }}>&#10003; Permit</button>
+              <button type='button' className='col-2 btn-nxt btn-sm' onClick={() => this.acceptOrReject(params, "REJECT")}>&#10007; Reject</button>
             </div>
-          </td> : ''}
-        </tr>
-      );
-    }) : <tr className='text-center'><td colspan="7">NO DATA AVAILABLE</td></tr>
-  }
+          ) : null
+        ),
+      }
 
+    ];
+    this.setState({ headers: headers });
+  };
   render() {
     return (
       <main className="main-content bcg-clr">
@@ -108,20 +145,10 @@ class CandidateList extends Component {
             <div className="col-md-12">
               <div className="table-border">
                 <div className="table-responsive pagination_table">
-                  <table className="table table-striped">
-                    <thead className="table-dark-custom">
-                      <tr>
-                        <th style={{textAlign: 'center'}}>S.No</th>
-                        <th style={{ textAlign: 'left' }}>Name</th>
-                        <th style={{ textAlign: 'left' }}>Email</th>
-                        <th>Mobile</th>
-                        <th>Last Exam Date</th>
-                        <th>Requested Exam</th>
-                        {isRoleValidation() !== "HR" ? <th></th> : ""}
-                      </tr>
-                    </thead>
-                    <tbody>{this.renderTable()}</tbody>
-                  </table>
+                  <CustomTable
+                    headers={this.state.headers}
+                    data={this.state.candidates}
+                  />
                 </div>
               </div>
             </div>
