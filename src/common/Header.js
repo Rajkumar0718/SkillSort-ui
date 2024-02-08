@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { authHeader, getCurrentUser } from '../api/Api';
 import LOGO from '../assests/images/LOGO.svg';
 import DEMO from '../assests/images/admin.png';
-import { toastMessage } from '../utils/CommonUtils';
+import { toastMessage, withLocation } from '../utils/CommonUtils';
 import url from '../utils/UrlConstant';
 import './Common.css';
 import { isRoleValidation } from '../utils/Validation';
@@ -49,7 +49,7 @@ function Header(props) {
             {(isRoleValidation() === 'HR' || isRoleValidation() === 'ADMIN') &&
             pathname !== '/admin/candidates' ? (
               <Link to='/admin/candidates' state= {{candidates: candidates } }>
-                <Badge color='secondary' badgeContent={_.size(candidates)}>
+                <Badge color='secondary' badgeContent={_.size(candidates)} >
                   <i
                     className='fa fa-user-o'
                     aria-hidden='true'
@@ -57,7 +57,7 @@ function Header(props) {
                     style={{ fontSize: '1.4rem', color: 'white' }}
                   ></i>
                 </Badge>
-              </Link>
+                </Link>
             ) : null}
           </div>
           <hr className='vr' />
@@ -84,4 +84,4 @@ function Header(props) {
 }
 
 
-export default Header;
+export default withLocation(Header);

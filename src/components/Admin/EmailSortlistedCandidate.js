@@ -1,11 +1,24 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { CKEditor } from "@ckeditor/ckeditor5-react";
+import styled from 'styled-components';
 import { authHeader, errorHandler } from '../../api/Api';
 import { fallBackLoader, toastMessage } from '../../utils/CommonUtils';
-import  url  from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+const StyledCKEditorWrapper = styled.div`
+  .ck-editor__editable {
+    &.ck-rounded-corners.ck-editor__editable_inline.ck-focused {
+      overflow-y: auto;
+      height: 12rem;
+    }
+    &.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
+      overflow-y: auto;
+      height:  12rem;
+    }
 
-
+  }
+`;
 export default class EmailSortlistedCandidate extends Component {
     state = {
         loader: false,
@@ -96,6 +109,18 @@ export default class EmailSortlistedCandidate extends Component {
                                                 resize_enabled: false
                                             }}
                                         /> */}
+                                        <StyledCKEditorWrapper>
+                                            <CKEditor
+                                                content={this.state.message}
+                                                events={{
+                                                    "change": e => this.setState({ message: e.editor.getData() })
+                                                }}
+                                                config={{
+                                                    removePlugins: 'elementspath',
+                                                    resize_enabled: false
+                                                }}
+                                            />
+                                        </StyledCKEditorWrapper>
                                     </div>
                                     <div className="form-row">
                                     </div>
@@ -111,4 +136,4 @@ export default class EmailSortlistedCandidate extends Component {
         )
     }
 }
-  //ckeditor balance
+//ckeditor balance

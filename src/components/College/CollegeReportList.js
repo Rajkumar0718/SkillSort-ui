@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import _ from "lodash";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import SchoolIcon from "@mui/icons-material/School";
-import IconButton from "@mui/material/IconButton";
 import StudentPlacementreportModal from "./StudentPlacementreportModal";
 import Card from "../../common/Card";
 import StudentreportModal from "../SuperAdmin/StudentreportModel";
 const CollegeReportList = (props) => {
+  const [collegeId, setCollegeId] = useState((JSON.parse(localStorage.getItem("user")) || {}).companyId);
   const items = [
     {
       name: "Placement Report",
@@ -23,10 +23,11 @@ const CollegeReportList = (props) => {
       return (
         <StudentPlacementreportModal
           onCloseModal={() => onCloseModal("Placement Report")}
-        ></StudentPlacementreportModal>
+          collegeId={collegeId}
+        />
       );
     } else if (key === "Student") {
-      return <StudentreportModal></StudentreportModal>;
+      return <StudentreportModal onCloseModal={() => onCloseModal("Student")} collegeId={collegeId}/>;
     }
 
     return null;

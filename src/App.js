@@ -2,12 +2,14 @@ import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import { withLocation } from "./utils/CommonUtils";
-
+import TestResults from "./components/SuperAdmin/TestResults"
 import { CircleLoader } from "react-spinners";
 import 'react-toastify/dist/ReactToastify.css';
 import './assests/css/AdminDashboard.css';
 import Layout from "./common/Layout";
 import SuperAdminLayout from "./common/SuperAdminLayout";
+import CandidateList from "./components/Admin/CandidateList";
+import CandidateEdit from "./components/Admin/CandidateEdit";
 
 const AddExam = React.lazy(() => import("./components/Admin/AddExam"));
 const AddHr = React.lazy(() => import("./components/Admin/AddHr"));
@@ -85,8 +87,6 @@ const Dashboard = React.lazy(() => import("./components/TestAdmin/Dashboard"));
 const GroupTypesList = React.lazy(() => import("./components/TestAdmin/GroupTypesList"));
 const Question = React.lazy(() => import("./components/TestAdmin/Question"));
 const ProjectUi = React.lazy(() => import("./components/project-ui/ProjectUI"));
-
-
 const EnhancedCandidateInstruction = withLocation(CandidateInstruction);
 const EnhancedProgramUI = withLocation(ProgramUI)
 const EnhancedQueryUI = withLocation(QueryUi)
@@ -100,6 +100,7 @@ function App() {
         {/* Public Routes */}
         <Route index element={<AdminLogin />}></Route>
         <Route path="/login" element={<AdminLogin />} />
+        <Route path='/examResult/:candidateId' element={<TestResults />} />
         <Route element={<RequireAuth allowedRoles={["ROLE_CANDIDATE"]} />}>
           <Route path="/project" element={<ProjectUi />} />
         </Route>
@@ -184,9 +185,11 @@ function App() {
           </Route>
           <Route
             element={
-              <RequireAuth allowedRoles={["ADMIN"]} />
+              <RequireAuth allowedRoles={["ADMIN","HR","HR_MANAGER","TRIAL_ADMIN"]} />
             }
           >
+            <Route path="/admin/candidates/edit" element={<CandidateEdit />} />
+            <Route path="/admin/candidates" element={<CandidateList />} />
             <Route path="/admin/vacancy" element={<Position />} />
             <Route path="/admin/vacancy/history" element={<VacancyHistory />} />
             <Route path="/admin/vacancy/add" element={<PositionDetails />} />

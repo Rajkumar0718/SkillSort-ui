@@ -234,6 +234,8 @@ export default class StudentreportModal extends Component {
         const value = event.target.value;
         this.setState({ selectedYop: value, report: { ...this.state.report, yop: value } })
     }
+
+
     getCollege = () => {
         axios.get(` ${url.COLLEGE_API}/college/list?status=${'ACTIVE'}`, { headers: authHeader() })
             .then((res) => {
@@ -354,66 +356,12 @@ export default class StudentreportModal extends Component {
                         }
                     }
                 })
-                this.setState({ student: student, studentXlsx: studentXlsx })
+                this.setState({ student: student, studentXlsx: studentXlsx },() => console.log(student))
             }).catch((error) => {
                 errorHandler(error);
             });
     }
 
-
-    renderTable = () => {
-        let i = this.state.pageSize - 1;
-        return this.state.student.length > 0 ? (
-            _.map(this.state.student || [], (student, index) => {
-                let score = this.state.isSkillSortScorePresent ? this.state.skillSortscore[student.email] : null
-                return (
-                    <>
-                        <tr key={index}>
-                            <td className="col-lg-1" style={{ textAlign: 'center', fontSize: this.state.toggleClick ? null : '11px' }}>{this.state.pageSize * this.state.currentPage - i--}</td>
-                            <td className="col-lg-2" style={{ textAlign: 'left', textTransform: 'capitalize', fontSize: this.state.toggleClick ? null : '11px' }}>{`${student.firstName} ${student.lastName}`}</td>
-                            <td className="col-lg-2" style={{ textAlign: 'left', textTransform: 'captilize', fontSize: this.state.toggleClick ? null : '11px' }}>{student.email}</td>
-                            {isRoleValidation() === 'SUPER_ADMIN' ?
-                                <td style={{ textAlign: 'left', fontSize: this.state.toggleClick ? null : '11px' }} className="col-lg-3">{student.collegeName ? student.collegeName : student.college?.collegeName}</td> : null}
-                            <td className="col-lg-3" style={{ textAlign: 'left', fontSize: this.state.toggleClick ? null : '11px' }}>{student.department !== '' && student.department !== null ? student.department : "-"}</td>
-                            <td className="col-lg-1" style={{ textAlign: 'center', fontSize: this.state.toggleClick ? null : '11px' }}>{this.state.isSkillSortScorePresent ? score !== undefined && score !== null ? Math.round(score) : "-" : student.skillSortScore ? student.skillSortScore : '-'}</td>
-                        </tr>
-                    </>
-                );
-            })
-        ) : (
-            <tr className="text-center">
-                <td colspan="8">No data available in table</td>
-            </tr>
-        )
-
-    }
-
-    renderTableForCollege = () => {
-        let i = this.state.pageSize - 1;
-        return this.state.student.length > 0 ? (
-            _.map(this.state.student || [], (student, index) => {
-                let score = this.state.isSkillSortScorePresent ? this.state.skillSortscore[student.email] : null
-                return (
-                    <>
-                        <tr key={index}>
-                            <td className="col-lg-1" style={{ textAlign: 'center', fontSize: this.state.toggleClick ? null : '11px' }}>{this.state.pageSize * this.state.currentPage - i--}</td>
-                            <td className="col-lg-2" style={{ textAlign: 'left', textTransform: 'capitalize', fontSize: this.state.toggleClick ? null : '11px' }}>{`${student.firstName} ${student.lastName}`}</td>
-                            <td className="col-lg-3" style={{ textAlign: 'left', fontSize: this.state.toggleClick ? null : '11px' }}>{student.department !== '' && student.department !== null ? student.department : "-"}</td>
-                            <td className="col-lg-1" style={{ textAlign: 'center', fontSize: this.state.toggleClick ? null : '11px' }}>{student['LOGICAL REASONING']}</td>
-                            <td className="col-lg-1" style={{ textAlign: 'center', fontSize: this.state.toggleClick ? null : '11px' }}>{student['VERBAL ABILITY']}</td>
-                            <td className="col-lg-1" style={{ textAlign: 'center', fontSize: this.state.toggleClick ? null : '11px' }}>{student['NUMERICAL ABILITY']}</td>
-                            <td className="col-lg-1" style={{ textAlign: 'center', fontSize: this.state.toggleClick ? null : '11px' }}>{student['tech']}</td>
-                            <td className="col-lg-1" style={{ textAlign: 'center', fontSize: this.state.toggleClick ? null : '11px' }}>{this.state.isSkillSortScorePresent ? score !== undefined && score !== null ? Math.round(score) : "-" : student.skillSortScore ? student.skillSortScore : '-'}</td>
-                        </tr>
-                    </>
-                );
-            })
-        ) : (
-            <tr className="text-center">
-                <td colspan="8">No data available in table</td>
-            </tr>
-        )
-    }
 
     setSuperAdminHeader = () => {
         const header = [
@@ -598,6 +546,8 @@ export default class StudentreportModal extends Component {
                                 </button>
                             </div>
                         </div>
+
+
                         <RenderModalBody
                             onChange={this.onChange}
                             report={this.state.report}
@@ -614,7 +564,7 @@ export default class StudentreportModal extends Component {
                             increment={this.increment}
                             totalElements={this.state.totalElements}
                             colleges={this.state.colleges}
-                            headers={this.state.header}
+                            headers={this.state.headers}
                             superAdminHeader={this.state.superAdminHeader}
                             data={this.state.student}
                             selectedYop={this.state.selectedYop}
@@ -631,3 +581,5 @@ export default class StudentreportModal extends Component {
         );
     }
 }
+
+

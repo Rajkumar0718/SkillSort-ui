@@ -251,7 +251,7 @@ const Position = () => {
                     examId={positions[idx]?.examId || null}
                     remainingTest={_.sumBy(plans || [], (p) => p.residue || 0)}
                     positionObject={card}
-                    shortListed={setShortListedCount[card.id]}
+                    shortListed={shortListedCount[card.id]}
                   />
                 </Grid>
               ))}

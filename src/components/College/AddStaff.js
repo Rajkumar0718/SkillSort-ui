@@ -200,7 +200,7 @@ class AddStaff extends Component {
                         ))}
 
                         <div className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6">
-                          <div className="row" style={{ paddingLeft: "11px" }}>
+                          <div className="row"                                                                                                                                      >
                             <StatusRadioButton
                               handleChange={this.handleChange}
                               status={this.state.staff.status}

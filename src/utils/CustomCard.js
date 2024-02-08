@@ -225,10 +225,8 @@ function CustomCard({
                 />
                 {box.title !== "ShortListed Candidate" ? (
                   box?.link(examId, box.linkTag)
-                ) : shortListed ? (
-                  <Link to={shortListedCandi}>{shortListed}</Link>
-                ) : (
-                  <span style={{marginLeft:"13px"}}>0</span>
+                ): (
+                  <span style={{marginLeft:"13px"}}>{shortListed || 0}</span>
                 )}
               </Box>
             );
