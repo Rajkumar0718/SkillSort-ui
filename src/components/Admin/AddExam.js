@@ -1,22 +1,23 @@
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { TabContext } from '@mui/lab';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 import { Checkbox } from '@mui/material';
 import FormHelperText from '@mui/material/FormHelperText';
+import Tab from '@mui/material/Tab';
 import axios from 'axios';
 import ReactEcharts from "echarts-for-react";
 import _ from "lodash";
 import React, { Component } from 'react';
-import { Link} from 'react-router-dom';
-import TabPanel from '@mui/lab/TabPanel'
-import TabList from '@mui/lab/TabList';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Link } from 'react-router-dom';
 import { authHeader, errorHandler, getCurrentUser } from '../../api/Api';
-import { toastMessage, withLocation } from '../../utils/CommonUtils';
-import { isEmpty, isRoleValidation } from '../../utils/Validation';
 import CustomDatePick from '../../common/CustomDatePick';
-import SettingModel from './SettingModel';
-import { TabContext } from '@mui/lab';
-import Tab from '@mui/material/Tab';
+import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import url from '../../utils/UrlConstant';
+import { isEmpty, isRoleValidation } from '../../utils/Validation';
+import '../Candidate/Programming.css';
+import SettingModel from './SettingModel';
 
 class AddExam extends Component {
   constructor(props) {

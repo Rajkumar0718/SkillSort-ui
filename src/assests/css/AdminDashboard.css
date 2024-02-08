@@ -2395,3 +2395,7 @@ height: 272px !important;
 .vac-result span {
   margin-left: 0.5rem;
 }
+
+.ck-powered-by {
+  display: none;
+}
