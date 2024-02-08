@@ -12,7 +12,23 @@ import AutoComplete from '../../common/AutoComplete';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import StatusRadioButton from '../../common/StatusRadioButton';
+import styled from 'styled-components';
 
+
+
+const StyledCKEditorWrapper = styled.div`
+  .ck-editor__editable {
+    &.ck-rounded-corners.ck-editor__editable_inline.ck-focused {
+      overflow-y: auto;
+      height: 12rem;
+    }
+    &.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
+      overflow-y: auto;
+      height:  12rem;
+    }
+
+  }
+`;
 class PracticeExamTest extends Component {
   constructor(props) {
     super(props);
@@ -414,6 +430,7 @@ class PracticeExamTest extends Component {
                               <div className="mT-30">
                                 <label for="question"><b>Candidate Instruction </b><span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.candidateInstruction ? this.state.error.candidateInstructionMsg : null}</FormHelperText>
+                                <StyledCKEditorWrapper>
                                 <CKEditor
                                   editor={ClassicEditor}
                                   data={this.state.candidateInstruction || ""}
@@ -443,12 +460,14 @@ class PracticeExamTest extends Component {
                                       });
                                   }}
                                 />
+                                </StyledCKEditorWrapper>
                               </div>
                             </div>
-                            <div className='form-group col-12'>
+                            <div className='form-group col-12' style={{marginTop:'-5rem'}}>
                               <div className="mT-30">
                                 <label for="question"><b>Test Submit Message </b><span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.examSubmitMessage ? this.state.error.examSubmitMessageMsg : null}</FormHelperText>
+                                <StyledCKEditorWrapper>
                                 <CKEditor
                                   editor={ClassicEditor}
                                   data={this.state.examSubmitMessage || ""}
@@ -478,10 +497,11 @@ class PracticeExamTest extends Component {
                                       });
                                   }}
                                 />
+                                </StyledCKEditorWrapper>
                               </div>
                             </div>
 
-                            <div className="col-lg-6 col-6 col-sm-6 col-md-6">
+                            <div className="col-lg-6 col-6 col-sm-6 col-md-6" style={{marginTop:'-5rem'}}>
                               <div className="row" style={{ lineHeight: '2', marginTop: '3rem', marginLeft: '0.6rem' }}>
                                 <StatusRadioButton
                                   handleChange={this.handleChange}

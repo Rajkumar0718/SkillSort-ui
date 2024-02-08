@@ -16,8 +16,23 @@ import SettingModel from '../Admin/SettingModel';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import StatusRadioButton from '../../common/StatusRadioButton';
+import styled from 'styled-components';
 
 
+
+const StyledCKEditorWrapper = styled.div`
+  .ck-editor__editable {
+    &.ck-rounded-corners.ck-editor__editable_inline.ck-focused {
+      overflow-y: auto;
+      height: 12rem;
+    }
+    &.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
+      overflow-y: auto;
+      height:  12rem;
+    }
+
+  }
+`;
 
 class Test extends Component {
 
@@ -455,48 +470,48 @@ class Test extends Component {
         <div className='col-12'>
           <div className="mT-30">
             <TabContext>
-            <Tabs>
-              <TabList>
-                {_.map(this.state.tabsArray, (list) =>
-                  <Tab>{list} <span className={this.handleSelect(list) ? 'required' : ''}></span> {this.handleSelect(list)}</Tab>
-                )}
-              </TabList>
-              {
-                _.map(this.state.categories, (category, key) =>
-                  <TabPanel>
-                    <div className='row'>
-                      <div className='col'>
-                        <div style={{ marginLeft: '-15px' }}>
-                          <div className='col mb-2' >
-                            <label for="question">Simple</label> &nbsp;
-                            <strong style={{ color: 'tomato' }}>{category.easyMsg}</strong>
-                            <input className='form-control-row' id="simple" min='0' value={category.simple} onChange={(e) => this.onSumSection(e, 'simple', key)} type='number' placeholder='Simple' />
-                          </div>
-                          <div className='col mb-2' >
-                            <label for="question">Medium</label> &nbsp;
-                            <strong style={{ color: 'tomato' }}>{category.mediumMsg}</strong>
-                            <input errormessage="NONE" className='form-control-row' id="medium" min="0" value={category.medium} onChange={(e) => this.onSumSection(e, 'medium', key)} type='number' placeholder='Medium' />
+              <Tabs>
+                <TabList>
+                  {_.map(this.state.tabsArray, (list) =>
+                    <Tab>{list} <span className={this.handleSelect(list) ? 'required' : ''}></span> {this.handleSelect(list)}</Tab>
+                  )}
+                </TabList>
+                {
+                  _.map(this.state.categories, (category, key) =>
+                    <TabPanel>
+                      <div className='row'>
+                        <div className='col'>
+                          <div style={{ marginLeft: '-15px' }}>
+                            <div className='col mb-2' >
+                              <label for="question">Simple</label> &nbsp;
+                              <strong style={{ color: 'tomato' }}>{category.easyMsg}</strong>
+                              <input className='form-control-row' id="simple" min='0' value={category.simple} onChange={(e) => this.onSumSection(e, 'simple', key)} type='number' placeholder='Simple' />
+                            </div>
+                            <div className='col mb-2' >
+                              <label for="question">Medium</label> &nbsp;
+                              <strong style={{ color: 'tomato' }}>{category.mediumMsg}</strong>
+                              <input errormessage="NONE" className='form-control-row' id="medium" min="0" value={category.medium} onChange={(e) => this.onSumSection(e, 'medium', key)} type='number' placeholder='Medium' />
 
-                          </div>
-                          <div className='col mb-2' >
-                            <label for="question">Complex</label> &nbsp;
-                            <strong style={{ color: 'tomato' }}>{category.hardMsg}</strong>
-                            <input className='form-control-row' id="complex" min='0' value={category.complex} onChange={(e) => this.onSumSection(e, 'complex', key)} type='number' placeholder='Complex' />
-                          </div>
-                          <div className='col mb-2' >
-                            <label for="question">Total of This Section</label>
-                            <input className='form-control-row' min='1' value={category.totalInSection} type='number' placeholder='Total' tabindex="1" tabstop="false" readOnly={true} />
+                            </div>
+                            <div className='col mb-2' >
+                              <label for="question">Complex</label> &nbsp;
+                              <strong style={{ color: 'tomato' }}>{category.hardMsg}</strong>
+                              <input className='form-control-row' id="complex" min='0' value={category.complex} onChange={(e) => this.onSumSection(e, 'complex', key)} type='number' placeholder='Complex' />
+                            </div>
+                            <div className='col mb-2' >
+                              <label for="question">Total of This Section</label>
+                              <input className='form-control-row' min='1' value={category.totalInSection} type='number' placeholder='Total' tabindex="1" tabstop="false" readOnly={true} />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className='col-6'>
-                        {this.state.sections.length > 0 && !this.state.sections.sectionName === 'TECHNICAL' ? <ReactEcharts option={this.getOption(category.sectionName)} style={{ height: 300 }} /> : ''}
-                      </div>
+                        <div className='col-6'>
+                          {this.state.sections.length > 0 && !this.state.sections.sectionName === 'TECHNICAL' ? <ReactEcharts option={this.getOption(category.sectionName)} style={{ height: 300 }} /> : ''}
+                        </div>
 
-                    </div>
-                  </TabPanel>)
-              }
-            </Tabs>
+                      </div>
+                    </TabPanel>)
+                }
+              </Tabs>
             </TabContext>
             <div className='row'>
               <div className='col'>
@@ -645,7 +660,7 @@ class Test extends Component {
                             <div className="col-md-6" >
                               <div className="form-group">
                                 <label className="form-label-row"><b>Level</b><span style={{ color: 'red' }}>*</span></label>
-                                {!action ? <input className='form-control-row col-7' value={this.state.level} type='text' maxLength="50" onChange={(e) => this.handleChange(e, 'level')} placeholder='Level' /> : <input className='form-control-row col-7' value={this.state.level} type='text' maxLength="50" ></input>}
+                                {!action ? <input className='form-control-row-input col-7' value={this.state.level} type='text' maxLength="50" onChange={(e) => this.handleChange(e, 'level')} placeholder='Level' /> : <input className='form-control-row-input col-7' value={this.state.level} type='text' maxLength="50" ></input>}
                                 {this.state.error.level && <FormHelperText className="helper" style={{ paddingLeft: "35px" }}>{this.state.error.levelMsg}</FormHelperText>}
                               </div>
                             </div>
@@ -678,7 +693,7 @@ class Test extends Component {
                               <div className="col-md-6">
                                 <div className="form-group">
                                   <label className="form-label-row"><b>MCQ Duration </b><span style={{ color: 'red' }}>*</span></label>
-                                  <input className='form-control-row col-7' value={this.state.duration} type='number' max="480" onChange={(e) => this.handleChange(e, 'duration')} placeholder='Duration (In minutes)' />
+                                  <input className='form-control-row-input col-7' style={{width:'25rem'}} value={this.state.duration} type='number' max="480" onChange={(e) => this.handleChange(e, 'duration')} placeholder='Duration (In minutes)' />
                                   <FormHelperText className="helper" style={{ paddingLeft: "35px" }}>{this.state.error.duration ? this.state.error.durationMsg : null}</FormHelperText>
                                 </div>
                               </div>}
@@ -686,7 +701,7 @@ class Test extends Component {
                               <div className="col-md-6">
                                 <div className="form-group">
                                   <label className="form-label-row"><b>SQL Duration</b><span style={{ color: 'red' }}>*</span></label>
-                                  <input className='form-control-row col-7' value={this.state.sqlDuration} type='number' max="480" onChange={(e) => this.handleChange(e, 'sqlDuration')} placeholder='Duration (In minutes)' />
+                                  <input className='form-control-row-input col-7' value={this.state.sqlDuration} type='number' max="480" onChange={(e) => this.handleChange(e, 'sqlDuration')} placeholder='Duration (In minutes)' />
                                   <FormHelperText className="helper" style={{ paddingLeft: "35px" }}>{this.state.error.sqlDuration ? this.state.error.sqlDurationMsg : null}</FormHelperText>
                                 </div>
                               </div>
@@ -784,110 +799,115 @@ class Test extends Component {
                               <div className="mT-30">
                                 <label for="question"><b>Candidate Instruction </b><span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.candidateInstruction ? this.state.error.candidateInstructionMsg : null}</FormHelperText>
-                                <CKEditor
-                                  editor={ClassicEditor}
-                                  data={this.state.candidateInstruction || ""}
-                                  onChange={(event, editor) => this.editorOnChange(event, editor)}
-                                  onReady={(editor) => {
-                                    const container = editor.ui.view.element;
-                                    ClassicEditor.create(
-                                      editor.editing.view.document.getRoot(),
-                                      {
-                                        removePlugins: ["Heading", "Link", "CKFinder"],
-                                        toolbar: [
-                                          "style",
-                                          "bold",
-                                          "italic",
-                                          "bulletedList",
-                                          "numberedList",
-                                          "blockQuote",
-                                        ],
+                                <StyledCKEditorWrapper>
+                                  <CKEditor
+                                    editor={ClassicEditor}
+                                    data={this.state.candidateInstruction || ""}
+                                    onChange={(event, editor) => this.editorOnChange(event, editor)}
+                                    onReady={(editor) => {
+                                      const container = editor.ui.view.element;
+                                      ClassicEditor.create(
+                                        editor.editing.view.document.getRoot(),
+                                        {
+                                          removePlugins: ["Heading", "Link", "CKFinder"],
+                                          toolbar: [
+                                            "style",
+                                            "bold",
+                                            "italic",
+                                            "bulletedList",
+                                            "numberedList",
+                                            "blockQuote",
+                                          ],
 
-                                      }
-                                    )
-                                      .then(() => {
-                                        console.log("Editor is ready to use!", editor);
-                                      })
-                                      .catch((error) => {
-                                        console.error(error);
-                                      });
-                                  }}
-                                />
+                                        }
+                                      )
+                                        .then(() => {
+                                          console.log("Editor is ready to use!", editor);
+                                        })
+                                        .catch((error) => {
+                                          console.error(error);
+                                        });
+                                    }}
+                                  />
+                                </StyledCKEditorWrapper>
                               </div>
                             </div>
-                            <div className='form-group col-12'>
+                            <div className='form-group col-12' style={{marginTop:'-5rem'}}>
                               <div className="mT-30">
                                 <label for="question"><b>Test Submit Message </b><span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.examSubmitMessage ? this.state.error.examSubmitMessageMsg : null}</FormHelperText>
-                                <CKEditor
-                                  editor={ClassicEditor}
-                                  data={this.state.examSubmitMessage || ""}
-                                  onChange={(event, editor) => this.editorTestSubmitOnChange(event, editor)}
-                                  onReady={(editor) => {
-                                    const container = editor.ui.view.element;
-                                    ClassicEditor.create(
-                                      editor.editing.view.document.getRoot(),
-                                      {
-                                        removePlugins: ["Heading", "Link", "CKFinder"],
-                                        toolbar: [
-                                          "style",
-                                          "bold",
-                                          "italic",
-                                          "bulletedList",
-                                          "numberedList",
-                                          "blockQuote",
-                                        ],
+                                <StyledCKEditorWrapper>
+                                  <CKEditor
+                                    editor={ClassicEditor}
+                                    data={this.state.examSubmitMessage || ""}
+                                    onChange={(event, editor) => this.editorTestSubmitOnChange(event, editor)}
+                                    onReady={(editor) => {
+                                      const container = editor.ui.view.element;
+                                      ClassicEditor.create(
+                                        editor.editing.view.document.getRoot(),
+                                        {
+                                          removePlugins: ["Heading", "Link", "CKFinder"],
+                                          toolbar: [
+                                            "style",
+                                            "bold",
+                                            "italic",
+                                            "bulletedList",
+                                            "numberedList",
+                                            "blockQuote",
+                                          ],
 
-                                      }
-                                    )
-                                      .then(() => {
-                                        console.log("Editor is ready to use!", editor);
-                                      })
-                                      .catch((error) => {
-                                        console.error(error);
-                                      });
-                                  }}
-                                />
+                                        }
+                                      )
+                                        .then(() => {
+                                          console.log("Editor is ready to use!", editor);
+                                        })
+                                        .catch((error) => {
+                                          console.error(error);
+                                        });
+                                    }}
+                                  />
+                                </StyledCKEditorWrapper>
 
                               </div>
                             </div>
-                            <div className='form-group col-12'>
+                            <div className='form-group col-12' style={{marginTop:'-5rem'}}>
                               <div className="mT-30">
                                 <label for="question"><b>Job Description </b><span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.jobDescription ? this.state.error.jobDescriptionMsg : null}</FormHelperText>
+                                <StyledCKEditorWrapper>
+                                  <CKEditor
+                                    editor={ClassicEditor}
+                                    data={this.state.jobDescription || ""}
+                                    onChange={(event, editor) => this.editorSubmitOnChange(event, editor)}
+                                    onReady={(editor) => {
+                                      const container = editor.ui.view.element;
+                                      ClassicEditor.create(
+                                        editor.editing.view.document.getRoot(),
+                                        {
+                                          removePlugins: ["Heading", "Link", "CKFinder"],
+                                          toolbar: [
+                                            "style",
+                                            "bold",
+                                            "italic",
+                                            "bulletedList",
+                                            "numberedList",
+                                            "blockQuote",
+                                          ],
 
-                                <CKEditor
-                                  editor={ClassicEditor}
-                                  data={this.state.jobDescription || ""}
-                                  onChange={(event, editor) => this.editorSubmitOnChange(event, editor)}
-                                  onReady={(editor) => {
-                                    const container = editor.ui.view.element;
-                                    ClassicEditor.create(
-                                      editor.editing.view.document.getRoot(),
-                                      {
-                                        removePlugins: ["Heading", "Link", "CKFinder"],
-                                        toolbar: [
-                                          "style",
-                                          "bold",
-                                          "italic",
-                                          "bulletedList",
-                                          "numberedList",
-                                          "blockQuote",
-                                        ],
-
-                                      }
-                                    )
-                                      .then(() => {
-                                        console.log("Editor is ready to use!", editor);
-                                      })
-                                      .catch((error) => {
-                                        console.error(error);
-                                      });
-                                  }}
-                                />
+                                        }
+                                      )
+                                        .then(() => {
+                                          console.log("Editor is ready to use!", editor);
+                                        })
+                                        .catch((error) => {
+                                          console.error(error);
+                                        });
+                                    }}
+                                  />
+                                </StyledCKEditorWrapper>
                               </div>
                             </div>
-                            <div className="col-lg-6 col-6 col-sm-6 col-md-6">
+                            <div className="col-lg-6 col-6 col-sm-6 col-md-6" style={{marginTop:'-5rem'}}>
                               <div className="row" style={{ lineHeight: '2', marginTop: '3rem', marginLeft: '0.6rem' }}>
                                 <StatusRadioButton
                                   handleChange={this.handleChange}

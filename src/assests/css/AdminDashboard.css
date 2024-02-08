@@ -1158,6 +1158,22 @@ h4,
   border: 1px solid #ced4da;
 }
 
+.form-control-row-input {
+  display: block;
+  width: 25rem !important;
+  padding: 0.4rem 0.75rem;
+  margin-left: 2.2rem;
+  margin-right: 4rem;
+  /* margin-top: 1rem; */
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+}
+
 .form-label-rows {
   margin-left: 1rem;
   margin-right: 4rem;
