@@ -169,6 +169,7 @@ class AddStudent extends Component {
                           <div
                             key={field.name}
                             className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6"
+                            style={{position:"relative",left:"1rem"}}
                           >
                             <InputField
                               label={field.label}

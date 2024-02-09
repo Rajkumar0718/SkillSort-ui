@@ -25,6 +25,7 @@ export const Layout = () => {
     homeLink: "/college",
     name: "college",
   };
+  const profilePath = {"COLLEGE_STUDENT":"/student/profile","ADMIN":"/admin/profile", "COMPETITOR":"/competitor/update"}
 
   return (
     <div>
@@ -36,6 +37,7 @@ export const Layout = () => {
             onClickToggled={toggleButtonClicked}
             logOut={() => logOut()}
             showSidenav={showSidenav}
+            profile={profilePath[role]}
           />
           <div style={{ margin: "25px 0px 0px 25px" }}>
             {dontShowBreadCrumbs.includes(role) ? <></> : <Breadcrumbs />}

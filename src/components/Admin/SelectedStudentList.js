@@ -9,7 +9,7 @@ import notify from '../../assests/images/Notified Skillsort.png';
 import notify2 from '../../assests/images/Notify2.png';
 import { fallBackLoader } from '../../utils/CommonUtils';
 import Pagination from '../../utils/Pagination';
-import  url  from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 import './AddExam.css';
 import EmailSortlistedCandidate from './EmailSortlistedCandidate';
@@ -52,7 +52,7 @@ export default class SelectedStudentList extends Component {
 
   componentWillMount() {
     this.setState({
-      examId:this.props.position.examId,
+      examId: this.props.position.examId,
     })
   }
 
@@ -148,7 +148,15 @@ export default class SelectedStudentList extends Component {
 
   handleProps = () => this.props.location?.pathname?.indexOf('skillsort') > -1
 
-  downloadAll = (status) => {
+  downloadAll = (e, status) => {
+    if (status === "ALL") {
+      status = "ALL"
+    } else if (status === "NOTIFIED TO SKILL SORT") {
+      status = "NOTIFIED_TO_SKILL_SORT"
+    }
+    else if (status === "NOTIFIED INTERNALLY") {
+      status = "SCHEDULED"
+    }
     axios.get(` ${url.ADMIN_API}/candidate/download?examId=${this.state.examId}&status=${status}`, { headers: authHeader() })
       .then(res => {
         if (res.data.response.length > 0)
@@ -179,14 +187,14 @@ export default class SelectedStudentList extends Component {
   }
 
   handleStatusFilters(event, key) {
-    if(key==="ALL"){
-      key=null
-    }else if(key==="SELECTED"){
-      key="SELECTED"
-    }else if(key==="NOTIFIED TO SKILL SORT"){
-      key="NOTIFIED_TO_SKILL_SORT"
-    }else if(key ==="INTERNALLY SCHEDULED"){
-      key="SCHEDULED"
+    if (key === "ALL") {
+      key = null
+    } else if (key === "SELECTED") {
+      key = "SELECTED"
+    } else if (key === "NOTIFIED TO SKILL SORT") {
+      key = "NOTIFIED_TO_SKILL_SORT"
+    } else if (key === "INTERNALLY SCHEDULED") {
+      key = "SCHEDULED"
     }
 
     this.setState({ statusType: key, currentPage: '1' }, () => this.componentDidMount())
@@ -283,8 +291,8 @@ export default class SelectedStudentList extends Component {
     {this.handleProps() && <div>
       {this.state.openFBModal ? (<FeedBackModel onCloseModal={this.onCloseModal} modelData={this.state.FBModelData} />) : ("")}
     </div>} </>)) : <tr className='text-center'><td colspan="7">NO DATA AVAILABLE</td></tr>
-menuItem = ["ALL", "NOTIFIED SKILL SORT", "NOTIFIED INTERNALLY"];
-statusItem = ["ALL", "SELECTED","NOTIFIED TO SKILL SORT", "INTERNALLY SCHEDULED" ];
+  menuItem = ["ALL", "NOTIFIED TO SKILL SORT", "NOTIFIED INTERNALLY"];
+  statusItem = ["ALL", "SELECTED", "NOTIFIED TO SKILL SORT", "INTERNALLY SCHEDULED"];
   render() {
     return (
       <div>
@@ -305,12 +313,12 @@ statusItem = ["ALL", "SELECTED","NOTIFIED TO SKILL SORT", "INTERNALLY SCHEDULED"
                 Schedule Internally
               </button>
             </div> : null}
-          <div style={{display:"flex",flexDirection:"row-reverse"}}>
+          <div style={{ display: "flex", flexDirection: "row-reverse" }}>
             {!this.handleProps() && this.state.selected.length === 0 ? (
-            <BasicMenu menuItem={this.menuItem} onClick={this.downloadAll} />
-          ) :
-            null}
-          <span className='black-label pull-right'><div>{this.state.planCount || 0}</div>Interviews Available</span>
+              <BasicMenu menuItem={this.menuItem} onClick={this.downloadAll} />
+            ) :
+              null}
+            <span className='black-label pull-right'><div>{this.state.planCount || 0}</div>Interviews Available</span>
           </div>
         </div>
         <div style={{ display: this.state.showData ? 'block' : 'none', border: 'none' }} >
@@ -325,23 +333,6 @@ statusItem = ["ALL", "SELECTED","NOTIFIED TO SKILL SORT", "INTERNALLY SCHEDULED"
                 {/* <th scope="col">SCHEDULED STATUS</th> */}
                 {!this.handleProps() ? <th>
                   <Status menuItem={this.statusItem} onClick={(e, key) => this.handleStatusFilters(e, key)}></Status>
-
-                  {/* <div className="row" style={{ paddingLeft: '15px' }}>
-                    <div>Status</div>
-                    <div className="col-sm">
-                      <div className="dropdown">
-                        <div className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                          <i className="fa fa-filter" aria-hidden="true"></i>
-                        </div>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-                          <option className="dropdown-item" onClick={(e) => this.handleStatusFilters(e, "status")} value="null" > ALL </option>
-                          <option className="dropdown-item" onClick={(e) => this.handleStatusFilters(e, "statusType")} value="SELECTED" > SELECTED </option>
-                          <option className="dropdown-item" onClick={(e) => this.handleStatusFilters(e, "statusType")} value="NOTIFIED_TO_SKILL_SORT" > NOTIFIED TO SKILLSORT </option>
-                          <option className="dropdown-item" onClick={(e) => this.handleStatusFilters(e, "statusType")} value="SCHEDULED" > INTERNALLY SCHEDULED </option>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
                 </th> : <th style={{ textAlign: 'center' }}> STATUS </th>}
                 {!this.handleProps() ? "" : <th style={{ textAlign: 'center' }}>FEEDBACK</th>}
                 {!this.handleProps() && this.state.totalElements > 0 && isRoleValidation() !== 'HR' && this.state.status.length ? <th scope="col">

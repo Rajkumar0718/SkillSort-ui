@@ -9,6 +9,8 @@ import './assests/css/AdminDashboard.css';
 import Layout from "./common/Layout";
 import SuperAdminLayout from "./common/SuperAdminLayout";
 import CandidateList from "./components/Admin/CandidateList";
+import SharedCandidateDetails from "./components/Admin/SharedCandidateDetails";
+import Profile from "./components/Admin/Profile";
 
 
 const AddExam = React.lazy(() => import("./components/Admin/AddExam"));
@@ -121,7 +123,7 @@ function App() {
         <Route path="/shortlisted-candidate-details/:candidateId" element={<ShortListedResultDetails />} />
         <Route path="/admin/result/candidate/details/:candidate_id" element={<CandidateResultDetails />} />
         <Route path="/admin/result/candidate/programResult/:candidate_id" element={<ProgramResult />} />
-
+        <Route path='/candidate-details/:examResultId' element={<SharedCandidateDetails />} />
         {/* Private Routes */}
         <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN"]} />}>
           <Route path="/home" element={<HomePage />} />
@@ -179,8 +181,10 @@ function App() {
           >
             <Route path="/college" element={<StudentList />} />
             <Route path="/college/placement-coordinator" element={<StaffList />} />
+            <Route path="/college/placement-coordinator/edit" element={<AddStaff />} />
             <Route path="/college/collegeReport" element={<CollegeReportList />} />
             <Route path="/college/add" element={<AddStudent />} />
+            <Route path="/college/edit" element={<AddStudent />} />
             <Route path="/college/placement-coordinator/add" element={<AddStaff />} />
           </Route>
           <Route
@@ -210,6 +214,8 @@ function App() {
             <Route path='/admin/questions/edit' element={<AddQuestion />} />
             <Route path="/admin/smtp" element={<SMTPConfig />} />
             <Route path="admin/vacancy/Exam-add" element={<AddExam />} />
+            <Route path="/admin/profile" element={<Profile />} />
+
           </Route>
           <Route path="*" element={<PageNotFound />} />
           <Route path="/college/collegeReport"

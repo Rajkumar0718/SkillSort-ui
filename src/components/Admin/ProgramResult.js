@@ -200,7 +200,7 @@ export default  class ProgramResult extends Component {
                             <div className="instructions" dangerouslySetInnerHTML={{ __html: this.state.instructions }} style={{ overflowY: 'auto' }} />
                         </List>
                     </Grid>
-                    <Grid item xs={7} xl={7} sm={12} lg={7} md={7} style={{ backgroundColor: '#000', height: '100vh', overflowY: 'auto' }}>
+                    <Grid item xs={7} xl={7} sm={12} lg={7} md={7} style={{ backgroundColor: '#000', height: '100vh', overflowY: 'auto',overflowX:"hidden" }}>
                         <div className="row" style={{ marginTop: '1rem', marginLeft: '0.5rem' }}>
                             <div className="col-md-6" style={{ padding: '10px' }}>
                                 <div style={{ marginTop: "10px", marginLeft: "1rem" }}>

@@ -162,6 +162,7 @@ export default class ShortListedResultDetails extends Component {
           to={{ pathname: "/admin/result/candidate/programResult/" + path }}
           onClick={() => this.setCandidate()}
           target={"_blank"}
+          style={{position:"relative",right:"11px"}}
         >
           {!r.sqlRound ? "VIEW PROGRAMMING" : "VIEW SQL"}
         </Link>
@@ -444,7 +445,7 @@ export default class ShortListedResultDetails extends Component {
                         })
                       }
                       className="btn btn-sm btn-newnext"
-                      style={{ fontFamily: "Montserrat" }}
+                      style={{ fontFamily: "Montserrat" ,width:"max-content"}}
                     >
                       View Certficate
                     </button>

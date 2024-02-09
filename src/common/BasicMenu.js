@@ -7,22 +7,23 @@ import _ from 'lodash';
 export default function BasicMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+  const handleClick = (event, menu) => {
     setAnchorEl(event.currentTarget);
+    if (menu) setAnchorEl(null)
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   return (
-    <div>
+    <div style={{ position: "relative", top: ".5rem" }}>
       <Button
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        style={{backgroundColor:"#F05A28",color:"white", textTransform: 'none',width:'6rem',borderRadius:'6px'}}
+        style={{ backgroundColor: "#F05A28", color: "white", textTransform: 'none', width: '6rem', borderRadius: '6px' }}
       >
         Download
       </Button>
@@ -35,7 +36,10 @@ export default function BasicMenu(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {_.map(props.menuItem, menu => <MenuItem onClick={(e) => props.onClick(e,menu)}>{menu}</MenuItem>)}
+        {_.map(props.menuItem, menu => <MenuItem onClick={(e) => {
+          props.onClick(e, menu);
+          handleClose();
+        }}>{menu}</MenuItem>)}
 
       </Menu>
     </div>
