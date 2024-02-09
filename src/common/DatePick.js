@@ -6,6 +6,13 @@ import { enGB } from 'date-fns/locale';
 
 export default function DatePick({className, style, views, minDate, maxDate, value, inputProps, onChange }) {
 
+
+    // Parse the value if it's a string in ISO format
+    const parsedValue = typeof value === 'string' ? parseISO(value) : value;
+
+    // Check if the parsed value is a valid date
+    const isValidDate = parsedValue instanceof Date && !isNaN(parsedValue.valueOf());
+
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGB}>
         <MuiDatePicker
@@ -14,7 +21,7 @@ export default function DatePick({className, style, views, minDate, maxDate, val
           slotProps={{ textField: { variant: 'filled' } }}
           minDate={minDate}
           maxDate={maxDate}
-          value={value}
+          value={isValidDate ? parsedValue:null}
           inputProps={inputProps}
           onChange={onChange}
           sx={{
