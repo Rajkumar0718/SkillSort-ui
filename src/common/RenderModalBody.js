@@ -45,6 +45,7 @@ export const RenderModalBody = (props) => {
                     <MuiDatePicker
                       value={props.report.fromDate || null}
                       onChange={(date) => props.onChange(date, "fromDate")}
+                      maxDate={new Date()}
                       format="dd/MM/yyyy"
                       slotProps={{
                         textField: {
@@ -78,6 +79,7 @@ export const RenderModalBody = (props) => {
                     <MuiDatePicker
                       onChange={(date) => props.onChange(date, "toDate")}
                       value={props.report.toDate || null}
+                      maxDate={new Date()}
                       format="dd/MM/yyyy"
                       minDate={props.report.fromDate || null}
                       slotProps={{

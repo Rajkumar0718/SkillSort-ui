@@ -20,7 +20,7 @@ const ActivityReport = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [startPage, setStartPage] = useState(1);
   const [endPage, setEndPage] = useState(5);
-  const [fromDate, setFromDate] = useState('');
+  const [fromDate, setFromDate] = useState(new Date());
   const [duration, setDuration] = useState(props.duration);
   const [type, setType] = useState(props.type);
 

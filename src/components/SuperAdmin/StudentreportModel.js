@@ -325,7 +325,7 @@ export default class StudentreportModal extends Component {
         if (isRoleValidation() === 'COLLEGE_ADMIN') {
             await this.getSectionMarks('csv')
         }
-        const data = _.map(this.state.studentXlsx, stu => _.pick({ ...stu, score: this.state.isSkillSortScorePresent ? _.round(this.state.skillSortscoreXlsx[stu.email]) ? _.round(this.state.skillSortscoreXlsx[stu.email]) : '' : stu.skillSortScore ? stu.skillSortScore : '-' }, keys))
+        const data = _.map(this.state.studentXlsx, stu => _.pick({ ...stu,collegeName: stu.college.collegeName, score: this.state.isSkillSortScorePresent ? _.round(this.state.skillSortscoreXlsx[stu.email]) ? _.round(this.state.skillSortscoreXlsx[stu.email]) : '' : stu.skillSortScore ? stu.skillSortScore : '-' }, keys))
         ExportXlsx(data, "StudentReport", isRoleValidation() === 'SUPER_ADMIN' ? columnsForSuperAdmin : columnsForCollege)
         this.setState({ disabled: false })
     }
@@ -384,13 +384,13 @@ export default class StudentreportModal extends Component {
                 name: "College",
                 align: "left",
                 key: "college",
-                renderCell: (params) => params.college.collegeName
+                renderCell: (params) => params?.college?.collegeName
             },
             {
                 name: "DEPARTMENT",
                 align: "left",
                 key: "department",
-                renderCell: (params) => params.department? params.department :"-"
+                renderCell: (params) => params?.department? params.department :"-"
 
             },
             {
