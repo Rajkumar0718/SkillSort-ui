@@ -18,7 +18,14 @@ import url from '../../utils/UrlConstant';
 import { isEmpty, isRoleValidation } from '../../utils/Validation';
 import '../Candidate/Programming.css';
 import SettingModel from './SettingModel';
+import styled from 'styled-components';
 
+const StyledCKEditorWrapper = styled.div`
+   .MuiInputBase-input {
+    font-size:medium !important;
+    width:274px;
+  }
+`;
 class AddExam extends Component {
   constructor(props) {
     super(props);
@@ -92,7 +99,6 @@ class AddExam extends Component {
 
   componentDidMount() {
     this.initialCall();
-    console.log(this.props, "Add Exam Props")
     const position = this.state.position;
     const examId = this.state.examId
     if (examId || position?.examId) {
@@ -113,7 +119,7 @@ class AddExam extends Component {
       this.setState({ ...exams, tabsArray: _.map(exams.categories, (category) => category.sectionName) })
       this.setState({ tabIndex: this.state.categories[0].sectionName })
     })
-      .catch(() => toastMessage('error', 'Error while fetching exam'))
+      .catch((err) => console.log(err))
   }
 
   initialCall = () => {
@@ -513,7 +519,7 @@ class AddExam extends Component {
   settingRender() {
     return (
       this.state.setting.id ? (
-        <div style={{position:'relative', left:'5rem'}}>
+        <div style={{ position: 'relative', left: '5rem' }}>
           <p className="setting-header">Selected Setting</p>
           <div className="card-setting">
             <p style={{ fontSize: '12px' }}><span style={{ fontWeight: 'bold' }}>Setting Name  :</span> {this.state.setting.name}</p>
@@ -710,16 +716,17 @@ class AddExam extends Component {
 																		style={{ marginLeft: '30px', color: 'black !important' }}
 																	/>
 																</MuiPickersUtilsProvider> */}
-                              <CustomDatePick
-                                onChange={this.handleDateChange}
-                                value={new Date(this.state.startDateTime)}
-                                objectKey='startDate'
-                                minDate={this.state.position?.startDate}
-                                maxDate={this.state.position?.endDate}
-                                required='true'
-                                format={'MMMM dd yyyy, h:mm aa'}
-                              />
-
+                              <StyledCKEditorWrapper>
+                                <CustomDatePick
+                                  onChange={this.handleDateChange}
+                                  value={new Date(this.state.startDateTime)}
+                                  objectKey='startDate'
+                                  minDate={this.state.position?.startDate}
+                                  maxDate={this.state.position?.endDate}
+                                  required='true'
+                                  format={'MMMM dd yyyy, h:mm aa'}
+                                />
+                              </StyledCKEditorWrapper>
                             </div>
                             <div className="form-group col-12" style={{ marginBottom: '0px' }}>
                               <label className="form-label-row" style={{ marginTop: '25px' }}>Select Questions From</label>

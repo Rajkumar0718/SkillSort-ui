@@ -2,12 +2,12 @@ import FormHelperText  from '@mui/material/FormHelperText';
 import axios from 'axios';
 import React, { Component } from 'react';
 import { authHeader, errorHandler } from '../../api/Api';
-import { toastMessage } from '../../utils/CommonUtils';
+import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import url  from '../../utils/UrlConstant';
 import { isEmpty, isRoleValidation, isValidEmail, isValidMobileNo } from '../../utils/Validation';
 
 const role = isRoleValidation();
-export default class Profile extends Component {
+ class Profile extends Component {
 
     state = {
         admin: {
@@ -104,12 +104,13 @@ export default class Profile extends Component {
         }
         if (!error.email && !error.phone && !error.userName && !error.company && !error.location) {
             axios.post(`${url.ADMIN_API}/admin/update`, this.state.admin, { headers: authHeader() })
-                .then(async res => {
-                    await this.updateCompany()
+                .then( res => {
+                    this.updateCompany()
                     toastMessage('success', 'Profile Updated Successfully..!');
-                    this.props.history.push(`/admin/vacancy`)
+                    this.props.navigate(`/admin/vacancy`)
                 })
                 .catch(error => {
+                    console.log('in admin');
                     errorHandler(error);
                 })
         }
@@ -123,6 +124,7 @@ export default class Profile extends Component {
         axios.post(` ${url.ADMIN_API}/company/save`, formData, { headers: authHeader() })
             .then(res => { })
             .catch(error => {
+                console.log('in company');
                 errorHandler(error)
             })
     }
@@ -210,3 +212,4 @@ export default class Profile extends Component {
         );
     }
 }
+export default withLocation(Profile)

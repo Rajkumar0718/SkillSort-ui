@@ -45,7 +45,7 @@ const PositionDetails = (props) => {
 
     const updateExamId = (examId) => {
       const updatedPosition = { ...location.state.position, examId: examId };
-      navigate({ state: { position: updatedPosition } });
+      navigate({...location, state: { position: updatedPosition } },{ replace: true });
     }
   const handleFormChange = (name) => {
     setFormVisible(name);
