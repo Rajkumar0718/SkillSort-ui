@@ -208,7 +208,7 @@ const sidebar = {
     name: 'Company',
     isDefault: true,
     to: '/companyadmin',
-    subPath: ['/companyadmin/add', '/companyadmin/edit'],
+    subPath: ['/companyadmin/add', '/companyadmin/edit','/companyadmin/plan'],
     icon: 'fa fa-building-o'
   }, {
     isSubMenu: false,

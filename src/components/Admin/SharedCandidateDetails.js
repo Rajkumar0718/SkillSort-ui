@@ -205,5 +205,3 @@ function SharedCandidateDetails(props) {
 
 export default SharedCandidateDetails;
 
-{/* style={{position:"relative",left:"29rem",top:"-25rem"}}
-style={{position:"relative",left:"26rem",marginTop:"-50rem"}} */}
