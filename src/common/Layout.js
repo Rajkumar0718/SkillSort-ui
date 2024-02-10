@@ -8,7 +8,7 @@ import TestingSidebar from "./TestingSideBar";
 export const Layout = () => {
   const [showSidenav, setShowSidenav] = useState(false);
   const navigate = useNavigate();
-  const role = useMemo(() => isRoleValidation())
+  const role = useMemo(() => isRoleValidation(),[])
   const dontShowBreadCrumbs = ["COLLEGE_STUDENT","COMPETITOR","DEMO_ROLE"]
 
   const toggleButtonClicked = () => {
@@ -21,10 +21,6 @@ export const Layout = () => {
     window.location.reload();
   };
 
-  const breadcrumbsProps = {
-    homeLink: "/college",
-    name: "college",
-  };
   const profilePath = {"COLLEGE_STUDENT":"/student/profile","ADMIN":"/admin/profile", "COMPETITOR":"/competitor/update"}
 
   return (

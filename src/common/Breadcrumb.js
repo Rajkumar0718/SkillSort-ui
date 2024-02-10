@@ -30,51 +30,54 @@ const Breadcrumbs = () => {
 
   const targetString = name;
   const breadCrumbJSON = breadcrumb[role];
-  return (
-    <MUIBreadcrumbs aria-label="breadcrumb" separator=">">
-      {pathnames.length > 0 && pathname !== homeLink ? (
-        <Link
-          onClick={handleHomeLinkClick}
-          underline="hover"
-          style={{
-            cursor: "pointer",
-            color: "#3f51b5",
-            marginLeft: "1rem",
-          }}
-        >
-        {breadCrumbJSON.name==="testadmin"?"Test":"Home"}
-        </Link>
-      ) : (
-        ""
-      )}
 
-      {pathnames.map((name, index) => {
-        const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
-        const isLast = index === pathnames.length - 1;
-        return isLast && name !== targetString ? (
-          <Typography key={name}>
-            {breadcrumb[role][pathname]
-              ? breadcrumb[role][pathname]
-              : name?.charAt(0).toUpperCase() + name?.slice(1)}
-          </Typography>
-        ) : name !== targetString ? (
+  return (
+    <>
+      {breadCrumbJSON ? <MUIBreadcrumbs aria-label="breadcrumb" separator=">">
+        {pathnames.length > 0 && pathname !== homeLink ? (
           <Link
-            key={name}
-            onClick={() => navigate(routeTo)}
+            onClick={handleHomeLinkClick}
             underline="hover"
             style={{
               cursor: "pointer",
               color: "#3f51b5",
+              marginLeft: "1rem",
             }}
           >
-            {breadCrumbJSON[routeTo] ? breadCrumbJSON[routeTo] : name.charAt(0).toUpperCase() + name.slice(1)}
-
+            {breadCrumbJSON.name === "testadmin" ? "Test" : "Home"}
           </Link>
         ) : (
           ""
-        );
-      })}
-    </MUIBreadcrumbs>
+        )}
+
+        {pathnames.map((name, index) => {
+          const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
+          const isLast = index === pathnames.length - 1;
+          return isLast && name !== targetString ? (
+            <Typography key={name}>
+              {breadcrumb[role][pathname]
+                ? breadcrumb[role][pathname]
+                : name?.charAt(0).toUpperCase() + name?.slice(1)}
+            </Typography>
+          ) : name !== targetString ? (
+            <Link
+              key={name}
+              onClick={() => navigate(routeTo)}
+              underline="hover"
+              style={{
+                cursor: "pointer",
+                color: "#3f51b5",
+              }}
+            >
+              {breadCrumbJSON[routeTo] ? breadCrumbJSON[routeTo] : name.charAt(0).toUpperCase() + name.slice(1)}
+
+            </Link>
+          ) : (
+            ""
+          );
+        })}
+      </MUIBreadcrumbs> : ""}
+    </>
   );
 };
 

@@ -1,5 +1,4 @@
 import { MenuItem } from '@mui/material';
-import Pagination from "../../utils/Pagination";
 import axios from 'axios';
 import _ from 'lodash';
 import React, { Component } from 'react';
@@ -8,8 +7,8 @@ import { authHeader, errorHandler } from '../../api/Api';
 import Search from '../../common/AdvanceSearch';
 import { toastMessage } from '../../utils/CommonUtils';
 import { CustomTable } from '../../utils/CustomTable';
+import Pagination from "../../utils/Pagination";
 import TableHeader from '../../utils/TableHeader';
-import { isRoleValidation } from '../../utils/Validation';
 import url from '../../utils/UrlConstant';
 
 export default class ExamList extends Component {
@@ -155,9 +154,6 @@ export default class ExamList extends Component {
 
   changeOpenModalState = (key) => this.setState({ [key] : !this.state[key] }, this.initialCall);
 
-  onMailCloseModal = () => {
-      this.changeOpenModalState("mailOpenModal")
-  }
 
   onClickOpenModel = (data) => {
 
@@ -166,7 +162,7 @@ export default class ExamList extends Component {
     } else {
       document.removeEventListener("click", this.handleOutsideClick, false);
     }
-    this.setState({ openModal: !this.state.openModal, loader: false, modalSection: data });
+    this.setState((prevState) => ({ ...prevState, openModal: !prevState.openModal, loader: false, modalSection: data}))
   };
 
   handleOutsideClick = (e) => {
@@ -175,77 +171,17 @@ export default class ExamList extends Component {
     }
   };
 
-  onCloseModal = () => {
-    this.changeOpenModalState('openModal')
-  };
-
   increment = (_event) => {
-    this.setState({
-      startPage: (this.state.startPage) + 5,
-      endPage: (this.state.endPage) + 5
-    });
+    this.setState((prevState) => ({ ...prevState, startPage: prevState.startPage + 5, endPage: prevState.endPage + 5 }))
   }
   decrement = (_event) => {
-    this.setState({
-      startPage: (this.state.startPage) - 5,
-      endPage: (this.state.endPage) - 5
-    });
+    this.setState((prevState) => ({ ...prevState, startPage: prevState.startPage - 5, endPage: prevState.endPage - 5 }))
   }
 
   onPagination = (pageSize, currentPage) => {
     this.setState({ pageSize: pageSize, currentPage: currentPage }, () => { this.onNextPage() });
   }
 
-  checkRoleAndRender = (exam, event) => {
-    if (event === "BUTTON") {
-      if (isRoleValidation() === "COLLEGE_ADMIN" || isRoleValidation() === "COLLEGE_STAFF") {
-        return (
-          <td style={{ textAlign: 'center' }}>
-            <button type="button" data-toggle="tooltip" data-placement="top" title="Add emails" onClick={() => this.onClickOpenModel(exam)} className="btn btn ml-1"><i className="fa fa-paper-plane" aria-hidden="true"></i></button>
-          </td>
-        )
-      } else {
-        return (
-          <td style={{ textAlign: 'center', cursor: 'pointer' }}>
-            <Link className="collapse-item" to={{ pathname: '/admin/test/edit', state: { exams: exam, action: 'Update' } }}>
-              <i className="fa fa-pencil" aria-hidden="true" style={{ color: '#3B489E' }}></i>
-            </Link>
-            <i className="fa fa-trash-o" aria-hidden="true" title='Delete Test' onClick={() => this.deleteExamHandler(exam)} style={{ marginLeft: '1rem', color: '#3B489E' }}></i>
-          </td>
-        )
-      }
-    } else if (event === "LINK") {
-      if (isRoleValidation() === 'TEST_ADMIN') {
-        return '/testadmin/add';
-      } else if (isRoleValidation() === "ADMIN") {
-        return '/admin/test/add';
-      }
-    }
-  }
-
-  renderTable() {
-    let i = this.state.pageSize - 1;
-    return this.state.exams?.length > 0 ? _.map(this.state.exams, (exam, _index) => {
-      return (
-        <tr className="collapsed" id="accordion" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          <td style={{ textAlign: 'center' }}>{this.state.pageSize * this.state.currentPage - (i--)}</td>
-          <td style={{ textAlign: 'left', textTransform: 'capitalize' }}>{exam.name}</td>
-          <td>{parseInt(exam.duration ? exam.duration : '0') + parseInt(exam.programmingDuration ? exam.programmingDuration : '0')}</td>
-          <td>{exam.categories.length}</td>
-          <td style={{ textAlign: 'left' }} className={exam.status === 'INACTIVE' ? 'text-danger' : 'text-success'}>{exam.status}</td>
-          {isRoleValidation() === "TEST_ADMIN" ?
-            <td style={{ textAlign: 'center' }}>
-              <Link className="collapse-item" to={{ pathname: '/testadmin/edit', state: { exams: exam, action: 'Update' } }}>
-                <i className="fa fa-pencil" aria-hidden="true" style={{ color: '#3B489E' }}></i>
-              </Link>
-              <i className="fa fa-trash-o" aria-hidden="true" onClick={() => this.deleteExamHandler(exam)}></i>
-            </td> : this.checkRoleAndRender(exam, "BUTTON")
-          }
-        </tr>
-      );
-    }) : <tr className='text-center'><td colSpan={6}>No data available</td></tr>
-
-  }
 
   onNextPage = () => {
     this.getTests();
@@ -267,25 +203,13 @@ export default class ExamList extends Component {
             showLink={true}
           />
           <Search
-           style={{
-              backgroundColor: 'rgba(59, 72, 158, 0.3)',
-              padding: '0.60rem 1.25rem',
-              marginBottom: '0.5%',
-              color: '#111111',
-              height: '58px',
-              verticalAlign: '-webkit-baseline-middle',
-              borderRadius: '2px',
-              /* fontWeight: '600', */
-              marginLeft: '19.6px',
-              marginRight: '19.6px',
-            }}
             title='Filter'
             showSearch={true}
             placeholder='search Test by name'
             onSearch={this.onSearch}
 
           ></Search>
-          <CustomTable headers={this.state.headers} data={this.state.exams} pageSize={this.state.pageSize} currentPage={this.state.currentPage} style ={{width:'97%' , marginLeft:'18px'}} />
+          <CustomTable headers={this.state.headers} data={this.state.exams} pageSize={this.state.pageSize} currentPage={this.state.currentPage} style={{ width:'calc(100vw - 9.85rem)' , marginLeft:'18px'}} />
           {this.state.numberOfElements === 0 ? '' :
                     <Pagination
                       totalPages={this.state.totalPages}
