@@ -4,7 +4,7 @@ import moment from "moment";
 import React, { Component } from 'react';
 import { authHeader, errorHandler } from "../../api/Api";
 import ExportXlsx from "../../utils/ExportXlsx";
-import  url  from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import RenderModalBody from "../../common/RenderModalBody";
 
 
@@ -123,10 +123,15 @@ export default class IndividualUserReportModal extends Component {
             report.fromDate = moment(report.fromDate).format('DD/MM/YYYY')
             report.toDate = moment(report.toDate).format('DD/MM/YYYY')
         }
-        if (_.isEmpty(report.toDate) && report.fromDate) {
+        else if (_.isEmpty(report.toDate) && report.fromDate) {
             let toDate = new Date()
             report.toDate = moment(toDate).format('DD/MM/YYYY')
             report.fromDate = moment(report.fromDate).format('DD/MM/YYYY')
+        } 
+        else if (_.isEmpty(report.fromDate) && report.toDate) {
+            let fromDate = new Date()
+            report.fromDate = moment(fromDate).format('DD/MM/YYYY')
+            report.toDate = moment(report.toDate).format('DD/MM/YYYY')
         }
 
         axios.post(` ${url.ADMIN_API}/adv-search/studentReport?page=${this.state.currentPage}&size=${this.state.pageSize}`, report, { headers: authHeader() })
@@ -328,8 +333,8 @@ export default class IndividualUserReportModal extends Component {
                             style={{ border: "none", height: "3rem" }}
                         >
                             <div>
-                            {this.state.toggleClick ? "" : <span style={{marginRight: '14rem'}}>options </span>}
-                            <i onClick={this.togleOption} style={{ fontSize: '1.5rem', marginRight: this.state.toggleClick ? _.size(this.state.individualUser) > 0 ? '45rem' : '54rem' : null }} className="fa fa-filter" aria-hidden="true"></i> 
+                                {this.state.toggleClick ? "" : <span style={{ marginRight: '14rem' }}>options </span>}
+                                <i onClick={this.togleOption} style={{ fontSize: '1.5rem', marginRight: this.state.toggleClick ? _.size(this.state.individualUser) > 0 ? '45rem' : '54rem' : null }} className="fa fa-filter" aria-hidden="true"></i>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 {_.size(this.state.individualUser) > 0 ? (
