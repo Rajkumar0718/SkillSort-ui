@@ -17,18 +17,22 @@ const sidebar = {
     height: ['9.2rem', '3.5rem'],
     subMenu: [{
       to: '/admin/onGoingTest',
-      name: 'OnGoing Test'
+      name: 'OnGoing Test',
+      focusLinks: ['/admin/onGoingTest', '/admin/onGoingTest/candidate']
     },
     {
       to: '/admin/test',
-      name: 'Test'
+      name: 'Test',
+      focusLinks: ['/admin/test','/admin/test/add']
     },
     {
       to: '/admin/questions',
-      name: 'Question'
+      name: 'Question',
+      focusLinks: ['/admin/questions', '/admin/questions/add']
     }, {
       to: '/admin/section',
-      name: 'Section'
+      name: 'Section',
+      focusLinks: ['/admin/section']
     }]
   }, {
     isSubMenu: false,

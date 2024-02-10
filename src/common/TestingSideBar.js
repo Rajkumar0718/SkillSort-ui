@@ -92,8 +92,10 @@ export default class TestingSidebar extends Component {
 
     return _.map(roleBasedSideBar, (sideBar,index) => {
       if (sideBar.isSubMenu) {
+        const subMenuPaths = _.flatMap(sideBar.subMenu, 'focusLinks')
+        console.log(subMenuPaths)
         return (<> <hr className='bottom-border' />
-          <div key={index} style={{ height: this.state[sideBar.toggleValue] ? sideBar.height[0] : sideBar.height[1], alignItems: this.state[sideBar.toggleValue] ? "start" : 'center', cursor: 'pointer' }} onClick={() => this.toggleClickedSubMenu(sideBar.param)} className={sideBar.isDefault ? 'menu-icon focus' : 'menu-icon'} >
+          <div key={index} style={{ height: this.state[sideBar.toggleValue] ? sideBar.height[0] : sideBar.height[1], alignItems: this.state[sideBar.toggleValue] ? "start" : 'center', cursor: 'pointer' }} onClick={() => this.toggleClickedSubMenu(sideBar.param)} className={(pathName === sideBar.to || subMenuPaths?.includes(pathName)) ? 'menu-icon focus' : 'menu-icon'} >
             <div className="row link">
               <div className="col-3">
                 <div data-tip data-for="result" style={{ marginTop: this.state[sideBar.toggleValue] ? sideBar.toolTipMarginTop : '0', cursor: 'pointer' }}>
