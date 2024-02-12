@@ -411,6 +411,12 @@ const sidebar = {
     icon: 'fa fa-cog',
   }
   ],
+  "PROCESS_ADMIN":[{
+    isSubMenu: false,
+    to: "/processadmin",
+    name: "HOME",
+    icon: 'fa fa-building-o'
+  }]
 
 }
 

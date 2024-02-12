@@ -12,6 +12,9 @@ import CandidateList from "./components/Admin/CandidateList";
 import SharedCandidateDetails from "./components/Admin/SharedCandidateDetails";
 import Profile from "./components/Admin/Profile";
 
+import CandidateLists from "./components/ProcessAdmin/CandidateList";
+import ExamListProcesss from "./components/ProcessAdmin/ExamList";
+import SendMail from "./components/ProcessAdmin/SendMail";
 
 const AddExam = React.lazy(() => import("./components/Admin/AddExam"));
 const AddHr = React.lazy(() => import("./components/Admin/AddHr"));
@@ -19,7 +22,7 @@ const AdminLogin = React.lazy(() => import("./components/Admin/AdminLogin"));
 const AdvSearch = React.lazy(() => import("./components/Admin/AdvanceSearch"));
 const CandidateDetailsOnGoingExam = React.lazy(() => import("./components/Admin/CandidateDetailsOnGoingExam"));
 const CandidateResultDetails = React.lazy(() => import("./components/Admin/CandidateResultDetails"));
-const ProgramUI = React.lazy(()=> import("./components/Candidate/ProgramUI"));
+const ProgramUI = React.lazy(() => import("./components/Candidate/ProgramUI"));
 const ExamList = React.lazy(() => import("./components/Admin/ExamList"));
 const ListHr = React.lazy(() => import("./components/Admin/ListHr"));
 const OnGoingExam = React.lazy(() => import("./components/Admin/OnGoingExam"));
@@ -189,7 +192,7 @@ function App() {
           </Route>
           <Route
             element={
-              <RequireAuth allowedRoles={["ADMIN","HR","HR_MANAGER","TRIAL_ADMIN"]} />
+              <RequireAuth allowedRoles={["ADMIN", "HR", "HR_MANAGER", "TRIAL_ADMIN"]} />
             }
           >
             <Route path="/admin/candidates" element={<CandidateList />} />
@@ -245,6 +248,15 @@ function App() {
             <Route path='/competitor/test/takePicture' element={<TakePicture />} />
             <Route path='/competitor/test/selectTech' element={<SelectTech />} />
           </Route>
+
+          <Route element={<RequireAuth allowedRoles={["PROCESS_ADMIN"]} />}>
+            <Route path="/processadmin" element={<CompanyList />} />
+            <Route path="/processadmin/company" element={<CompanyList />} />
+            <Route path="/processadmin/company/test" element={<ExamListProcesss />} />    
+            <Route path="/processadmin/company/test/candidate" element={<CandidateLists />} />
+            <Route path="/processadmin/company/test/candidate/sendmail" element={<SendMail />} />
+          </Route>
+         
         </Route>
 
       </Routes>

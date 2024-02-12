@@ -102,6 +102,12 @@ export const CustomTable = (props) => {
               else if (keys.key?.toUpperCase() === 'DURATION') {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{getDuration(row)}</StyledTableCell>
               }
+              else if (keys.name?.toUpperCase() === 'PENDING') {
+                return <StyledTableCell align={keys.align ? keys.align : 'center'}><b>{props.statusCount[row[keys.key]]?props.statusCount[row[keys.key]]:'-'}</b></StyledTableCell>
+              }
+              else if (keys.key === 'jobDescription') {
+                return <StyledTableCell align={keys.align ? keys.align : 'center'}>{row[keys.key].replace(/<[^>]*>?/gm, '')}</StyledTableCell>
+              }
               else if (keys.key?.toUpperCase() === 'CATEGORIES') {
                 return <StyledTableCell align={keys.align ? keys.align : 'center'}>{_.size(row[keys.key])}</StyledTableCell>
               }              

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { authHeader, errorHandler } from '../../api/Api';
 import Search from '../../common/AdvanceSearch';
 import { ToggleStatus, fallBackLoader } from '../../utils/CommonUtils';
@@ -29,7 +29,7 @@ const CompanyList = () => {
     const [endPage, setEndPage] = useState(5);
     const [name, setName] = useState('');
     const [isTrialCompany, setIsTrialCompany] = useState(false);
-    const [history, setHistory] = ('');
+    const history = useNavigate();
 
     useEffect(() => {
         getAllCompanyList();
@@ -134,7 +134,7 @@ const CompanyList = () => {
 
     const route = (data) => {
         localStorage.setItem('companyId', data);
-        history.push('/processadmin/company/test');
+        history.apply('/processadmin/company/test');
     };
 
 
@@ -205,7 +205,7 @@ const CompanyList = () => {
                 align: 'left',
                 key: 'location',
             },
-            {
+            role === "PROCESS_ADMIN"?{}:{
                 name: 'STATUS',
                 align: 'center',
                 isFilter: true,
@@ -229,7 +229,7 @@ const CompanyList = () => {
                     );
                 },
             },
-            {
+            role === "PROCESS_ADMIN"?{}:{
                 name: 'SUBSCRIPTIONS',
                 align: 'center',
                 key: 'subscriptions',
@@ -254,11 +254,21 @@ const CompanyList = () => {
                 key: 'action',
                 renderCell: (params) => {
                     return (
-                        <Link className='collapse-item' to='/companyadmin/edit' state={{ company: params, action: 'Update' }} >
-                            <i className='fa fa-pencil' style={{ cursor: 'pointer', color: '#3B489E' }} aria-hidden='true' ></i>
-                            {params.company?.isTrialCompany ?
-                                <ToggleStatus title='Switch To Onboard Company' checked={false} onChange={() => switchToActualCompany(params?.id)} /> : null}
-                        </Link>
+                        <>
+                        {role === 'PROCESS_ADMIN' ?
+                                   <Link className="collapse-item" to={{ pathname: '/processadmin/company/test' }} onClick={() => route(params.id)}>
+                                    <i className="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="VIEW TEST" style={{ color: 'black' }}></i></Link>
+                                   :
+                                  <>
+                                     <Link className="collapse-item" to={{ pathname: '/companyadmin/edit', state: { company: company, action: 'Update' } }}>
+                                      <i className="fa fa-pencil" aria-hidden="true" ></i>
+                                    </Link>
+                                      {company.isTrialCompany ?
+                                        <ToggleStatus title='Switch To Onboard Company' checked={false} onChange={() => this.switchToActualCompany(company.id)} /> : null}
+                                    
+                                  </>
+                                }
+                        </>
                     );
                 },
             },
