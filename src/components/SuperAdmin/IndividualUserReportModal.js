@@ -96,6 +96,11 @@ export default class IndividualUserReportModal extends Component {
             report.toDate = moment(toDate).format('DD/MM/YYYY')
             report.fromDate = moment(report.fromDate).format('DD/MM/YYYY')
         }
+        else if (_.isEmpty(report.fromDate) && report.toDate) {
+            // let fromDate = new Date()
+            // report.fromDate = moment(fromDate).format('DD/MM/YYYY')
+            report.toDate = moment(report.toDate).format('DD/MM/YYYY')
+        }
 
 
         axios.post(` ${url.COMPETITOR_API}/competitor/get-report?page=${this.state.currentPage}&size=${this.state.pageSize}`, report, { headers: authHeader() })
@@ -129,8 +134,8 @@ export default class IndividualUserReportModal extends Component {
             report.fromDate = moment(report.fromDate).format('DD/MM/YYYY')
         } 
         else if (_.isEmpty(report.fromDate) && report.toDate) {
-            let fromDate = new Date()
-            report.fromDate = moment(fromDate).format('DD/MM/YYYY')
+            // let fromDate = new Date()
+            // report.fromDate = moment(fromDate).format('DD/MM/YYYY')
             report.toDate = moment(report.toDate).format('DD/MM/YYYY')
         }
 
