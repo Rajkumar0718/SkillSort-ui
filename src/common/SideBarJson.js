@@ -228,6 +228,7 @@ const sidebar = {
     name: 'Panelist',
     isDefault: true,
     to: '/panelists',
+    subPath: ['/panelists/verify'],
     icon: 'fa fa-user-circle-o '
   }, {
     isSubMenu: false,

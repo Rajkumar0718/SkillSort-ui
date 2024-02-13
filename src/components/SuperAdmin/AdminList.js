@@ -25,11 +25,15 @@ const AdminList = () => {
   const [tableHeaders, setTableHeaders] = useState([]);
 
   useEffect(() => {
+    setLoader(true)
     getAllAdmins();
-  }, [currentPage, pageSize, status]);
+    getAdminSearchList();
+  }, [currentPage, pageSize, status,searchValue]);
 
-  const getAllAdmins = () => {
+  useEffect(() =>{
     setTableJson();
+  },[])
+  const getAllAdmins = () => {
     axios.get(`${url.ADMIN_API}/admin/list?page=${currentPage}&size=${pageSize}&status=${status}`, { headers: authHeader() })
       .then(res => {
         setAdminData(res.data.response.content);
@@ -144,7 +148,6 @@ const AdminList = () => {
   const onSearch = (searchValue) => {
     setSearchValue(searchValue);
     setCurrentPage(1);
-    getAdminSearchList();
   };
 
   return (

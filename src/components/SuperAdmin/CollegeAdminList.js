@@ -30,11 +30,17 @@ const CollegeAdminList = () => {
 
 
   useEffect(() => {
+    setLoader(true)
     getCollegeAdmin();
+    getCollegeAdminList()
   }, [currentPage, pageSize, status, searchValue]);
+  
+  
+  useEffect(() =>{
+    setTableJson();
+  },[])
 
   const getCollegeAdmin = () => {
-    setTableJson();
     axios.get(`${url.COLLEGE_API}/admin/list?status=${status}&page=${currentPage}&size=${pageSize}`, { headers: authHeader() })
       .then(res => {
         setCollegeAdmin(res.data.response.content);
@@ -139,7 +145,7 @@ const CollegeAdminList = () => {
     setSearchValue(value);
     setPageSize(10);
     setCurrentPage(1);
-    getCollegeAdminList()
+
   };
 
   const getCollegeAdminList = () => {

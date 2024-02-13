@@ -157,12 +157,12 @@ const ListIndustryAndTechnologies = () => {
       {
         name: 'INDUSTRYTYPE',
         align: 'left',
-        key: 'industrytype',
+        renderCell:(params) => params?.industryType? params.industryType?.name :"-"
       },
       {
         name: 'TECHNOLOGIES',
         align: 'left',
-        key: 'technologies',
+        renderCell:(params) => params?.industryType? params.skillName :"-"
       },
       {
         name: 'STATUS',
@@ -193,15 +193,16 @@ const ListIndustryAndTechnologies = () => {
         renderCell: (params) => {
           return (
             <Link
-              className='collapse-item'
-              to='/settings'
-              state={{ position: params }}
+              // className='collapse-item'
+              // to='/settings'
+              // state={{ position: params ,action: 'Update' }}
 
             >
               <i
                 className='fa fa-pencil'
-                style={{ cursor: 'pointer', color: '#3B489E' }}
+                style={{ cursor: 'pointer', color: '#212529' }}
                 aria-hidden='true'
+                onClick={() => onClickOpenModel(params)}
               ></i>
             </Link>
           );
@@ -210,6 +211,7 @@ const ListIndustryAndTechnologies = () => {
     ];
     setHeaders(newHeaders);
   };
+
   let i = pageSize - 1;
 
   return (

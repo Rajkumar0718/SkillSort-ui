@@ -31,7 +31,7 @@ const PracticeExam = () => {
 
   useEffect(() => {
     practiceExamList();
-  }, [currentPage, pageSize, status, searchName]);
+  }, [currentPage, pageSize, status]);
 
   const setTableJson = () => {
     const headers = [
@@ -111,11 +111,11 @@ const PracticeExam = () => {
 
   const onSearch = (value) => {
     setSearchName(value);
-    handleFilter();
+    handleFilter(value);
   };
 
-  const handleFilter = () => {
-    axios.get(`${url.COLLEGE_API}/practiceExam/search?name=${searchName}&page=${currentPage}&size=${pageSize}&status=${status}`, { headers: authHeader() })
+  const handleFilter = (value) => {
+    axios.get(`${url.COLLEGE_API}/practiceExam/search?name=${value}&page=${currentPage}&size=${pageSize}&status=${status}`, { headers: authHeader() })
       .then(res => {
         setPracticeExam(res.data.response.content);
         setTotalPages(res.data.response.totalPages);

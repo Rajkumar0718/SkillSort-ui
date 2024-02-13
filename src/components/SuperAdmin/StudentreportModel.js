@@ -284,6 +284,11 @@ export default class StudentreportModal extends Component {
             report.fromDate = moment(report.fromDate).format('DD/MM/YYYY')
             report.toDate = moment(toDate).format('DD/MM/YYYY')
         }
+        else if (_.isEmpty(report.fromDate) && report.toDate) {
+            // let fromDate = new Date()
+            // report.fromDate = moment(fromDate).format('DD/MM/YYYY')
+            report.toDate = moment(report.toDate).format('DD/MM/YYYY')
+        }
         if (this.state.showCompanyOfferReleased === 'YES' && !this.state.report.skillsortScore) {
             report.skillsortScore = 0;
         }
@@ -316,6 +321,11 @@ export default class StudentreportModal extends Component {
             report.fromDate = moment(report.fromDate).format('DD/MM/YYYY')
             report.toDate = moment(toDate).format('DD/MM/YYYY')
         }
+        else if (_.isEmpty(report.fromDate) && report.toDate) {
+            // let fromDate = new Date()
+            // report.fromDate = moment(fromDate).format('DD/MM/YYYY')
+            report.toDate = moment(report.toDate).format('DD/MM/YYYY')
+        }
         axios.post(` ${url.COLLEGE_API}/student/getReport?page=${1}&size=${this.state.totalElements}`, report, { headers: authHeader() })
             .then((res) => {
                 this.setState({
@@ -338,7 +348,7 @@ export default class StudentreportModal extends Component {
         if (isRoleValidation() === 'COLLEGE_ADMIN') {
             await this.getSectionMarks('csv')
         }
-        const data = _.map(this.state.studentXlsx, stu => _.pick({ ...stu,collegeName: stu.college?.collegeName, score: this.state.isSkillSortScorePresent ? _.round(this.state.skillSortscoreXlsx[stu.email]) ? _.round(this.state.skillSortscoreXlsx[stu.email]) : '' : stu.skillSortScore ? stu.skillSortScore : '-' }, keys))
+        const data = _.map(this.state.studentXlsx, stu => _.pick({ ...stu,collegeName: stu.college ? stu.college?.collegeName : stu.collegeName, score: this.state.isSkillSortScorePresent ? _.round(this.state.skillSortscoreXlsx[stu.email]) ? _.round(this.state.skillSortscoreXlsx[stu.email]) : '' : stu.skillSortScore ? stu.skillSortScore : '-' }, keys))
         ExportXlsx(data, "StudentReport", isRoleValidation() === 'SUPER_ADMIN' ? columnsForSuperAdmin : columnsForCollege)
         this.setState({ disabled: false })
     }

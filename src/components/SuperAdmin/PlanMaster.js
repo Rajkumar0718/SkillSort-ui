@@ -184,7 +184,7 @@ const AddPlanMaster = (props) => {
       .catch(error => errorHandler(error));
   }
 
-  const updatePlanMaster = () => {
+  const updatePlanMaster = (e) => {
     props.updatePlan(plan);
     props.onCancel();
   }
@@ -240,7 +240,7 @@ const AddPlanMaster = (props) => {
               </div>
             </div>
             <div className='pull-right' style={{ marginRight: '1rem' }}>
-              <button style={{ marginRight: '1rem' }} type='submit' className="btn btn-sm btn-nxt" disabled={!isValidPlan} onClick={updatePlanMaster}>{props.update ? 'Update' : 'Add'}</button>
+              <button style={{ marginRight: '1rem' }} type='submit' className="btn btn-sm btn-nxt" disabled={!isValidPlan} onClick={(e)=> updatePlanMaster(e)}>{props.update ? 'Update' : 'Add'}</button>
               <button className="btn btn-sm btn-prev" id="cancel" name="cancel" onClick={props.onCancel}>Cancel</button>
             </div>
             <div style={{ clear: "both" }} />

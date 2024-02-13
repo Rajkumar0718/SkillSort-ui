@@ -26,7 +26,7 @@ const SuperAdminBreadcrumbs = ({ breadCrumbJSON }) => {
     const skipPath = ['settings', 'panelists', 'skillsortadmin', 'Test']
 
     return (
-        <MUIBreadcrumbs aria-label="breadcrumb" separator=">">
+        <MUIBreadcrumbs aria-label="breadcrumb" separator=">" style={{marginLeft:'-0.9rem'}}>
             {pathnames.length > 0 && pathname !== homeLink ? (
                 <Link
                     onClick={handleHomeLinkClick}

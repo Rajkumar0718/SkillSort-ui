@@ -140,9 +140,10 @@ class AddCompany extends Component {
     this.setState({ displayLogo: URL.createObjectURL(this.state.logo) });
   }
 
+  
   componentWillMount() {
-    if (this.props?.location?.pathname.indexOf('edit') > -1) {
-      const { company } = this.props?.location?.state
+    if (this.props.location.pathname.indexOf('edit') > -1) {
+      const { company } = this.props.location.state
       this.setState(prevState => {
         let companyData = { ...prevState.company };
         companyData.id = company.id;

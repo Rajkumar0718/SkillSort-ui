@@ -33,9 +33,11 @@ const CompanyList = () => {
 
     useEffect(() => {
         getAllCompanyList();
-        setTableJson()
     }, [isTrialCompany, currentPage, pageSize]);
 
+    useEffect(() => {
+        setTableJson()
+    })
 
     const getAllCompanyList = () => {
         let user = JSON.parse(localStorage.getItem('user'));
@@ -51,7 +53,7 @@ const CompanyList = () => {
                     setTotalElements(res.data.response.totalElements);
                     setNumberOfElements(res.data.response.numberOfElements);
                     setLoader(false);
-                
+
                 })
                 .catch((error) => {
                     errorHandler(error);
@@ -120,7 +122,7 @@ const CompanyList = () => {
     };
 
     const onSearch = (name) => {
-        console.log(name +"ajayyyyyyyy");
+        console.log(name + "ajayyyyyyyy");
         setName(name);
         setCurrentPage(1);
         getCompanyList(name);
@@ -157,8 +159,6 @@ const CompanyList = () => {
     const onNextPage = () => {
         getAllCompanyList();
     };
-
-
 
     const switchToActualCompany = (companyId) => {
         axios.post(`${url.ADMIN_API}/freecredit/switch/trial-company?companyId=${companyId}`, {}, { headers: authHeader() })
@@ -205,7 +205,7 @@ const CompanyList = () => {
                 align: 'left',
                 key: 'location',
             },
-            role === "PROCESS_ADMIN"?{}:{
+            role === "PROCESS_ADMIN" ? {} : {
                 name: 'STATUS',
                 align: 'center',
                 isFilter: true,
@@ -229,21 +229,21 @@ const CompanyList = () => {
                     );
                 },
             },
-            role === "PROCESS_ADMIN"?{}:{
+            role === "PROCESS_ADMIN" ? {} : {
                 name: 'SUBSCRIPTIONS',
                 align: 'center',
                 key: 'subscriptions',
                 renderCell: (params) => {
                     return (
                         isRoleValidation() === 'SUPER_ADMIN' && (_.isEmpty(params?.plans) ?
-                            <> <Link className="collapse-item" style={{ textDecoration: 'none',color: "darkgreen"  }} to='/companyadmin/plan' state={{ company: params, action: 'add' }} >
+                            <> <Link className="collapse-item" style={{ textDecoration: 'none', color: "darkgreen" }} to='/companyadmin/plan' state={{ company: params, action: 'add' }} >
                                 <i className="fa fa-plus" aria-hidden="true" style={{ paddingRight: "0.5rem", }} ></i>Plan</Link>
                             </> :
                             <div>
-                                <> <Link className="collapse-item" style={{ color: "darkblue",textDecoration: 'none' }} to='/companyadmin/plan' state={{ company: params, action: 'view' }}>
+                                <> <Link className="collapse-item" style={{ color: "darkblue", textDecoration: 'none' }} to='/companyadmin/plan' state={{ company: params, action: 'view' }}>
                                     <i className="fa fa-eye" aria-hidden="true" style={{ paddingRight: "0.5rem" }} ></i>Plan</Link>
                                 </>
-                          
+
                             </div>
                         )
                     )
@@ -255,19 +255,19 @@ const CompanyList = () => {
                 renderCell: (params) => {
                     return (
                         <>
-                        {role === 'PROCESS_ADMIN' ?
-                                   <Link className="collapse-item" to={{ pathname: '/processadmin/company/test' }} onClick={() => route(params.id)}>
+                            {role === 'PROCESS_ADMIN' ?
+                                <Link className="collapse-item" to={{ pathname: '/processadmin/company/test' }} onClick={() => route(params.id)}>
                                     <i className="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="VIEW TEST" style={{ color: 'black' }}></i></Link>
-                                   :
-                                  <>
-                                     <Link className="collapse-item" to={{ pathname: '/companyadmin/edit', state: { company: company, action: 'Update' } }}>
-                                      <i className="fa fa-pencil" aria-hidden="true" ></i>
+                                :
+                                <>
+                                    <Link className="collapse-item" to='/companyadmin/edit' state= {{company: params, action: 'Update' }}>                                      
+                                        <i className="fa fa-pencil" aria-hidden="true" ></i>
                                     </Link>
-                                      {company.isTrialCompany ?
+                                    {company.isTrialCompany ?
                                         <ToggleStatus title='Switch To Onboard Company' checked={false} onChange={() => this.switchToActualCompany(company.id)} /> : null}
-                                    
-                                  </>
-                                }
+
+                                </>
+                            }
                         </>
                     );
                 },

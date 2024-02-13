@@ -30,11 +30,13 @@ const ProcessAdminList = () => {
 
     useEffect(() => {
         getProcessAdmin();
-    }, [currentPage, pageSize, searchKey, searchValue]);
+    }, [currentPage, pageSize, searchKey]);
 
+    useEffect(() =>{  
+        setTableJson();
+    },[])
 
     const getProcessAdmin = () => {
-        setTableJson();
         axios
             .get(`${url.ADMIN_API}/process/list?status=${searchKey}&page=${currentPage}&size=${pageSize}`, {
                 headers: authHeader(),
@@ -50,9 +52,6 @@ const ProcessAdminList = () => {
             });
     };
 
-    const onNextPage = () => {
-        getProcessAdmin();
-    };
 
     const onPagination = (pageSize, currentPage) => {
         setPageSize(pageSize);
@@ -69,7 +68,7 @@ const ProcessAdminList = () => {
         setEndPage(endPage - 5);
     };
 
-    const getProcessAdminList = () => {
+    const getProcessAdminList = (searchValue) => {
         axios
             .get(`${url.ADMIN_API}/process/processList?status=${searchKey}&search=${searchValue}&page=${currentPage}&size=${pageSize}`, {
                 headers: authHeader(),
@@ -89,6 +88,8 @@ const ProcessAdminList = () => {
 
     const onSearch = (searchValue) => {
         setSearchValue(searchValue);
+        getProcessAdminList(searchValue);
+
     };
 
     const setTableJson = () => {

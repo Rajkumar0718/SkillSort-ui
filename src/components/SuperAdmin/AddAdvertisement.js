@@ -1,6 +1,6 @@
 import { FormHelperText } from '@mui/material'
 import axios from 'axios'
-import _ from 'lodash'
+import _, { initial } from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
 import { authHeader, errorHandler } from '../../api/Api'
 import { toastMessage, withLocation } from '../../utils/CommonUtils'
@@ -10,14 +10,14 @@ import { useNavigate } from 'react-router-dom';
 import CustomDatePick from '../../common/CustomDatePick';
 
 
-const AddAdvertisement = (props) => {
+const AddAdvertisement = ({location}) => {
   const videoRef = useRef();
 
   const [advertisement, setAdvertisement] = useState({})
   const [image, setImage] = useState(null);
   const [logo, setLogo] = useState(null);
+  const [imageSrc, setImageSrc] = useState(null);
   const [displayLogo, setDisplayLogo] = useState(null)
-  const [displayVideo, setDisplayVideo] = useState(null);
   const [base64Logo, setBase64Logo] = useState(null)
   const [videoSource, setVideoSource] = useState(null)
   const [error, setError] = useState({
@@ -42,19 +42,18 @@ const AddAdvertisement = (props) => {
   let action = null;
 
   const changeHandler = (event) => {
+    // console.log(event.target.name, event.target.value)
     setAdvertisement((prev) => ({ ...prev, [event.target.name]: event.target.value }))
   }
 
   useEffect(() => {
-    if (props.location.pathname.indexOf('edit') > -1) {
-      const ad = props.location.state.ads;
+    if (location.pathname.indexOf('edit') > -1) {
+      const ad = location.state.ads;
       const updatedAd = { ...ad, startDate: new Date(ad.startDate), endDate: new Date(ad.endDate) }
       setAdvertisement(updatedAd)
-      setDisplayVideo(updatedAd?.path)
       getLogo(updatedAd)
-      renderVideoOrImage()
     }
-  }, [videoSource])
+  }, [])
 
   const setDate = (date, key) => {
     setAdvertisement((prev) => ({ ...prev, [key]: date }))
@@ -63,11 +62,12 @@ const AddAdvertisement = (props) => {
   const setAdvertisementFile = (event) => {
     const file = event.target.files[0];
     let url;
-    setImage(null);
+    setImageSrc(null);
     setVideoSource(null);
+    setImage(file)
     if (file?.type.startsWith('image')) {
       url = URL.createObjectURL(file);
-      setImage(url);
+      setImageSrc(url)
     } else if (advertisement.type === 'VIDEO' && file) {
       url = URL.createObjectURL(file);
       setVideoSource(url);
@@ -105,7 +105,7 @@ const AddAdvertisement = (props) => {
         return (<video  style={{ marginTop: '-3rem' }} width="200" height="200" controls autoplay ref={videoRef}>
           <source src={videoSource} type="video/mp4" />
         </video>)
-      } else if (advertisement.path) {
+      } else if (!advertisement.path?.includes('.jpeg')) {
         console.log(advertisement.path, "adv")
         return (
           <video style={{ marginTop: '-3rem' }}  width="200" height="200" controls autoplay ref={videoRef}>
@@ -113,8 +113,8 @@ const AddAdvertisement = (props) => {
           </video>
         )
       }
-    } else if (advertisement.type === 'IMAGE') {
-      return <img src={image}  width="200 " height="150"></img>
+    } else if (advertisement.type === 'IMAGE' && (advertisement.path?.includes('.jpeg') || imageSrc)) {
+      return <img src={imageSrc ? imageSrc : advertisement.path}  width="200 " height="150"></img>
     }
   }
 
@@ -296,8 +296,8 @@ const AddAdvertisement = (props) => {
     setDisplayLogo(URL.createObjectURL(file))
   }
 
-  if (props.location.pathname.indexOf('edit') > -1) {
-    action = props.location.state.action;
+  if (location.pathname.indexOf('edit') > -1) {
+    action = location.state.action;
   }
 
   return (
@@ -396,10 +396,12 @@ const AddAdvertisement = (props) => {
                           </div>
                           <div className='col-8 col-lg-8 col-md-8 col-sm-8'>
                             <select value={advertisement.type} name='type' onChange={(e) => changeHandler(e)} className="profile-page input-mini">
-                              <option >Select Type</option>
-                              {options.map((option, index) => (
+                              <option selected value={""}>Select Type</option>
+                              {/* {options.map((option, index) => (
                                 <option key={index} name={option} value={option}>{option}</option>
-                              ))}
+                              ))} */}
+                            <option key={"IMAGE"} value={"IMAGE"}>IMAGE</option>
+                            <option key={"VIDEO"} value={"VIDEO"}>VIDEO</option>
 
                             </select>
                           </div>

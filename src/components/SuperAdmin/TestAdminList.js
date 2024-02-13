@@ -32,6 +32,11 @@ const TestAdminList = () => {
     getTestAdmins();
   }, [searchKey, currentPage, pageSize]);
 
+
+  useEffect(() =>{
+    setTableJson();
+  },[])
+
   const getTestAdmins = () => {
     setTableJson();
     axios
@@ -50,7 +55,7 @@ const TestAdminList = () => {
       });
   };
 
-  const getTestAdminList = () => {
+  const getTestAdminList = (searchValue) => {
     axios
       .get(
         ` ${url.ADMIN_API}/testadmin/testAdminList?status=${searchKey}&page=${currentPage}&size=${pageSize}&search=${searchValue}`,
@@ -94,7 +99,7 @@ const TestAdminList = () => {
 
   const onSearch = (searchValue) => {
     setSearchValue(searchValue);
-    getTestAdminList();
+    getTestAdminList(searchValue);
   };
 
   const setTableJson = () => {

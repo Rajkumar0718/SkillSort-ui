@@ -32,8 +32,9 @@ const CollegeList = () => {
 
   
   useEffect(() => {
+    setLoader(true)
     getCollegeSerachList();
-  }, [currentPage, pageSize]);
+  }, [currentPage, pageSize,searchValue]);
 
   const handlerStatusFilter = (event) => {
     axios.get(`${url.COLLEGE_API}/college/list?status=${event || searchKey}`, { headers: authHeader() })
@@ -44,8 +45,11 @@ const CollegeList = () => {
       });
   };
 
-  const getCollegeSerachList = () => {
+  useEffect(() =>{
     setTableJson();
+  },[])
+
+  const getCollegeSerachList = () => {
     axios.get(`${url.COLLEGE_API}/college/collegeList?status=${searchKey}&search=${searchValue}&page=${currentPage}&size=${pageSize}`, { headers: authHeader() })
       .then(res => {
         setCollege(res.data.response.content);
@@ -63,19 +67,12 @@ const CollegeList = () => {
     setSearchValue(searchValue);
     setPageSize(10);
     setCurrentPage(1);
-    getCollegeSerachList();
 
-  };
-
-  const onNextPage = () => {
-    setLoader(true);
-    getCollegeSerachList();
   };
 
   const onPagination = (pageSize, currentPage) => {
     setPageSize(pageSize);
     setCurrentPage(currentPage);
-    onNextPage();
   };
 
 

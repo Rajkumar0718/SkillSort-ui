@@ -1,17 +1,15 @@
 import axios from 'axios';
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from '../../api/Api';
 import { fallBackLoader } from '../../utils/CommonUtils';
 import Pagination from '../../utils/Pagination';
 import { MenuItem } from "@mui/material";
-import '../../assests/css/AdminDashboard.css'
 import { CustomTable } from '../../utils/CustomTable';
 
 const RecruiterList = () => {
     const [loader, setLoader] = useState(true);
-    const [headers, setHeaders] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [openModal, setOpenModal] = useState(false);
     const [pageSize, setPageSize] = useState(10);
@@ -22,73 +20,76 @@ const RecruiterList = () => {
     const [endPage, setEndPage] = useState(5);
     const [statusType, setStatusType] = useState('ACTIVE');
     const [verifiedStatus, setVerifiedStatus] = useState('');
+    const [headers, setHeaders] = useState([]);
     const [verified, setVerified] = useState(0);
     const [notVerified, setNotVerified] = useState(0);
     const [recruiter, setRecruiter] = useState({});
 
-    const handleAllOptionClick = () => {
+    useEffect(() => {
+        getStatus();
         setLoader(true);
         setVerifiedStatus('');
-        setTableJson();
-        axios
-            .get(`/api1/recruiter/getAllRecruitersBYFilter?page=${currentPage}&size=${pageSize}`, {
-                headers: authHeader(),
-            })
-            .then((res) => {
-                setRecruiter(res.data.response.content);
-                setLoader(false);
-                setTotalPages(res.data.response.totalPages);
-                setTotalElements(res.data.response.totalElements);
-                setNumberOfElements(res.data.response.numberOfElements);
-            })
-            .catch((error) => {
-                setLoader(false);
-                errorHandler(error);
-            });
-    };
+        getVerified();
 
-    useEffect(() => {
-        handleAllOptionClick();
-        getStatus();
     }, [currentPage, pageSize]);
 
-    const getStatus = () => {
-        axios.get(`/api1/recruiter/verifiedcount`, { headers: authHeader() }).then(res => {
-            if (res.data.response.length > 0) {
-                _.map(res.data?.response || [], data => {
-                    if (data.verifiedStatus === 'VERIFIED') {
-                        setVerified(data.count)
-                        setNotVerified(0)
-                    } else {
-                        setNotVerified(data.count)
-                    }
-                })
-            } else {
-                setVerified(0)
-                setNotVerified(0)
-            }
-        }).catch(error => {
+    useEffect(() => {
+        setTableJson();
+    }, []);
 
-        })
+    const getVerified = () => {
+        axios.get(`/api1/recruiter/getAllRecruitersBYFilter?page=${currentPage}&size=${pageSize}`, { headers: authHeader() })
+            .then((res) => {
+                setRecruiter(res.data.response.content);
+                setLoader(false);
+                setTotalPages(res.data.response.totalPages);
+                setTotalElements(res.data.response.totalElements);
+                setNumberOfElements(res.data.response.numberOfElements);
+            })
+            .catch((error) => {
+                setLoader(false);
+                errorHandler(error);
+            });
     }
-
-    const handleVerifiedFilters = async (event, key) => {
-        console.log(event, "event", key, "key")
-        if (event.target.value === 'VERIFIED') {
-            await setVerifiedStatus(event.target.value);
-            await setCurrentPage('1');
-        } else if (event.target.value === 'NOTVERIFIED') {
-            await setVerifiedStatus(event.target.value);
-            await setCurrentPage('1');
+    const getStatus = async () => {
+        try {
+            const response = await axios.get(`/api1/recruiter/verifiedcount`, { headers: authHeader() });
+            if (response.data.response.length > 0) {
+                _.map(response.data?.response || [], data => {
+                    if (data.verifiedStatus === 'VERIFIED') {
+                        setVerified(data.count);
+                        setNotVerified(0);
+                    } else {
+                        setNotVerified(data.count);
+                    }
+                });
+            } else {
+                setVerified(0);
+                setNotVerified(0);
+            }
+        } catch (error) {
+            console.error('Error getting status:', error);
         }
-        handleVerifiedFilter();
     };
 
-    const handleVerifiedFilter = () => {
-        axios
-            .get(`/api1/recruiter/verificationState?verifiedStatus=${verifiedStatus}&page=${currentPage}&size=${pageSize}`, {
-                headers: authHeader(),
-            })
+    const handleVerifiedFilters = (value) => {
+        if (value === "ALL") {
+            getVerified()
+            setCurrentPage(1);
+            return
+        }
+        else if (value === "VERIFIED") {
+            setVerifiedStatus(value);
+            setCurrentPage(1);
+        } else if (value === "NOTVERIFIED") {
+            setVerifiedStatus(value);
+            setCurrentPage(1);
+        }
+        handleVerifiedFilter(value);
+    };
+
+    const handleVerifiedFilter = (value) => {
+        axios.get(`/api1/recruiter/verificationState?verifiedStatus=${value}&page=${currentPage}&size=${pageSize}`, { headers: authHeader() })
             .then((res) => {
                 setRecruiter(res.data.response.content);
                 setLoader(false);
@@ -102,16 +103,19 @@ const RecruiterList = () => {
             });
     };
 
-    const handleStatusFilters = async (value) => {
-        if (value === 'ACTIVE' || value === 'INACTIVE') {
-            await setStatusType(value);
-            setCurrentPage('1');
-            handleStatusFilter();
+    const handleStatusFilters =  (value) => {
+        if (value === "ACTIVE") {
+             setStatusType(value);
+             setCurrentPage(1);
+        } else {
+             setStatusType(value);
+             setCurrentPage(1);
         }
+        handleStatusFilter(value);
     };
-    const handleStatusFilter = () => {
-        axios
-            .get(`/api1/recruiter/list?statusType=${statusType}&page=${currentPage}&size=${pageSize}`, { headers: authHeader() })
+
+    const handleStatusFilter = (value) => {
+        axios.get(`/api1/recruiter/list?statusType=${value}&page=${currentPage}&size=${pageSize}`, { headers: authHeader() })
             .then(res => {
                 setLoader(false);
                 setRecruiter(res.data.response.content);
@@ -122,7 +126,7 @@ const RecruiterList = () => {
             .catch(error => {
                 setLoader(false);
                 errorHandler(error);
-            })
+            });
     };
 
     const increment = (event) => {
@@ -136,11 +140,7 @@ const RecruiterList = () => {
     };
 
     const onNextPage = () => {
-        axios
-            .get(
-                `/api1/recruiter/list?verifiedStatus=${verifiedStatus}&statusType=${statusType}&page=${currentPage}&size=${pageSize}`,
-                { headers: authHeader() }
-            )
+        axios.get(`/api1/recruiter/list?verifiedStatus=${verifiedStatus}&statusType=${statusType}&page=${currentPage}&size=${pageSize}`, { headers: authHeader() })
             .then((res) => {
                 setLoader(false);
                 setRecruiter(res.data.response.content);
@@ -160,10 +160,8 @@ const RecruiterList = () => {
         onNextPage();
     };
 
-    let i = pageSize - 1;
 
     const setTableJson = () => {
-
         const newheaders = [
             {
                 name: 'S.No',
@@ -173,20 +171,20 @@ const RecruiterList = () => {
             {
                 name: 'PANELIST NAME',
                 align: 'left',
-                key: 'panelistName',
+                key: 'userName',
             },
             {
                 name: 'QUALIFICATION',
                 align: 'left',
                 key: 'qualification',
             },
-
             {
                 name: 'INDUSTRY TYPE',
                 align: 'left',
-                key: 'industryType',
+                renderCell: (params) => {
+                    return params.industryType?.name
+                }
             },
-
             {
                 name: 'EXPERIENCE',
                 align: 'left',
@@ -196,18 +194,16 @@ const RecruiterList = () => {
                 name: 'VERIFICATION',
                 align: 'left',
                 isFilter: true,
-                key: 'verification',
-
                 renderOptions: () => {
                     return _.map(
                         [
                             { name: 'ALL', value: 'ALL' },
                             { name: 'VERIFIED', value: 'VERIFIED' },
-                            { name: 'NOT VERIFIED', value: 'NOT VERIFIED' },
+                            { name: 'NOT VERIFIED', value: 'NOTVERIFIED' },
                         ],
                         (opt) => (
                             <MenuItem
-                                onClick={() => handleStatusFilters(opt.value)}
+                                onClick={() => handleVerifiedFilters(opt.value)}
                                 key={opt.value}
                                 value={opt.value}
                             >
@@ -216,13 +212,14 @@ const RecruiterList = () => {
                         )
                     );
                 },
+                renderCell: (params) => {
+                    return <span style={{color:params.verifiedStatus=== 'VERIFIED'? 'green' :'red'}}>{params.verifiedStatus}</span>
+                }
             },
             {
                 name: 'STATUS',
-                align: 'left',
+                align: 'center',
                 isFilter: true,
-                key: 'status',
-
                 renderOptions: () => {
                     return _.map(
                         [
@@ -240,6 +237,10 @@ const RecruiterList = () => {
                         )
                     );
                 },
+                renderCell: (params) => {
+                    return <span style={{color:params.status=== 'ACTIVE'? 'green' :'red'}}>{params.status}</span>
+    
+                }
             },
             {
                 name: 'Action',
@@ -248,8 +249,8 @@ const RecruiterList = () => {
                     return (
                         <Link
                             className='collapse-item'
-                            to='/panelists' state={{ position: params }}
-
+                            to='/panelists/verify'
+                            state={{ recruiter: params, action: 'Update' }}
                         >
                             <i
                                 className='fa fa-pencil'
@@ -265,7 +266,6 @@ const RecruiterList = () => {
         setHeaders(newheaders);
     };
 
-
     return (
         <main className="main-content bcg-clr">
             <div>
@@ -278,8 +278,8 @@ const RecruiterList = () => {
                     <div className="table-border">
                         <div>
                             {fallBackLoader(loader)}
-                            <div className="table-responsive pagination_table" style={{ minHeight: '10rem' }}>
-                                <CustomTable headers={headers} data={recruiter} handleAllOptionClick={handleAllOptionClick} handleVerifiedFilters={handleVerifiedFilters}></CustomTable>
+                            <div className="table-responsive pagination_table">
+                                <CustomTable headers={headers} data={recruiter} pageSize={pageSize} currentPage={currentPage}></CustomTable>
                                 {numberOfElements === 0 ? '' :
                                     <Pagination
                                         totalPages={totalPages}
@@ -292,16 +292,14 @@ const RecruiterList = () => {
                                         endPage={endPage}
                                         totalElements={totalElements}
                                         pageSize={pageSize}
-
                                     />}
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
-
     );
-}
+};
+
 export default RecruiterList;

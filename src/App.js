@@ -15,6 +15,8 @@ import Profile from "./components/Admin/Profile";
 import CandidateLists from "./components/ProcessAdmin/CandidateList";
 import ExamListProcesss from "./components/ProcessAdmin/ExamList";
 import SendMail from "./components/ProcessAdmin/SendMail";
+import VerifyRecruiter from "./components/SuperAdmin/VerifyRecruiter";
+import RecruiterTimeSlot from "./components/SuperAdmin/RecruiterTimeSlot";
 
 const AddExam = React.lazy(() => import("./components/Admin/AddExam"));
 const AddHr = React.lazy(() => import("./components/Admin/AddHr"));
@@ -136,6 +138,8 @@ function App() {
             <Route path="/collegeadmin" element={<CollegeList />} />
             <Route path="/companyadmin" element={<CompanyList />} />
             <Route path="/panelists" element={<RecruiterList />} />
+            <Route path="/panelists/verify" element={<VerifyRecruiter />} />
+            <Route path="/panelists/timeSlot" element={<RecruiterTimeSlot />} />
             <Route path="/panelists/payment" element={<Payment />} />
             <Route path="/settings/department" element={<DepatmentList />} />
             <Route path="/settings/practiceExam" element={<PracticeExam />} />
