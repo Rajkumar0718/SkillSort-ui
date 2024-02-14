@@ -57,7 +57,7 @@ export default class AddPlan extends Component {
       })
   }
 
-  goback = () => this.props.history.push({
+  goback = () => this.props.navigate({
     pathname: '/companyadmin/plan', state: { companyId: this.state.plan.company.id }
   })
 

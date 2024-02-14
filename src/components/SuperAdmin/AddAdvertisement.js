@@ -1,13 +1,13 @@
 import { FormHelperText } from '@mui/material'
 import axios from 'axios'
-import _, { initial } from 'lodash'
+import _ from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { authHeader, errorHandler } from '../../api/Api'
+import CustomDatePick from '../../common/CustomDatePick'
 import { toastMessage, withLocation } from '../../utils/CommonUtils'
-import { isEmpty } from '../../utils/Validation'
 import url from "../../utils/UrlConstant"
-import { useNavigate } from 'react-router-dom';
-import CustomDatePick from '../../common/CustomDatePick';
+import { isEmpty } from '../../utils/Validation'
 
 
 const AddAdvertisement = ({location}) => {
@@ -42,7 +42,6 @@ const AddAdvertisement = ({location}) => {
   let action = null;
 
   const changeHandler = (event) => {
-    // console.log(event.target.name, event.target.value)
     setAdvertisement((prev) => ({ ...prev, [event.target.name]: event.target.value }))
   }
 
@@ -101,12 +100,10 @@ const AddAdvertisement = ({location}) => {
   const renderVideoOrImage = () => {
     if (advertisement.type === 'VIDEO') {
       if (videoSource) {
-        console.log(videoSource, "videoSource")
         return (<video  style={{ marginTop: '-3rem' }} width="200" height="200" controls autoplay ref={videoRef}>
           <source src={videoSource} type="video/mp4" />
         </video>)
       } else if (!advertisement.path?.includes('.jpeg')) {
-        console.log(advertisement.path, "adv")
         return (
           <video style={{ marginTop: '-3rem' }}  width="200" height="200" controls autoplay ref={videoRef}>
             <source src={advertisement.path} type="video/mp4" />
@@ -397,9 +394,6 @@ const AddAdvertisement = ({location}) => {
                           <div className='col-8 col-lg-8 col-md-8 col-sm-8'>
                             <select value={advertisement.type} name='type' onChange={(e) => changeHandler(e)} className="profile-page input-mini">
                               <option selected value={""}>Select Type</option>
-                              {/* {options.map((option, index) => (
-                                <option key={index} name={option} value={option}>{option}</option>
-                              ))} */}
                             <option key={"IMAGE"} value={"IMAGE"}>IMAGE</option>
                             <option key={"VIDEO"} value={"VIDEO"}>VIDEO</option>
 

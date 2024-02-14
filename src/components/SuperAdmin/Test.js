@@ -15,7 +15,7 @@ import { isEmpty, isRoleValidation, isVaildnum } from '../../utils/Validation';
 import SettingModel from '../Admin/SettingModel';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import StatusRadioButton from '../../common/StatusRadioButton';
+import StatusRadioButton from '../../common/StatusRadioButton'; 
 import styled from 'styled-components';
 
 
@@ -400,8 +400,8 @@ class Test extends Component {
         } else {
           toastMessage('success', 'Test Added Successfully..!');
           (isRoleValidation() === "SUPER_ADMIN" ?
-            this.props.history.push('/settings/test') :
-            this.props.history.push('/admin/test'))
+            this.props.navigate('/settings/test') :
+            this.props.navigate('/admin/test'))
           this.resetExamForm();
         }
       }).catch(error => {

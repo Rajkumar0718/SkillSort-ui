@@ -126,12 +126,12 @@ class AddPosition extends Component {
             toastMessage("success", "Vacancy Added Successfully..!");
             !this.state.wantExam
               ? this.props.navigate("/admin/vacancy", {
-                  position: res.data.response,
-                })
+                position: res.data.response,
+              })
               : this.setState({
-                  position: res.data.response,
-                  showExamSection: true,
-                });
+                position: res.data.response,
+                showExamSection: true,
+              });
           }
         })
         .catch((error) => {
@@ -173,9 +173,9 @@ class AddPosition extends Component {
 
   getExams = () => {
     let user = JSON.parse(localStorage.getItem("user"));
-    axios.get(`${url.ADMIN_API}/exam/getAllExamsByCompanyId?companyId=${ user.companyId }&status=${"ACTIVE"}`, { headers: authHeader() } ) .then((res) => {
-        this.setState({ exams: res.data.response });
-      })
+    axios.get(`${url.ADMIN_API}/exam/getAllExamsByCompanyId?companyId=${user.companyId}&status=${"ACTIVE"}`, { headers: authHeader() }).then((res) => {
+      this.setState({ exams: res.data.response });
+    })
       .catch((err) => {
         errorHandler(err);
       });
@@ -186,13 +186,13 @@ class AddPosition extends Component {
   };
   sendCloneExam = () => {
     const { clonedExam } = this.state
-    console.log(this.state,"state");
+    console.log(this.state, "state");
     clonedExam.id = null;
     clonedExam.startDateTime = new Date();
     clonedExam.positionId = this.state.position.id;
-    console.log(clonedExam,"clonedexam");
+    console.log(clonedExam, "clonedexam");
     this.onCloseModal()
-    this.props.navigate('/admin/vacancy/Exam-add',{ state: { clonedExam: clonedExam }});
+    this.props.navigate('/admin/vacancy/Exam-add', { state: { clonedExam: clonedExam } });
   }
   componentWillMount() {
     if (this.props.location?.state) {
@@ -208,7 +208,7 @@ class AddPosition extends Component {
   }
   addExam = () => {
     this.onCloseModal()
-    this.props.navigate('/admin/vacancy/Exam-add', { state : {position: this.state.position }})
+    this.props.navigate('/admin/vacancy/Exam-add', { state: { position: this.state.position } })
   }
 
 
@@ -229,7 +229,7 @@ class AddPosition extends Component {
               <form className="email-compose-body" onSubmit={this.handleSubmit}>
                 <div className="send-header">
                   {this.state.showExamSection ? (
-                   <VacancyAddExamModal addExam={this.addExam} sendCloneExam={this.sendCloneExam} selectExam={this.setCloneExam} data={this.state.exams} position={this.state.position} onCloseModal={this.onCloseModal} />
+                    <VacancyAddExamModal addExam={this.addExam} sendCloneExam={this.sendCloneExam} selectExam={this.setCloneExam} data={this.state.exams} position={this.state.position} onCloseModal={this.onCloseModal} />
                   ) : (
                     <>
                       <div className="row">
@@ -254,8 +254,8 @@ class AddPosition extends Component {
                                   >
                                     {this.state.error[field.errorKey]
                                       ? this.state.error[
-                                          field.errorKey + "ErrorMessage"
-                                        ]
+                                      field.errorKey + "ErrorMessage"
+                                      ]
                                       : null}
                                   </FormHelperText>
                                 </label>
@@ -294,47 +294,50 @@ class AddPosition extends Component {
                             >
                               {this.state.error.noOfCandidatesRequired
                                 ? this.state.error
-                                    .noOfCandidatesRequiredErrorMessage
+                                  .noOfCandidatesRequiredErrorMessage
                                 : null}
                             </FormHelperText>
                           </label>
                           <CKEditor
-                          editor={ClassicEditor}
-                          data={this.state.pstn.jobDescription|| ""}
-                          onChange={(event, editor) => {
-                            const newContent = editor.getData();
-                            this.setState((prevState) => ({
-                              pstn: {
-                                ...prevState.pstn,
-                                jobDescription: newContent,
-                              },
-                            }));
-                          }}
-                          onReady={(editor) => {
-                            const container = editor.ui.view.element;
-                            ClassicEditor.create(
-                              editor.editing.view.document.getRoot(),
-                              {
-                                removePlugins: ["Heading", "Link", "CKFinder"],
-                                toolbar: [
-                                  "style",
-                                  "bold",
-                                  "italic",
-                                  "bulletedList",
-                                  "numberedList",
-                                  "blockQuote",
-                                ],
+                            editor={ClassicEditor}
+                            data={this.state.pstn.jobDescription || ""}
+                            onChange={(event, editor) => {
+                              const newContent = editor.getData();
+                              this.setState((prevState) => ({
+                                pstn: {
+                                  ...prevState.pstn,
+                                  jobDescription: newContent,
+                                },
+                              }));
+                            }}
+                            onReady={(editor) => {
+                              const container = editor.ui.view.element;
+                              editor.on('ready', () => {
+                                ClassicEditor.create(
+                                  editor.editing.view.document.getRoot(),
+                                  {
+                                    removePlugins: ["Heading", "Link", "CKFinder"],
+                                    toolbar: [
+                                      "style",
+                                      "bold",
+                                      "italic",
+                                      "bulletedList",
+                                      "numberedList",
+                                      "blockQuote",
+                                    ],
 
-                              }
-                            )
-                              .then(() => {
+                                  }
+                                )
+                                  .then(() => {
 
+                                  })
+                                  .catch((error) => {
+                                    console.error(error);
+                                  });
                               })
-                              .catch((error) => {
-                                console.error(error);
-                              });
-                          }}
-                        />
+
+                            }}
+                          />
                         </div>
                       </div>
                       {!this.state.pstn.examId && (

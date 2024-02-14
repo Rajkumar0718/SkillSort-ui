@@ -282,7 +282,7 @@ const sidebar = {
     isSubMenu: false,
     to: '/skillsortadmin/advertisement',
     name: 'Advertisement',
-    subPath: ['/skillsortadmin/advertisement/add'],
+    subPath: ['/skillsortadmin/advertisement/add','/skillsortadmin/advertisement/edit'],
     icon: 'fa fa-bullhorn'
   }
   ],
