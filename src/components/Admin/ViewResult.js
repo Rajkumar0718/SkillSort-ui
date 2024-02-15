@@ -75,7 +75,7 @@ export default class ViewResult extends Component {
   componentDidMount() {
     // document.addEventListener(visibilityChange, this.handleVisibilityChange, false);
     this.setState({
-      examId: this.props.position.examId
+      examId: this.props?.position?.examId
     }, () => this.handleFilterByDate())
     this.setTableJson();
   }

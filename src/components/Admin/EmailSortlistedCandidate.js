@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { authHeader, errorHandler } from '../../api/Api';
 import { fallBackLoader, toastMessage } from '../../utils/CommonUtils';
 import url from '../../utils/UrlConstant';
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
+import CkEditor from '../../common/CkEditor';
 const StyledCKEditorWrapper = styled.div`
   .ck-editor__editable {
     &.ck-rounded-corners.ck-editor__editable_inline.ck-focused {
@@ -78,7 +78,9 @@ export default class EmailSortlistedCandidate extends Component {
                 })
         }
     }
-
+    handleEditorChange = (newData) => {
+        this.setState({ message: newData })
+      };
     render() {
         return (
             <div className="modal fade show" id="myModal" role="dialog" style={{ paddingRight: '15px', display: 'block', backgroundColor: 'rgba(0,0,0,0.4)' }} aria-hidden="true">
@@ -99,27 +101,8 @@ export default class EmailSortlistedCandidate extends Component {
                                             onChange={(e) => this.handleChange(e, 'subject')}
                                             id="first" placeholder="Enter Subject" maxlength="300" autocomplete="off" style={{ marginTop: '0px', marginBottom: '0px', height: '50px' }} ></textarea>
                                         <label>Message</label>
-                                        {/* <CKEditor
-                                            content={this.state.message}
-                                            events={{
-                                                "change": e => this.setState({ message: e.editor.getData() })
-                                            }}
-                                            config={{
-                                                removePlugins: 'elementspath',
-                                                resize_enabled: false
-                                            }}
-                                        /> */}
                                         <StyledCKEditorWrapper>
-                                            <CKEditor
-                                                content={this.state.message}
-                                                events={{
-                                                    "change": e => this.setState({ message: e.editor.getData() })
-                                                }}
-                                                config={{
-                                                    removePlugins: 'elementspath',
-                                                    resize_enabled: false
-                                                }}
-                                            />
+                                        <CkEditor data={this.state.message} onChange={this.handleEditorChange}/>
                                         </StyledCKEditorWrapper>
                                     </div>
                                     <div className="form-row">

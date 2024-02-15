@@ -184,7 +184,7 @@ class VerifyRecruiter extends Component {
                                                     name='name' id='candidate' autocomplete="off" /></div>
                                         </div>
                                     </div>
-                                    <div className="col-6 col-xl-6 col-lg-6 col-sm-6">  
+                                    <div className="col-6 col-xl-6 col-lg-6 col-sm-6">
                                         <div className='row'>
                                             <div className='col-4 col-xl-4 col-lg-4 col-sm-4'>
                                                 <Link to="/panelists/timeSlot" state={{id: this.state.id}} ><button className="btn btn-success">Time slot</button></Link>
@@ -217,6 +217,7 @@ class VerifyRecruiter extends Component {
                                                     <label
                                                         className="custom-control-label"
                                                         for="false"
+                                                        style={{marginLeft:"0.5rem"}}
                                                     >
                                                         Verify
                                                     </label>
@@ -232,7 +233,7 @@ class VerifyRecruiter extends Component {
                                                 style={{ marginTop: "0.1rem" }}
                                             />
                                         </div>
-                                       
+
                                     </div>
                                 </div>
 

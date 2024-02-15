@@ -64,7 +64,8 @@ import { CustomTable } from '../../utils/CustomTable';
             align: 'left',
             key: 'panelist',
             renderCell:(params) =>{
-              return params.panelist?params.panelist:"-"
+              const panelist = params.panelist
+              return panelist ? panelist.firstName.concat(" ").concat(panelist.lastName) : "-"
             }
         },
         {
@@ -81,7 +82,7 @@ import { CustomTable } from '../../utils/CustomTable';
            align:'left',
            key:'status'
         },
-        
+
         {
             name: 'Action',
             key: 'action',
@@ -90,7 +91,7 @@ import { CustomTable } from '../../utils/CustomTable';
                   <>
                   <Link to='/processadmin/company/test/candidate/sendmail' state= {{ candidate: params.candidate, skillSortId: params.candidate.id} } >
                   <button type="button" data-toggle="tooltip" data-placement="top" title="Allocate To Panelist" className="btn btn-sm ml-1"><i className="fa fa-paper-plane" aria-hidden="true"></i></button>
-                </Link> 
+                </Link>
                 </>
                 );
             },
