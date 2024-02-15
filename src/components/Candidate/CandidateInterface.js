@@ -22,20 +22,14 @@ import url from '../../utils/UrlConstant';
 
 export default function CandidateInterface(props) {
   const [start, setStart] = useState(false);
-  const [name, setName] = useState("");
   const [exam, setExam] = useState(false);
-  const [selectSubject, setSelectSubject] = useState([]);
-  const [subjectName, setSubjectName] = useState("");
-  const [submitted, setSubmitted] = useState("");
-  const [jwt, setJwt] = useState("");
   const [isAppsCompleted, setIsAppsCompleted] = useState(false);
   const [programCategory, setProgramCategory] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState([]);
   const [induQuestions, setInduQuestions] = useState({});
   const [categoryIndex, setCategoryIndex] = useState(0);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [nextQuestionHint, setNextQuestionHint] = useState(false);
-  const [QuestionRoles, setQuestionRoles] = useState("CANDIDATE");
+  const QuestionRoles  = "CANDIDATE";
   const [examQuestions, setExamQuestions] = useState({
     authTenantId: 0,
     candidateInstruction: "",
@@ -157,6 +151,7 @@ export default function CandidateInterface(props) {
     if (!localStorage.getItem('jwtToken')) {
       window.close()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleKeyDown = (event) => {
@@ -220,7 +215,7 @@ export default function CandidateInterface(props) {
     saveOnGoingExam();
   };
 
-  const saveOnGoingExam = async () => {
+  const saveOnGoingExam = async (appsCompleted = false) => {
     let answeredState = JSON.parse(localStorage.getItem('AnsweredState'));
     let indx = _.findIndex(answeredState?.categories, (c) => c.sectionName === 'PROGRAMMING' || c.groupQuestionType === 'programming');
     if (indx === -1 && programCategory) {
@@ -262,7 +257,7 @@ export default function CandidateInterface(props) {
       localStorage.setItem("onGoingExamId", res.data.response.id);
       localStorage.setItem("startDate", res.data.response.startDate);
       setStart(true)
-      if (isAppsCompleted) {
+      if (appsCompleted) {
         localStorage.removeItem("startTime")
         localStorage.removeItem("startDate")
         localStorage.removeItem("seconds")
@@ -397,7 +392,6 @@ export default function CandidateInterface(props) {
 
   const sendScreenShot = async () => {
     await detectWebcam();
-    const { screenShot } = screenShot;
     let user = JSON.parse(localStorage.getItem("user"))
     screenShot.id = {}
     screenShot.id.examId = localStorage.getItem("examId")
@@ -427,6 +421,7 @@ export default function CandidateInterface(props) {
       clearInterval(cameraState);
       // window.removeEventListener('unload', handleEventTrackForAbondedExam);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const submitExam = (_e) => {
@@ -439,7 +434,7 @@ export default function CandidateInterface(props) {
         localStorage.setItem('AnsweredState', JSON.stringify(answeredState));
       }
       setIsAppsCompleted(true);
-      saveOnGoingExam();
+      saveOnGoingExam(true);
     } else {
       let submitExam = [];
       let sessionUser = JSON.parse(localStorage.getItem('user'));

@@ -23,6 +23,7 @@ const role = isRoleValidation();
         logo: '',
         base64Logo: '',
         displayLogo: '',
+        disable: false,
         error: {
             email: false,
             emailErrorMessage: "",
@@ -45,16 +46,7 @@ const role = isRoleValidation();
             axios.get(`${url.ADMIN_API}/hr/profile?id=${id}`, { headers: authHeader() });
 
         value.then(res => {
-            const { admin } = this.state;
-            admin.id = res.data.response.id
-            admin.authId = res.data.response.authId
-            admin.userName = res.data.response.userName
-            admin.email = res.data.response.email
-            admin.phone = res.data.response.phone
-            admin.status = res.data.response.status
-            admin.company = res.data.response.company
-            admin.password = res.data.response.password
-            this.setState({ admin }, () => this.getLogo())
+            this.setState({ admin: res.data.response }, () => this.getLogo())
         })
     }
 
@@ -103,6 +95,7 @@ const role = isRoleValidation();
             this.setState({ error })
         }
         if (!error.email && !error.phone && !error.userName && !error.company && !error.location) {
+            this.setState({disable : true})
             axios.post(`${url.ADMIN_API}/admin/update`, this.state.admin, { headers: authHeader() })
                 .then( res => {
                     this.updateCompany()
@@ -110,8 +103,8 @@ const role = isRoleValidation();
                     this.props.navigate(`/admin/vacancy`)
                 })
                 .catch(error => {
-                    console.log('in admin');
                     errorHandler(error);
+                    this.setState({ disable: false })
                 })
         }
     }
@@ -203,7 +196,7 @@ const role = isRoleValidation();
 
                             </div>
                             <div className="mt-5 text-center">
-                                <button className="btn btn-sm btn-nxt pull-right m-0" onClick={this.handleSubmit} >Update Profile</button>
+                                <button className="btn btn-sm btn-nxt pull-right m-0" disabled={this.state.disable} onClick={this.handleSubmit} >Update Profile</button>
                             </div>
                         </form>
                     </div>

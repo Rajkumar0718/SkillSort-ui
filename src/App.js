@@ -96,10 +96,13 @@ const Dashboard = React.lazy(() => import("./components/TestAdmin/Dashboard"));
 const GroupTypesList = React.lazy(() => import("./components/TestAdmin/GroupTypesList"));
 const Question = React.lazy(() => import("./components/TestAdmin/Question"));
 const ProjectUi = React.lazy(() => import("./components/project-ui/ProjectUI"));
+const CandidateRegister = React.lazy(() => import("./components/Candidate/CandidateRegister"));
+
 const EnhancedCandidateInstruction = withLocation(CandidateInstruction);
 const EnhancedProgramUI = withLocation(ProgramUI)
 const EnhancedQueryUI = withLocation(QueryUi)
 const EnhancedCompetitorUpdate = withLocation(CompetitorUpdate)
+const EnhancedCandidateRegister = withLocation(CandidateRegister)
 
 
 function App() {
@@ -110,6 +113,7 @@ function App() {
         <Route index element={<AdminLogin />}></Route>
         <Route path="/login" element={<AdminLogin />} />
         <Route path='/admin/forgot/password' element={<ForgetPassword/>} />
+        <Route path='/register/:token/:examId/:examUsersId' exact element={<EnhancedCandidateRegister/>} />
         <Route path='/examResult/:candidateId' element={<TestResults />} />
         <Route path="/project" element={<ProjectUi />} />
         <Route path='/competitor/login' element={<CompetitorFirstTimeLogin />} />
@@ -246,7 +250,7 @@ function App() {
             <Route path="/student/profile" element={<StudentFirstTimeLogin />} />
             <Route path="/student/student-test" element={<StudentTestList />} />
             <Route path="/student/company-offer" element={<CompanyOffers />} />
-            <Route path="/student/student-practice-exam" element={<PracticeExamList />} />
+            <Route path="/student/practice-exam" element={<PracticeExamList />} />
             <Route path="/student/advertisement" element={<AdvertisementPage />} />
             <Route path='/competitor/testList' element={<StudentTestList />} />
             <Route path='/competitor/update' element={<EnhancedCompetitorUpdate />} />

@@ -2,7 +2,7 @@ import { CircleLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
-import { useLocation } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -53,7 +53,8 @@ export function calculatePercentage(marksObtain,totalMarks) {
 export function withLocation(Component) {
     return (props) => {
         const location = useLocation();
+        const params = useParams();
         const navigation = useNavigate();
-        return <Component {...props} location={location} navigate={navigation} />;
+        return <Component {...props} params={params} location={location} navigate={navigation} />;
     };
 };

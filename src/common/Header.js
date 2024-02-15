@@ -19,6 +19,12 @@ function Header(props) {
   useEffect(() => {
     if (isRoleValidation() === 'ADMIN' || isRoleValidation() === 'HR') {
       getReexamCandidateCount();
+      const intervalId = setInterval(() => {
+        getReexamCandidateCount();
+      }, 1 * 60 * 1000); // 2 minutes in milliseconds
+
+      // Clean up the interval when the component is unmounted
+      return () => clearInterval(intervalId);
     }
   }, [location]);
 
@@ -42,44 +48,44 @@ function Header(props) {
   };
 
   return (
-      <div className='header'>
-        <img className='header-logo' src={LOGO} alt='SkillSort' />
-        <div className='header-right'>
-          <div className='header-right-a'>
-            {(isRoleValidation() === 'HR' || isRoleValidation() === 'ADMIN') &&
+    <div className='header'>
+      <img className='header-logo' src={LOGO} alt='SkillSort' />
+      <div className='header-right'>
+        <div className='header-right-a'>
+          {(isRoleValidation() === 'HR' || isRoleValidation() === 'ADMIN') &&
             pathname !== '/admin/candidates' ? (
-              <Link to='/admin/candidates' state= {{candidates: candidates } }>
-                <Badge color='secondary' badgeContent={_.size(candidates)} >
-                  <i
-                    className='fa fa-user-o'
-                    aria-hidden='true'
-                    title='ReExam-Request'
-                    style={{ fontSize: '1.4rem', color: 'white' }}
-                  ></i>
-                </Badge>
-                </Link>
-            ) : null}
-          </div>
-          <hr className='vr' />
-          <div className='header-right-a header-name-content'>
-            <p className='header-name'>
-              <b>{getCurrentUser()?.username}</b>
-            </p>
-            <div className='div-in-side'>
-              <Link to={props.profile || window.location.pathname}>
-                <button className='a-tag'>Edit Profile</button>
-              </Link>
-              &nbsp;&nbsp;|&nbsp;&nbsp;
-              <button className='a-tag' onClick={(e) => goToLogout(e)}>
-                Log out
-              </button>
-            </div>
-          </div>
-          <div>
-            <img src={DEMO} alt='Profile' className='profile-pic' />
+            <Link to='/admin/candidates' state={{ candidates: candidates }}>
+              <Badge color='secondary' badgeContent={_.size(candidates)} >
+                <i
+                  className='fa fa-user-o'
+                  aria-hidden='true'
+                  title='ReExam-Request'
+                  style={{ fontSize: '1.4rem', color: 'white' }}
+                ></i>
+              </Badge>
+            </Link>
+          ) : null}
+        </div>
+        <hr className='vr' />
+        <div className='header-right-a header-name-content'>
+          <p className='header-name'>
+            <b>{getCurrentUser()?.username}</b>
+          </p>
+          <div className='div-in-side'>
+            <Link to={props.profile || window.location.pathname}>
+              <button className='a-tag'>Edit Profile</button>
+            </Link>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <button className='a-tag' onClick={(e) => goToLogout(e)}>
+              Log out
+            </button>
           </div>
         </div>
+        <div>
+          <img src={DEMO} alt='Profile' className='profile-pic' />
+        </div>
       </div>
+    </div>
   );
 }
 

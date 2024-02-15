@@ -18,10 +18,9 @@ export const Layout = () => {
   const logOut = () => {
     localStorage.clear();
     navigate("/login");
-    window.location.reload();
   };
 
-  const profilePath = {"COLLEGE_STUDENT":"/student/profile","ADMIN":"/admin/profile", "COMPETITOR":"/competitor/update"}
+  const profilePath = { "COLLEGE_STUDENT": "/student/profile", "ADMIN": "/admin/profile", "COMPETITOR": "/competitor/update", "DEMO_ROLE":"/competitor/update"}
 
   return (
     <div>

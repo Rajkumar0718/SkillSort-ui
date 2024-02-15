@@ -1,14 +1,14 @@
 import axios from 'axios';
 import React, { useState } from "react";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { authHeader, errorHandler } from "../../api/Api";
 import '../../assests/css/Login.css';
 import "../../assests/css/ReactToast.css";
 import skillsort from '../../assests/images/Frame.png';
 import useAuth from "../../hooks/useAuth";
 import { toastMessage } from '../../utils/CommonUtils';
-import url from '../../utils/UrlConstant';
 import getRole from '../../utils/GetRole';
+import url from '../../utils/UrlConstant';
 
 
 const AdminLogin = () => {
@@ -16,8 +16,6 @@ const AdminLogin = () => {
   const [disable, setDisable] = useState(false);
   const { setAuth } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || ""
 
   const handleLoginEventForStudent = () => {
     window.dataLayer.push({
@@ -69,10 +67,7 @@ const AdminLogin = () => {
 
   const navigateBasedOnRole = (role) => {
     const mapping = roleMappings[role];
-    if(from && from !== '/login' && from !== "/") {
-      console.log(from)
-      return navigate(from,{replace:true})
-    }
+
     if (mapping) {
       if (typeof mapping === "string") {
         navigate(mapping);

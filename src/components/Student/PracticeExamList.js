@@ -283,7 +283,7 @@ class PracticeExamList extends Component {
     return (
       <>
         <div className='row'>
-          <div className='col-9'>
+          <div className='col-12'>
             <TableHeader title="PracticeExams"/>
             {fallBackLoader(this.state.loader)}
             <AdvSearch title="Filter" showSearch={true} placeholder="search by topics" onSearch={this.onSearch} />
@@ -337,7 +337,7 @@ class PracticeExamList extends Component {
               </Grid>
             </div>
           </div>
-          <div className='col-3'>
+          {/* <div className='col-3'>
             <div style={{ position: 'fixed', padding: '.2rem' }}>
               <div style={{ marginBottom: '.0rem', background: 'none' }}>
                 <Card elevation={10} style={{boxShadow:'none'}}>
@@ -392,7 +392,7 @@ class PracticeExamList extends Component {
                 {_.size(this.state.advertisement) > 0 ? <Link style={{ color: '#4b9df5', border: 'none', background: 'none' }} to='/student/advertisement'  >See More</Link> : null}
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         {this.state.openModal ? <SocialMediaShareModal close={this.onCloseModal}  handleOutside={this.handleOutsideClick} examType={"practice"} certificateType={this.state.certificateType} candidateName={this.state.user.username?this.state.user.username:null} />:null}
       </>

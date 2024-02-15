@@ -355,15 +355,10 @@ const sidebar = {
     icon: 'fa fa-briefcase'
   }, {
     isSubMenu: false,
-    to: '/student/student-practice-exam',
+    to: '/student/practice-exam',
     name: 'Practice Exam',
     icon: () => <FaClipboard style={{ fontSize: '1.3rem', color: '#3b489e' }} />,
     isReactIcon: true
-  }, {
-    isSubMenu: false,
-    to: '/student/advertisement',
-    name: 'Advertisement',
-    icon: 'fa fa-bullhorn'
   }
   ],
   "COMPETITOR": [{

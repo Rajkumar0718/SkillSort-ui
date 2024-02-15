@@ -8,7 +8,7 @@ import '../../assests/css/Login.css';
 import "../../assests/css/ReactToast.css";
 import skillsort from '../../assests/images/Frame.png';
 import { toastMessage } from '../../utils/CommonUtils';
-import  url  from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import { isEmpty, isValidEmail, isValidPassword } from '../../utils/Validation';
 
 
@@ -17,6 +17,7 @@ const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const role = 'COLLEGE_STUDENT'
+  const [isFirstTimePasswordShows, setIsFirstTimePasswordShows] = useState(true);
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState('');
@@ -25,7 +26,7 @@ const AdminLogin = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [disableBtn, setDisableBtn] = useState(false);
 
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -34,25 +35,29 @@ const AdminLogin = () => {
     if (name === 'confirmPassword') setConfirmPassword(value);
   }
 
-  useEffect(()=>{
-    validatePassword();
+  useEffect(() => {
+    if (!isFirstTimePasswordShows) {
+      validatePassword();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[newPassword])
+  }, [newPassword])
 
   const handlePasswordChange = (event) => {
     const newPassword = event.target.value;
     setNewPassword(newPassword);
-    validatePassword();
+    setIsFirstTimePasswordShows(false);
   }
-    useEffect(()=>{
-        validateConfirmPassword();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[confirmPassword])
+  useEffect(() => {
+    if (!isFirstTimePasswordShows) {
+      validateConfirmPassword();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [confirmPassword])
 
   const handleConfirmPasswordChange = (event) => {
     const confirmPassword = event.target.value;
     setConfirmPassword(confirmPassword);
-    validateConfirmPassword();
+    setIsFirstTimePasswordShows(false);
   }
 
   // Password and Confirm Password validation part
@@ -61,7 +66,18 @@ const AdminLogin = () => {
     if (!newPassword) {
       passwordErrorMessage = 'Password is required';
     } else if (!isValidPassword(newPassword)) {
-      passwordErrorMessage = 'Password must be at least 8 - 20 characters, a Number and a Special Character ';
+      passwordErrorMessage = []
+      const containsNumber = /\d/.test(newPassword);
+      const containsSpecialCharacter = /[!@#$%^&*]/.test(newPassword);
+      if(newPassword.length < 8){
+        passwordErrorMessage.push('Must be at least 8 characters long');
+      }
+      if (!containsNumber) {
+        passwordErrorMessage.push( "At least one number is required" );
+      }
+      if (!containsSpecialCharacter) {
+        passwordErrorMessage.push( "At least one special character is required" )
+      }
     }
     setPasswordErrorMessage(passwordErrorMessage);
   }
@@ -71,7 +87,7 @@ const AdminLogin = () => {
     if (!confirmPassword) {
       confirmPasswordErrorMessage = 'Confirm password is required';
     } else if (newPassword !== confirmPassword) {
-      confirmPasswordErrorMessage = 'Passwords do not match';
+      confirmPasswordErrorMessage = 'Password and Confirm Password do not match';
     }
     setConfirmPasswordErrorMessage(confirmPasswordErrorMessage);
   }
@@ -91,13 +107,13 @@ const AdminLogin = () => {
     if (isEmpty(email)) {
       emailErrorMessage = 'Enter Email';
     }
-    else if(!isValidEmail(email)){
+    else if (!isValidEmail(email)) {
       emailErrorMessage = 'Enter valid Email';
-    }else{
+    } else {
       axios.get(`${url.COLLEGE_API}/student/find-student/${email}`)
-      .then(res => {
-        if(res.data === null){
-            toastMessage('error',"User Id doesn't exist please contact your placement co-ordinator");
+        .then(res => {
+          if (res.data === null) {
+            toastMessage('error', "User Id doesn't exist please contact your placement co-ordinator");
           } else {
             setStep(2);
           }
@@ -124,74 +140,91 @@ const AdminLogin = () => {
           role: role,
         }).then((response) => {
           navigate("/")
-        }).catch((error) => {
-            setDisableBtn(false)
-            errorHandler(error);
+        }).catch(() => {
+          setDisableBtn(false)
+          // errorHandler(error);
         });
       }
     }
   };
 
+  const renderPasswordMessage = () => {
+    if (typeof passwordErrorMessage === 'object' && passwordErrorMessage.length > 0) {
+      return (<ul style={{ listStyleType: 'disc', paddingLeft: '20px', margin: 0 }}>
+        {passwordErrorMessage.map((error, index) => (
+          <li key={index} style={{ color: '#444444' }}>
+            {error}
+          </li>
+        ))}
+      </ul>)
+    } 
+    else if (typeof passwordErrorMessage === 'string' && passwordErrorMessage) {
+      return <span style={{ color: '#444444' }}>{passwordErrorMessage}</span>
+    }
+  }
+
   return (
     <>
-        <div className='login-background'>
-            <div className='container dp'>
-                <div>
-                    <p className='login-content' >
-                        Matching <br />Fresh talents<br /> to great opportunities
-                    </p>
-                </div>
-                <div className='login-box' style={{marginRight:"50px"}}>
-                    <div><img src={skillsort} alt='SkillSort' /></div>
-                    <div>
-                        <form className='sign-in'>
-                            {step === 1 && (
-                                <>
-                                    <div className='text-pad'>
-                                        <div>
-                                            <input className='login-textfield input-text' placeholder='Email' type='email' name="email" onChange={handleChange} value={email} style={{marginTop:"25px", marginLeft:"10px", fontSize:"18px", WebkitTextFillColor: 'white' }} />
-                                            <FormHelperText style={{ color:'white', position:"fixed", marginLeft:"15px", fontSize:"15px" }} className='helper helper-candidate'>{emailErrorMessage && <span style={{ color: 'red' }}>{emailErrorMessage}</span>}</FormHelperText>
-                                        </div>
-                                            <br />
-                                        <div className='login-pad' style={{marginBottom:"50px"}}>
-                                            <button type='submit' className='btn-sm btn btn-prev' style={{ width: '9rem', fontSize:"18px"}} onClick={handleNextClick}>Next</button>
-                                        </div>
-                                        <div style={{marginBottom:"20px"}}>
-                                            <label style={{ color:'white', fontSize:'15px', marginLeft:'10px'}}>Already have an account ? - </label>
-                                            <a className='login-a' href='/login' style={{ color: '#3b489e', marginLeft:'10px' }}>Login</a>
-                                            {/* <Link style={{ color:'#3b489e', fontSize:'15spx', marginLeft:'10px'}} to="/login">Login</Link> */}
-                                        </div>
-                                    </div>
-                                </>
-                            )}
-                            {step === 2 && (
-                                <>
-                                    <div style={{ height: '40px' }} className='text-pad'>
-                                        <input className='login-textfield input-text' type={showPassword ? 'text' : 'password'} placeholder='Password' value={newPassword} name="newPassword" onChange={handlePasswordChange} style={{ fontSize:"18px", marginTop:'30px', WebkitTextFillColor: 'white' }} />
-                                        <span onClick={togglePasswordVisibility} style={{ display:"flex",cursor: "pointer",fontSize:"10px",marginLeft:"215px",marginTop:"-21px",fontWeight:"600",  color:"white" }}>
-                                            {showPassword ? <FaEye style={{fontSize:'18px', marginTop:'-5px'}} /> : <FaEyeSlash style={{fontSize:'18px', marginTop:'-5px'}} />}
-                                        </span>
-                                        <FormHelperText style={{ color: 'white', position:"fixed", fontSize:"12px", width:'18rem', marginTop:'12px'}} className='helper helper-studentLogin'>{passwordErrorMessage && <span style={{ color: 'red' }}>{passwordErrorMessage}</span>}</FormHelperText>
-                                    </div><br></br>
-                                    <div style={{ height: '40px', marginTop:'30px'}} className='text-pad'>
-                                        <input className='login-textfield input-text' type={showConfirmPassword ? 'text' : 'password'} placeholder='Confirm Password' value={confirmPassword} name="confirmPassword" onChange={handleConfirmPasswordChange} style={{ fontSize:"18px", marginTop:'25px', WebkitTextFillColor: 'white' }} />
-                                        <span onClick={toggleConfirmPasswordVisibility} style={{ display:"flex",cursor: "pointer",fontSize:"10px",marginLeft:"215px",marginTop:"-21px",fontWeight:"600", color:"white" }}>
-                                            {showConfirmPassword ? <FaEye style={{fontSize:'18px', marginTop:'-5px'}}/> : <FaEyeSlash style={{fontSize:'18px', marginTop:'-5px'}} />}
-                                        </span>
-                                        <FormHelperText style={{ color: 'white', position:"fixed", fontSize:"15px", marginTop:'12px' }} className='helper helper-studentLogin'>{confirmPasswordErrorMessage && <span style={{ color: 'red' }}>{confirmPasswordErrorMessage}</span>}</FormHelperText>
-                                    </div><br></br>
-                                    <div className='login-pad' style={{display:'flex'}}>
-                                        <button type='submit' className='login-button' style={{ width: '9rem', fontSize:"18px",marginBottom:"30px"}} disabled= {disableBtn} onClick={handleSignUpClick}>Set Password</button>
-                                    </div>
-                                </>
-                            )}
-                        </form>
+      <div className='login-background'>
+        <div className='container dp'>
+          <div>
+            <p className='login-content' >
+              Matching <br />Fresh talents<br /> to great opportunities
+            </p>
+          </div>
+          <div className='login-box' style={{ marginRight: "50px" }}>
+            <div><img src={skillsort} alt='SkillSort' /></div>
+            <div>
+              <form className='sign-in'>
+                {step === 1 && (
+                  <>
+                    <div className='text-pad'>
+                      <div>
+                        <input className='login-textfield input-text' placeholder='Email' type='email' name="email" onChange={handleChange} value={email} style={{ marginTop: "15px", marginLeft: "10px", fontSize: "18px", WebkitTextFillColor: 'white' }} />
+                        <FormHelperText style={{ color: 'white', position: "fixed", marginLeft: "15px", fontSize: "15px" }} className='helper helper-candidate'>{emailErrorMessage && <span style={{ color: 'red' }}>{emailErrorMessage}</span>}</FormHelperText>
+                      </div>
+                      <br />
+                      <div className='login-pad' style={{ marginBottom: "50px" }}>
+                        <button type='submit' className='btn-sm btn btn-prev' style={{ width: '9rem', fontSize: "18px" }} onClick={handleNextClick}>Next</button>
+                      </div>
+                      <div style={{ marginBottom: "20px" }}>
+                        <label style={{ color: 'white', fontSize: '15px', marginLeft: '10px' }}>Already have an account ? - </label>
+                        <a className='login-a' href='/login' style={{ color: '#3b489e', marginLeft: '10px' }}>Login</a>
+                        {/* <Link style={{ color:'#3b489e', fontSize:'15spx', marginLeft:'10px'}} to="/login">Login</Link> */}
+                      </div>
                     </div>
-                </div>
+                  </>
+                )}
+                {step === 2 && (
+                  <>
+                    <div className='text-pad'>
+                      <input className='login-textfield input-text' type={showPassword ? 'text' : 'password'} placeholder='Password' value={newPassword} name="newPassword" onChange={handlePasswordChange} style={{ fontSize: "18px", marginTop: '30px', WebkitTextFillColor: 'white' }} />
+                      <span onClick={togglePasswordVisibility} style={{ display: "flex", cursor: "pointer", fontSize: "10px", marginLeft: "215px", marginTop: "-21px", fontWeight: "600", color: "white" }}>
+                        {showPassword ? <FaEye style={{ fontSize: '18px', marginTop: '-5px' }} /> : <FaEyeSlash style={{ fontSize: '18px', marginTop: '-5px' }} />}
+                      </span>
+                      <FormHelperText style={{ color: 'white', position: "fixed", fontSize: "12px", width: '18rem', marginTop: '12px' }} className='helper helper-studentLogin'>
+                        {renderPasswordMessage()}
+                      </FormHelperText>
+                    </div><br></br>
+                    <div style={{ height: '40px', marginTop: '30px' }} className='text-pad'>
+                      <input className='login-textfield input-text' type={showConfirmPassword ? 'text' : 'password'} placeholder='Confirm Password' value={confirmPassword} name="confirmPassword" onChange={handleConfirmPasswordChange} style={{ fontSize: "18px", marginTop: '25px', WebkitTextFillColor: 'white' }} />
+                      <span onClick={toggleConfirmPasswordVisibility} style={{ display: "flex", cursor: "pointer", fontSize: "10px", marginLeft: "215px", marginTop: "-21px", fontWeight: "600", color: "white" }}>
+                        {showConfirmPassword ? <FaEye style={{ fontSize: '18px', marginTop: '-5px' }} /> : <FaEyeSlash style={{ fontSize: '18px', marginTop: '-5px' }} />}
+                      </span>
+                      <FormHelperText style={{ color: 'white', position: "fixed", fontSize: "12px", marginTop: '12px' }} className='helper helper-studentLogin'>{confirmPasswordErrorMessage && <span style={{ color: '#444444' }}>{confirmPasswordErrorMessage}</span>}</FormHelperText>
+                    </div><br></br>
+                    <div className='login-pad' style={{ display: 'flex' }}>
+                      <button type='submit' className='login-button' style={{ width: '9rem', fontSize: "18px", marginBottom: "30px", marginTop: '1rem' }} disabled={disableBtn} onClick={handleSignUpClick}>Set Password</button>
+                    </div>
+                  </>
+                )}
+              </form>
             </div>
+          </div>
         </div>
+      </div>
     </>
-);
+  );
 
 }
 

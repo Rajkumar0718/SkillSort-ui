@@ -31,6 +31,13 @@ function PublicRegister() {
     }
   }
 
+  const handleEnterKeyPress = (e) => {
+    // Check if the pressed key is Enter (key code 13)
+    if (e.key === 'Enter') {
+      handleNext();
+    }
+  }
+
   useEffect(() => {
     localStorage.clear()
     getCompany()
@@ -74,7 +81,7 @@ function PublicRegister() {
             </div>
             <img style={{ width: '100px', height: '50px', transform: 'translate(250px,15px)' }} src={`data:image/png;base64,${companyLogo}`} alt='logo' ></img>
             <CardContent style={{ marginTop: '1.5rem', display: 'grid', placeItems: 'center' }}>
-              <input placeholder='Enter Email' className="profile-page" type='text' value={email} onChange={(e) => setEmail(e.target.value)} style={{ padding: '.5rem' }} />
+              <input placeholder='Enter Email' className="profile-page" type='text' value={email} onChange={(e) => setEmail(e.target.value)} style={{ padding: '.5rem' }} onKeyDown={handleEnterKeyPress}/>
               <FormHelperText className="helper helper-candidate">{error.email ? error.emailErrorMessage : null}</FormHelperText>
             </CardContent>
           </Card>

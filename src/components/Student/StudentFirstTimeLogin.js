@@ -81,6 +81,7 @@ const StudentFirstTimeLogin = () => {
     // handlePageViewEvent();
     getCollege();
     getDepartments();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getStudent = () => {
