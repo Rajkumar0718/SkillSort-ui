@@ -18,6 +18,7 @@ import SendMail from "./components/ProcessAdmin/SendMail";
 import VerifyRecruiter from "./components/SuperAdmin/VerifyRecruiter";
 import RecruiterTimeSlot from "./components/SuperAdmin/RecruiterTimeSlot";
 import ProjectResultView from "./components/project-ui/ProjectResultView";
+import ForgetPassword from "./components/Admin/ForgotPassword";
 
 const AddExam = React.lazy(() => import("./components/Admin/AddExam"));
 const AddHr = React.lazy(() => import("./components/Admin/AddHr"));
@@ -108,6 +109,7 @@ function App() {
         {/* Public Routes */}
         <Route index element={<AdminLogin />}></Route>
         <Route path="/login" element={<AdminLogin />} />
+        <Route path='/admin/forgot/password' element={<ForgetPassword/>} />
         <Route path='/examResult/:candidateId' element={<TestResults />} />
         <Route path="/project" element={<ProjectUi />} />
         <Route path='/competitor/login' element={<CompetitorFirstTimeLogin />} />
