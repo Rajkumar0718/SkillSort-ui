@@ -39,6 +39,7 @@ class AddExam extends Component {
       isProgrammingCamera: false,
       name: '',
       duration: '',
+      projectDuration: '',
       programmingDuration: '',
       disabled: false,
       tabsArray: [],
@@ -84,6 +85,8 @@ class AddExam extends Component {
         jobDescriptionMsg: '',
         programmingDuration: false,
         programmingDurationMsg: '',
+        projectDuration: false,
+        projectDurationMsg: '',
         levelMsg: '',
         level: false,
         tokenValidity: false,
@@ -167,8 +170,18 @@ class AddExam extends Component {
 
   handleTabs = (event) => {
     const tabsArray = this.state.tabsArray;
-    this.setState({ tabIndex: event.target.value })
+    const error = this.state.error;
     if (tabsArray.includes(event.target.value)) {
+      if (event.target.value === 'PROGRAMMING') {
+        error.programmingDuration = false;
+        error.programmingDurationMsg = ''
+      } else if (event.target.value === 'PROJECT') {
+        error.projectDuration = false;
+        error.projectDurationMsg = ''
+      } else {
+        error.duration = false;
+        error.durationMsg = ''
+      }
       const index = tabsArray.indexOf(event.target.value);
       if (index > -1) {
         tabsArray.splice(index, 1);
@@ -203,8 +216,9 @@ class AddExam extends Component {
               name: res.data.response.sectionName,
               simple: res.data.response.simple,
               medium: res.data.response.medium,
-              complex: res.data.response.complex
-            })
+              complex: res.data.response.complex,
+            }),
+            tabIndex: tabsArray[0]
           })
         }).catch(error => {
           errorHandler(error);
@@ -337,7 +351,7 @@ class AddExam extends Component {
 
     this.setState({ error })
     event.preventDefault();
-    if (this.state.totalQuestions !== 0 && this.state.setting.id !== null && !error.duration && !error.name && !error.programmingDuration
+    if (this.state.totalQuestions !== 0 && this.state.setting.id !== null && !error.duration && !error.name && !error.programmingDuration && !error.projectDuration
       && !error.candidateInstruction && !error.examSubmitMessage && !error.jobDescription && !error.level && !error.tokenValidity) {
       this.setState({
         ...this.state, link: `${url.UI_URL}/register/${localStorage.getItem('token')}/`,
@@ -361,21 +375,45 @@ class AddExam extends Component {
         error.programmingDuration = true;
         error.programmingDurationMsg = "Field Required !";
       }
-      if (this.checkIsDurationIsEmpty() && this.state.tabsArray.length > 1) {
+      if (this.state.tabsArray.length > 1) {
+        if (this.checkIsDurationIsEmpty() && !this.state.tabsArray.includes('PROJECT')) {
+          this.setMCQDurationError(error);
+        }
+        if (this.state.tabsArray.includes('PROJECT') && this.checkIsProjectDurationIsEmpty()) {
+          error.projectDuration = true;
+          error.projectDurationMsg = "Field Required !";
+        }
+        if ((this.checkIsDurationIsEmpty() && this.state.tabsArray.includes('PROJECT')) && this.state.tabsArray.length > 2) {
+          this.setMCQDurationError(error);
+        }
+      }
+    }
+    else if ((this.state.tabsArray.length === 0 || this.checkIsDurationIsEmpty()) && !this.state.tabsArray.includes('PROJECT')) {
+      this.setMCQDurationError(error)
+    }
+    else if (this.state.tabsArray.length >= 1 && this.state.tabsArray.includes("PROJECT")) {
+      if (this.checkIsProjectDurationIsEmpty()) {
+        error.projectDuration = true;
+        error.projectDurationMsg = "Field Required !";
+      }
+      if (this.state.tabsArray.length > 1 && this.checkIsDurationIsEmpty()) {
         this.setMCQDurationError(error);
       }
     }
-    else if (this.state.tabsArray.length === 0 || this.checkIsDurationIsEmpty()) {
-      this.setMCQDurationError(error)
-    } else {
+    else {
       error.programmingDuration = false;
-      error.duration = false
+      error.duration = false;
+      error.projectDuration = false;
     }
 
   }
 
   checkIsDurationIsEmpty = () => {
     return (isEmpty(this.state.duration) || this.state.duration <= 0)
+  }
+
+  checkIsProjectDurationIsEmpty = () => {
+    return (isEmpty(this.state.projectDuration) || this.state.projectDuration <= 0)
   }
 
   saveExam = () => {
@@ -428,6 +466,7 @@ class AddExam extends Component {
     error.examSubmitMessage = false;
     error.jobDescription = false;
     error.programmingDuration = false;
+    error.projectDuration = false;
     error.level = false;
     this.setState({ error })
   }
@@ -464,6 +503,7 @@ class AddExam extends Component {
   };
 
   createTabsUI = (action, clonedExam) => {
+    console.log(this.state.tabIndex)
     return (
       this.state.tabsArray?.length > 0 ?
         // <div className='row'>
@@ -612,6 +652,7 @@ class AddExam extends Component {
         isSkillSortQuestion: exams.isSkillSortQuestion,
         isMcqCamera: exams.isMcqCamera,
         isProgrammingCamera: exams.isProgrammingCamera,
+        projectDuration: exams.projectDuration,
         tokenValidity: exams.tokenValidity,
         isCopyPaste: exams.isCopyPaste
       })
@@ -748,7 +789,7 @@ class AddExam extends Component {
                               {_.map(this.state.selectSection, (section) => {
                                 return <div>
                                   <label className="checkbox">
-                                    <input type="checkbox" value={section} onChange={(e) => this.handleTabs(e, { section })} checked={this.state.tabsArray.includes(section) ? true : false} required={this.state.tabsArray.length > 0 ? false : true} />
+                                    <input type="checkbox" value={section} onChange={(e) => this.handleTabs(e, { section })} disabled={(this.state.tabsArray.length === 1 && section !== 'PROJECT' && this.state.tabsArray.includes("PROJECT")) || (this.state.tabsArray.length > 0 && section === 'PROJECT' && !this.state.tabsArray.includes('PROJECT'))} checked={this.state.tabsArray.includes(section)} required={this.state.tabsArray.length > 0} />
                                     <span className="ml-1">{section}</span>
                                   </label>
                                 </div>
@@ -761,29 +802,39 @@ class AddExam extends Component {
                                 </div>
                               })}
                             </div>}
-                            {(this.state.selectSection.length === 1 && this.state.selectSection.includes("PROGRAMMING")) || (this.state.tabsArray.includes("PROGRAMMING") && this.state.tabsArray.length === 1) ? "" :
+                            {(this.state.selectSection.length === 1 && this.state.selectSection.includes("PROGRAMMING")) || (this.state.tabsArray.includes("PROGRAMMING") && this.state.tabsArray.length === 1) || (this.state.selectSection.length === 1 && this.state.selectSection.includes("PROJECT")) || (this.state.tabsArray.includes("PROJECT") && this.state.tabsArray.length === 1) ||
+                              (this.state.selectSection.length === 2 && this.state.selectSection.includes("PROGRAMMING", "PROJECT")) || (this.state.tabsArray.length === 2 && (this.state.tabsArray.includes("PROGRAMMING") && this.state.tabsArray.includes("PROJECT"))) || (this.state.tabsArray.length === 1 && (this.state.tabsArray.includes("PROGRAMMING") || this.state.tabsArray.includes("PROJECT"))) ? "" :
                               <div className="col-md-6">
                                 <div className="form-group">
                                   <label className="form-label-row">MCQ Duration <span style={{ color: 'red' }}>*</span></label>
-                                  {!action ? <input style={{ marginLeft: '31px', marginTop: '10px' }} className='add-exam-input col-7' value={this.state.duration} type='number' max="480" onChange={(e) => this.handleChange(e, 'duration')} placeholder='Duration (In minutes)' /> : <input className='form-control-row col-7' value={this.state.duration} type='number' max="480" ></input>}
+                                  {!action ? <input className='form-control-row col-7' value={this.state.duration} type='number' max="480" onChange={(e) => this.handleChange(e, 'duration')} placeholder='Duration (In minutes)' /> : <input className='form-control-row col-7' value={this.state.duration} type='number' max="480" ></input>}
                                   <FormHelperText className="helper" style={{ paddingLeft: "35px" }}>{this.state.error.duration ? this.state.error.durationMsg : null}</FormHelperText>
                                 </div>
                               </div>}
-                            <div className="col-md-6">
-                              {this.state.tabsArray.includes("PROGRAMMING") || (this.state.selectSection.length === 1 && this.state.selectSection.includes("PROGRAMMING")) ?
+                            {this.state.tabsArray.includes("PROGRAMMING") || (this.state.selectSection.length === 1 && this.state.selectSection.includes("PROGRAMMING")) ?
+                              <div className="col-md-6">
                                 <div className="form-group">
                                   <label className="form-label-row">Programming Duration<span style={{ color: 'red' }}>*</span></label>
                                   {!action ? <input className='form-control-row col-7' value={this.state.programmingDuration} type='number' max="480" onChange={(e) => this.handleChange(e, 'programmingDuration')} placeholder='Duration (In minutes)' /> : <input className='form-control-row col-7' value={this.state.programmingDuration} type='number' max="480"></input>}
                                   <FormHelperText className="helper" style={{ paddingLeft: "35px" }}>{this.state.error.programmingDuration ? this.state.error.programmingDurationMsg : null}</FormHelperText>
                                 </div>
-                                : ''}
-                            </div>
+                              </div>
+                              : ''}
+                            {this.state.tabsArray.includes("PROJECT") || (this.state.selectSection.length === 1 && this.state.selectSection.includes("PROJECT")) ?
+                              <div className="col-md-6">
+                                <div className="form-group">
+                                  <label className="form-label-row">Project Duration<span style={{ color: 'red' }}>*</span></label>
+                                  {!action ? <input className='form-control-row col-7' value={this.state.projectDuration} type='number' max="480" onChange={(e) => this.handleChange(e, 'projectDuration')} placeholder='Duration (In minutes)' /> : <input className='form-control-row col-7' value={this.state.projectDuration} type='number' max="480"></input>}
+                                  <FormHelperText className="helper" style={{ paddingLeft: "35px" }}>{this.state.error.projectDuration ? this.state.error.projectDurationMsg : null}</FormHelperText>
+                                </div>
+                              </div>
+                              : ''}
                             {/* </div> */}
-                            <div className='col-md-12' style={{ paddingLeft: "2.5rem", marginBottom: '10px', marginTop: '20px' }}>
-                              {(this.state.tabsArray.length !== 0) ? <span>Select Camera Access</span> : <span></span>}
+                            <div className='col-md-12' style={{ paddingLeft: "2.5rem", marginBottom: '10px' }}>
+                              {(this.state.tabsArray.length !== 0 && (!this.state.tabsArray.includes("PROJECT") || this.state.tabsArray.length > 1)) ? <span>Select Camera Access</span> : <span></span>}
                             </div>
                             <div className="col-md-12" style={{ paddingLeft: "3rem" }}>
-                              {(!this.state.tabsArray.includes("PROGRAMMING") && this.state.tabsArray.length === 1) || this.state.tabsArray.length > 1 ?
+                              {!(this.state.tabsArray.length === 1 && (this.state.tabsArray.includes("PROGRAMMING") || this.state.tabsArray.includes("PROJECT"))) && !(this.state.tabsArray.length === 2 && (this.state.tabsArray.includes("PROGRAMMING") && this.state.tabsArray.includes("PROJECT"))) && this.state.tabsArray.length !== 0 ?
                                 <div className='row'>
                                   <div className='col-lg-6 col-sm-6 xol-md-6'>
                                     <span>MCQ Round Camera Access</span>

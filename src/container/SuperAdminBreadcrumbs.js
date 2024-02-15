@@ -1,16 +1,15 @@
 import { Link, Breadcrumbs as MUIBreadcrumbs, Typography } from "@mui/material";
 import _ from 'lodash';
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useLocation } from 'react-router';
 import { useNavigate } from "react-router-dom";
 import crumbsPathWithName from "../common/BreadcrumbJson";
 import { isRoleValidation } from "../utils/Validation";
-import { withLocation } from "../utils/CommonUtils";
 
 
 const Breadcrumbs = (props) => {
 
-  const { state, data } = props;
+  const { state } = props;
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,8 +20,6 @@ const Breadcrumbs = (props) => {
   const role = isRoleValidation();
   const skipPath = ['settings', 'panelists', 'skillsortadmin', 'collegeadmin', 'Test']
 
-  useEffect(() => {
-  }, [location])
   return (
     <MUIBreadcrumbs aria-label="breadcrumb" separator=">" style={{ paddingBottom: '10px' }}>
       {pathnames.length > 0 && pathname !== '/home' ? (

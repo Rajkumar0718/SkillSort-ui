@@ -20,11 +20,6 @@ export const SuperAdminLayout = () => {
     window.location.reload();
   };
 
-  const breadcrumbsProps = {
-    homeLink: "/college",
-    name: "college",
-  };
-
 
   const pathname = window.location.pathname;
   if (pathname.includes('/collegeadmin')) {

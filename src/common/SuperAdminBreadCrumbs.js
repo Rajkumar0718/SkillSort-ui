@@ -4,7 +4,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const SuperAdminBreadcrumbs = ({ breadCrumbJSON }) => {
     const [homeLink, setHomeLink] = useState(null);
-    const [name, setName] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
     const { pathname } = location || {};
@@ -13,7 +12,6 @@ const SuperAdminBreadcrumbs = ({ breadCrumbJSON }) => {
     useEffect(() => {
         if (breadCrumbJSON) {
             setHomeLink(breadCrumbJSON.homeLink);
-            setName(breadCrumbJSON.name);
         }
     }, [breadCrumbJSON]);
 
@@ -22,7 +20,6 @@ const SuperAdminBreadcrumbs = ({ breadCrumbJSON }) => {
         navigate(homeLink);
     };
 
-    const targetString = name;
     const skipPath = ['settings', 'panelists', 'skillsortadmin', 'Test']
 
     return (
@@ -69,6 +66,8 @@ const SuperAdminBreadcrumbs = ({ breadCrumbJSON }) => {
                             ? breadCrumbJSON[pathname]
                             : name?.charAt(0).toUpperCase() + name?.slice(1)}
                     </Typography>
+                } else {
+                   return <></>
                 }
             })}
         </MUIBreadcrumbs>

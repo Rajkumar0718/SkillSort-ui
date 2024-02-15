@@ -4,7 +4,6 @@ import IconButton from "@mui/material/IconButton";
 
 const Card = (props) => {
   const { items, showModalComponent, onCloseModalComponent } = props;
-  const [loader, setLoader] = useState(false);
   const [modalKey, setModalKey] = useState(null);
   const [showModal, setShowModal] = useState(false);
 

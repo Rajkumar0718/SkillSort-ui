@@ -17,6 +17,7 @@ import ExamListProcesss from "./components/ProcessAdmin/ExamList";
 import SendMail from "./components/ProcessAdmin/SendMail";
 import VerifyRecruiter from "./components/SuperAdmin/VerifyRecruiter";
 import RecruiterTimeSlot from "./components/SuperAdmin/RecruiterTimeSlot";
+import ProjectResultView from "./components/project-ui/ProjectResultView";
 
 const AddExam = React.lazy(() => import("./components/Admin/AddExam"));
 const AddHr = React.lazy(() => import("./components/Admin/AddHr"));
@@ -108,9 +109,7 @@ function App() {
         <Route index element={<AdminLogin />}></Route>
         <Route path="/login" element={<AdminLogin />} />
         <Route path='/examResult/:candidateId' element={<TestResults />} />
-        <Route element={<RequireAuth allowedRoles={["ROLE_CANDIDATE"]} />}>
-          <Route path="/project" element={<ProjectUi />} />
-        </Route>
+        <Route path="/project" element={<ProjectUi />} />
         <Route path='/competitor/login' element={<CompetitorFirstTimeLogin />} />
         <Route path='/login/student' element={<StudentFromWebsite />} />
         <Route path="/setpassword" component={<StudentFromWebsite />} />
@@ -129,6 +128,7 @@ function App() {
         <Route path="/admin/result/candidate/details/:candidate_id" element={<CandidateResultDetails />} />
         <Route path="/admin/result/candidate/programResult/:candidate_id" element={<ProgramResult />} />
         <Route path='/candidate-details/:examResultId' element={<SharedCandidateDetails />} />
+        <Route path="/project-result/:resultId" element={<ProjectResultView />} />
         {/* Private Routes */}
         <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN"]} />}>
           <Route path="/home" element={<HomePage />} />

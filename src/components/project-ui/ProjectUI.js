@@ -155,6 +155,7 @@ const ProjectUi = () => {
       .then((res) => {
         localStorage.setItem('onGoingExamId', res.data.response.id);
         localStorage.setItem('startDate', res.data.response.startDate);
+        setOngoingExam(res.data.response)
         if (!localStorage.getItem('seconds')) {
           setInitStateForSession(answeredState);
         }
@@ -340,7 +341,7 @@ const ProjectUi = () => {
         </div>
       </div>
 
-      {openSandBox ? (
+      {openSandBox && ongoingExam?.projectFramework ? (
         <>
           <div style={{ display: 'flex', flexDirection: 'row', height: 'calc(100vh - 8rem)' }}>
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '3vw', justifyContent: 'center', height: '100%', backgroundColor: '#011627', color: 'white' }} >

@@ -473,11 +473,7 @@ class AddQuestion extends Component {
         this.setState({ activeStep: 0 })
         if (this.props.location?.pathname?.indexOf('edit') > -1) {
           toastMessage('success', 'Question Updated Successfully..!');
-          this.props.history.push({
-            pathname: isRoleValidation() === "TEST_ADMIN" ? "/testadmin/question" : "/admin/questions",
-            state: { difficulty: this.props.location?.state?.difficulty, section: this.props.location?.state?.section }
-          })
-          this.props.history.push(isRoleValidation() === "TEST_ADMIN" ? "/testadmin/question" : "/admin/questions");
+          this.props.navigate(isRoleValidation() === "TEST_ADMIN" ? "/testadmin/question" : "/admin/questions", { state: { difficulty: this.props.location?.state?.difficulty, section: this.props.location?.state?.section }})
         } else {
           toastMessage('success', 'Question Added Successfully..!');
           this.resetQuestionForm();

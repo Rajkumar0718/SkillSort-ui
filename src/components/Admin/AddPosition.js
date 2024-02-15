@@ -311,7 +311,6 @@ class AddPosition extends Component {
                               }));
                             }}
                             onReady={(editor) => {
-                              const container = editor.ui.view.element;
                               editor.on('ready', () => {
                                 ClassicEditor.create(
                                   editor.editing.view.document.getRoot(),
