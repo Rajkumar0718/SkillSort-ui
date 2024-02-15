@@ -9,6 +9,7 @@ import { CustomTable } from "../../utils/CustomTable";
 import Pagination from "../../utils/Pagination";
 import TableHeader from "../../utils/TableHeader";
 import url from '../../utils/UrlConstant';
+import Search from "../../common/AdvanceSearch";
 
 
 const PracticeExam = () => {
@@ -78,16 +79,16 @@ const PracticeExam = () => {
         renderCell: (params) => {
           return (
             <Link
-            className="collapse-item"
-            to="/settings/practiceExam/viewPracticeExam"
-              state={{practiceExam: params}}
-          >
-            <i
-              className="fa fa-pencil"
-              style={{ cursor: "pointer", color: "#3B489E" }}
-              aria-hidden="true"
-            ></i>
-          </Link>
+              className="collapse-item"
+              to="/settings/practiceExam/viewPracticeExam"
+              state={{ practiceExam: params }}
+            >
+              <i
+                className="fa fa-pencil"
+                style={{ cursor: "pointer", color: "#3B489E" }}
+                aria-hidden="true"
+              ></i>
+            </Link>
           );
         },
       },
@@ -151,19 +152,19 @@ const PracticeExam = () => {
         <Link to='/settings/practiceExam/addPracticeExam'>  <button type="button" className="btn btn-sm btn-nxt header-button">Add Practice Exam</button></Link>
         <div>
           <TableHeader title="PracticeExam-History" />
-          <AdvSearch
+          <Search
             title="Filter"
             showSearch={true}
             placeholder="search by Exam name"
             onSearch={onSearch}
-          />
+            style={{marginLeft:"0",margin:"1.32rem"}}
+          ></Search>
           <CustomTable
             data={practiceExam}
             headers={headers}
             loader={loader}
             pageSize={pageSize}
             currentPage={currentPage}
-
           />
           {numberOfElements === 0 ? (
             ""

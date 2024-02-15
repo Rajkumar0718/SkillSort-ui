@@ -4,12 +4,13 @@ import axios from 'axios';
 import _ from 'lodash';
 import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from '../../api/Api';
-import AdvSearch from '../../common/Search';
 import { CustomTable } from '../../utils/CustomTable';
 import Pagination from '../../utils/Pagination';
 import TableHeader from '../../utils/TableHeader';
 import url from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
+import Search from "../../common/AdvanceSearch";
+import { width } from "@mui/system";
 
 
 const CollegeAdminList = () => {
@@ -173,17 +174,18 @@ const CollegeAdminList = () => {
           buttonName="Add College Admin"
           showLink={true}
         />
-        <AdvSearch
+        <Search
           title="Filter"
           showSearch={true}
-          placeholder="Search by Name,CollegeName,Email,PhoneNumber "
+          placeholder="Search by Name,CollegeName,Email,PhoneNumber"
           onSearch={onSearch}
-        ></AdvSearch>
+        ></Search>
         <CustomTable data={collegeAdmin}
           headers={headers}
           loader={loader}
           pageSize={pageSize}
           currentPage={currentPage}
+          style={{width:"97%",marginLeft:"1.32rem"}}
         />
         {numberOfElements === 0 ? '' :
           <Pagination

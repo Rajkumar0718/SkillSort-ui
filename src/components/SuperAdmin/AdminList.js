@@ -9,6 +9,7 @@ import { CustomTable } from '../../utils/CustomTable';
 import Pagination from '../../utils/Pagination';
 import { authHeader, errorHandler } from '../../api/Api';
 import url from '../../utils/UrlConstant';
+import Search from '../../common/AdvanceSearch';
 
 const AdminList = () => {
   const [adminData, setAdminData] = useState([]);
@@ -153,8 +154,13 @@ const AdminList = () => {
   return (
     <div>
       <TableHeader title="Admins" buttonName={'Add Admin'} link="/companyadmin/admin/add" showLink={true} />
-      <AdvSearch title="Filter" showSearch={true} placeholder="Search By Name,CompanyName,Email,Phone" onSearch={onSearch} />
-      <CustomTable data={adminData} headers={tableHeaders} loader={loader} pageSize={pageSize} currentPage={currentPage} />
+      <Search
+          title="Filter"
+          showSearch={true}
+          placeholder="Search By Name,CompanyName,Email,Phone"
+          onSearch={onSearch}
+        ></Search>
+      <CustomTable data={adminData} headers={tableHeaders} loader={loader} pageSize={pageSize} currentPage={currentPage} style={{width:"97%",marginLeft:"1.32rem"}} />
       {numberOfElements === 0 ? "" : (
         <Pagination
           totalPages={totalPages}
