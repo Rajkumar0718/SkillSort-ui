@@ -206,7 +206,7 @@ export default class StaffList extends Component {
           <Search
             title="Filter"
             showSearch={true}
-            placeholder="search "
+            placeholder="search by name,email or phone no"
             onSearch={this.onSearch}
           ></Search>
           <div className="row">

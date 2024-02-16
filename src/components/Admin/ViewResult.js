@@ -16,6 +16,7 @@ import { isRoleValidation } from '../../utils/Validation';
 import MatchResumeModal from "./MatchResumeModal";
 import saveAs from "file-saver"
 import { toast } from "react-toastify";
+import styled from 'styled-components';
 let hidden = null;
 let visibilityChange = null;
 if (typeof document.hidden !== "undefined") {
@@ -29,6 +30,13 @@ if (typeof document.hidden !== "undefined") {
   hidden = "webkitHidden";
   visibilityChange = "webkitvisibilitychange";
 }
+const StyledLink = styled(Link)`
+  text-decoration: none;
+
+  &:hover {
+    color: #007bff !important; /* Change to the color you want on hover */
+  }
+`;
 export default class ViewResult extends Component {
   constructor(props) {
     super(props);
@@ -273,14 +281,14 @@ export default class ViewResult extends Component {
         renderCell: (params) => {
           return isRoleValidation() !== "HR" ? (
             <>
-              <Link
+              <StyledLink
                 to={{ pathname: '/admin/result/candidate/details/' + params.candidateId }}
                 target={'_blank'}
                 onClick={() => this.setCandidate(params)}
                 style={{ textDecoration: 'none', color: 'blue' }}
               >
                 {params.candidate?.firstName} {params.candidate?.lastName}
-              </Link>
+              </StyledLink>
               {params.candidate?.isFromSkillSort ? <img alt="skillsort" style={{ marginLeft: '7px' }} src={LOGO} ></img> : null}
             </>
           ) : <>

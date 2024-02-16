@@ -267,9 +267,9 @@ export default class SelectedStudentList extends Component {
   (<>
     <tr>
       <td style={{ textAlign: 'center' }}>{index + 1}</td>
-      <td>{result.firstName} {result.lastName}</td>
+      <td style={{ color:"black"}}>{result.firstName} {result.lastName}</td>
       {!this.handleProps() ? "" : <td style={{ textAlign: 'center' }}>{result.gender}</td>}
-      <td>{result.email}</td>
+      <td  style={{ color:"black"}}>{result.email}</td>
       {!this.handleProps() ? "" : <td>{result.phone}</td>}
       {!this.handleProps() ?
         <td style={{ textAlign: 'left', color: this.setStatusColor(result.candidateStatus) }}>

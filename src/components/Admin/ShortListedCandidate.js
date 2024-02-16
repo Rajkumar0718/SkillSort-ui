@@ -12,14 +12,21 @@ import TableHeaderWithDate from '../../utils/TableHeaderWithDate';
 import url  from "../../utils/UrlConstant";
 import ConfirmationModal from "../Student/ConfirmationModal";
 import MailModalForShortListed from "./MailModalForShortListed";
-
+import styled from 'styled-components';
 const statusColors = {
   'OFFER_RELEASED': 'green',
   'REJECTED': 'red',
   'ON_HOLD': '#3b489e',
   'NO_SHOW': 'black'
 }
+const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
 
+  &:hover {
+    color: #007bff !important; /* Change to the color you want on hover */
+  }
+`;
 export default function ShortListedCandidates(props) {
 
   const [candidates, setCandidates] = useState([]);
@@ -303,7 +310,7 @@ export default function ShortListedCandidates(props) {
       return (
         <tr style={{ height: "35px" }}>
           <td style={{ textAlign: 'center' }}>{pageSize * currentPage - (i--)}</td>
-          <td style={{ textTransform: 'capitalize', textAlign: 'left',color:"black",textDecoration:"none" }}><Link to={ '/shortlisted-candidate-details/' + candidate.id } target={'_blank'} onClick={() => setCandidate(candidate)} style={{color:"black",textDecoration:"none"}}>{candidate.firstName.concat(" ").concat(candidate.lastName)}</Link></td>
+          <td style={{ textTransform: 'capitalize', textAlign: 'left',color:"black",textDecoration:"none" }}><StyledLink to={ '/shortlisted-candidate-details/' + candidate.id } target={'_blank'} onClick={() => setCandidate(candidate)} style={{color:"black",textDecoration:"none"}}>{candidate.firstName.concat(" ").concat(candidate.lastName)}</StyledLink></td>
           <td style={{ textAlign: 'left',color:"black" }}>{candidate.email}</td>
           <td style={{ textAlign: 'left',color:"black" }}>{candidate.phone}</td>
           <td style={{ textAlign: 'center' }}><i

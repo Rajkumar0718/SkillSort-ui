@@ -185,7 +185,7 @@ export default class StudentList extends Component {
           {fallBackLoader(this.state.loader)}
           <div className="card-header-new">
             <span>Student List</span>
-            <button className='btn btn-sm btn-nxt ml-1 header-button' onClick={() => this.onClickOpenModel()} style={{ marginRight: "15px" }} ><i className="fa fa-upload" aria-hidden="true"></i> Upload</button>
+            <button className='btn btn-sm btn-nxt ml-1 header-button' onClick={() => this.onClickOpenModel()} ><i className="fa fa-upload" aria-hidden="true"></i> Upload</button>
             <button type="button" className="btn btn-prev btn-sm header-button">
               <Link style={{ textDecoration: 'none', color: 'white' }} to='/college/add'>Add Student</Link>
             </button>

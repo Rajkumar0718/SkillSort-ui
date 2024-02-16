@@ -19,12 +19,27 @@ import { isEmpty, isRoleValidation } from '../../utils/Validation';
 import '../Candidate/Programming.css';
 import SettingModel from './SettingModel';
 import styled from 'styled-components';
+import CkEditor from '../../common/CkEditor';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { renderTimeViewClock } from '@mui/x-date-pickers/timeViewRenderers';
+import dayjs from 'dayjs';
 import CustomizedInputBase from '../../common/CustomizedInputBase';
 
 const StyledCKEditorWrapper = styled.div`
    .MuiInputBase-input {
     font-size:medium !important;
-    width:274px;
+    width:250px ;
+  }.MuiTextField-root {
+    width:fit-content;
+  }
+  .MuiInputBase-root.MuiOutlinedInput-root{
+height:2.4rem
+  }
+  .MuiStack-root{
+    padding-top:6px
   }
 `;
 class AddExam extends Component {
@@ -713,7 +728,15 @@ class AddExam extends Component {
   handleDateChange = (date) => {
     this.setState({ startDateTime: date });
   }
-
+  handleEditorChange = (newData) => {
+    this.setState({ candidateInstruction: newData })
+  };
+  handleEXamEditorChange = (newData) => {
+    this.setState({ examSubmitMessage: newData })
+  };
+  handleJobDescriptionEditorChange = (newData) => {
+    this.setState({ jobDescription: newData })
+  };
   generatePublicUrl = () => {
     axios.get(`${url.ADMIN_API}/company/generate-url`, { headers: authHeader() })
       .then(res => {
@@ -772,7 +795,26 @@ class AddExam extends Component {
 																	/>
 																</MuiPickersUtilsProvider> */}
                               <StyledCKEditorWrapper>
-                                <CustomDatePick
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                  <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
+                                    <DateTimePicker
+                                      onChange={this.handleDateChange}
+                                      value={dayjs(this.state.startDateTime)}
+                                      objectKey='startDate'
+                                      minDate={this.state.position?.startDate}
+                                      maxDate={this.state.position?.endDate}
+                                      required='true'
+                                      inputFormat="MMMM Do hh:mm a"
+                                      viewRenderers={{
+                                        hours: renderTimeViewClock,
+                                        minutes: renderTimeViewClock,
+                                        seconds: renderTimeViewClock,
+                                      }}
+                                    />
+
+                                  </DemoContainer>
+                                </LocalizationProvider>
+                                {/* <CustomDatePick
                                   onChange={this.handleDateChange}
                                   value={new Date(this.state.startDateTime)}
                                   objectKey='startDate'
@@ -780,7 +822,7 @@ class AddExam extends Component {
                                   maxDate={this.state.position?.endDate}
                                   required='true'
                                   format={'MMMM dd yyyy, h:mm aa'}
-                                />
+                                /> */}
                               </StyledCKEditorWrapper>
                             </div>
                             <div className="form-group col-12" style={{ marginBottom: '0px' }}>
@@ -904,116 +946,22 @@ class AddExam extends Component {
                               <div className="mT-30">
                                 <label for="question">Candidate Instruction<span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.candidateInstruction ? this.state.error.candidateInstructionMsg : null}</FormHelperText>
-                                <CKEditor
-                                  editor={ClassicEditor}
-                                  data={this.state.candidateInstruction}
-                                  onReady={editor => {
-
-                                    ClassicEditor
-                                      .create(editor.editing.view.document.getRoot(), {
-                                        removePlugins: ['Heading', 'Link', 'CKFinder'],
-                                        toolbar: ['bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote'],
-                                      })
-                                      .then(() => {
-                                        console.log('Editor is ready to use!', editor);
-                                      })
-                                      .catch(error => {
-                                        console.error(error);
-                                      });
-                                  }}
-
-                                  onChange={(event, editor) => {
-                                    const data = editor?.getData();
-                                    this.setState({ candidateInstruction: data })
-                                  }}
-
-                                  onBlur={(event, editor) => {
-                                    console.log('Blur.', editor);
-                                  }}
-                                  onFocus={(event, editor) => {
-                                    console.log('Focus.', editor);
-                                  }}
-                                />
+                                <CkEditor data={this.state.candidateInstruction} onChange={this.handleEditorChange} />
                               </div>
                             </div>
                             <div className='form-group col-12'>
                               <div className="mT-30">
                                 <label for="question">Test Submit Message<span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.examSubmitMessage ? this.state.error.examSubmitMessageMsg : null}</FormHelperText>
-                                <CKEditor
-                                  editor={ClassicEditor}
-                                  data={this.state.examSubmitMessage}
-                                  onReady={editor => {
-                                    ClassicEditor
-                                      .create(editor.editing.view.document.getRoot(), {
-                                        removePlugins: ['Heading', 'Link', 'CKFinder'],
-                                        toolbar: ['bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote'],
-                                      })
-                                      .then(() => {
-                                        console.log('Editor is ready to use!', editor);
-                                      })
-                                      .catch(error => {
-                                        console.error(error);
-                                      });
-                                  }}
-                                  onChange={(event, editor) => {
-                                    const data = editor?.getData();
-                                    this.setState({ examSubmitMessage: data })
-
-                                  }}
-                                  // events={{
-                                  // 	"change": newContent => { this.setState({ candidateInstruction: newContent.editor.getData() }) }
-                                  // }}
-
-                                  onBlur={(event, editor) => {
-                                    console.log('Blur.', editor);
-                                  }}
-                                  onFocus={(event, editor) => {
-                                    console.log('Focus.', editor);
-                                  }}
-                                />
+                                <CkEditor data={this.state.examSubmitMessage} onChange={this.handleEXamEditorChange} />
                               </div>
                             </div>
                             <div className='form-group col-12'>
                               <div className="mT-30">
                                 <label for="question">Job Description<span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.jobDescription ? this.state.error.jobDescriptionMsg : null}</FormHelperText>
-                                <CKEditor
-                                  editor={ClassicEditor}
-                                  data={this.state.jobDescription}
-                                  onReady={editor => {
-                                    ClassicEditor
-                                      .create(editor.editing.view.document.getRoot(), {
-                                        removePlugins: ['Heading', 'Link', 'CKFinder'],
-                                        toolbar: ['bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote'],
-                                      })
-                                      .then(() => {
-                                        console.log('Editor is ready to use!', editor);
-                                      })
-                                      .catch(error => {
-                                        console.error(error);
-                                      });
-                                  }}
-                                  // onChange={(event, editor) => {
-                                  //   const data = editor?.getData();
-                                  //   console.log('Typed text:', data);
-                                  //   // let val = extractTextFromHtml(data)
-                                  //   this.handleChange(data, 'question')
-                                  //   console.log(data, "after")
-                                  // }}
+                                <CkEditor data={this.state.jobDescription} onChange={this.handleJobDescriptionEditorChange} />
 
-                                  onChange={(event, editor) => {
-                                    const data = editor?.getData();
-                                    this.setState({ jobDescription: data })
-                                  }}
-
-                                  onBlur={(event, editor) => {
-                                    console.log('Blur.', editor);
-                                  }}
-                                  onFocus={(event, editor) => {
-                                    console.log('Focus.', editor);
-                                  }}
-                                />
                               </div>
                             </div>
                             <div className="form-group col-12">

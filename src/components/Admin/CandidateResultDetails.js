@@ -9,10 +9,10 @@ import qualification from '../../assests/images/degree.png';
 import LOGO from '../../assests/images/LOGO.svg';
 import profile from '../../assests/images/profileCandidate.png';
 import '../../common/Common.css';
-import url  from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import ScreenShotModal from './ScreenShotModal';
 import ViewProfile from './ViewProfile';
-
+import styled from 'styled-components';
 const statusColors = {
   SCHEDULED: '#28a745',
   NOTIFIED_TO_SKILL_SORT: '#28a745',
@@ -21,7 +21,16 @@ const statusColors = {
   REJECTED: 'red',
   HOLD: '#ffc107'
 }
+const StyledLink = styled(Link)`
+  color: #3b489e;
+  text-decoration: none;
+  position: relative;
+  right: 1rem;
 
+  &:hover {
+    color: #007bff !important;
+  }
+`;
 const path = window.location.pathname.replace('/admin/result/candidate/details/', '');
 export default class CandidateResultDetails extends Component {
   constructor(props) {
@@ -133,9 +142,9 @@ export default class CandidateResultDetails extends Component {
 
   enlargeImg() {
     let img = document.getElementById("img");
-    img.style.transform = "scale(2.5)";
+    img.style.transform = "scale(2)";
     img.style.transition = "transform 0.25s ease";
-    img.style.zIndex = 100
+    img.style.zIndex = 100;
   }
 
   reSizeImg = () => {
@@ -186,7 +195,7 @@ export default class CandidateResultDetails extends Component {
     });
   }
 
-  handleResponseTime=()=>{
+  handleResponseTime = () => {
     window.dataLayer.push({
       event: 'ApiResponse',
       responseTime: '1'
@@ -253,7 +262,7 @@ export default class CandidateResultDetails extends Component {
         if (program.section === 'PROGRAMMING') {
           return (
             // <div className='col-4 col-lg-4'>
-            <Link style={{ color: '#3b489e' }} to={{ pathname: '/admin/result/candidate/programResult/' + this.state.user.id }} onClick={() => this.setCandidate()} target={'_blank'}>View program and Images</Link>
+            <StyledLink to={{ pathname: '/admin/result/candidate/programResult/' + this.state.user.id }} onClick={() => this.setCandidate()} target={'_blank'}>View program and Images</StyledLink>
             // </div>
           )
         }
@@ -296,8 +305,8 @@ export default class CandidateResultDetails extends Component {
     )
   }
 
-  setQuestionForResult =  ()=>{
-    localStorage.setItem('question',this.state.totalResult.submittedExam[0].question.question)
+  setQuestionForResult = () => {
+    localStorage.setItem('question', this.state.totalResult.submittedExam[0].question.question)
   }
 
 
@@ -327,7 +336,7 @@ export default class CandidateResultDetails extends Component {
               <div className="backPic">
                 <div className="modal-body">
                   <div>
-                    <div style={{display:"flex"}}>
+                    <div style={{ display: "flex" }}>
                       <div className="col-sm-4 user-profile">
                         <div className='row' style={{ display: 'contents' }}>
                           <div className="card-block content-align" >
@@ -392,7 +401,7 @@ export default class CandidateResultDetails extends Component {
                               </tbody>
                             </table>
                             :
-                            <Link style={{ color: '#3b489e',marginTop:'1rem'}} to={{ pathname: `/project-result/${this.state.totalResult.id}`, state: { question: this.state.totalResult } }}  target={'_blank'}><button onClick={()=>this.setQuestionForResult()}  className='btn btn-sm btn-prev' >View Project</button></Link>
+                            <Link style={{ color: '#3b489e', marginTop: '1rem' }} to={{ pathname: `/project-result/${this.state.totalResult.id}`, state: { question: this.state.totalResult } }} target={'_blank'}><button onClick={() => this.setQuestionForResult()} className='btn btn-sm btn-prev' >View Project</button></Link>
                           }
                           <Grid container spacing={1}>
                             <Grid item xs={8}>
@@ -428,7 +437,7 @@ export default class CandidateResultDetails extends Component {
             </div>
           </div>
         </div>
-        {this.state.viewProfile ? <ViewProfile pdfData={this.state.pdfData.data} type={"resume"} onClose={this.close} />: null}
+        {this.state.viewProfile ? <ViewProfile pdfData={this.state.pdfData.data} type={"resume"} onClose={this.close} /> : null}
         {this.state.screenShotModal ?
           <div>
             <ScreenShotModal screenShots={this.state.mcqScreenShots} onCloseModal={this.onCloseModal} />
