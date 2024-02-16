@@ -66,8 +66,6 @@ const SuperAdminBreadcrumbs = ({ breadCrumbJSON }) => {
                             ? breadCrumbJSON[pathname]
                             : name?.charAt(0).toUpperCase() + name?.slice(1)}
                     </Typography>
-                } else {
-                   return <></>
                 }
             })}
         </MUIBreadcrumbs>

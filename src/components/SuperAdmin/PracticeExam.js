@@ -157,7 +157,8 @@ const PracticeExam = () => {
             showSearch={true}
             placeholder="search by Exam name"
             onSearch={onSearch}
-            style={{marginLeft:"0",margin:"1.32rem"}}
+            style={{marginLeft:'0',marginRight:'0'}}
+
           ></Search>
           <CustomTable
             data={practiceExam}

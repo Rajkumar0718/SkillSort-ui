@@ -327,7 +327,7 @@ const AddCollege = (props) => {
                       )}
                     </div>
                     <div style={{ marginTop: '1rem' }}>
-                      <label style={{ color: 'black', fontSize: '25px' }} className='setting-title'>Test Credits <span className='required'></span></label>
+                      <label style={{ color: 'black', fontSize: '25px',marginBottom:'0.5rem' }} className='setting-title'>Test Credits <span className='required'></span></label>
                       <div className="row" >
                         {testLevelCredit()}
                       </div>

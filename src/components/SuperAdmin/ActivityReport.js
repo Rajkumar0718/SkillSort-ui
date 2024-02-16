@@ -24,20 +24,22 @@ const ActivityReport = (props) => {
   const [duration, setDuration] = useState(props.duration);
   const [type, setType] = useState(props.type);
 
-  useEffect(() => {
-    getDateRange();
-    getCompanies();
-  }, [props]);
-
+  // useEffect(() => {
+  //   getDateRange();
+  //   getCompanies();
+  // }, [props]);
+  
   useEffect(() => {
     if (duration !== props.duration || type !== props.type) {
       setDuration(props.duration);
       setType(props.type);
       getDateRange();
+      getCompanies();
     }
   }, [props.duration, props.type]);
 
   const getDateRange = () => {
+    console.log(duration,"duratopn");
     if (duration === 'week') {
       setFromDate(new Date(new Date().setDate(new Date().getDate() - 7)));
       getReportData();
@@ -88,7 +90,7 @@ const ActivityReport = (props) => {
     return (
       <div style={{ display: 'flex' }}>
         <div style={{ marginTop: '3rem', flexGrow: '1' }}>
-          <DataGridDemo rows={data} columns={columnsForSignUp[type]} onPagination={onPagination} totalSize={totalElements} />
+          <DataGridDemo rows={data} columns={columnsForSignUp[type]} onPagination={() => onPagination(currentPage)} totalSize={totalElements} />
         </div>
       </div>
     )

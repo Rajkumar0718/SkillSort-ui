@@ -273,14 +273,6 @@ class AddCompany extends Component {
                           </div>
                         </div>
                       </div>
-                      <div className="row">
-                        <StatusRadioButton
-                          labelClassName="col-2 col-sm-2 col-md-2 col-lg-2"
-                          handleChange={this.handleChange}
-                          status={this.state.company.status}
-                          style={{ marginTop: "0.6rem" }}
-                        />
-                      </div>
                       <div className="form-group row">
                         <div className="col-md-12">
                           <div className='row' style={{ float: "right", paddingRight: '4.375rem' }}>
