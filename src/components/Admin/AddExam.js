@@ -19,6 +19,7 @@ import { isEmpty, isRoleValidation } from '../../utils/Validation';
 import '../Candidate/Programming.css';
 import SettingModel from './SettingModel';
 import styled from 'styled-components';
+import CustomizedInputBase from '../../common/CustomizedInputBase';
 
 const StyledCKEditorWrapper = styled.div`
    .MuiInputBase-input {
@@ -63,6 +64,8 @@ class AddExam extends Component {
       status: "ACTIVE",
       tabIndex: '',
       examId: props.location?.state?.examId || props.position?.examId,
+      generateLinkIconDisabled: false,
+      generatedLink: undefined,
       position: props.location?.state?.position || props.position,
       error: {
         easyStatus: false,
@@ -119,10 +122,11 @@ class AddExam extends Component {
     ).then(res => {
       const exams = res.data.response
       exams.positionId = this.state.positionId
-      this.setState({ ...exams, tabsArray: _.map(exams.categories, (category) => category.sectionName) })
-      this.setState({ tabIndex: this.state.categories[0].sectionName })
+      const hashCode = exams.publicUrlHashcode
+      let generatedLink = hashCode ? `${url.UI_URL}/candidate/register/${hashCode}` : undefined
+      this.setState({ ...exams, tabsArray: _.map(exams.categories, (category) => category.sectionName), generatedLink: generatedLink })
     })
-      .catch((err) => console.log(err))
+      .catch(() => toastMessage('error', 'Error while fetching exam'))
   }
 
   initialCall = () => {
@@ -209,7 +213,8 @@ class AddExam extends Component {
       };
       tabsArray.push(event.target.value);
       this.state.categories.push(categories);
-      axios.get(` ${url.ADMIN_API}/question/${event.target.value}/questionCount?questionRoles=CANDIDATE&skillSortQuestionBank=${this.state.isSkillSortQuestion}`, { headers: authHeader() })
+      const encodedValue = encodeURIComponent(event.target.value);
+      axios.get(` ${url.ADMIN_API}/question/${encodedValue}/questionCount?questionRoles=CANDIDATE&skillSortQuestionBank=${this.state.isSkillSortQuestion}`, { headers: authHeader() })
         .then(res => {
           this.setState({
             section: this.state.sections.push({
@@ -709,6 +714,15 @@ class AddExam extends Component {
     this.setState({ startDateTime: date });
   }
 
+  generatePublicUrl = () => {
+    axios.get(`${url.ADMIN_API}/company/generate-url`, { headers: authHeader() })
+      .then(res => {
+        let hashCode = res.data.response
+        let appUrl = `${url.UI_URL}/candidate/register/${hashCode}`
+        this.setState({ generatedLink: appUrl, publicUrlHashcode: hashCode, generateLinkIconDisabled: true })
+      }).catch(err => errorHandler(err))
+  }
+
   render() {
     let action = null;
     const examId = this.state.position?.examId || this.props.location?.state?.exams
@@ -1057,6 +1071,9 @@ class AddExam extends Component {
                                   </select>}
                                 </div>
                                 : ''}
+                              <div style={{ marginLeft: '0.1rem', marginTop: this.state.tabsArray.includes("PROGRAMMING") ? '30px': '7.5rem'}}>
+                                <CustomizedInputBase onClick={this.generatePublicUrl} value={this.state.generatedLink} isLinkDisabled={this.state.generateLinkIconDisabled} />
+                              </div>
                               {isRoleValidation() === 'TEST_ADMIN' ? <div className="mT-30">
                                 <label className="form-label-select">Level<span style={{ color: 'red' }}>*</span></label>
                                 <input className='form-control-select' type='number' value={this.state.level} onChange={(e) => this.handleChange(e, 'level')} placeholder='Enter level' min={1} />

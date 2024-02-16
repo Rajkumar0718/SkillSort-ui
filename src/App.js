@@ -230,7 +230,6 @@ function App() {
             <Route path="/admin/profile" element={<Profile />} />
 
           </Route>
-          <Route path="*" element={<PageNotFound />} />
           <Route path="/college/collegeReport"
             element={<CollegeReportList />}
           />
@@ -268,7 +267,7 @@ function App() {
           </Route>
          
         </Route>
-
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       <ToastContainer position="top-right" hideProgressBar={true} newestOnTop={true}
         autoClose={1700} />

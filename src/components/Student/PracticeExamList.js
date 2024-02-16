@@ -1,25 +1,17 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 
 import axios from 'axios';
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { FaAward } from 'react-icons/fa';
-import Carousel from 'react-material-ui-carousel';
-import { Link } from 'react-router-dom';
 import '../../App.css';
 import { authHeader, errorHandler } from '../../api/Api';
-import gold from '../../assests/images/goldMedal.jpg';
-import silver from '../../assests/images/silverMedal.jpg';
 import AdvSearch from '../../common/Search';
 import { fallBackLoader, withLocation } from '../../utils/CommonUtils';
 import TableHeader from '../../utils/TableHeader';
+import url from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 import SocialMediaShareModal from "./SocialMediaShareModal";
-import url from '../../utils/UrlConstant';
 
 
 class PracticeExamList extends Component {
