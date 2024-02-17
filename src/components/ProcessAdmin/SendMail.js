@@ -10,7 +10,34 @@ import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import url from '../../utils/UrlConstant';
 import { isEmpty } from '../../utils/Validation';
 import styled from 'styled-components';
-
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { renderTimeViewClock } from '@mui/x-date-pickers/timeViewRenderers';
+import dayjs from 'dayjs';
+const StyledDateWrapper = styled.div`
+   .MuiInputBase-input {
+    font-size:medium !important;
+    width:190px ;
+  }.MuiTextField-root {
+    width:fit-content;
+  }
+  .MuiInputBase-root.MuiOutlinedInput-root{
+height:2.4rem;
+overflow:hidden;
+  }
+  .MuiStack-root{
+    padding-top:6px
+  }
+  .MuiOutlinedInput-notchedOutline {
+    border: none !important;
+    border-bottom:  1px solid #000 !important;
+    width:250px;
+    border-bottom-left-radius:0rem !important;
+    border-bottom-right-radius:0rem !important;
+  }
+`;
 
 const StyledCKEditorWrapper = styled.div`
   .ck-editor__editable {
@@ -193,16 +220,28 @@ class SendMail extends Component {
                     <div className='row'>
                       <div className="col-lg-4 col-4 col-sm-4 col-xl-4">
                         <label className="form-label text-input-label">Interview Date<span style={{ color: 'red' }}>*</span></label></div>
-                      <div className="col-lg-8 col-8 col-sm-8 col-xl-8">
-                        <CustomDatePick
-                          onChange={this.handleDateChange}
-                          value={this.state.mail.startDate}
-                          objectKey='startDate'
-                          minDate={this.state.position?.startDate}
-                          maxDate={this.state.position?.endDate}
-                          required='true'
-                          format={'MMMM dd yyyy, h:mm aa'}
-                        />
+                      <div className="col-lg-8 col-8 col-sm-8 col-xl-8" style={{position:"relative",bottom:"1.2rem"}}>
+                      <StyledDateWrapper>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
+                              <DateTimePicker
+                                onChange={this.handleDateChange}
+                                value={dayjs(this.state.mail.startDate)}
+                                objectKey='startDate'
+                                minDate={this.state.position?.startDate}
+                                maxDate={this.state.position?.endDate}
+                                required='true'
+                                inputFormat="MMMM Do hh:mm a"
+                                viewRenderers={{
+                                   hours: renderTimeViewClock,
+                                   minutes: renderTimeViewClock,
+                                   seconds: renderTimeViewClock,
+                                 }}
+                               />
+
+                             </DemoContainer>
+                           </LocalizationProvider>
+                      </StyledDateWrapper>
                       </div>
                     </div>
                   </div>
