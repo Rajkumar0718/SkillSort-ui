@@ -14,20 +14,14 @@ import Search from "../../common/AdvanceSearch";
 
 const PracticeExam = () => {
   const [practiceExam, setPracticeExam] = useState([]);
-  const [name, setName] = useState("");
   const [searchName, setSearchName] = useState("");
   const [status, setStatus] = useState("ACTIVE");
   const [loader, setLoader] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [openModal, setOpenModal] = useState(false);
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
   const [totalElements, setTotalElements] = useState(0);
   const [numberOfElements, setNumberOfElements] = useState(0);
-  const [startPage, setStartPage] = useState(1);
-  const [endPage, setEndPage] = useState(5);
   const [headers, setHeaders] = useState([]);
 
   useEffect(() => {

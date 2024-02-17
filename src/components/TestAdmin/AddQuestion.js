@@ -32,12 +32,10 @@ import { isEmpty, isRoleValidation } from "../../utils/Validation";
 import "../Candidate/Compiler.css";
 import "../Candidate/Programming.css";
 import AddSectionModal from './AddSectionModal';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { DataGrid} from '@mui/x-data-grid';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { style } from '@mui/system';
-import { color } from 'echarts';
 import url from '../../utils/UrlConstant';
 class AddQuestion extends Component {
 
@@ -916,32 +914,32 @@ class AddQuestion extends Component {
     if (this.props.location.pathname.indexOf('edit') > -1) {
       action = this.props?.location?.state;
     }
-    const columns= [
-      { field: 'testCase', headerName: 'TestCase', width: 150, editable: false },
-      ...this.state.parameters.map((p) => ({
-        field: p.name,
-        headerName: p.name,
-        width: 150,
-        editable: true,
-        valueFormatter: (params) => params.row[p.name] ? params.row[p.name] : 'Enter param value',
-        renderEditCell: (params) => <EditTextarea {...params} />,
-      })),
-      {
-        field: 'output',
-        headerName: 'Output',
-        width: 150,
-        editable: true,
-        valueFormatter: (params) => params.row['output'] ? params.row['output'] : 'Enter value',
-        renderEditCell: (params) => <EditTextarea {...params} />,
-      },
-    ];
+    // const columns= [
+    //   { field: 'testCase', headerName: 'TestCase', width: 150, editable: false },
+    //   ...this.state.parameters.map((p) => ({
+    //     field: p.name,
+    //     headerName: p.name,
+    //     width: 150,
+    //     editable: true,
+    //     valueFormatter: (params) => params.row[p.name] ? params.row[p.name] : 'Enter param value',
+    //     renderEditCell: (params) => <EditTextarea {...params} />,
+    //   })),
+    //   {
+    //     field: 'output',
+    //     headerName: 'Output',
+    //     width: 150,
+    //     editable: true,
+    //     valueFormatter: (params) => params.row['output'] ? params.row['output'] : 'Enter value',
+    //     renderEditCell: (params) => <EditTextarea {...params} />,
+    //   },
+    // ];
 
-    const rows = _.map(this.state.testCase, (t, index) => ({
-      id: index,
-      testCase: `TestCase ${index + 1}`,
-      ...t.values,
-      output: t.output,
-    }));
+    // const rows = _.map(this.state.testCase, (t, index) => ({
+    //   id: index,
+    //   testCase: `TestCase ${index + 1}`,
+    //   ...t.values,
+    //   output: t.output,
+    // }));
     return (
       <>
         {this.state.openModal ? <AddSectionModal type={this.state.type} modalSection={{ action: 'Add' }} onCloseModalAdd={this.onCloseModal} /> : ''}

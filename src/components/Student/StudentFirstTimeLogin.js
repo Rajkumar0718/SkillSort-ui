@@ -10,23 +10,38 @@ import { authHeader, errorHandler } from '../../api/Api';
 import { toastMessage, ToggleStatus } from '../../utils/CommonUtils';
 import States from '../../utils/StatesAndDistricts';
 import { isEmpty, isVaildnum, isValidMobileNo, isValidName } from "../../utils/Validation";
-import  url  from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import skillsort from '../../assests/images/av.jpg';
 import DatePick from '../../common/DatePick';
 import { useNavigate } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
 const StudentFirstTimeLogin = () => {
   const data = JSON.parse(localStorage.getItem('user'));
   const [student, setStudent] = useState({
     yop: new Date(),
     email: data.email,
-    firstName:'',
-    lastName:'',
-    gender:'',
-    ug:'',
-    pg:'',
-    sslc:'',
-    hsc:''
+    firstName: '',
+    lastName: '',
+    gender: '',
+    ug: '',
+    pg: '',
+    sslc: '',
+    hsc: ''
   });
   const [collegeName, setCollegeName] = useState('');
   const [currentYear, setCurrentYear] = useState('');
@@ -41,6 +56,7 @@ const StudentFirstTimeLogin = () => {
   const [disabled, setDisabled] = useState(false);
   const [certificateData, setCertificateData] = useState(null);
   const [viewProfile, setViewProfile] = useState(false);
+  const [selectedFileName, setSelectedFileName] = useState('');
   const navigate = useNavigate()
 
   const [error, setError] = useState({
@@ -81,7 +97,7 @@ const StudentFirstTimeLogin = () => {
     // handlePageViewEvent();
     getCollege();
     getDepartments();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getStudent = () => {
@@ -314,15 +330,16 @@ const StudentFirstTimeLogin = () => {
   };
 
   const onFileChange = (event) => {
-    const er = {error};
+    const er = { error };
     let pdf = event.target.files[0];
-    if (pdf?.size > 1048576 || pdf.type !== "application/pdf") {
+    if (pdf?.size > 1048576 || pdf?.type !== "application/pdf") {
       setResume(null);
       er.resume = true;
-      er.resumeErrorMessage = pdf.type !== "application/pdf" ? "Upload Pdf File only" : "File size must less than 1MB";
+      er.resumeErrorMessage = pdf?.type !== "application/pdf" ? "Upload Pdf File only" : "File size must less than 1MB";
     } else {
       er.resume = false;
       setResume(event.target.files[0]);
+      setSelectedFileName(event.target.files[0].name);
     }
     setError(er);
   };
@@ -562,17 +579,36 @@ const StudentFirstTimeLogin = () => {
                             <span style={{ color: 'red', fontSize: '13px' }}>NO</span><ToggleStatus checked={student.isIntern} onChange={(e) => toggleInternAllowed(!student.isIntern)} /><span style={{ color: 'green', fontSize: '13px' }}>YES</span>
                           </div></>}
                       <div className="col-2 competitor-input">
-                        <label className="form-label text-label">Resume*
+                        <label className="form-label text-label"> Resume*
                           <FormHelperText className="helper helper-login">{error.resume ? error.resumeErrorMessage : null}</FormHelperText></label>
                       </div>
                       <div class="col-4" style={{ marginTop: '7px' }}>
-                        <input type="file" style={{ width: '250px' }} class="form-control" id="inputGroupFile02" onChange={onFileChange} accept={"application/pdf"}></input>
+                        {/* <input type="file" style={{ width: '250px' }} class="form-control" id="inputGroupFile02" onChange={onFileChange} accept={"application/pdf"}></input> */}
+                        <Button
+                          component="label"
+                          role={undefined}
+                          variant="contained"
+                          tabIndex={-1}
+                          startIcon={<CloudUploadIcon />}
+                          onChange={onFileChange}
+                          style={{backgroundColor:'#3b489e'}}
+                          
+
+                        >
+                          {student.resume || resume ? 'Update file' : 'Uploadfile'}
+                          <VisuallyHiddenInput type="file" />
+                        </Button>
+                        {selectedFileName && (
+                          <div style={{textOverflow:'ellipsis',width:'10rem',overflow:'hidden'}}>
+                           {selectedFileName}
+                          </div>
+                        )}
                       </div>
                       <div className="col-2 competitor-input">
                         <label className="form-label text-label">Certificate
                           <FormHelperText className="helper helper-login">{error.certificates ? error.certificatesErrorMessage : null}</FormHelperText></label>
                       </div>
-                      <div className="col-4" style={{ display: 'flex' }}>
+                      <div className="col-4" style={{ display: 'flex',justifyContent:'flex-start',alignItems:'flex-start' }}>
                         <button type="button" onClick={onClickOpenModel} data-toggle="tooltip" data-placement="top" title="Add Certificate" className="btn btn-outline-primary border-0 rounded-circle"><i className="fa fa-plus-circle fa-1x " aria-hidden="true" ></i></button>
                         {!student.certificatesExists ?
                           <input className="profile-page" value={"Upload Certificate"} aria-label="default input example" style={{ marginLeft: '1rem', width: '200px' }}></input> :

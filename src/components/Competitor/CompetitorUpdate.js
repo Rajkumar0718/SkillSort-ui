@@ -10,6 +10,21 @@ import States from '../../utils/StatesAndDistricts';
 import url from "../../utils/UrlConstant";
 import { isEmpty, isValidMobileNo } from "../../utils/Validation";
 import _ from "lodash";
+import { styled } from '@mui/material/styles';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Button from '@mui/material/Button';
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 export default class CompetitorUpdate extends Component {
 
   constructor() {
@@ -23,6 +38,7 @@ export default class CompetitorUpdate extends Component {
       districts: [],
       departments: [],
       resume: null,
+      selectedFileName: '',
       department: "",
       user: user,
       disabled: false,
@@ -115,13 +131,14 @@ export default class CompetitorUpdate extends Component {
   onFileChange = (event) => {
     const { error } = this.state
     let pdf = event.target.files[0];
-    if (pdf?.size > 1048576 || pdf.type !== "application/pdf") {
+    if (pdf?.size > 1048576 || pdf?.type !== "application/pdf") {
       this.setState({ resume: null })
       error.resume = true;
-      error.resumeErrorMessage = pdf.type !== "application/pdf" ? "Upload Pdf File only" : "File size must less than 1MB";
+      error.resumeErrorMessage = pdf?.type !== "application/pdf" ? "Upload Pdf File only" : "File size must less than 1MB";
     } else {
       error.resume = false;
       this.setState({ resume: event.target.files[0], error })
+      this.setState({ selectedFileName: event.target.files[0].name });
     }
   };
 
@@ -365,11 +382,11 @@ export default class CompetitorUpdate extends Component {
                           views={["year"]}
                           minDate={moment().subtract(10, 'years').toDate()}
                           maxDate={moment().add(1, 'years').toDate()}
-                          value={this.state.yop}
+                          value={this.getDateFromYop()}
                           inputProps={{
                             style: { padding: '0px', paddingBottom: '0.2rem', fontSize: '13px', color: 'black', fontWeight: '500', fontFamily: 'Montserrat' },
                           }}
-                          onChange={(year) => this.setState({ yop: year })}
+                          onChange={(event) => this.setState({ competitor: { ...this.state.competitor, yop: event.getFullYear() } })}
                         />
                       </div>
                       <div className="col-2 competitor-input" style={{ height: '3rem' }}>
@@ -438,14 +455,38 @@ export default class CompetitorUpdate extends Component {
                           }))}
                         </select>
                       </div>
-                      <div className="col-2 competitor-input" style={{ height: '3rem' }}>
+                      <div className="col-2 competitor-input">
+                        <label className="form-label text-label"> Resume*
+                          <FormHelperText className="helper helper-login">{this.state.error.resume ? this.state.error.resumeErrorMessage : null}</FormHelperText></label>
+                      </div>
+                      <div class="col-4" style={{ marginTop: '7px' }}>
+                        {/* <input type="file" style={{ width: '250px' }} class="form-control" id="inputGroupFile02" onChange={onFileChange} accept={"application/pdf"}></input> */}
+                        <Button
+                          component="label"
+                          role={undefined}
+                          variant="contained"
+                          tabIndex={-1}
+                          startIcon={<CloudUploadIcon />}
+                          onChange={(e)=>this.onFileChange(e)}
+                          style={{backgroundColor:'#3b489e'}}
+                          
+
+                        >
+                          {this.state.competitor.resume || this.state.resume ? 'Update file' : 'Uploadfile'}
+                          <VisuallyHiddenInput type="file" />
+                        </Button>
+                        {this.state.selectedFileName && (
+                          <div style={{textOverflow:'ellipsis',width:'10rem',overflow:'hidden'}}>
+                           {this.state.selectedFileName}
+                          </div>
+                        )}
+                      </div>
+                      {/* <div className="col-2 competitor-input" style={{ height: '3rem' }}>
                         <label className="form-label text-label">Resume*<FormHelperText className="helper helper-candidate" >{this.state.error.resume ? this.state.error.resumeErrorMessage : null}</FormHelperText></label>
                       </div>
                       <div className="col-4 competitor-input" style={{ marginTop: '0.5rem' }}>
-                        {/* <input type="file" className="custom-file-input" onChange={(e) => this.onFileChange(e, 'resume')} accept={"application/pdf"} style={{ width: '311px', marginLeft: '5px' }} /> */}
                         <input type="file" style={{ width: '250px' }} class="form-control" id="inputGroupFile02" onChange={(e) => this.onFileChange(e, 'resume')} accept={"application/pdf"}  ></input>
-                        {/* <label className="custom-file-label text-label" style={{ width: '255px', marginLeft: '14px' }} value={this.state.competitor?.resume}>{this.state.resume ? this.state.resume?.name : "pdf only"}</label> */}
-                      </div>
+                      </div> */}
                       <div className='col-12' style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '1.86rem', paddingRight: '2.7rem' }}>
                         <button type="submit" className="btn btn-sm btn-nxt" disabled={this.state.disabled} >Update</button>
                       </div>

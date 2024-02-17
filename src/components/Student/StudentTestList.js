@@ -11,6 +11,8 @@ import { fallBackLoader, toastMessage } from "../../utils/CommonUtils";
 import { isEmpty, isRoleValidation } from "../../utils/Validation";
 import SocialMediaShareModal from "./SocialMediaShareModal";
 import url from "../../utils/UrlConstant";
+import { Tooltip } from 'react-tooltip'
+
 
 
 const paidLevelBgColor = {
@@ -390,24 +392,22 @@ export default class StudentTestList extends Component  {
                     <span className="vertical"></span>
                     {!_.isEmpty(result) ?
                       <div className="col-md test-card" style={{ verticalAlign: 'middle' }}>
-                        <p className="p tag1" data-tip data-for={"section " + result.id}>
+                        <p className="p tag1" data-tooltip-id={"section " + result.id}>
                           {level.level !== 3 ? ((((result.totalMarks || 0) / (result.totalQuestion || 1)) * 100).toFixed(0)) + '%' : isRoleValidation().includes('DEMO_ROLE') ? <Link onClick={() => this.setCandidate(result)} target={'_blank'} to={{ pathname: '/admin/result/candidate/programResult/' + result.candidateId }}><button style={{ background: "#3B489E", color: 'white', border: 'none', width: '6rem', height: '50px', fontSize: '13px' }}
                             type="button" className="btn" >View program</button></Link> : result.programmingRound ? this.getProgrammingPercentage(result.results) + '%' : this.getSqlPercentage(result.results)}</p>
                         {isRoleValidation() === "COLLEGE_STUDENT" ? <p className="p tag2">Score</p> : null}
-                        <ReactTooltip id={"section " + result.id} place="top" effect="solid"
-                          backgroundColor="#F05A28" borderColor="#f15e32" paddingLeft='0px'
-                          type="warning">
-                          <div className="questionAdmin" style={{ color: 'white', width: 'fit-content', marginLeft: '-15px', paddingRight: '20px' }}>
-                            <div><b>Score for Test {index + 1}</b></div>
+                        <Tooltip id={"section " + result.id} place="top"  style={{backgroundColor:'#F05A28',borderColor:'#f15e32',paddingLeft:'0px',type:'warning',effect:'solid'}} >
+                          <div className="questionAdmin" style={{ color: 'white', width: 'fit-content', marginLeft: '-15px', paddingRight: '20px', }}>
+                            <div style={{display:'flex',justifyContent:'center', marginLeft:'2rem', fontSize:'15px'}}><b>Score for Test {index + 1}</b></div>
                             {level.level !== 3 ? _.map(result.results, (list, key) =>
                               <div key={key} className="quesOption">
-                                <div className="row">
+                                <div style={{display:'flex', flexDirection:'row', fontSize:'12px'}}>
                                   <div><b>{list.section}</b></div>&nbsp;:&nbsp;
                                   <div>{(list.totalMarks / list.totalInSection * 100).toFixed(0) + '%'}</div>
                                 </div>
                               </div>) :_.filter(result.results, r => result.programmingRound ? r.section === 'PROGRAMMING' : r.section === 'SQL').map(res =>
                                 <div className="quesOption" key={res.section}>
-                                  <div className="row" >
+                                  <div style={{display:'flex', flexDirection:'row', fontSize:'12px'}}>
                                     <div><b>{res.section}</b></div>&nbsp; :&nbsp;
                                     <div>{res.section === 'PROGRAMMING' ? this.examTestCase(res) : this.sqlTestCase(res)}</div>
                                   </div>
@@ -415,7 +415,8 @@ export default class StudentTestList extends Component  {
                               )
                             }
                           </div>
-                        </ReactTooltip>
+                          </Tooltip>
+
                       </div> :
                       <div className="col-md test-card" style={{ verticalAlign: 'middle' }}>
                         {this.state.isResultInProgress && isInProgress ? <CircularProgress style={{ color: '#3B489E' }} /> : <button style={{ background: "#3B489E", color: 'white', border: 'none', width: '5rem', height: '50px', fontSize: '13px' }}

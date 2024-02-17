@@ -10,7 +10,6 @@ import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import url from '../../utils/UrlConstant';
 import { isEmpty } from '../../utils/Validation';
 import styled from 'styled-components';
-import _ from 'lodash';
 
 
 const StyledCKEditorWrapper = styled.div`

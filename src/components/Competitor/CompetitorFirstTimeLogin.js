@@ -4,7 +4,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
 import { authHeader, errorHandler } from '../../api/Api';
-import { toastMessage, ToggleStatus } from '../../utils/CommonUtils';
+import { toastMessage, ToggleStatus, withLocation } from '../../utils/CommonUtils';
 import States from '../../utils/StatesAndDistricts';
 import { isEmpty, isVaildnum, isValidEmail, isValidMobileNo, isValidName, isValidPassword } from "../../utils/Validation";
 import url from '../../utils/UrlConstant';
@@ -12,9 +12,21 @@ import style from '../Candidate/Styles.css';
 import LOGO from '../../assests/images/LOGO.svg';
 import DatePick from '../../common/DatePick';
 import { Button, Card, CardContent, Grid, List, Step, StepLabel, Stepper } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-
-export default class CompetitorFirstTimeLogin extends Component {
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
+ class CompetitorFirstTimeLogin extends Component {
 
     constructor() {
       super();
@@ -29,6 +41,7 @@ export default class CompetitorFirstTimeLogin extends Component {
         department: "",
         disabled: false,
         resume: "",
+        selectedFileName: '',
         password: '',
         cPassword: '',
         yop: moment().format('YYYY'),
@@ -109,13 +122,14 @@ export default class CompetitorFirstTimeLogin extends Component {
     onFileChange = (event) => {
       const { error } = this.state
       let pdf = event.target.files[0];
-      if (pdf?.size > 1048576 || pdf.type !== "application/pdf") {
+      if (pdf?.size > 1048576 || pdf?.type !== "application/pdf") {
         this.setState({ resume: null })
         error.resume = true;
-        error.resumeErrorMessage = pdf.type !== "application/pdf" ? "Upload Pdf File only" : "File size must less than 1MB";
+        error.resumeErrorMessage = pdf?.type !== "application/pdf" ? "Upload Pdf File only" : "File size must less than 1MB";
       } else {
         error.resume = false;
         this.setState({ resume: event.target.files[0], error })
+        this.setState({ selectedFileName: event.target.files[0].name });
       }
     };
   
@@ -151,7 +165,7 @@ export default class CompetitorFirstTimeLogin extends Component {
         axios.post(` ${url.COMPETITOR_API}/competitor/register`, formData, { headers: authHeader() })
           .then(() => {
             toastMessage('success', "Profile Created successfully..!");
-            this.props.history.push('/');
+            this.props.navigate('/');
           })
           .catch(err => {
             this.setState({ disabled: false })
@@ -441,12 +455,38 @@ export default class CompetitorFirstTimeLogin extends Component {
                         }))}
                       </select>
                     </div>
-                    <div className="col-2 competitor-input" style={{ height: '3rem' }}>
+                    <div className="col-2 competitor-input">
+                        <label className="form-label text-label"> Resume*
+                          <FormHelperText className="helper helper-login">{this.state.error.resume ? this.state.error.resumeErrorMessage : null}</FormHelperText></label>
+                      </div>
+                      <div class="col-4" style={{ marginTop: '7px' }}>
+                        {/* <input type="file" style={{ width: '250px' }} class="form-control" id="inputGroupFile02" onChange={onFileChange} accept={"application/pdf"}></input> */}
+                        <Button
+                          component="label"
+                          role={undefined}
+                          variant="contained"
+                          tabIndex={-1}
+                          startIcon={<CloudUploadIcon />}
+                          onChange={(e)=>this.onFileChange(e)}
+                          style={{backgroundColor:'#3b489e'}}
+                          
+
+                        >
+                          {this.state.competitor.resume || this.state.resume ? 'Update file' : 'Uploadfile'}
+                          <VisuallyHiddenInput type="file" />
+                        </Button>
+                        {this.state.selectedFileName && (
+                          <div style={{textOverflow:'ellipsis',width:'10rem',overflow:'hidden'}}>
+                           {this.state.selectedFileName}
+                          </div>
+                        )}
+                      </div>
+                    {/* <div className="col-2 competitor-input" style={{ height: '3rem' }}>
                       <label className="form-label text-label">Resume*<FormHelperText className="helper helper-candidate" >{this.state.error.resume ? this.state.error.resumeErrorMessage : null}</FormHelperText></label>
                     </div>
                     <div className="col-4 competitor-input" style={{ marginTop: '0.5rem' }}>
                     <input type="file" style={{ width: '250px' }} class="form-control" id="inputGroupFile02" onChange={(e)=>this.onFileChange(e)} accept={"application/pdf"} defaultValue={this.state.resume} ></input>
-                    </div>
+                    </div> */}
                     {/* <div className='col' style={{display:'flex',justifyContent:'flex-end', margin: '1rem 3.2rem auto auto'}}>
                           <button type="submit" className="btn btn-sm btn-nxt" disabled={this.state.disabled} >Update</button>
                         </div> */}
@@ -545,3 +585,5 @@ export default class CompetitorFirstTimeLogin extends Component {
       );
     }
   }
+
+  export default withLocation(CompetitorFirstTimeLogin)

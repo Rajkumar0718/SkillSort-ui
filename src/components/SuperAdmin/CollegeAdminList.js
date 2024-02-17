@@ -17,13 +17,11 @@ const CollegeAdminList = () => {
   const [collegeAdmin, setCollegeAdmin] = useState([]);
   const [status, setStatus] = useState('ACTIVE');
   const [loader, setLoader] = useState(true);
-  const [role, setRole] = useState(isRoleValidation());
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
   const [totalElements, setTotalElements] = useState(0);
   const [numberOfElements, setNumberOfElements] = useState(0);
-  const [countError, setCountError] = useState(0);
   const [startPage, setStartPage] = useState(1);
   const [endPage, setEndPage] = useState(5);
   const [searchValue, setSearchValue] = useState('');

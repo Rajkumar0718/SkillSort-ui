@@ -208,7 +208,7 @@ const GroupTypesList = () => {
         <div>
           <div className="card-header-new">
             <span>GroupTypes</span>
-            <button type="button" onClick={onClickOpenModalAdd} className="btn btn-nxt btn-sm header-button">Add GroupTypes</button>
+            <button type="button" onClick={onClickOpenModalAdd} className="btn btn-nxt btn-sm header-button" style={{position:'relative', left:'1rem'}}>Add GroupTypes</button>
             {openModalAdd ? <AddSectionModal type={'Group'} modalSection={{ action: 'Add',groupTypes:modalSection, }} onCloseModalAdd={onCloseModalAdd} /> : ''}
           </div>
           <CustomTable data={groupTypes}

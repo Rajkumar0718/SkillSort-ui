@@ -11,7 +11,6 @@ import { CustomTable } from '../../utils/CustomTable';
 const RecruiterList = () => {
     const [loader, setLoader] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [openModal, setOpenModal] = useState(false);
     const [pageSize, setPageSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
     const [totalElements, setTotalElements] = useState(0);

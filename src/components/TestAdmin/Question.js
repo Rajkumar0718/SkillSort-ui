@@ -255,7 +255,7 @@ export default class Question extends Component {
                 <ChipsArray chipperData={this.state.chipperData} handleDeleteChip={this.handleDeleteChip} />
               </div>
               <div className="col-md-3 col-lg-3 col-3">
-                <button type="button" className="btn btn-sm btn-nxt header-button">
+                <button type="button" className="btn btn-sm btn-nxt header-button" style={{position:'relative' , left:'1rem'}}>
                   <Link to={isRoleValidation() === "TEST_ADMIN" ? "/testadmin/question/add" : "/admin/questions/add"}
                     style={{ textDecoration: "none", color: "white" }}> Add Question </Link>
                 </button>

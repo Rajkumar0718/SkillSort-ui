@@ -27,38 +27,28 @@ const CertificationModal = ({ onCloseModal, studentId, isNewStudent }) => {
     });
   };
 
-  const addCertificate = () => {
+  const addCertificate = async () => {
+    const er = {...error}
     if (isEmpty(certificate.description)) {
-      setError((prevError) => ({
-        ...prevError,
-        description: true,
-        descriptionErrorMessage: 'Enter Description'
-      }));
+        er.description =true
+        er.descriptionErrorMessage = 'Description Required'
     } else {
-      setError((prevError) => ({
-        ...prevError,
-        description: false
-      }));
+       er.description = false
     }
 
     if (isEmpty(certificateFile)) {
       if (certificateFile === null) {
-        setError((prevError) => ({
-          ...prevError,
-          certificateFile: true,
-          certificateFileErrorMessage: isEmpty(certificateFile)
+          er.certificateFile = true
+          er.certificateFileErrorMessage= isEmpty(certificateFile)
             ? 'Certificate Required'
             : 'Upload file less than 1Mb'
-        }));
       } else {
-        setError((prevError) => ({
-          ...prevError,
-          certificateFile: false
-        }));
+        er.certificateFile = false
       }
     }
+    setError(er)
 
-    if (!error.certificateFile && !error.description) {
+    if (!er.certificateFile && !er.description) {
       const formData = new FormData();
       formData.append('certificate', JSON.stringify(certificate));
       formData.append('file', certificateFile);
@@ -109,7 +99,7 @@ const CertificationModal = ({ onCloseModal, studentId, isNewStudent }) => {
             <div className="modal-body" style={{ paddingTop: '5px' }}>
               <div className='form-row' style={{display:'flex', flexWrap:'wrap'}}>
                 <div className='col-3'>
-                  <label className="form-label text-label" htmlFor="form12">Certificate
+                  <label className="form-label text-label" htmlFor="form12" style={{marginLeft:'1rem'}}>Certificate
                     <FormHelperText className='helper helper-candidate'>{error.certificateFile ? error?.certificateFileErrorMessage : null}</FormHelperText>
                   </label>
                 </div>

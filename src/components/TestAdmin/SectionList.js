@@ -183,7 +183,7 @@ const SectionList = () => {
     <div>
       <div className="card-header-new">
         <span>Sections</span>
-        <button type="button" onClick={onClickOpenModalAdd} className="btn btn-nxt btn-sm header-button">Add Section</button>
+        <button type="button" onClick={onClickOpenModalAdd} className="btn btn-nxt btn-sm header-button" style={{position:'relative', left:'1rem'}}>Add Section</button>
         {openModalAdd ? (
           <SectionModal modalSection={{ action: "Add", section: modalSection, }} onCloseModalAdd={onCloseModalAdd} />
         ) : ("")}

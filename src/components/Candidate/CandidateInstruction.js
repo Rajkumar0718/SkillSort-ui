@@ -20,7 +20,6 @@ class CandidateInstruction extends Component {
   state = {
     name: "",
     eventTracked: false,
-    eventTracked: false,
     isAppsCompleted: false,
     selectSubject: [],
     subjectName: "",
@@ -31,8 +30,6 @@ class CandidateInstruction extends Component {
     sectionName: "",
     candidateInstruction: null,
     isOnlyProgramming: false,
-    isProjectExam: false,
-    instruction_slider: { 'java': [java_1, java_2], 'csharp': [Csharp_Instruction_1, Csharp_Instruction_2], 'python': [Python_Instruction_1, Python_Instruction_2] },
     isProjectExam: false,
     instruction_slider: { 'java': [java_1, java_2], 'csharp': [Csharp_Instruction_1, Csharp_Instruction_2], 'python': [Python_Instruction_1, Python_Instruction_2] },
     examQuestions: {
@@ -55,7 +52,6 @@ class CandidateInstruction extends Component {
     },
     exam: {},
     haveProgramming: false,
-    haveSql: false,
     haveSql: false,
     languageName: localStorage.getItem("languageName") || "",
     language_id: localStorage.getItem("languageId") || "",
