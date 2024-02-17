@@ -99,7 +99,7 @@ export default class Questions extends Component {
             <b className="section-test ms-4 mt-2" style={{ paddingLeft: '1rem' }}>{"Q"}{questionIndex + 1}{"."}{this.props.section || _.capitalize(totalQuestions.categories[0]?.groupType)}&nbsp;</b>
           </div>
         </div>
-        <div style={{ height: 'calc(100vh - 14rem)', overflowY: 'scroll', scrollbarWidth: '0', overflowX: 'hidden' }}>
+        <div style={{ height: 'calc(100vh - 14rem)', overflowY: 'scroll', scrollbarWidth: '0', overflowX: 'hidden', paddingBottom:'2rem' }}>
           <div className="row">
             <div className='card-body' style={{ paddingTop: '2px', paddingLeft: "50px", paddingBottom: "0px" }}>
               <div>
@@ -140,13 +140,13 @@ export default class Questions extends Component {
             <div>
               <img src={pin} alt='' title="UnPin the Question" onClick={() => {
                 this.unpinned(categoryIndex, questionIndex);
-              }} style={{ paddingRight: '3rem' }}></img><p style={{ marginBottom: '0.1rem', marginTop: '-1rem' }}>UnPin</p>
+              }} style={{ paddingRight: '3.5rem' }}></img><p style={{ marginBottom: '0.4rem', marginTop: '-1rem' ,position:'relative' , right:'0.4rem' }}>UnPin</p>
             </div>
           ) : (
             <div>
               <img src={pin} alt='' title="Pin the Question" onClick={() => {
                 this.pinned(categoryIndex, questionIndex);
-              }} style={{ paddingRight: '3rem' }}></img><p style={{ marginBottom: '0.1rem', marginTop: '-1rem' }}>Pin</p>
+              }} style={{ paddingRight: '3.5rem' }}></img><p style={{ marginBottom: '0.4rem', marginTop: '-1rem',position:'relative' , right:'1.2rem' }}>Pin</p>
             </div>
 
           )}

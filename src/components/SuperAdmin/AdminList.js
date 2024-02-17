@@ -160,7 +160,7 @@ const AdminList = () => {
           placeholder="Search By Name,CompanyName,Email,Phone"
           onSearch={onSearch}
         ></Search>
-      <CustomTable data={adminData} headers={tableHeaders} loader={loader} pageSize={pageSize} currentPage={currentPage} style={{width:"97%",marginLeft:"1.32rem"}} />
+      <CustomTable data={adminData} headers={tableHeaders} loader={loader} pageSize={pageSize} currentPage={currentPage} style={{width:"96.8%",marginLeft:"1.32rem"}} />
       {numberOfElements === 0 ? "" : (
         <Pagination
           totalPages={totalPages}

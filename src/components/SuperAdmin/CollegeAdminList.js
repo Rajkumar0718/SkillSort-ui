@@ -183,7 +183,7 @@ const CollegeAdminList = () => {
           loader={loader}
           pageSize={pageSize}
           currentPage={currentPage}
-          style={{width:"97%",marginLeft:"1.32rem"}}
+          style={{width:"96.8%",marginLeft:"1.32rem"}}
         />
         {numberOfElements === 0 ? '' :
           <Pagination
