@@ -13,6 +13,9 @@ import _ from "lodash";
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Button from '@mui/material/Button';
+import ViewProfile from '../Admin/ViewProfile';
+import { Link } from 'react-router-dom';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -38,6 +41,8 @@ export default class CompetitorUpdate extends Component {
       districts: [],
       departments: [],
       resume: null,
+      viewResume: false,
+      pdfData:{},
       selectedFileName: '',
       department: "",
       user: user,
@@ -84,6 +89,7 @@ export default class CompetitorUpdate extends Component {
         }
         else {
           this.setState({ competitor: res.data.response }, () => { this.setProfile(this.state.competitor?.profilePicture) });
+          this.getResume(res.data.response.id)
         }
       })
   }
@@ -282,8 +288,27 @@ export default class CompetitorUpdate extends Component {
     // If studentYop is not defined, return the current date
     return new Date();
   }
-
-
+  handleViewResumeClick = () => {
+    this.setState((prevState) => ({
+      viewResume: !prevState.viewResume,
+    }));
+  };
+  closeResume = () => {
+    this.setState((prevState) => ({
+      viewResume: false,
+    }));
+  };
+   getResume = (studentId) => {
+    axios.get(` ${url.ADMIN_API}/company/resume/${studentId}`, { headers: authHeader(), responseType: 'blob' })
+      .then(res => {
+        const pdf = {}
+        let url = window.URL.createObjectURL(res.data);
+        pdf.data = url.concat("#toolbar=0")
+        this.setState({ pdfData: pdf });
+      }).catch(e => {
+        errorHandler(e);
+      })
+  }
   render() {
 
     return (
@@ -469,17 +494,21 @@ export default class CompetitorUpdate extends Component {
                           startIcon={<CloudUploadIcon />}
                           onChange={(e)=>this.onFileChange(e)}
                           style={{backgroundColor:'#3b489e'}}
-                          
+
 
                         >
                           {this.state.competitor.resume || this.state.resume ? 'Update file' : 'Uploadfile'}
                           <VisuallyHiddenInput type="file" />
                         </Button>
-                        {this.state.selectedFileName && (
+                        {this.state.selectedFileName? (
                           <div style={{textOverflow:'ellipsis',width:'10rem',overflow:'hidden'}}>
                            {this.state.selectedFileName}
                           </div>
-                        )}
+                        ):(<div>
+                          <Link onClick={this.handleViewResumeClick} style={{  fontWeight:"500",cursor: 'pointer', color:"#3B489E", textDecoration: "none" }}>
+                            View Resume <RemoveRedEyeIcon  sx={{color:"#3B489E"}}/>
+                          </Link>
+                        </div>)}
                       </div>
                       {/* <div className="col-2 competitor-input" style={{ height: '3rem' }}>
                         <label className="form-label text-label">Resume*<FormHelperText className="helper helper-candidate" >{this.state.error.resume ? this.state.error.resumeErrorMessage : null}</FormHelperText></label>
@@ -497,6 +526,11 @@ export default class CompetitorUpdate extends Component {
             </div>
           </div>
         </main>
+        {this.state.viewResume ?
+          <div>
+            <ViewProfile type="resume" pdfData={this.state.pdfData.data} onClose={this.closeResume} />
+          </div> : ''
+        }
       </div>
     );
   }

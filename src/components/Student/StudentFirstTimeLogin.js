@@ -17,7 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-
+import { Link } from 'react-router-dom';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -58,7 +59,8 @@ const StudentFirstTimeLogin = () => {
   const [viewProfile, setViewProfile] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState('');
   const navigate = useNavigate()
-
+  const [viewResume, setViewResume] = useState(false);
+  const [pdfData, setPdfData] = useState({})
   const [error, setError] = useState({
     firstName: false,
     firstNameErrorMessage: '',
@@ -111,6 +113,9 @@ const StudentFirstTimeLogin = () => {
           const student = res.data.response;
           student.isIntern = (student.isIntern === null && student.isInternAllowed) ? student.isInternAllowed : student.isIntern;
           setStudent(student);
+          if (student.resume) {
+            getResume(student.id);
+          }
         }
         setStudent(res.data.response)
       })
@@ -118,6 +123,17 @@ const StudentFirstTimeLogin = () => {
         errorHandler(error);
       });
   };
+  const getResume = (studentId) => {
+    axios.get(` ${url.ADMIN_API}/company/resume/${studentId}`, { headers: authHeader(), responseType: 'blob' })
+      .then(res => {
+        const pdf = {}
+        let url = window.URL.createObjectURL(res.data);
+        pdf.data = url.concat("#toolbar=0")
+        setPdfData(pdf)
+      }).catch(e => {
+        errorHandler(e);
+      })
+  }
 
   const getCollege = () => {
     axios.get(`${url.COLLEGE_API}/college/get?collegeId=${data.companyId}`, { headers: authHeader() })
@@ -390,7 +406,9 @@ const StudentFirstTimeLogin = () => {
   const close = () => {
     setViewProfile(false);
   };
-
+  const closeResume = () => {
+    setViewResume(false);
+  };
   const onCloseModal = (isCertficateUploaded) => {
     setOpenModal(!openModal)
     if (typeof isCertficateUploaded === 'boolean')
@@ -591,24 +609,30 @@ const StudentFirstTimeLogin = () => {
                           tabIndex={-1}
                           startIcon={<CloudUploadIcon />}
                           onChange={onFileChange}
-                          style={{backgroundColor:'#3b489e'}}
-                          
-
+                          style={{ backgroundColor: '#3b489e' }}
                         >
                           {student.resume || resume ? 'Update file' : 'Uploadfile'}
                           <VisuallyHiddenInput type="file" />
                         </Button>
-                        {selectedFileName && (
-                          <div style={{textOverflow:'ellipsis',width:'10rem',overflow:'hidden'}}>
-                           {selectedFileName}
+                        {selectedFileName ? (
+                          <div style={{ textOverflow: 'ellipsis', display: "flex", justifyContent: "space-between", overflow: 'hidden' }}>
+                            {selectedFileName}
+                          </div>
+                        ) : (
+                          <div>
+                          <Link onClick={() => setViewResume(!viewResume)} style={{ color:"#3B489E", cursor: 'pointer',  textDecoration: "none" }}>
+                            View Resume<RemoveRedEyeIcon  sx={{color:"#3B489E"}}/>
+                          </Link>
                           </div>
                         )}
+
+
                       </div>
                       <div className="col-2 competitor-input">
                         <label className="form-label text-label">Certificate
                           <FormHelperText className="helper helper-login">{error.certificates ? error.certificatesErrorMessage : null}</FormHelperText></label>
                       </div>
-                      <div className="col-4" style={{ display: 'flex',justifyContent:'flex-start',alignItems:'flex-start' }}>
+                      <div className="col-4" style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                         <button type="button" onClick={onClickOpenModel} data-toggle="tooltip" data-placement="top" title="Add Certificate" className="btn btn-outline-primary border-0 rounded-circle"><i className="fa fa-plus-circle fa-1x " aria-hidden="true" ></i></button>
                         {!student.certificatesExists ?
                           <input className="profile-page" value={"Upload Certificate"} aria-label="default input example" style={{ marginLeft: '1rem', width: '200px' }}></input> :
@@ -625,6 +649,11 @@ const StudentFirstTimeLogin = () => {
             </div>
           </div>
         </main>
+        {viewResume ?
+          <div>
+            <ViewProfile type="resume" pdfData={pdfData.data} onClose={closeResume} />
+          </div> : ''
+        }
       </div>
     </>
   );
