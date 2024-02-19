@@ -56,6 +56,7 @@ const TestAdminList = () => {
   };
 
   const getTestAdminList = (searchValue) => {
+    setSearchValue(searchValue)
     axios
       .get(
         ` ${url.ADMIN_API}/testadmin/testAdminList?status=${searchKey}&page=${currentPage}&size=${pageSize}&search=${searchValue}`,
@@ -95,11 +96,6 @@ const TestAdminList = () => {
 
   const handleStatusFilter = (value) => {
     setSearchKey(value);
-  };
-
-  const onSearch = (searchValue) => {
-    setSearchValue(searchValue);
-    getTestAdminList(searchValue);
   };
 
   const setTableJson = () => {
@@ -185,7 +181,7 @@ const TestAdminList = () => {
           title="Filter"
           showSearch={true}
           placeholder="Search By Name,Email,Phone "
-          onSearch={onSearch}
+          onSearch={getTestAdminList}
         ></Search>
         <div className="row">
           <div className="col-md-12">

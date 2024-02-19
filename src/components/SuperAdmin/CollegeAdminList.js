@@ -36,6 +36,7 @@ const CollegeAdminList = () => {
   
   useEffect(() =>{
     setTableJson();
+    getCollegeAdminList()
   },[])
 
   const setTableJson = () => {

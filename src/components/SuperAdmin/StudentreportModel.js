@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { authHeader, errorHandler } from "../../api/Api";
 import { calculatePercentage } from '../../utils/CommonUtils';
 import ExportXlsx from "../../utils/ExportXlsx";
-import url  from "../../utils/UrlConstant";
+import url from "../../utils/UrlConstant";
 import { isRoleValidation } from "../../utils/Validation";
 import { RenderModalBody } from "../../common/RenderModalBody"
 
@@ -43,6 +43,7 @@ export default class StudentreportModal extends Component {
             student: [],
             studentXlsx: [],
             skillSortscoreXlsx: [],
+            college: [],
             colleges: [],
             skillSortscore: [],
             department: [],
@@ -78,7 +79,7 @@ export default class StudentreportModal extends Component {
     onChange = (value, key) => {
         const { report } = this.state
         if (key === "collegeId") {
-            report[key] = this.state.colleges[value.target.value]?.id
+            report[key] = this.state.colleges[value]?.id
         }
         else if (key === "department") {
             report[key] = this.state.department[value.target.value]?.departmentName
@@ -348,7 +349,7 @@ export default class StudentreportModal extends Component {
         if (isRoleValidation() === 'COLLEGE_ADMIN') {
             await this.getSectionMarks('csv')
         }
-        const data = _.map(this.state.studentXlsx, stu => _.pick({ ...stu,collegeName: stu.college ? stu.college?.collegeName : stu.collegeName, score: this.state.isSkillSortScorePresent ? _.round(this.state.skillSortscoreXlsx[stu.email]) ? _.round(this.state.skillSortscoreXlsx[stu.email]) : '' : stu.skillSortScore ? stu.skillSortScore : '-' }, keys))
+        const data = _.map(this.state.studentXlsx, stu => _.pick({ ...stu, collegeName: stu.college ? stu.college?.collegeName : stu.collegeName, score: this.state.isSkillSortScorePresent ? _.round(this.state.skillSortscoreXlsx[stu.email]) ? _.round(this.state.skillSortscoreXlsx[stu.email]) : '' : stu.skillSortScore ? stu.skillSortScore : '-' }, keys))
         ExportXlsx(data, "StudentReport", isRoleValidation() === 'SUPER_ADMIN' ? columnsForSuperAdmin : columnsForCollege)
         this.setState({ disabled: false })
     }
@@ -379,7 +380,7 @@ export default class StudentreportModal extends Component {
                         }
                     }
                 })
-                this.setState({ student: student, studentXlsx: studentXlsx },() => console.log(student))
+                this.setState({ student: student, studentXlsx: studentXlsx }, () => console.log(student))
             }).catch((error) => {
                 errorHandler(error);
             });
@@ -413,7 +414,7 @@ export default class StudentreportModal extends Component {
                 name: "DEPARTMENT",
                 align: "left",
                 key: "department",
-                renderCell: (params) => params?.department? params.department :"-"
+                renderCell: (params) => params?.department ? params.department : "-"
 
             },
             {
@@ -508,6 +509,14 @@ export default class StudentreportModal extends Component {
         this.setState({ headers });
     };
 
+    changeCollege = (colleges) => {
+        this.setState({ college: colleges })
+        const { report } = this.state
+        report['collegeId'] = colleges?.id
+        this.setState({ report: report })
+    }
+
+
     render() {
         return (
             <div
@@ -587,6 +596,7 @@ export default class StudentreportModal extends Component {
                             increment={this.increment}
                             totalElements={this.state.totalElements}
                             colleges={this.state.colleges}
+                            college={this.state.college}
                             headers={this.state.headers}
                             superAdminHeader={this.state.superAdminHeader}
                             data={this.state.student}
@@ -597,6 +607,7 @@ export default class StudentreportModal extends Component {
                             handleReset={this.handleReset}
                             department={this.state.department}
                             toggleClick={this.state.toggleClick}
+                            changeCollege={this.changeCollege}
                         />
                     </div>
                 </div>

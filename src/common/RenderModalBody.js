@@ -10,6 +10,7 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { CustomTable } from "../utils/CustomTable";
 import MultiSelectDropDown from "../utils/MultiSelectDropDown";
+import AutoComplete from "./AutoComplete";
 
 export const RenderModalBody = (props) => {
 
@@ -157,25 +158,19 @@ export const RenderModalBody = (props) => {
                 </div>
               </div>
               {isRoleValidation() === "SUPER_ADMIN" &&
-              props.report.role === "STUDENT" ? (
+                props.report.role === "STUDENT" ? (
                 <div className="mb-05">
                   <label>College</label>
                   <div>
-                    <select
-                      className="profile-page"
-                      style={{ width: "12.5rem" }}
-                      required="true"
-                      onChange={(e) => props.onChange(e, "collegeId")}
-                    >
-                      <option hidden selected value="">
-                        Select college
-                      </option>
-                      {_.map(props.colleges, (college, index) => {
-                        return (
-                          <option value={index}>{college.collegeName} </option>
-                        );
-                      })}
-                    </select>
+                    <AutoComplete
+                      displayLabel={"Select College"}
+                      width={"12rem"}
+                      value={props.college || []}
+                      selectExam={props.changeCollege}
+                      data={props.colleges}
+                      isObject={true}
+                      displayValue={"collegeName"} >
+                    </AutoComplete>
                   </div>
                 </div>
               ) : null}
@@ -250,7 +245,7 @@ export const RenderModalBody = (props) => {
                 {props.type === "INDIVIDUAL_USER" ? "Individual User Report" : 'Student Report'}
               </span>
               <span className="dash-text" style={{ marginRight: "1.4rem" }}>
-              {props.type === "INDIVIDUAL_USER" ? "Total Registered Users": 'Total Students'} : {props.totalElements}
+                {props.type === "INDIVIDUAL_USER" ? "Total Registered Users" : 'Total Students'} : {props.totalElements}
               </span>
             </div>
             <div
@@ -260,7 +255,7 @@ export const RenderModalBody = (props) => {
                 overflowY: "auto",
               }}
               className="table-border"
-            > 
+            >
               <div>
                 <div className="table-responsive pagination_table">
                   {isRoleValidation() === "SUPER_ADMIN" ? (

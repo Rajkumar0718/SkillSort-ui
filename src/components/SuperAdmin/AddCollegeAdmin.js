@@ -8,6 +8,7 @@ import url from '../../utils/UrlConstant';
 import { isEmpty, isValidEmail, isValidMobileNo } from "../../utils/Validation";
 import './SuperAdmin.css';
 import StatusRadioButton from '../../common/StatusRadioButton';
+import AutoComplete from '../../common/AutoComplete';
 
 class AddCollegeAdmin extends Component {
   constructor() {
@@ -98,7 +99,7 @@ class AddCollegeAdmin extends Component {
             toastMessage('success', 'College Admin Added Successfully..!');
           }
           console.log(this.props);
-         this.props.navigate('/collegeadmin/admin');
+          this.props.navigate('/collegeadmin/admin');
         })
         .catch(error => {
           this.setState({ disabled: false })
@@ -139,7 +140,15 @@ class AddCollegeAdmin extends Component {
         errorHandler(error);
       })
   }
-
+  changeCollege = (college) => {
+    this.setState({
+      collegeAdmin: {
+        ...this.state.collegeAdmin, 
+        college: college
+      }
+    });
+  }
+  
 
 
   render() {
@@ -209,14 +218,15 @@ class AddCollegeAdmin extends Component {
                               </label></div>
                             <div className='col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9' >
                               {action == null ?
-                                <select className='profile-page' style={{}}
-                                  required='true'
-                                  onChange={(e) => this.handleObjChange(e, 'college')} value={_.findIndex(this.state.colleges, college => college?.collegeName === this.state.collegeAdmin.college?.collegeName)}>
-                                  <option hidden selected value="" >{action ? this.state.collegeAdmin.college?.collegeName : 'Select college'}</option>
-                                  {this.state.colleges.map((college, index) => {
-                                    return <option value={index}>{college.collegeName}</option>
-                                  })}
-                                </select> : <input className="profile-page" readOnly={true}
+                                <AutoComplete
+                                  displayLabel={"Select College"}
+                                  width={250}
+                                  value={this.state.collegeAdmin.college}
+                                  selectExam={this.changeCollege}
+                                  data={this.state.colleges}
+                                  isObject={true}
+                                  displayValue={"collegeName"} >
+                                </AutoComplete> : <input className="profile-page" readOnly={true}
                                   value={this.state.collegeAdmin.college?.collegeName}
                                 />
                               }
@@ -225,11 +235,11 @@ class AddCollegeAdmin extends Component {
                         </div>
                         <div className="col-lg-6 col-6 col-sm-6 col-md-6">
                           <div className='row'>
-                          <StatusRadioButton
-                                  handleChange={this.handleChange}
-                                  status={this.state.collegeAdmin.status}
-                                  style={{ marginTop: "0.6rem" }}
-                                />
+                            <StatusRadioButton
+                              handleChange={this.handleChange}
+                              status={this.state.collegeAdmin.status}
+                              style={{ marginTop: "0.6rem" }}
+                            />
                           </div>
                         </div>
                       </div>
