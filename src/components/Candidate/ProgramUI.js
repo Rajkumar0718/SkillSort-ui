@@ -71,6 +71,7 @@ export default class ProgramUi extends Component {
             screenBlockCount: 0,
             examQuestions: {},
             isOngoingExamPresent: false,
+            practiceExamId: localStorage.getItem("practiceExamId") || "",
             examLinkResponse: "",
             instructions: "",
             loading: false,
@@ -481,6 +482,10 @@ export default class ProgramUi extends Component {
             copyPasteContent: this.state.examMonitor.copyPasteContent,
             examMonitor: this.state.examMonitor,
         };
+        const practiceExamId = localStorage.getItem("practiceExamId");
+        if (practiceExamId) {
+            submittedExam["practiceExamId"] = practiceExamId
+        }
         submittedExam["startDate"] = new Date(localStorage.getItem("startTime"));
         if (localStorage.getItem('level')) {
             const level = JSON.parse(localStorage.getItem('level'))

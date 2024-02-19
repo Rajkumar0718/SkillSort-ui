@@ -139,7 +139,7 @@ class AddExam extends Component {
       exams.positionId = this.state.positionId
       const hashCode = exams.publicUrlHashcode
       let generatedLink = hashCode ? `${url.UI_URL}/candidate/register/${hashCode}` : undefined
-      this.setState({ ...exams, tabsArray: _.map(exams.categories, (category) => category.sectionName), generatedLink: generatedLink })
+      this.setState({ ...exams, tabsArray: _.map(exams.categories, (category) => category.sectionName), generatedLink: generatedLink, tabIndex: exams.categories[0].sectionName })
     })
       .catch(() => toastMessage('error', 'Error while fetching exam'))
   }

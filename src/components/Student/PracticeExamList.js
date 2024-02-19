@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { FaAward } from 'react-icons/fa';
 import '../../App.css';
 import { authHeader, errorHandler } from '../../api/Api';
-import AdvSearch from '../../common/Search';
+import AdvSearch from '../../common/AdvanceSearch';
 import { fallBackLoader, withLocation } from '../../utils/CommonUtils';
 import TableHeader from '../../utils/TableHeader';
 import url from '../../utils/UrlConstant';
@@ -126,6 +126,16 @@ class PracticeExamList extends Component {
       })
   }
 
+
+  checkExistingPracticeExamGoingOn = (practiceExam) => {
+    const URL = `${url.COLLEGE_API}/test/check-ongoing-practice-exam?practiceExamId=${practiceExam.id}`;
+    axios.get(URL,{ headers: authHeader() }).then(() => {
+      this.takeTest(practiceExam);
+    }).catch((err) => {
+      errorHandler(err)
+    })
+  }
+
   takeTest = (practiceExam) => {
     this.clearStorage();
     const user = JSON.parse(localStorage.getItem('user'))
@@ -152,10 +162,10 @@ class PracticeExamList extends Component {
           return window.open(`${url.UI_URL}/candidateinstruction`, "", "width=1450px,height=900px")
         }
         const response = res.data.response || {}
-        if (response.isExamSubmitted) {
-          this.setState({ isResultInProgress: true });
-          return this.getResultUntilItDone(index)
-        }
+        // if (response.isExamSubmitted) {
+        //   this.setState({ isResultInProgress: true });
+        //   return this.getResultUntilItDone(index)
+        // }
         localStorage.setItem("onGoingExamId", response.id);
         if (response.startDate) localStorage.setItem("startDate", response.startDate);
         if (response.preferredLanguage) {
@@ -278,7 +288,7 @@ class PracticeExamList extends Component {
           <div className='col-12'>
             <TableHeader title="PracticeExams"/>
             {fallBackLoader(this.state.loader)}
-            <AdvSearch title="Filter" showSearch={true} placeholder="search by topics" onSearch={this.onSearch} />
+            <AdvSearch title="Filter" showSearch={true} placeholder="search by topics" onSearch={this.onSearch} style={{marginLeft:'0.5rem',width:'calc(100vw - 9.12rem)'}}/>
             <div style={{ width: '100%', height: 'calc(100vh - -22rem)', position: 'relative', right: '15px', bottom: '10px' }}>
               <Grid container>
                 {_.map(this.state.filteredExam, (practice, index) => {
@@ -317,7 +327,7 @@ class PracticeExamList extends Component {
 
 
                         <div>
-                          <button disabled={this.state.attempt[practice.id] ? this.state.attempt[practice.id] >= 3 : false} onClick={() => this.takeTest(practice)}
+                          <button disabled={this.state.attempt[practice.id] ? this.state.attempt[practice.id] >= 3 : false} onClick={() => this.checkExistingPracticeExamGoingOn(practice)}
                             style={{ minWidth: '6rem', fontSize: '15px', marginTop: '47px', backgroundColor: this.state.attempt[practice.id] >= 3 ? 'rgb(225 151 126)' : '#F05A28', color: 'white', position: 'relative', right: '20px', height: '2rem', borderRadius: '5px', border: 'none', cursor: this.state.attempt[practice.id] >= 3 ? 'not-allowed' : 'pointer', }}>
                             {this.state.attempt[practice.id] > 0 ? 'Try Again' : 'Try Now'}</button>
                           <p style={{ fontSize: '13px', color: '#5e5858', marginTop: '7px', marginLeft: '-12px' }}>{'Attempt: ' + (this.state.attempt[practice.id] ? this.state.attempt[practice.id] : 0) + '/3'}</p>

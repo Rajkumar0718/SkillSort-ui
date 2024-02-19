@@ -392,6 +392,10 @@ export default class QueryUi extends Component {
         sqlRound: true,
         examMonitor: this.state.examMonitor,
       };
+      const practiceExamId = localStorage.getItem("practiceExamId");
+      if (practiceExamId) {
+        submittedExam["practiceExamId"] = practiceExamId
+      }
 
       if (localStorage.getItem("collegeId")) {
         submittedExam["collegeId"] = localStorage.getItem("collegeId");

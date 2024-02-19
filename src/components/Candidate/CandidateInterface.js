@@ -79,12 +79,6 @@ export default function CandidateInterface(props) {
   });
 
   const navigate = useNavigate();
-  const exams = () => {
-    if (examQuestions && examQuestions.categories && examQuestions.categories[0] && examQuestions.categories[0].questions && examQuestions.categories[0].questions[0]) {
-      setInduQuestions(examQuestions.categories[0].questions[0]);
-      setExam(true);
-    }
-  };
 
   const sessionStart = async () => {
     if (localStorage.getItem("startDate"))
@@ -96,8 +90,9 @@ export default function CandidateInterface(props) {
       sessionQuestions.categories.splice(idx, 1)
     }
     setExamQuestions(sessionQuestions);
+    setInduQuestions(sessionQuestions.categories[0].questions[0]);
+    setExam(true)
     setProgramCategory(programCategory);
-    exams();
   };
   useEffect(() => {
     // window.addEventListener("unload", handleEventTrackForAbondedExam);
@@ -238,6 +233,11 @@ export default function CandidateInterface(props) {
       isAppsCompleted: isAppsCompleted,
       examMonitor: examMonitor,
     };
+
+    const practiceExamId = localStorage.getItem("practiceExamId");
+    if(practiceExamId) {
+      submittedExam["practiceExamId"] = practiceExamId
+    }
 
     submittedExam["startDate"] = new Date(localStorage.getItem("startTime"));
 
