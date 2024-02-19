@@ -19,6 +19,8 @@ import VerifyRecruiter from "./components/SuperAdmin/VerifyRecruiter";
 import RecruiterTimeSlot from "./components/SuperAdmin/RecruiterTimeSlot";
 import ProjectResultView from "./components/project-ui/ProjectResultView";
 import ForgetPassword from "./components/Admin/ForgotPassword";
+import WronganswerPreview from "./components/Student/WrongAnswerPreview";
+import LoginRegistration from "./utils/LoginRegistration";
 
 const AddExam = React.lazy(() => import("./components/Admin/AddExam"));
 const AddHr = React.lazy(() => import("./components/Admin/AddHr"));
@@ -112,8 +114,8 @@ function App() {
         {/* Public Routes */}
         <Route index element={<AdminLogin />}></Route>
         <Route path="/login" element={<AdminLogin />} />
-        <Route path='/admin/forgot/password' element={<ForgetPassword/>} />
-        <Route path='/register/:token/:examId/:examUsersId' exact element={<EnhancedCandidateRegister/>} />
+        <Route path='/admin/forgot/password' element={<ForgetPassword />} />
+        <Route path='/register/:token/:examId/:examUsersId' exact element={<EnhancedCandidateRegister />} />
         <Route path='/examResult/:candidateId' element={<TestResults />} />
         <Route path="/project" element={<ProjectUi />} />
         <Route path='/competitor/login' element={<CompetitorFirstTimeLogin />} />
@@ -127,6 +129,7 @@ function App() {
         <Route path='/program/:token/:examId/:examUsersId' element={<EnhancedProgramUI />} />
         <Route path='/program' element={<EnhancedProgramUI />} />
         <Route path='/sql' element={<EnhancedQueryUI />} />
+        <Route path="/student/wrong-answers/preview" element={<WronganswerPreview />} />
         <Route path="/candidate/register/:companyId/:examId" element={<PublicRegister />} />
         <Route path="/public-candidate/register/:companyId/:examId" element={<CandidateReg />} />
         <Route path="/candidate/re-exam-request" element={<ReExamRequest />} />
@@ -135,6 +138,7 @@ function App() {
         <Route path="/admin/result/candidate/programResult/:candidate_id" element={<ProgramResult />} />
         <Route path='/candidate-details/:examResultId' element={<SharedCandidateDetails />} />
         <Route path="/project-result/:resultId" element={<ProjectResultView />} />
+        <Route path='/set/password/:token/:id/:role' element={<LoginRegistration/>} />
         {/* Private Routes */}
         <Route element={<RequireAuth allowedRoles={["SUPER_ADMIN"]} />}>
           <Route path="/home" element={<HomePage />} />
@@ -251,6 +255,7 @@ function App() {
             <Route path="/student/company-offer" element={<CompanyOffers />} />
             <Route path="/student/practice-exam" element={<PracticeExamList />} />
             <Route path="/student/advertisement" element={<AdvertisementPage />} />
+
             <Route path='/competitor/testList' element={<StudentTestList />} />
             <Route path='/competitor/update' element={<EnhancedCompetitorUpdate />} />
             <Route path='/competitor/company-offer' element={<CompanyOffers />} />
@@ -261,11 +266,11 @@ function App() {
           <Route element={<RequireAuth allowedRoles={["PROCESS_ADMIN"]} />}>
             <Route path="/processadmin" element={<CompanyList />} />
             <Route path="/processadmin/company" element={<CompanyList />} />
-            <Route path="/processadmin/company/test" element={<ExamListProcesss />} />    
+            <Route path="/processadmin/company/test" element={<ExamListProcesss />} />
             <Route path="/processadmin/company/test/candidate" element={<CandidateLists />} />
             <Route path="/processadmin/company/test/candidate/sendmail" element={<SendMail />} />
           </Route>
-         
+
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
