@@ -137,16 +137,16 @@ export default class Questions extends Component {
         </div>
         <div className="col-lg-2 text-end ms-4 float-end" style={{ height: "0rem", display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', zIndex: '1' }}>
           {isPinned ? (
-            <div>
-              <img src={pin} alt='' title="UnPin the Question" onClick={() => {
-                this.unpinned(categoryIndex, questionIndex);
-              }} style={{ paddingRight: '3.5rem' }}></img><p style={{ marginBottom: '0.4rem', marginTop: '-1rem' ,position:'relative' , right:'0.4rem' }}>UnPin</p>
+            <div onClick={() => {
+              this.unpinned(categoryIndex, questionIndex);
+            }}>
+              <img src={pin} alt='' title="UnPin the Question"  style={{ paddingRight: '3.5rem' }}></img><p style={{ marginBottom: '0.4rem', marginTop: '-1rem' ,position:'relative' , right:'0.4rem' }}>UnPin</p>
             </div>
           ) : (
-            <div>
-              <img src={pin} alt='' title="Pin the Question" onClick={() => {
-                this.pinned(categoryIndex, questionIndex);
-              }} style={{ paddingRight: '3.5rem' }}></img><p style={{ marginBottom: '0.4rem', marginTop: '-1rem',position:'relative' , right:'1.2rem' }}>Pin</p>
+            <div onClick={() => {
+              this.pinned(categoryIndex, questionIndex);
+            }}>
+              <img src={pin} alt='' title="Pin the Question"  style={{ paddingRight: '3.5rem' }}></img><p style={{ marginBottom: '0.4rem', marginTop: '-1rem',position:'relative' , right:'1.2rem' }}>Pin</p>
             </div>
 
           )}
