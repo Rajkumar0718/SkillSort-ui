@@ -13,14 +13,17 @@ const StyledCKEditorWrapper = styled.div`
   .ck-editor__editable {
     &.ck-rounded-corners.ck-editor__editable_inline.ck-focused {
       overflow-y: auto;
-      height: 16rem;
+      height: 12rem;
     }
     &.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
       overflow-y: auto;
-      height:  16rem;
+      height:  12rem;
     }
-
+    
   }
+  .ck .ck-editor__main {
+    height: 206px !important;
+}
 `;
 export default class ContactPanelist extends Component {
   state = {
@@ -91,25 +94,12 @@ export default class ContactPanelist extends Component {
                             onChange={(e) => this.handleChange(e, 'subject')}
                             id="first" placeholder="Enter Subject" maxlength="300" autocomplete="off" style={{ marginTop: '0px', marginBottom: '0px', height: '50px' }} ></textarea>
                           <label>Message</label>
-{/* 
-                          <CKEditor
-                            activeclassName="p10"
-                            content={this.state.message}
-                            events={{
-                              "blur": this.onBlur,
-                              "afterPaste": this.afterPaste,
-                              "change": e => this.setState({ message: e.editor.getData() })
-                            }}
-                            config={{
-                              removePlugins: 'elementspath',
-                              resize_enabled: false,
-                            }}
-                          /> */}
+
                           <StyledCKEditorWrapper>
                                 <CKEditor
                                   editor={ClassicEditor}
                                   data={this.state.message || ""}
-                                  onChange={ e => this.setState({ message: e.editor.getData() })}
+                                  onChange={ (e,editor) => this.setState({ message: editor.getData() })}
                                   onReady={(editor) => {
                                     const container = editor.ui.view.element;
                                     ClassicEditor.create(

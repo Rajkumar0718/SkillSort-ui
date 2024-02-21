@@ -28,8 +28,11 @@ const AdminList = () => {
   useEffect(() => {
     setLoader(true)
     getAllAdmins();
+  }, [currentPage, pageSize, status]);
+  
+  useEffect(() =>{
     getAdminSearchList();
-  }, [currentPage, pageSize, status,searchValue]);
+  },[searchValue])
 
   useEffect(() =>{
     setTableJson();

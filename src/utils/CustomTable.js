@@ -29,8 +29,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     paddingLeft: '2px !important',
     paddingTop: '7px !important',
     paddingBottom: '7px !important',
-    lineHeight: '1.5', // Adjust the line height as needed
-
+    lineHeight: '1',
   },
 }));
 

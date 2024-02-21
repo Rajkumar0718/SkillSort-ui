@@ -122,7 +122,6 @@ const CompanyList = () => {
     };
 
     const onSearch = (name) => {
-        console.log(name + "ajayyyyyyyy");
         setName(name);
         setCurrentPage(1);
         getCompanyList(name);
