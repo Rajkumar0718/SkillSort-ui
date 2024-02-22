@@ -121,7 +121,7 @@ function SharedCandidateDetails(props) {
                       <div className='row' style={{ display: 'contents' }}>
                         <div className="card-block content-align" >
                           <img src={profile} alt="profile" />
-                          <h4 className="f-w-600 mt-4" style={{ fontSize: '1.5rem', marginBottom: '0.5rem', lineHeight: '1.2', color: '#3B489E', fontFamily: 'Montserrat' }}>{candidate.firstName} {candidate.lastName}{console.log(candidate, "name")}</h4>
+                          <h4 className="f-w-600 mt-4" style={{ fontSize: '1.5rem', marginBottom: '0.5rem', lineHeight: '1.2', color: '#3B489E', fontFamily: 'Montserrat' }}>{candidate.firstName} {candidate.lastName}</h4>
                           <h5 style={{ fontWeight: '400', color: '#000000', fontSize: '13px', marginBottom: '18px' }}><img src={qualification} alt="" style={{ width: '30px', marginLeft: '-36px' }} /> {candidate.qualification}</h5>
                           <p style={{ fontWeight: '400', color: '#000000', fontSize: '13px', marginBottom: '0px' }}>{candidate.email}</p>
                           <p style={{ fontWeight: '400', color: '#000000', fontSize: '13px', marginBottom: '0px' }}>{candidate.phone}</p>

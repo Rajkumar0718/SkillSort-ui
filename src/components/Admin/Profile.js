@@ -117,7 +117,6 @@ const role = isRoleValidation();
         axios.post(` ${url.ADMIN_API}/company/save`, formData, { headers: authHeader() })
             .then(res => { })
             .catch(error => {
-                console.log('in company');
                 errorHandler(error)
             })
     }

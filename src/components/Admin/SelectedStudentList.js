@@ -65,7 +65,6 @@ export default class SelectedStudentList extends Component {
     this.setState({ showData: true, selected: [] });
     axios.get(` ${url.ADMIN_API}/candidate/selected?examId=${this.state.examId}&page=${this.state.currentPage}&size=${this.state.pageSize}&status=${this.state.statusType}`, { headers: authHeader() })
       .then(res => {
-        console.log(res.data.response.content);
         this.setState({ candidate: res.data.response.content, totalPages: res.data.response.totalPages, totalElements: res.data.response.totalElements, numberOfElements: res.data.response.numberOfElements, examName: this.props.position.name });
         let st = _.filter(res.data.response.content, can => can.candidateStatus !== 'NOTIFIED_TO_SKILL_SORT')?.map(cad => cad.id)
         this.setState({ status: st })

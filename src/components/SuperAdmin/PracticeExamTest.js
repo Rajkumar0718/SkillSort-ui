@@ -13,6 +13,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import StatusRadioButton from '../../common/StatusRadioButton';
 import styled from 'styled-components';
+import CkEditor from '../../common/CkEditor';
 
 
 
@@ -117,8 +118,8 @@ class PracticeExamTest extends Component {
     this.setState({ candidateInstruction: editor.getData() })
   }
 
-  editorTestSubmitOnChange = (event, editor) => {
-    this.setState({ examSubmitMessage: editor.getData() })
+  editorTestSubmitOnChange = (newData) => {
+    this.setState({ examSubmitMessage:newData })
   }
 
   handleChange = (event, key) => {
@@ -311,7 +312,10 @@ class PracticeExamTest extends Component {
     const section = this.state.sections.find(s => s.groupQuestionType === key)
     return section?.totalInSection === 0;
   }
+   handleEditorChange = (newData) => {
+    this.setState({ candidateInstruction: newData })
 
+  };
   render() {
     let action = null;
     if (this.props.location.pathname.indexOf('view') > -1) {
@@ -431,35 +435,7 @@ class PracticeExamTest extends Component {
                                 <label for="question"><b>Candidate Instruction </b><span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.candidateInstruction ? this.state.error.candidateInstructionMsg : null}</FormHelperText>
                                 <StyledCKEditorWrapper>
-                                <CKEditor
-                                  editor={ClassicEditor}
-                                  data={this.state.candidateInstruction || ""}
-                                  onChange={(event, editor) => this.editorOnChange(event, editor)}
-                                  onReady={(editor) => {
-                                    const container = editor.ui.view.element;
-                                    ClassicEditor.create(
-                                      editor.editing.view.document.getRoot(),
-                                      {
-                                        removePlugins: ["Heading", "Link", "CKFinder"],
-                                        toolbar: [
-                                          "style",
-                                          "bold",
-                                          "italic",
-                                          "bulletedList",
-                                          "numberedList",
-                                          "blockQuote",
-                                        ],
-
-                                      }
-                                    )
-                                      .then(() => {
-                                        console.log("Editor is ready to use!", editor);
-                                      })
-                                      .catch((error) => {
-                                        console.error(error);
-                                      });
-                                  }}
-                                />
+                                  <CkEditor  data={this.state.candidateInstruction} onChange={this.handleEditorChange}/>
                                 </StyledCKEditorWrapper>
                               </div>
                             </div>
@@ -468,35 +444,7 @@ class PracticeExamTest extends Component {
                                 <label for="question"><b>Test Submit Message </b><span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.examSubmitMessage ? this.state.error.examSubmitMessageMsg : null}</FormHelperText>
                                 <StyledCKEditorWrapper>
-                                <CKEditor
-                                  editor={ClassicEditor}
-                                  data={this.state.examSubmitMessage || ""}
-                                  onChange={(event, editor) => this.editorTestSubmitOnChange(event, editor)}
-                                  onReady={(editor) => {
-                                    const container = editor.ui.view.element;
-                                    ClassicEditor.create(
-                                      editor.editing.view.document.getRoot(),
-                                      {
-                                        removePlugins: ["Heading", "Link", "CKFinder"],
-                                        toolbar: [
-                                          "style",
-                                          "bold",
-                                          "italic",
-                                          "bulletedList",
-                                          "numberedList",
-                                          "blockQuote",
-                                        ],
-
-                                      }
-                                    )
-                                      .then(() => {
-                                        console.log("Editor is ready to use!", editor);
-                                      })
-                                      .catch((error) => {
-                                        console.error(error);
-                                      });
-                                  }}
-                                />
+                                <CkEditor  data={this.state.examSubmitMessage} onChange={this.editorTestSubmitOnChange}/>
                                 </StyledCKEditorWrapper>
                               </div>
                             </div>

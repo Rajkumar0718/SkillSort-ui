@@ -6,7 +6,7 @@ const CkEditor = ({data , onChange, keyName}) => {
   return (
     <CKEditor
     editor={ClassicEditor}
-    data={data}
+    data={data||""}
     onChange={(event, editor) => {
       const updatedData = editor?.getData();
       onChange(updatedData,keyName);

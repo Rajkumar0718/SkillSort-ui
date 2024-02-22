@@ -5,6 +5,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { authHeader } from '../../api/Api';
 import { toastMessage } from '../../utils/CommonUtils';
 import url from '../../utils/UrlConstant';
+import CkEditor from '../../common/CkEditor';
 
 const FeedbackModel = (props) => {
   const [skillSortCandidate, setSkillSortCandidate] = useState(props.modelSection.skillSortCandidate);
@@ -35,7 +36,10 @@ const FeedbackModel = (props) => {
     if (status === 'REJECTED') return 'red';
     if (status === 'NO_SHOW') return 'black';
   };
+  const handleEditorChange = (newData) => {
+    setSkillSortCandidate(newData)
 
+  };
   return (
     <div >
       <div className="modal fade show" id="myModal" role="dialog" style={{ paddingRight: '15px', display: 'flex', backgroundColor: 'rgba(0,0,0,0.90)', justifyContent: 'center', alignItems: 'center' }} aria-hidden="true">
@@ -65,93 +69,9 @@ const FeedbackModel = (props) => {
                   <div className='col-lg-12 col-md-12 col-sm-12' style={{ paddingBottom: '15px' }}>
                     <label className='form-group'>Feedback&nbsp;</label>
                     {skillSortCandidate.skillSortFeedBack === null ?
-                      // <CKEditor
-                      //   activeclassName="p10"
-                      //   content={skillSortCandidate.panelistFeedBack}
-                      //   events={{
-                      //     "blur": onBlur,
-                      //     "afterPaste": afterPaste,
-                      //     "change": (e) => handleChange(e)
-                      //   }}
-                      //   config={{
-                      //     removePlugins: 'elementspath',
-                      //     resize_enabled: false
-                      //   }}
-                      // />
-                      <CKEditor
-                                  editor={ClassicEditor}
-                                  data={skillSortCandidate.panelistFeedBack}
-                                  onReady={editor => {
-
-                                    ClassicEditor
-                                      .create(editor.editing.view.document.getRoot(), {
-                                        removePlugins: ['Heading', 'Link', 'CKFinder'],
-                                        toolbar: ['bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote'],
-                                      })
-                                      .then(() => {
-                                        console.log('Editor is ready to use!', editor);
-                                      })
-                                      .catch(error => {
-                                        console.error(error);
-                                      });
-                                  }}
-
-                                  onChange={(event, editor) => {
-                                    const data = editor?.getData();
-                                    this.setState({ candidateInstruction: data })
-                                  }}
-
-                                  onBlur={(event, editor) => {
-                                    console.log('Blur.', editor);
-                                  }}
-                                  onFocus={(event, editor) => {
-                                    console.log('Focus.', editor);
-                                  }}
-                                />
+                      <CkEditor data={skillSortCandidate.panelistFeedBack} onChange={handleEditorChange}/>
                       :
-                      // <CKEditor
-                      //   activeclassName="p10"
-                      //   content={skillSortCandidate.skillSortFeedBack}
-                      //   events={{
-                      //     "blur": onBlur,
-                      //     "afterPaste": afterPaste,
-                      //     "change": (e) => handleChange(e)
-                      //   }}
-                      //   config={{
-                      //     removePlugins: 'elementspath',
-                      //     resize_enabled: false
-                      //   }}
-                      // />
-                      <CKEditor
-                      editor={ClassicEditor}
-                      data={skillSortCandidate.skillSortFeedBack}
-                      onReady={editor => {
-
-                        ClassicEditor
-                          .create(editor.editing.view.document.getRoot(), {
-                            removePlugins: ['Heading', 'Link', 'CKFinder'],
-                            toolbar: ['bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote'],
-                          })
-                          .then(() => {
-                            console.log('Editor is ready to use!', editor);
-                          })
-                          .catch(error => {
-                            console.error(error);
-                          });
-                      }}
-
-                      onChange={(event, editor) => {
-                        const data = editor?.getData();
-                        this.setState({ candidateInstruction: data })
-                      }}
-
-                      onBlur={(event, editor) => {
-                        console.log('Blur.', editor);
-                      }}
-                      onFocus={(event, editor) => {
-                        console.log('Focus.', editor);
-                      }}
-                    />
+                      <CkEditor data={skillSortCandidate.skillSortFeedBack} onChange={handleEditorChange}/>
                     }
                   </div>
                 </div>

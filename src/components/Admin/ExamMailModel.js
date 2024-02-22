@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { authHeader, errorHandler, logOut } from "../../api/Api";
 import { fallBackLoader, toastMessage } from "../../utils/CommonUtils";
 import url from "../../utils/UrlConstant";
+import CkEditor from "../../common/CkEditor";
 const StyledCKEditorWrapper = styled.div`
   .ck-editor__editable {
     &.ck-rounded-corners.ck-editor__editable_inline.ck-focused {
@@ -242,7 +243,10 @@ export default class ExamMailModel extends Component {
     }
   };
 
+  handleEditorChange = (newData) => {
+    this.setState({ mailMsg: newData })
 
+  };
   render() {
     const questionType = this.props.modalSection.type === 'Email';
     return (
@@ -296,12 +300,7 @@ export default class ExamMailModel extends Component {
                   <div className="form-row" style={{ marginTop: "1rem", paddingLeft: "11px", paddingRight: "11px", height: "18rem" }}>
                     <div className="form-group col-12" style={{height:"16rem"}}>
                       <StyledCKEditorWrapper>
-                      <CKEditor
-                        editor={ClassicEditor}
-                        data={this.state.mailMsg || ""}
-                        onChange={this.handleEditorChange}
-                        config={{}}
-                      />
+                      <CkEditor data={this.state.mailMsg} onChange={this.handleEditorChange}/>
                       </StyledCKEditorWrapper>
                     </div>
                     <div className="col-md-11" style={{ display: "flex", justifyContent: "flex-end",position:'relative',bottom:'.5rem'}}>

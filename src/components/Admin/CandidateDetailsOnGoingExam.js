@@ -85,12 +85,11 @@ class CandidateDetailsOnGoingExam extends Component {
             align: 'center',
             key: 'S.NO',
         },
-        { 
+        {
             name: 'NAME',
             align: 'left',
             renderCell: (params) => {
-                console.log(params);
-                return params?.firstName + " " + params?.lastName 
+                return params?.firstName + " " + params?.lastName
             }
         },
         {

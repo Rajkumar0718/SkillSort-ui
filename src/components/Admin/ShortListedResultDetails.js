@@ -175,7 +175,6 @@ export default class ShortListedResultDetails extends Component {
   }
 
   calculateSkill = (result)=>{
-    console.log(result);
     let takenPercantage = ((result.totalMarks) / (result.totalInSection) * 100).toFixed(0)
     if(takenPercantage < 60){
       return "Need to improve"

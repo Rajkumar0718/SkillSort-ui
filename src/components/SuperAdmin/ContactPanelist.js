@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 // import CKEditor from "react-ckeditor-component";
 import { authHeader, errorHandler } from '../../api/Api';
 import { fallBackLoader, toastMessage } from '../../utils/CommonUtils';
-import  url  from '../../utils/UrlConstant';
+import url from '../../utils/UrlConstant';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styled from 'styled-components';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import CkEditor from '../../common/CkEditor';
 
 
 const StyledCKEditorWrapper = styled.div`
@@ -19,7 +20,7 @@ const StyledCKEditorWrapper = styled.div`
       overflow-y: auto;
       height:  12rem;
     }
-    
+
   }
   .ck .ck-editor__main {
     height: 206px !important;
@@ -69,7 +70,10 @@ export default class ContactPanelist extends Component {
         errorHandler(error);
       })
   }
+  handleEditorChange = (newData) => {
+    this.setState({ message: newData })
 
+  };
   render() {
     return (
       <>
@@ -94,38 +98,9 @@ export default class ContactPanelist extends Component {
                             onChange={(e) => this.handleChange(e, 'subject')}
                             id="first" placeholder="Enter Subject" maxlength="300" autocomplete="off" style={{ marginTop: '0px', marginBottom: '0px', height: '50px' }} ></textarea>
                           <label>Message</label>
-
                           <StyledCKEditorWrapper>
-                                <CKEditor
-                                  editor={ClassicEditor}
-                                  data={this.state.message || ""}
-                                  onChange={ (e,editor) => this.setState({ message: editor.getData() })}
-                                  onReady={(editor) => {
-                                    const container = editor.ui.view.element;
-                                    ClassicEditor.create(
-                                      editor.editing.view.document.getRoot(),
-                                      {
-                                        removePlugins: ["Heading", "Link", "CKFinder"],
-                                        toolbar: [
-                                          "style",
-                                          "bold",
-                                          "italic",
-                                          "bulletedList",
-                                          "numberedList",
-                                          "blockQuote",
-                                        ],
-
-                                      }
-                                    )
-                                      .then(() => {
-                                        console.log("Editor is ready to use!", editor);
-                                      })
-                                      .catch((error) => {
-                                        console.error(error);
-                                      });
-                                  }}
-                                />
-                                </StyledCKEditorWrapper>
+                            <CkEditor data={this.state.message} onChange={this.handleEditorChange} />
+                          </StyledCKEditorWrapper>
                         </div>
                         <div className="col-md-11">
                           <button type="submit" style={{ float: "right" }} className="btn btn-sm btn-nxt" >Send Mail</button>

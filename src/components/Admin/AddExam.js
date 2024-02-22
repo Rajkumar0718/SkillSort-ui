@@ -1,5 +1,3 @@
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { TabContext } from '@mui/lab';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
@@ -12,7 +10,6 @@ import _ from "lodash";
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { authHeader, errorHandler, getCurrentUser } from '../../api/Api';
-import CustomDatePick from '../../common/CustomDatePick';
 import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import url from '../../utils/UrlConstant';
 import { isEmpty, isRoleValidation } from '../../utils/Validation';
@@ -783,17 +780,6 @@ class AddExam extends Component {
                             </div>
                             <div className="col">
                               <label className="form-label-row col-6" style={{ marginLeft: '0rem', marginBottom: '0.5rem' }}>Date <span style={{ color: 'red' }}>*</span></label>
-                              {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-																	<KeyboardDateTimePicker
-																		className='form-control-row col-6'
-																		value={this.state.startDateTime}
-																		onChange={this.handleDateChange}
-																		minDate={this.state.position?.startDate}
-																		maxDate={this.state.position?.endDate}
-																		required='true'
-																		style={{ marginLeft: '30px', color: 'black !important' }}
-																	/>
-																</MuiPickersUtilsProvider> */}
                               <StyledCKEditorWrapper>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                   <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
@@ -814,15 +800,6 @@ class AddExam extends Component {
 
                                   </DemoContainer>
                                 </LocalizationProvider>
-                                {/* <CustomDatePick
-                                  onChange={this.handleDateChange}
-                                  value={new Date(this.state.startDateTime)}
-                                  objectKey='startDate'
-                                  minDate={this.state.position?.startDate}
-                                  maxDate={this.state.position?.endDate}
-                                  required='true'
-                                  format={'MMMM dd yyyy, h:mm aa'}
-                                /> */}
                               </StyledCKEditorWrapper>
                             </div>
                             <div className="form-group col-12" style={{ marginBottom: '0px' }}>

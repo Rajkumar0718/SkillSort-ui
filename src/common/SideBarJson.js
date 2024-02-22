@@ -411,7 +411,9 @@ const sidebar = {
     isSubMenu: false,
     to: "/processadmin",
     name: "HOME",
-    icon: 'fa fa-building-o'
+    icon: 'fa fa-building-o',
+    subPath: ['/processadmin/company/test','/processadmin/company','/processadmin/company/test/candidate','/processadmin/company/test/candidate/sendmail'],
+
   }]
 
 }

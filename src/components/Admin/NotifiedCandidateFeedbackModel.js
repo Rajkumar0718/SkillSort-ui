@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import styled from 'styled-components';
+import CkEditor from '../../common/CkEditor';
 
 const StyledCKEditorWrapper = styled.div`
   .ck-editor__editable {
@@ -35,6 +36,11 @@ export default class NotifiedCandidateFeedbackModel extends Component {
         if (status === 'REJECTED') return 'red'
         if (status === 'NO_SHOW') return 'black'
     }
+    handleEditorChange = (updatedData, keyName) => {
+
+        console.log(`Updated data for ${keyName}:`, updatedData);
+
+      };
 
     render() {
         return (
@@ -54,12 +60,7 @@ export default class NotifiedCandidateFeedbackModel extends Component {
                                     </div>
                                     <label className='form-group' style={{position:"relative",bottom:"9px"}}>Skill Sort Feedback&nbsp;</label>
                                     <StyledCKEditorWrapper>
-                                        <CKEditor
-                                            editor={ClassicEditor}
-                                            data={this.state.mailMsg || ""}
-                                            onChange={this.handleEditorChange}
-                                            config={{}}
-                                        />
+                                    <CkEditor data={this.state.skillSortCandidate.skillSortFeedBack}  onChange={this.handleEditorChange}/>
                                     </StyledCKEditorWrapper>
                                 </div>
                             </div>

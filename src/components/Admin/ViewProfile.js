@@ -18,7 +18,7 @@ export default function ViewProfile(props) {
     )
   }
   return (
-    <div className="modal fade show" id="myModal" role="dialog" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.90)' }} aria-hidden="true">
+    <div className="modal fade show" id="myModal" role="dialog" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.90)' }} aria-hidden="true" onClick={(event) => {  if (event.target.id === 'myModal') { props.onClose(); } }} >
       <div className="col-md-10" style={{ margin: 'auto' }}>
         <div className="modal-content" style={{ borderStyle: 'solid', borderColor: '#808080', marginTop: '1rem', borderRadius: '32px', background: 'white', height: 'calc(109vh - 80px)' }}>
           <div className="modal-header" style={{ border: 'none', padding: '5px',display:'flex',justifyContent:'flex-end',height:"3rem" }}>

@@ -40,7 +40,6 @@ export default function MailModalForShortListed(props) {
           props?.onCloseModal(e)
 
         }).catch(error => {
-          console.log(error);
           errorHandler(error);
         })
     }

@@ -4,15 +4,13 @@ import { Link } from "react-router-dom";
 import VacancyAddExamModal from "./VacancyAddExamModal";
 import Checkbox from "@mui/material/Checkbox";
 import FormHelperText from "@mui/material/FormHelperText";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import StatusRadioButton from "../../common/StatusRadioButton";
 import axios from "axios";
 import { authHeader, errorHandler } from "../../api/Api";
 import { isEmpty } from "../../utils/Validation";
 import { toastMessage } from "../../utils/CommonUtils";
 import url from '../../utils/UrlConstant';
-
+import CkEditor from "../../common/CkEditor"
 class AddPosition extends Component {
   constructor(props) {
     super(props);
@@ -186,11 +184,9 @@ class AddPosition extends Component {
   };
   sendCloneExam = () => {
     const { clonedExam } = this.state
-    console.log(this.state, "state");
     clonedExam.id = null;
     clonedExam.startDateTime = new Date();
     clonedExam.positionId = this.state.position.id;
-    console.log(clonedExam, "clonedexam");
     this.onCloseModal()
     this.props.navigate('/admin/vacancy/Exam-add', { state: { clonedExam: clonedExam } });
   }
@@ -211,6 +207,14 @@ class AddPosition extends Component {
     this.props.navigate('/admin/vacancy/Exam-add', { state: { position: this.state.position } })
   }
 
+  handleEditorChange = (newData) => {
+    this.setState((prevState) => ({
+      pstn: {
+        ...prevState.pstn,
+        jobDescription: newData,
+      },
+    }));
+  };
 
   render() {
     let action = null;
@@ -298,45 +302,7 @@ class AddPosition extends Component {
                                 : null}
                             </FormHelperText>
                           </label>
-                          <CKEditor
-                            editor={ClassicEditor}
-                            data={this.state.pstn.jobDescription || ""}
-                            onChange={(event, editor) => {
-                              const newContent = editor.getData();
-                              this.setState((prevState) => ({
-                                pstn: {
-                                  ...prevState.pstn,
-                                  jobDescription: newContent,
-                                },
-                              }));
-                            }}
-                            onReady={(editor) => {
-                              editor.on('ready', () => {
-                                ClassicEditor.create(
-                                  editor.editing.view.document.getRoot(),
-                                  {
-                                    removePlugins: ["Heading", "Link", "CKFinder"],
-                                    toolbar: [
-                                      "style",
-                                      "bold",
-                                      "italic",
-                                      "bulletedList",
-                                      "numberedList",
-                                      "blockQuote",
-                                    ],
-
-                                  }
-                                )
-                                  .then(() => {
-
-                                  })
-                                  .catch((error) => {
-                                    console.error(error);
-                                  });
-                              })
-
-                            }}
-                          />
+                          <CkEditor data={this.state.pstn.jobDescription} onChange={this.handleEditorChange} />
                         </div>
                       </div>
                       {!this.state.pstn.examId && (

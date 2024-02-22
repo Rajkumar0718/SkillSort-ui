@@ -126,7 +126,7 @@ export default class StudentreportModal extends Component {
             });
     }
     onNextPage = () => {
-        !this.state.report.skillsortScore ? this.getReport() : this.getScoreReport();
+        this.state.report.skillsortScore ? this.getReport() : this.getScoreReport();
     }
     onPagination = (pageSize, currentPage) => {
         this.setState({ pageSize: pageSize, currentPage: currentPage }, () => { this.onNextPage() });
@@ -161,12 +161,15 @@ export default class StudentreportModal extends Component {
     }
 
     componentDidMount() {
-        this.getCollege()
-        if (isRoleValidation() === 'SUPER_ADMIN') {
+        if (isRoleValidation() === "SUPER_ADMIN") {
+            this.getCollege()
             this.getReport()
             this.setSuperAdminHeader()
+        } else if (isRoleValidation() === "COLLEGE_ADMIN" || "COLLEGE_STAFF") {
+            this.getScoreReport()
+            this.setHeader()
         }
-        this.setHeader();
+
         this.getDepartment()
         this.setYearRange()
     }
@@ -180,10 +183,12 @@ export default class StudentreportModal extends Component {
         axios.get(` ${url.ADMIN_API}/department?status=ACTIVE`, { headers: authHeader() })
             .then(res => {
                 this.setState({ department: res.data.response })
+
             })
             .catch(error => {
                 errorHandler(error);
             })
+
     }
     pageChange = () => {
         this.setState({
@@ -380,7 +385,7 @@ export default class StudentreportModal extends Component {
                         }
                     }
                 })
-                this.setState({ student: student, studentXlsx: studentXlsx }, () => console.log(student))
+                this.setState({ student: student, studentXlsx: studentXlsx })
             }).catch((error) => {
                 errorHandler(error);
             });

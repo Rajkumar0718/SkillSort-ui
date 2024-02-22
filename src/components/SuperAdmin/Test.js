@@ -17,7 +17,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import StatusRadioButton from '../../common/StatusRadioButton'; 
 import styled from 'styled-components';
-
+import CkEditor from "../../common/CkEditor"
 
 
 const StyledCKEditorWrapper = styled.div`
@@ -118,17 +118,17 @@ class Test extends Component {
       })
   }
 
-  editorOnChange = (event, editor) => {
-    this.setState({ candidateInstruction: editor.getData() })
+  editorOnChange = (newData) => {
+    this.setState({ candidateInstruction: newData })
   }
 
 
-  editorTestSubmitOnChange = (event, editor) => {
-    this.setState({ examSubmitMessage: editor.getData() })
+  editorTestSubmitOnChange = (editor) => {
+    this.setState({ examSubmitMessage: editor })
   }
 
-  editorSubmitOnChange = (event, editor) => {
-    this.setState({ jobDescription: editor.getData() })
+  editorSubmitOnChange = (editor) => {
+    this.setState({ jobDescription: editor })
   }
   setMcqRoundCamera = (value) => {
     this.setState({ isMcqCamera: value });
@@ -693,7 +693,7 @@ class Test extends Component {
                               <div className="col-md-6">
                                 <div className="form-group">
                                   <label className="form-label-row"><b>MCQ Duration </b><span style={{ color: 'red' }}>*</span></label>
-                                  <input className='form-control-row-input col-7' style={{width:'25rem'}} value={this.state.duration} type='number' max="480" onChange={(e) => this.handleChange(e, 'duration')} placeholder='Duration (In minutes)' />
+                                  <input className='form-control-row-input col-7' style={{ width: '25rem' }} value={this.state.duration} type='number' max="480" onChange={(e) => this.handleChange(e, 'duration')} placeholder='Duration (In minutes)' />
                                   <FormHelperText className="helper" style={{ paddingLeft: "35px" }}>{this.state.error.duration ? this.state.error.durationMsg : null}</FormHelperText>
                                 </div>
                               </div>}
@@ -800,114 +800,30 @@ class Test extends Component {
                                 <label for="question"><b>Candidate Instruction </b><span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.candidateInstruction ? this.state.error.candidateInstructionMsg : null}</FormHelperText>
                                 <StyledCKEditorWrapper>
-                                  <CKEditor
-                                    editor={ClassicEditor}
-                                    data={this.state.candidateInstruction || ""}
-                                    onChange={(event, editor) => this.editorOnChange(event, editor)}
-                                    onReady={(editor) => {
-                                      const container = editor.ui.view.element;
-                                      ClassicEditor.create(
-                                        editor.editing.view.document.getRoot(),
-                                        {
-                                          removePlugins: ["Heading", "Link", "CKFinder"],
-                                          toolbar: [
-                                            "style",
-                                            "bold",
-                                            "italic",
-                                            "bulletedList",
-                                            "numberedList",
-                                            "blockQuote",
-                                          ],
-
-                                        }
-                                      )
-                                        .then(() => {
-                                          console.log("Editor is ready to use!", editor);
-                                        })
-                                        .catch((error) => {
-                                          console.error(error);
-                                        });
-                                    }}
-                                  />
+                                  <CkEditor data={this.state.candidateInstruction} onChange={this.editorOnChange} />
                                 </StyledCKEditorWrapper>
                               </div>
                             </div>
-                            <div className='form-group col-12' style={{marginTop:'-5rem'}}>
+                            <div className='form-group col-12' style={{ marginTop: '-5rem' }}>
                               <div className="mT-30">
                                 <label for="question"><b>Test Submit Message </b><span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.examSubmitMessage ? this.state.error.examSubmitMessageMsg : null}</FormHelperText>
                                 <StyledCKEditorWrapper>
-                                  <CKEditor
-                                    editor={ClassicEditor}
-                                    data={this.state.examSubmitMessage || ""}
-                                    onChange={(event, editor) => this.editorTestSubmitOnChange(event, editor)}
-                                    onReady={(editor) => {
-                                      const container = editor.ui.view.element;
-                                      ClassicEditor.create(
-                                        editor.editing.view.document.getRoot(),
-                                        {
-                                          removePlugins: ["Heading", "Link", "CKFinder"],
-                                          toolbar: [
-                                            "style",
-                                            "bold",
-                                            "italic",
-                                            "bulletedList",
-                                            "numberedList",
-                                            "blockQuote",
-                                          ],
-
-                                        }
-                                      )
-                                        .then(() => {
-                                          console.log("Editor is ready to use!", editor);
-                                        })
-                                        .catch((error) => {
-                                          console.error(error);
-                                        });
-                                    }}
-                                  />
+                                  <CkEditor data={this.state.examSubmitMessage} onChange={this.editorTestSubmitOnChange} />
                                 </StyledCKEditorWrapper>
 
                               </div>
                             </div>
-                            <div className='form-group col-12' style={{marginTop:'-5rem'}}>
+                            <div className='form-group col-12' style={{ marginTop: '-5rem' }}>
                               <div className="mT-30">
                                 <label for="question"><b>Job Description </b><span style={{ color: 'red' }}>*</span></label>
                                 <FormHelperText className="helper" style={{ paddingLeft: "0px" }}>{this.state.error.jobDescription ? this.state.error.jobDescriptionMsg : null}</FormHelperText>
                                 <StyledCKEditorWrapper>
-                                  <CKEditor
-                                    editor={ClassicEditor}
-                                    data={this.state.jobDescription || ""}
-                                    onChange={(event, editor) => this.editorSubmitOnChange(event, editor)}
-                                    onReady={(editor) => {
-                                      const container = editor.ui.view.element;
-                                      ClassicEditor.create(
-                                        editor.editing.view.document.getRoot(),
-                                        {
-                                          removePlugins: ["Heading", "Link", "CKFinder"],
-                                          toolbar: [
-                                            "style",
-                                            "bold",
-                                            "italic",
-                                            "bulletedList",
-                                            "numberedList",
-                                            "blockQuote",
-                                          ],
-
-                                        }
-                                      )
-                                        .then(() => {
-                                          console.log("Editor is ready to use!", editor);
-                                        })
-                                        .catch((error) => {
-                                          console.error(error);
-                                        });
-                                    }}
-                                  />
+                                  <CkEditor data={this.state.jobDescription} onChange={this.editorSubmitOnChange} />
                                 </StyledCKEditorWrapper>
                               </div>
                             </div>
-                            <div className="col-lg-6 col-6 col-sm-6 col-md-6" style={{marginTop:'-5rem'}}>
+                            <div className="col-lg-6 col-6 col-sm-6 col-md-6" style={{ marginTop: '-5rem' }}>
                               <div className="row" style={{ lineHeight: '2', marginTop: '3rem', marginLeft: '0.6rem' }}>
                                 <StatusRadioButton
                                   handleChange={this.handleChange}
