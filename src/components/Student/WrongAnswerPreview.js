@@ -24,7 +24,7 @@ const WronganswerPreview = () => {
         setQuestionIndex(prevIndex => {
             const newIndex = prevIndex - 1;
             setDisabledNext(false);
-            if (newIndex === 1) {
+            if (newIndex === 0) {
                 setDisabledPrev(true);
             }
             return newIndex;
@@ -35,7 +35,7 @@ const WronganswerPreview = () => {
         setQuestionIndex(prevIndex => {
             const newIndex = prevIndex + 1;
             setDisabledPrev(false);
-            if (newIndex === _.size(questions) - 2) {
+            if (newIndex === _.size(questions) - 1) {
                 setDisabledNext(true);
             }
             return newIndex;
@@ -67,6 +67,7 @@ const WronganswerPreview = () => {
                                                 <label htmlFor={option.name} style={{ fontSize: '14px' }}>
                                                     <Radio
                                                         checked={option.name === questions[questionIndex]?.selectedAnswer}
+                                                        style={{ color: option.name === questions[questionIndex]?.selectedAnswer ? 'red' : null }}
                                                     />
                                                     &nbsp;&nbsp;
                                                     {option.value}
@@ -105,7 +106,7 @@ const WronganswerPreview = () => {
                         >
                             {disabledNext === true || _.size(questions) === 1 ? (
                                 null) : (
-                                <button onClick={next} type='button' className='btn btn-sm btn-prev'>Next</button>
+                                <button onClick={next} type='button' className='btn btn-sm btn-nxt'>Next</button>
                             )}
                         </div>
                     </div>

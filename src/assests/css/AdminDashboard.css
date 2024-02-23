@@ -664,11 +664,7 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-}
-
-::-webkit-scrollbar {
-  width: 2px !important;
+  width: 0.9px !important;
 }
 
 ::-webkit-scrollbar-track {

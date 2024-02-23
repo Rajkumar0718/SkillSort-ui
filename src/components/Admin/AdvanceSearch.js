@@ -216,7 +216,7 @@ export default function AdvSearch(props) {
             <CardHeader
               title={
                 <Typography style={{ fontSize: '30px', fontFamily: 'Baskervville' }}>
-                  Advance search
+                  Advance Search
                 </Typography>
               }
               action={

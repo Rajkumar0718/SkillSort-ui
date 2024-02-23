@@ -201,11 +201,11 @@ class SendMail extends Component {
                   <div className=" col-6 col-lg-6 col-sm-6 col-xl-6">
                     <div className='row'>
                       <div className="col-lg-4 col-4 col-sm-4 col-xl-4">
-                        <label className="form-label text-input-label">Panalist<span style={{ color: 'red' }}>*</span></label></div>
+                        <label className="form-label text-input-label">Panelist<span style={{ color: 'red' }}>*</span></label></div>
                       <div className="col-lg-8 col-8 col-sm-8 col-xl-8">
                         <select className='profile-page' name='setting'
                           onChange={(e) => this.handlePanalistChange(e)}>
-                          <option hidden selected value="">Select Panalist</option>
+                          <option hidden selected value="">Select Panelist</option>
                           {(this.state.panalists || []).map((panelist, index) => {
                             return <option value={index}>{panelist.userName}</option>
                           })}
@@ -303,7 +303,7 @@ class SendMail extends Component {
                 </div>
                 <div className='form-group col-12'>
                   <div style={{ margin: '0px 0px 0px -3px' }}>
-                    <label for="question">Panlist Instruction<span style={{ color: 'red' }}>*</span></label>
+                    <label for="question">Panelist Instruction<span style={{ color: 'red' }}>*</span></label>
                     <StyledCKEditorWrapper>
                       <CKEditor
                         editor={ClassicEditor}

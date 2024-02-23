@@ -209,20 +209,20 @@ class PracticeExamList extends Component {
   }
 
   setMedals = (marks,practice) => {
-    if (marks === null) {
-      return null;
+    switch (true) {
+      case marks === null:
+        return null;
+      case marks >=  81:
+        return <FaAward onClick={() => this.getWrongAnswer(practice)}  style={{ fontSize: '25px', color: '#DAA520' }} />;
+      case marks >  60 && marks <=  80:
+        return <FaAward onClick={() => this.getWrongAnswer(practice)}  style={{ fontSize: '25px', color: '#71706E' }} />;
+      case marks >=  40 && marks <=  60:
+        return <FaAward onClick={() => this.getWrongAnswer(practice)} style={{ fontSize: '25px', color: '#804A00' }} />;
+      case marks >=  0 && marks <=  39:
+        return <span onClick={() => this.getWrongAnswer(practice)} style={{ fontSize: '20px' }}>&#128528;</span>;
+      default:
+        return null;
     }
-    if (marks >= 81) {
-      return <FaAward style={{ fontSize: '25px', color: '#DAA520' }} />;
-    } else if (marks > 60 && marks <= 80) {
-      return <FaAward style={{ fontSize: '25px', color: '#71706E' }} />;
-    } else if (marks >= 40 && marks <= 60) {
-      return <FaAward style={{ fontSize: '25px', color: '#804A00' }} />;
-    } else if (marks >= 0 && marks <= 39) {
-      return <span onClick={()=>this.getWrongAnswer(practice)} style={{ fontSize: '20px' }}>&#128528;</span>;
-    }
-
-    return null;
   }
     setAvarage = () => {
     let totalMarks = 0;
