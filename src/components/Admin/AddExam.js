@@ -376,7 +376,11 @@ class AddExam extends Component {
       }, () => { this.saveExam() });
     }
     else if (this.state.totalQuestions === 0) {
+      if(this.state.tabsArray.length >0){
       this.setState({ errormessage: 'Must set a question' });
+      }else{
+      this.setState({ errormessage: 'Must select a section Checkbox and set a question' });
+      }
     }
 
   }
@@ -406,7 +410,8 @@ class AddExam extends Component {
       }
     }
     else if ((this.state.tabsArray.length === 0 || this.checkIsDurationIsEmpty()) && !this.state.tabsArray.includes('PROJECT')) {
-      this.setMCQDurationError(error)
+      if(this.checkIsDurationIsEmpty())
+       this.setMCQDurationError(error)
     }
     else if (this.state.tabsArray.length >= 1 && this.state.tabsArray.includes("PROJECT")) {
       if (this.checkIsProjectDurationIsEmpty()) {
@@ -426,6 +431,7 @@ class AddExam extends Component {
   }
 
   checkIsDurationIsEmpty = () => {
+    console.log(this.state.duration);
     return (isEmpty(this.state.duration) || this.state.duration <= 0)
   }
 
@@ -822,7 +828,7 @@ class AddExam extends Component {
                               {_.map(this.state.selectSection, (section) => {
                                 return <div>
                                   <label className="checkbox">
-                                    <input type="checkbox" value={section} onChange={(e) => this.handleTabs(e, { section })} disabled={(this.state.tabsArray.length === 1 && section !== 'PROJECT' && this.state.tabsArray.includes("PROJECT")) || (this.state.tabsArray.length > 0 && section === 'PROJECT' && !this.state.tabsArray.includes('PROJECT'))} checked={this.state.tabsArray.includes(section)} required={this.state.tabsArray.length > 0} />
+                                    <input type="checkbox" value={section} onChange={(e) => this.handleTabs(e, { section })} disabled={(this.state.tabsArray.length === 1 && section !== 'PROJECT' && this.state.tabsArray.includes("PROJECT")) || (this.state.tabsArray.length > 0 && section === 'PROJECT' && !this.state.tabsArray.includes('PROJECT'))} checked={this.state.tabsArray.includes(section)}  />
                                     <span className="ml-1">{section}</span>
                                   </label>
                                 </div>
@@ -996,7 +1002,7 @@ class AddExam extends Component {
                                   </select>}
                                 </div>
                                 : ''}
-                              <div style={{ marginLeft: '0.1rem', marginTop: this.state.tabsArray.includes("PROGRAMMING") ? '30px': '7.5rem'}}>
+                              <div style={{ marginLeft: '0.1rem', marginTop: this.state.tabsArray.includes("PROGRAMMING") ? '30px' : '7.5rem' }}>
                                 <CustomizedInputBase onClick={this.generatePublicUrl} value={this.state.generatedLink} isLinkDisabled={this.state.generateLinkIconDisabled} />
                               </div>
                               {isRoleValidation() === 'TEST_ADMIN' ? <div className="mT-30">
