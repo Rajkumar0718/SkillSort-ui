@@ -13,8 +13,6 @@ import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import url from '../../utils/UrlConstant';
 import { isEmpty, isRoleValidation, isVaildnum } from '../../utils/Validation';
 import SettingModel from '../Admin/SettingModel';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import StatusRadioButton from '../../common/StatusRadioButton'; 
 import styled from 'styled-components';
 import CkEditor from "../../common/CkEditor"

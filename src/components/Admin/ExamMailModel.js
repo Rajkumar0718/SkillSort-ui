@@ -2,8 +2,6 @@ import axios from "axios";
 import { saveAs } from "file-saver";
 import _ from "lodash";
 import React, { Component } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import styled from 'styled-components';
 import { authHeader, errorHandler, logOut } from "../../api/Api";
 import { fallBackLoader, toastMessage } from "../../utils/CommonUtils";

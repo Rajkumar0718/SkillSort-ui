@@ -4,7 +4,6 @@ import moment from "moment";
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { authHeader, errorHandler } from '../../api/Api';
-import Pagination from '../../utils/Pagination';
 import { withLocation } from '../../utils/CommonUtils';
 import { CustomTable } from '../../utils/CustomTable';
 import url from '../../utils/UrlConstant';

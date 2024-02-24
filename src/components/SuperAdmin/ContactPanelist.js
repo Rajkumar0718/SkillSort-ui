@@ -1,12 +1,9 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-// import CKEditor from "react-ckeditor-component";
 import { authHeader, errorHandler } from '../../api/Api';
 import { fallBackLoader, toastMessage } from '../../utils/CommonUtils';
 import url from '../../utils/UrlConstant';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styled from 'styled-components';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
 import CkEditor from '../../common/CkEditor';
 
 

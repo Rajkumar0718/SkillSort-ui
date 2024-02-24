@@ -9,8 +9,6 @@ import url from '../../utils/UrlConstant';
 import { isEmpty, isRoleValidation } from '../../utils/Validation';
 import AddSectionModal from '../TestAdmin/AddSectionModal';
 import AutoComplete from '../../common/AutoComplete';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import StatusRadioButton from '../../common/StatusRadioButton';
 import styled from 'styled-components';
 import CkEditor from '../../common/CkEditor';

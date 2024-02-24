@@ -1,7 +1,5 @@
 import axios from 'axios';
-import React, { Component, useState } from 'react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+import React, {useState } from 'react';
 import { authHeader } from '../../api/Api';
 import { toastMessage } from '../../utils/CommonUtils';
 import url from '../../utils/UrlConstant';
@@ -24,11 +22,11 @@ const FeedbackModel = (props) => {
       });
   };
 
-  const handleChange = (e) => {
-    const updatedValue = { ...skillSortCandidate };
-    updatedValue.skillSortFeedBack = e.editor.getData();
-    setSkillSortCandidate(updatedValue);
-  };
+  // const handleChange = (e) => {
+  //   const updatedValue = { ...skillSortCandidate };
+  //   updatedValue.skillSortFeedBack = e.editor.getData();
+  //   setSkillSortCandidate(updatedValue);
+  // };
 
   const setStatusColor = (status) => {
     if (!status) return "white";

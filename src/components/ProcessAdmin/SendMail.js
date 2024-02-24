@@ -5,7 +5,6 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { authHeader, errorHandler } from '../../api/Api';
-import CustomDatePick from '../../common/CustomDatePick';
 import { toastMessage, withLocation } from '../../utils/CommonUtils';
 import url from '../../utils/UrlConstant';
 import { isEmpty } from '../../utils/Validation';
