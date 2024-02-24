@@ -335,7 +335,11 @@ export default class CompetitorUpdate extends Component {
                           <FormHelperText className='helper helper-candidate'>{this.state.error.username ? this.state.error.usernameErrorMessage : null}</FormHelperText></label>
                       </div>
                       <div className="col-4 competitor-input">
-                        <input className="profile-page" type='name' label='First Name' name='username' maxLength="50" value={this.state.competitor?.firstName} onChange={(e) => this.handleChange(e, 'firstName')} aria-label="default input example"></input>
+                        <input className="profile-page" type='name' onKeyDown={(e) => {
+                            if (!/[a-zA-Z\s]/.test(e.key)) {
+                              e.preventDefault();
+                            }
+                          }}        label='First Name' name='username' maxLength="50" value={this.state.competitor?.firstName} onChange={(e) => this.handleChange(e, 'firstName')} aria-label="default input example"></input>
                       </div>
                       <div className="col-2 competitor-input" style={{ height: '3rem' }}>
                         <label className="form-label text-label" for="form12">SSLC*
@@ -348,7 +352,11 @@ export default class CompetitorUpdate extends Component {
                         <label className="form-label text-label" for="form12">Last Name</label>
                       </div>
                       <div className="col-4 competitor-input">
-                        <input className="profile-page" type='name' label='Last Name' name='lastName' maxLength="50" value={this.state.competitor?.lastName} onChange={(e) => this.handleChange(e, 'lastName')} id='lastName' aria-label="default input example" />
+                        <input className="profile-page" type='name' onKeyDown={(e) => {
+                            if (!/[a-zA-Z\s]/.test(e.key)) {
+                              e.preventDefault();
+                            }
+                          }} label='Last Name' name='lastName' maxLength="50" value={this.state.competitor?.lastName} onChange={(e) => this.handleChange(e, 'lastName')} id='lastName' aria-label="default input example" />
                       </div>
                       <div className="col-2 competitor-input" style={{ height: '3rem' }}>
                         <label className="form-label text-label" for="form12">HSC%
@@ -376,7 +384,12 @@ export default class CompetitorUpdate extends Component {
                           <FormHelperText className='helper helper-candidate'>{this.state.error.phone ? this.state.error.phoneErrorMessage : null}</FormHelperText></label>
                       </div>
                       <div className="col-4 competitor-input">
-                        <input className="profile-page" type='name' label='Phone' name='phone' maxLength="10" value={this.state.competitor?.phone} onChange={(e) => this.handleChange(e, 'phone')} id='phone' aria-label="default input example" />
+                        <input className="profile-page" onKeyDown={(e) => {
+                          const allowedKeys = ['Backspace', 'Tab', 'Enter', 'Escape', 'ArrowLeft', 'ArrowRight'];
+                          if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
+                            e.preventDefault();
+                          }
+                        }} type='name' label='Phone' name='phone' maxLength="10" value={this.state.competitor?.phone} onChange={(e) => this.handleChange(e, 'phone')} id='phone' aria-label="default input example" />
                       </div>
                       <div className="col-2 competitor-input" style={{ height: '3rem' }}>
                         <label className="form-label text-label" for="form12">PG</label>

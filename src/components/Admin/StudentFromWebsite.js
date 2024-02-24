@@ -139,6 +139,7 @@ const AdminLogin = () => {
           newPassword: newPassword,
           role: role,
         }).then((response) => {
+          toastMessage('success', "Password created Successfully..!")
           navigate("/")
         }).catch(() => {
           setDisableBtn(false)

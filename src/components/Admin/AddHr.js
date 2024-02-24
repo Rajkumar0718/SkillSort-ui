@@ -221,11 +221,12 @@ class AddHr extends Component {
                         <div className='col-4'>
                           <input className="profile-page"
                             onChange={(e) => this.handleChange(e, 'phone')} value={this.state.hr.phone}
-                            name='name' id='section' autocomplete="off"  onKeyDown={(e) => {
-                              if (!/[0-9]/.test(e.key) && ![8,  9,  13,  27,  37,  39].includes(e.keyCode)) {
-                                  e.preventDefault();
+                            name='name' id='section' autocomplete="off" onKeyDown={(e) => {
+                              const allowedKeys = ['Backspace', 'Tab', 'Enter', 'Escape', 'ArrowLeft', 'ArrowRight'];
+                              if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
+                                e.preventDefault();
                               }
-                          }}  type="tel" maxLength="10" placeholder='Enter PhoneNumber' />
+                            }}  type="tel" maxLength="10" placeholder='Enter PhoneNumber' />
                         </div>
                       </div>
                       <div className='row'>

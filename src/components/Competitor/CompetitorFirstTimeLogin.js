@@ -309,7 +309,11 @@ const VisuallyHiddenInput = styled('input')({
                         <FormHelperText className='helper helper-candidate'>{this.state.error.firstName ? this.state.error.firstNameErrorMessage : null}</FormHelperText></label>
                     </div>
                     <div className="col-4 competitor-input">
-                      <input className="profile-page" type='name' label='First Name' name='userName' maxLength="50" onChange={(e) => this.handleChange(e, 'firstName')} value={this.state.competitor?.firstName} aria-label="default input example"></input>
+                      <input className="profile-page" onKeyDown={(e) => {
+                            if (!/[a-zA-Z\s]/.test(e.key)) {
+                              e.preventDefault();
+                            }
+                          }} type='name' label='First Name' name='userName' maxLength="50" onChange={(e) => this.handleChange(e, 'firstName')} pattern="[A-Za-z\s]+" title="Please enter only letters" value={this.state.competitor?.firstName} aria-label="default input example"></input>
                     </div>
                     <div className="col-2 competitor-input" style={{ height: '3rem' }}>
                       <label className="form-label text-label" for="form12">SSLC%*
@@ -322,7 +326,11 @@ const VisuallyHiddenInput = styled('input')({
                       <label className="form-label text-label" for="form12">Last Name</label>
                     </div>
                     <div className="col-4 competitor-input">
-                      <input className="profile-page" type='name' label='Last Name' name='lastName' maxLength="50" value={this.state.competitor?.lastName} onChange={(e) => this.handleChange(e, 'lastName')} id='lastName' aria-label="default input example" />
+                      <input className="profile-page" onKeyDown={(e) => {
+                            if (!/[a-zA-Z\s]/.test(e.key)) {
+                              e.preventDefault();
+                            }
+                          }} type='name' label='Last Name' name='lastName' maxLength="50" value={this.state.competitor?.lastName} onChange={(e) => this.handleChange(e, 'lastName')} id='lastName' aria-label="default input example" />
                     </div>
                     <div className="col-2 competitor-input"t style={{ height: '3rem' }}>
                       <label className="form-label text-label" for="form12">HSC%*
@@ -350,7 +358,12 @@ const VisuallyHiddenInput = styled('input')({
                         <FormHelperText className='helper helper-candidate'>{this.state.error.contactNumber ? this.state.error.contactNumberErrorMessage : null}</FormHelperText></label>
                     </div>
                     <div className="col-4 competitor-input">
-                      <input className="profile-page" type='name' label='Phone' name='phone' maxLength="10" value={this.state.competitor?.phone} onChange={(e) => this.handleChange(e, 'phone')} id='phone' aria-label="default input example" />
+                      <input className="profile-page" type='name' label='Phone' name='phone' maxLength="10" onKeyDown={(e) => {
+                          const allowedKeys = ['Backspace', 'Tab', 'Enter', 'Escape', 'ArrowLeft', 'ArrowRight'];
+                          if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
+                            e.preventDefault();
+                          }
+                        }} value={this.state.competitor?.phone} onChange={(e) => this.handleChange(e, 'phone')} id='phone' aria-label="default input example" />
                     </div>
                     <div className="col-2 competitor-input" style={{ height: '3rem' }}>
                       <label className="form-label text-label" for="form12">PG%</label>

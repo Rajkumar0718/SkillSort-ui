@@ -415,7 +415,11 @@ const CandidateReg = () => {
                         <label className="form-label text-label" htmlFor="form12">First Name*</label>
                       </div>
                       <div className="col-4">
-                        <input className="profile-page" type='name' label='First Name' name='username' maxLength="50" value={user.firstName} onChange={(e) => handleTextInput(e, 'firstName')} aria-label="default input example"></input>
+                        <input className="profile-page" type='name' onKeyDown={(e) => {
+                            if (!/[a-zA-Z\s]/.test(e.key)) {
+                              e.preventDefault();
+                            }
+                          }}  label='First Name' name='username' maxLength="50" value={user.firstName} onChange={(e) => handleTextInput(e, 'firstName')} aria-label="default input example"></input>
                         {error.firstName && <FormHelperText className="helper helper-login">{error.firstName ? error.helperTxtFirstName : null}</FormHelperText>}
                       </div>
                       <div className="col-2 candidate-col">
@@ -435,7 +439,11 @@ const CandidateReg = () => {
                         <label className="form-label text-label" htmlFor="form12">Last Name*</label>
                       </div>
                       <div className="col-4">
-                        <input className="profile-page" type='name' label='Last Name' name='lastName' maxLength="50" value={user.lastName} onChange={(e) => handleTextInput(e, 'lastName')} id='lastName' aria-label="default input example"></input><span className='required'></span>
+                        <input className="profile-page" type='name' onKeyDown={(e) => {
+                            if (!/[a-zA-Z\s]/.test(e.key)) {
+                              e.preventDefault();
+                            }
+                          }} label='Last Name' name='lastName' maxLength="50" value={user.lastName} onChange={(e) => handleTextInput(e, 'lastName')} id='lastName' aria-label="default input example"></input><span className='required'></span>
                         {error.lastName && <FormHelperText className="helper helper-login">{error.lastName ? error.helperTxtLastName : null}</FormHelperText>}
                       </div>
                       <div className="col-2 candidate-col">
@@ -463,7 +471,12 @@ const CandidateReg = () => {
                         <label className="form-label text-label" htmlFor="form12">Phone*</label>
                       </div>
                       <div className="col-4">
-                        <input className="profile-page" type='number' label='Phone' name='phone' maxLength="10" value={user.phone} onChange={(e) => handleInput(e, 'phone')} id='phone' aria-label="default input example" ></input>
+                        <input className="profile-page" type='number' onKeyDown={(e) => {
+                          const allowedKeys = ['Backspace', 'Tab', 'Enter', 'Escape', 'ArrowLeft', 'ArrowRight'];
+                          if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
+                            e.preventDefault();
+                          }
+                        }} label='Phone' name='phone' maxLength="10" value={user.phone} onChange={(e) => handleInput(e, 'phone')} id='phone' aria-label="default input example" ></input>
                         {error.phone && <FormHelperText className="helper helper-login">{error.phone ? error.helperTxtPhone : null}</FormHelperText>}
                       </div>
                       <div className="col-2 candidate-col">
