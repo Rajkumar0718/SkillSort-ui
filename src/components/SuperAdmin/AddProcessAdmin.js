@@ -197,7 +197,11 @@ class AddProcessAdmin extends Component {
                             <div className="col-lg-9 col-9 col-sm-9 col-xl-9">
                               <input className="profile-page" onChange={(e) => this.handleChange(e, 'userName')}
                                 value={this.state.process.userName}
-                                name='name' id='process' autoComplete="off" maxLength="50" type="text" placeholder='Enter User Name' />
+                                name='name' id='process' autoComplete="off"  maxLength="50"  onKeyDown={(e) => {
+                                  if (!/[a-zA-Z\s]/.test(e.key)) {
+                                    e.preventDefault();
+                                  }
+                                }} type="text" placeholder='Enter User Name' />
                               <FormHelperText className="helper" style={{ paddingLeft: "0px", marginTop: "5px" }}>{this.state.error.name ? this.state.error.nameErrorMessage : null}</FormHelperText>
                             </div>
                           </div>

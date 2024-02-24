@@ -319,7 +319,11 @@ const AddAdvertisement = ({location}) => {
                             <input className="profile-page input-mini" maxLength="50"
                               onChange={(e) => changeHandler(e)}
                               value={advertisement?.companyName || ''}
-                              name='companyName' id='company' autoComplete="off" type="text" placeholder='Enter Company Name' />
+                              name='companyName' id='company' autoComplete="off" onKeyDown={(e) => {
+                                if (!/[a-zA-Z\s]/.test(e.key)) {
+                                  e.preventDefault();
+                                }
+                              }} type="text" placeholder='Enter Company Name' />
                           </div>
                         </div>
                       </div>

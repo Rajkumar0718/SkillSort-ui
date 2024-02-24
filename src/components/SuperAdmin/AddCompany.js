@@ -195,7 +195,11 @@ class AddCompany extends Component {
                               <input className="profile-page input-mini" maxLength="50"
                                 onChange={(e) => this.handleChange(e, 'name')}
                                 value={this.state.company.name}
-                                name='name' id='company' autoComplete="off" type="text" placeholder='Enter Company Name' />
+                                name='name' id='company'  onKeyDown={(e) => {
+                                  if (!/[a-zA-Z\s]/.test(e.key)) {
+                                    e.preventDefault();
+                                  }
+                                }}  autoComplete="off" type="text" placeholder='Enter Company Name' />
                             </div>
                           </div>
                         </div>

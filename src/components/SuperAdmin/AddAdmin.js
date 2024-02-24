@@ -38,6 +38,8 @@ class AddAdmin extends Component {
   }
 
   handleChange = (event, key) => {
+    if (key === 'phone' && event.target.value.length > 10)
+    return
     const { admin, error } = this.state
     key === 'email' ? admin[key] = event.target.value.trim() : admin[key] = event.target.value
     error[key] = false
@@ -173,7 +175,11 @@ class AddAdmin extends Component {
                         <div className='col-4'>
                           <input className="profile-page" onChange={(e) => this.handleChange(e, 'userName')}
                             value={this.state.admin.userName}
-                            name='name' id='section' autoComplete="off" maxLength="50" type="text" placeholder='Enter User Name' />
+                            name='name' id='section'  onKeyDown={(e) => {
+                              if (!/[a-zA-Z\s]/.test(e.key)) {
+                                e.preventDefault();
+                              }
+                            }} autoComplete="off" maxLength="50" type="text" placeholder='Enter User Name' />
                         </div>
                         <div className="col-2">
                           <label className="form-label input-label" for="inputSection">Email<span className='required'></span>
@@ -194,7 +200,12 @@ class AddAdmin extends Component {
                         <div className='col-4'>
                           <input className="profile-page" onChange={(e) => this.handleChange(e, 'phone')}
                             value={this.state.admin.phone}
-                            name='name' id='section' autoComplete="off" type="number" placeholder='Enter Phone' maxLength="12" />
+                            name='name' id='section' onKeyDown={(e) => {
+                              const allowedKeys = ['Backspace', 'Tab', 'Enter', 'Escape', 'ArrowLeft', 'ArrowRight'];
+                              if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
+                                e.preventDefault();
+                              }
+                            }}  autoComplete="off" type="phone" placeholder='Enter Phone' maxLength="15" />
                         </div>
                         <div className="col-2">
                           <label className="form-label input-label" for="inputSection">Company<span className='required'></span>

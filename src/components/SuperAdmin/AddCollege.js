@@ -227,7 +227,11 @@ const AddCollege = (props) => {
                             <input className="profile-page " maxLength="50"
                               onChange={(e) => handleChange(e, 'collegeName')}
                               value={college.collegeName} aria-label="default input example"
-                              name='collegeName' id='college' autoComplete='off' type="text" placeholder='Enter College Name' style={{ width: "75%" }} />
+                              name='collegeName' id='college'  onKeyDown={(e) => {
+                                if (!/[a-zA-Z\s]/.test(e.key)) {
+                                  e.preventDefault();
+                                }
+                              }} autoComplete='off' type="text" placeholder='Enter College Name' style={{ width: "75%" }} />
                           </div>
                         </div>
                       </div>

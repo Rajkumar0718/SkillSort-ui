@@ -44,6 +44,8 @@ class AddCollegeAdmin extends Component {
   }
 
   handleChange = (event, key) => {
+    if (key === 'phone' && event.target.value.length >  10)
+    return
     const { collegeAdmin, error } = this.state
     collegeAdmin[key] = event.target.value
     error[key] = false
@@ -179,7 +181,11 @@ class AddCollegeAdmin extends Component {
                             <div className='col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9'>
                               <input className="profile-page" onChange={(e) => this.handleChange(e, 'name')}
                                 value={this.state.collegeAdmin.name}
-                                name='name' id='process' autoComplete="off" maxLength="50" type="text" placeholder='Enter User Name' />
+                                name='name' id='process'  onKeyDown={(e) => {
+                                  if (!/[a-zA-Z\s]/.test(e.key)) {
+                                    e.preventDefault();
+                                  }
+                                }}  autoComplete="off" maxLength="50" type="text" placeholder='Enter User Name' />
                             </div>
                           </div>
                         </div>

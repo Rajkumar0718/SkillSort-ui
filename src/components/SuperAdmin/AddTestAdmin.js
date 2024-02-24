@@ -143,7 +143,11 @@ class AddTestAdmin extends Component {
                             <div className="col-lg-9 col-9 col-sm-9 col-xl-9">
                               <input className="profile-page" onChange={(e) => this.handleChange(e, 'firstName')}
                                 value={this.state.testAdmin.firstName}
-                                name='firstname' id='testAdmin' autoComplete="off" maxLength="50" type="text" placeholder='Enter first Name' />
+                                name='firstname' id='testAdmin' autoComplete="off"   onKeyDown={(e) => {
+                                  if (!/[a-zA-Z\s]/.test(e.key)) {
+                                    e.preventDefault();
+                                  }
+                                }} maxLength="50" type="text" placeholder='Enter first Name' />
                               <FormHelperText className="helper" style={{ paddingLeft: "0px", marginTop: "5px" }}>{this.state.error.firstName ? this.state.error.firstNameErrorMessage : null}</FormHelperText>
                             </div>
                           </div>
@@ -156,7 +160,11 @@ class AddTestAdmin extends Component {
                             <div className="col-lg-9 col-9 col-sm-9 col-xl-9">
                               <input className="profile-page" onChange={(e) => this.handleChange(e, 'lastName')}
                                 value={this.state.testAdmin.lastName} style={{ marginRight: "15px" }}
-                                name='phone' id='section' autoComplete="off" type="text" maxLength="20" placeholder='Enter Last Name' />
+                                name='phone' id='section' autoComplete="off"   onKeyDown={(e) => {
+                                  if (!/[a-zA-Z\s]/.test(e.key)) {
+                                    e.preventDefault();
+                                  }
+                                }} type="text" maxLength="20" placeholder='Enter Last Name' />
                               <FormHelperText className="helper" style={{ paddingLeft: "0px", marginTop: "5px" }}>{this.state.error.lastName ? this.state.error.lastNameErrorMessage : null}</FormHelperText>
                             </div>
                           </div>
@@ -193,10 +201,9 @@ class AddTestAdmin extends Component {
                       <div className="row">
 
                             <StatusRadioButton
-                              labelClassName="col-1 col-sm-1 col-md-1 col-lg-1"
                               handleChange={this.handleChange}
                               status={this.state.testAdmin.status}
-                              style={{ marginTop: "0.4rem",marginLeft:"3rem"}}
+                              style={{ marginTop: "0.4rem",marginLeft:"-9.2 rem"}}
                             />
                           </div>
                       <div className="row">

@@ -48,7 +48,7 @@ const PlanMaster = () => {
   };
 
   const updatePlan = (e, plan) => {
-    e.preventDefault();
+    e?.preventDefault();
     axios.post(`${url.ADMIN_API}/plan/plan-master`, plan, { headers: authHeader() })
       .then(_res => {
         toastMessage('success', 'Plan Details Updated Successfully..!');
@@ -185,7 +185,7 @@ const AddPlanMaster = (props) => {
   }
 
   const updatePlanMaster = (e) => {
-    props.updatePlan(plan);
+    props.updatePlan(e,plan);
     props.onCancel();
   }
 

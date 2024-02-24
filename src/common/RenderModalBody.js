@@ -29,6 +29,7 @@ export const RenderModalBody = (props) => {
               overflowX: "hidden",
               paddingBottom: "1rem",
               paddingRight: "0rem",
+              
             }}
           >
             <div
@@ -58,7 +59,7 @@ export const RenderModalBody = (props) => {
                               paddingTop: "0px !important",
                             },
                             "& .MuiSvgIcon-root": {
-                              color: "#3b489e", // Change the ornament color to white
+                              color: "#3b489e",
                             },
                             "& .MuiInputBase-root": {
                               width: "12rem",
@@ -138,6 +139,12 @@ export const RenderModalBody = (props) => {
                         onChange={(e) =>
                           props.onChange(e.target.value, "skillsortScore")
                         }
+                        onKeyDown={(e) => {
+                          const allowedKeys = ['Backspace', 'Tab', 'Enter', 'Escape', 'ArrowLeft', 'ArrowRight'];
+                          if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
+                            e.preventDefault();
+                          }
+                        }}
                       ></input>
                     </div>
                   </div>
