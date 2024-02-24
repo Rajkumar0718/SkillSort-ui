@@ -7,7 +7,7 @@ import { isEmpty, isValidEmail, isValidMobileNo } from "../../utils/Validation";
 import { FormHelperText } from '@mui/material';
 import url from '../../utils/UrlConstant';
 
- class AddHr extends Component {
+class AddHr extends Component {
   state = {
     hr: {
       userName: '',
@@ -106,7 +106,7 @@ import url from '../../utils/UrlConstant';
     }
     event.preventDefault();
     if (!error.email && !error.phone && !error.userName && !error.qualification) {
-      this.setState({disabled:true})
+      this.setState({ disabled: true })
       axios.post(` ${url.ADMIN_API}/hr/save`, this.state.hr, { headers: authHeader() })
         .then(res => {
           if (this.props?.location?.pathname?.indexOf('edit') > -1) {
@@ -119,7 +119,7 @@ import url from '../../utils/UrlConstant';
           }
         })
         .catch(error => {
-          this.setState({disabled:false})
+          this.setState({ disabled: false })
           errorHandler(error)
         })
     }
@@ -161,6 +161,8 @@ import url from '../../utils/UrlConstant';
     }
   }
 
+
+
   render() {
     let action = null;
     if (this.props?.location?.pathname?.indexOf('edit') > -1) {
@@ -186,7 +188,11 @@ import url from '../../utils/UrlConstant';
                             <FormHelperText style={{ paddingLeft: '0px' }} className="helper">{this.state.error.userName ? this.state.error.userNameErrorMessage : null}</FormHelperText></label>
                         </div>
                         <div className='col-4'>
-                          <input type="text" className="profile-page" onChange={(e) => this.handleChange(e, 'userName')}
+                          <input type="text" onKeyDown={(e) => {
+                            if (!/[a-zA-Z\s]/.test(e.key)) {
+                              e.preventDefault();
+                            }
+                          }} className="profile-page" onChange={(e) => this.handleChange(e, 'userName')}
                             value={this.state.hr.userName || ''} name='name' maxLength="50" id='section' autocomplete="new-username" placeholder='Enter Name' />
                         </div>
                         <div className='col-2'>
@@ -204,7 +210,7 @@ import url from '../../utils/UrlConstant';
                             <FormHelperText className="helper helper-candidate">{this.state.error.email ? this.state.error.emailErrorMessage : null}</FormHelperText></label>
                         </div>
                         <div className='col-4'>
-                          <input type="text" className="profile-page"
+                          <input type="email" className="profile-page"
                             onChange={(e) => this.handleChange(e, 'email')} value={this.state.hr.email}
                             name='name' maxLength="254" id='section' autocomplete="off" placeholder='Enter Email' />
                         </div>
@@ -215,7 +221,11 @@ import url from '../../utils/UrlConstant';
                         <div className='col-4'>
                           <input className="profile-page"
                             onChange={(e) => this.handleChange(e, 'phone')} value={this.state.hr.phone}
-                            name='name' id='section' autocomplete="off" type="number" placeholder='Enter PhoneNumber' />
+                            name='name' id='section' autocomplete="off"  onKeyDown={(e) => {
+                              if (!/[0-9]/.test(e.key) && ![8,  9,  13,  27,  37,  39].includes(e.keyCode)) {
+                                  e.preventDefault();
+                              }
+                          }}  type="tel" maxLength="10" placeholder='Enter PhoneNumber' />
                         </div>
                       </div>
                       <div className='row'>
@@ -231,38 +241,38 @@ import url from '../../utils/UrlConstant';
                             <option value="HR_MANAGER">HR MANAGER</option>
                           </select>
                         </div>
-                        <div className='col-2' style={{display:'flex',width:'28rem' , gap:'6.5rem'}}>
+                        <div className='col-2' style={{ display: 'flex', width: '28rem', gap: '6.5rem' }}>
                           <label className="form-label input-label" for="inputSection">Status</label>
-                          <div className="custom-control custom-radio custom-control-inline ml-3 radio" style={{display:'flex',alignItems:'center',height:'2rem',gap:'0.5rem'}}>
-                          <input className="custom-control-input"
-                            id="active"
-                            type="radio"
-                            onChange={(e) => this.handleChange(e, 'status')}
-                            value="ACTIVE" name="status"
-                            checked={this.state.hr.status === "ACTIVE" || this.state.hr.status === ""} />
-                          <label
-                            className="custom-control-label"
-                            for="active"
-                          >
-                            Active
-                          </label>
+                          <div className="custom-control custom-radio custom-control-inline ml-3 radio" style={{ display: 'flex', alignItems: 'center', height: '2rem', gap: '0.5rem' }}>
+                            <input className="custom-control-input"
+                              id="active"
+                              type="radio"
+                              onChange={(e) => this.handleChange(e, 'status')}
+                              value="ACTIVE" name="status"
+                              checked={this.state.hr.status === "ACTIVE" || this.state.hr.status === ""} />
+                            <label
+                              className="custom-control-label"
+                              for="active"
+                            >
+                              Active
+                            </label>
+                          </div>
+                          <div className="custom-control custom-radio custom-control-inline ml-3 radio" style={{ display: 'flex', alignItems: 'center', height: '2rem', gap: '0.5rem' }}>
+                            <input className="custom-control-input"
+                              id="inactive"
+                              type="radio"
+                              onChange={(e) => this.handleChange(e, 'status')}
+                              value="INACTIVE" name="status"
+                              checked={this.state.hr.status === "INACTIVE"} />
+                            <label
+                              className="custom-control-label"
+                              for="inactive"
+                            >
+                              Inactive
+                            </label>
+                          </div>
                         </div>
-                        <div className="custom-control custom-radio custom-control-inline ml-3 radio" style={{display:'flex',alignItems:'center',height:'2rem',gap:'0.5rem'}}>
-                          <input className="custom-control-input"
-                            id="inactive"
-                            type="radio"
-                            onChange={(e) => this.handleChange(e, 'status')}
-                            value="INACTIVE" name="status"
-                            checked={this.state.hr.status === "INACTIVE"} />
-                          <label
-                            className="custom-control-label"
-                            for="inactive"
-                          >
-                            Inactive
-                          </label>
-                        </div>
-                        </div>
-                        
+
                       </div>
                       <div className="form-group row">
                         <div className="col-md-12">
