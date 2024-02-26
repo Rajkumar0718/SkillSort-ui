@@ -239,7 +239,7 @@ export default function AdvSearch(props) {
                           <label className="form-label input-label">SSLC %</label>
                         </div>
                         <div className='col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9  '>
-                          <input className="profile-page " maxLength="50" min={0} max={100}
+                          <input className="profile-page " maxLength="5" min={0} max={100}
                             onChange={(e) => setSslc(e.target.value)}
                             value={sslc} aria-label="default input example"
                             name='sslc' id='sslc' autoComplete='off' type="number" placeholder='Sslc %' />
@@ -252,7 +252,7 @@ export default function AdvSearch(props) {
                           <label className="form-label input-label">HSC %</label>
                         </div>
                         <div className='col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9  '>
-                          <input className="profile-page " maxLength="50" min={0} max={100}
+                          <input className="profile-page " maxLength="5" min={0} max={100}
                             onChange={(e) => setHsc(e.target.value)}
                             value={hsc} aria-label="default input example"
                             name='hsc' id='hsc' autoComplete='off' type="number" placeholder='Hsc %' />
@@ -267,7 +267,7 @@ export default function AdvSearch(props) {
                           <label className="form-label input-label">UG %</label>
                         </div>
                         <div className='col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9  '>
-                          <input className="profile-page " maxLength="50" min={0} max={100}
+                          <input className="profile-page " maxLength="5" min={0} max={100}
                             onChange={(e) => setUg(e.target.value)}
                             value={ug} aria-label="default input example"
                             name='sslc' id='sslc' autoComplete='off' type="number" placeholder='Ug %' />
@@ -337,8 +337,8 @@ export default function AdvSearch(props) {
                              value={states}
                              isObject={false}
                              selectExam={handleStateChange}
-                             data={Object.keys(States)} 
-                             >                             
+                             data={Object.keys(States)}
+                             >
                            </AutoComplete>
                         </div>
                       </div>

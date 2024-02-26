@@ -273,6 +273,7 @@ class AddPosition extends Component {
                                   name={field.name}
                                   id={field.id}
                                   placeholder={field.placeholder}
+                                  maxLength={50}
                                 />
                               </div>
                             </div>

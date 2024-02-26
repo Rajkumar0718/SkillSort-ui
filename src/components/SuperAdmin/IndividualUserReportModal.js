@@ -39,6 +39,7 @@ export default class IndividualUserReportModal extends Component {
         loader: true,
         isSkillSortScorePresent: true,
         skillSortscore: [],
+        isScoreFilter:"",
         report: {
             fromDate: '',
             toDate: '',
@@ -55,8 +56,14 @@ export default class IndividualUserReportModal extends Component {
 
     }
     onNextPage = () => {
-        !this.state.report.skillsortScore ? this.handleFilter() : this.getScoreReport()
+        const report = _.cloneDeep(this.state.report)
+        if(report.skillsortScore && !this.state.isScoreFilter){
+            report.skillsortScore = ''
+            this.setState({report:report})
+        }
+        !report.skillsortScore ? this.handleFilter() : this.getScoreReport()
     }
+
     onPagination = (pageSize, currentPage) => {
         this.setState({ pageSize: pageSize, currentPage: currentPage }, () => { this.onNextPage() });
     }
@@ -132,7 +139,7 @@ export default class IndividualUserReportModal extends Component {
             let toDate = new Date()
             report.toDate = moment(toDate).format('DD/MM/YYYY')
             report.fromDate = moment(report.fromDate).format('DD/MM/YYYY')
-        } 
+        }
         else if (_.isEmpty(report.fromDate) && report.toDate) {
             // let fromDate = new Date()
             // report.fromDate = moment(fromDate).format('DD/MM/YYYY')
@@ -168,6 +175,7 @@ export default class IndividualUserReportModal extends Component {
             countError: false,
             startPage: 1,
             endPage: 5,
+            isScoreFilter:""
         }, () => this.handleFilter())
     }
 
@@ -188,6 +196,7 @@ export default class IndividualUserReportModal extends Component {
     }
     pageChange = () => {
         this.setState({
+            isScoreFilter:this.state.report.skillsortScore,
             currentPage: 1,
             pageSize: 10,
             totalPages: 0,

@@ -64,6 +64,7 @@ export default class StudentreportModal extends Component {
             disabled: false,
             header: [],
             superAdminHeader: [],
+            isScoreFiltered:"",
             report: {
                 fromDate: '',
                 toDate: '',
@@ -85,6 +86,12 @@ export default class StudentreportModal extends Component {
             report[key] = this.state.department[value.target.value]?.departmentName
 
         }
+        else if (key === "skillsortScore") {
+            const cleanedValue =value.replace(/[^\d.-]/g, '').slice(0,  10);
+            report[key] = cleanedValue;
+            // this.state.currentPage = 1;
+            // this.getScoreReport();
+        }
         else {
             report[key] = value
         }
@@ -93,6 +100,8 @@ export default class StudentreportModal extends Component {
 
     getReport = () => {
         const report = _.cloneDeep(this.state.report)
+        const user = JSON.parse(localStorage.getItem("user"))
+        report.collegeId = isRoleValidation() === "SUPER_ADMIN" ? report.collegeId : user.companyId;
         if (moment(report.fromDate).isValid() && moment(report.toDate).isValid()) {
             report.fromDate = moment(report.fromDate).format('DD/MM/YYYY')
             report.toDate = moment(report.toDate).format('DD/MM/YYYY')
@@ -126,7 +135,12 @@ export default class StudentreportModal extends Component {
             });
     }
     onNextPage = () => {
-        this.state.report.skillsortScore ? this.getReport() : this.getScoreReport();
+        const report = _.cloneDeep(this.state.report)
+        if(report.skillsortScore && !this.state.isScoreFiltered){
+            report.skillsortScore = ''
+            this.setState({report:report})
+        }
+        !report.skillsortScore ? this.getReport() : this.getScoreReport()
     }
     onPagination = (pageSize, currentPage) => {
         this.setState({ pageSize: pageSize, currentPage: currentPage }, () => { this.onNextPage() });
@@ -156,20 +170,21 @@ export default class StudentreportModal extends Component {
             startPage: 1,
             endPage: 5,
             selectedYop: [],
-            showCompanyOfferReleased: "NO"
-        }, () => this.getReport(), this.getCollege(), this.getDepartment())
+            showCompanyOfferReleased: "NO",
+            isScoreFiltered:"",
+        }, () => this.getReport(), this.getDepartment())
     }
+
+
 
     componentDidMount() {
         if (isRoleValidation() === "SUPER_ADMIN") {
             this.getCollege()
-            this.getReport()
             this.setSuperAdminHeader()
-        } else if (isRoleValidation() === "COLLEGE_ADMIN" || "COLLEGE_STAFF") {
-            this.getScoreReport()
+        } else {
             this.setHeader()
         }
-
+        this.getReport()
         this.getDepartment()
         this.setYearRange()
     }
@@ -192,6 +207,7 @@ export default class StudentreportModal extends Component {
     }
     pageChange = () => {
         this.setState({
+            isScoreFiltered:this.state.report.skillsortScore,
             currentPage: 1,
             pageSize: 10,
             totalPages: 0,
@@ -204,6 +220,8 @@ export default class StudentreportModal extends Component {
 
     getScoreReport = () => {
         const report = _.cloneDeep(this.state.report)
+        const user = JSON.parse(localStorage.getItem("user"))
+        report.collegeId = isRoleValidation() === "SUPER_ADMIN" ? report.collegeId : user.companyId;
         if (moment(report.fromDate).isValid() && moment(report.toDate).isValid()) {
             report.fromDate = moment(report.fromDate).format('DD/MM/YYYY')
             report.toDate = moment(report.toDate).format('DD/MM/YYYY')
@@ -458,7 +476,7 @@ export default class StudentreportModal extends Component {
                 name: "DEPARTMENT",
                 align: "left",
                 renderCell: (params) => {
-                    return params.department ? params.department : "-";
+                    return params.collegeName ? params.collegeName : "-";
                 },
             },
             {
@@ -613,6 +631,7 @@ export default class StudentreportModal extends Component {
                             department={this.state.department}
                             toggleClick={this.state.toggleClick}
                             changeCollege={this.changeCollege}
+                            skillsortScore={this.state.skillSortscore}
                         />
                     </div>
                 </div>

@@ -38,10 +38,20 @@ class AddStudent extends Component {
 
   handleChange = (event, key) => {
     const { student, error } = this.state;
-    student[key] = event.target.value;
+    if (key === "phone") {
+      const sanitizedValue = event.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+      student[key] = sanitizedValue;
+    } else if (key === "firstName" || key === "lastName") {
+      const sanitizedValue = event.target.value.replace(/[^a-zA-Z]/g, '');
+      student[key] = sanitizedValue;
+    } else {
+      student[key] = event.target.value;
+    }
     error[key] = false;
     this.setState({ student, error });
   };
+
+
 
   handleSubmit = (event) => {
     const { student, error } = this.state;
@@ -125,24 +135,32 @@ class AddStudent extends Component {
         name: "firstName",
         type: "text",
         placeholder: "Enter User First Name",
+        pattern: "[a-zA-Z]",
+        maxlength: "30"
       },
       {
         label: "Last Name",
         name: "lastName",
         type: "text",
         placeholder: "Enter User Last Name",
+        pattern: "[a-zA-Z]",
+        maxlength: "30"
       },
       {
         label: "Email",
         name: "email",
-        type: "text",
+        type: "email",
         placeholder: "Enter email",
+        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$",
+        maxlength: "30"
       },
       {
         label: "Phone",
         name: "phone",
-        type: "number",
+        type: "tel",
         placeholder: "Enter phone",
+        pattern: "[0-9]{10}",
+        maxlength: "10",
       },
     ];
     let action = null;
@@ -169,7 +187,7 @@ class AddStudent extends Component {
                           <div
                             key={field.name}
                             className="col-lg-6 col-6 col-sm-6 col-md-6 col-xl-6"
-                            style={{position:"relative",left:"1rem"}}
+                            style={{ position: "relative", left: "1rem" }}
                           >
                             <InputField
                               label={field.label}
@@ -182,6 +200,7 @@ class AddStudent extends Component {
                               name={field.name}
                               type={field.type}
                               placeholder={field.placeholder}
+                              maxlength={field.maxlength}
                             />
                           </div>
                         ))}

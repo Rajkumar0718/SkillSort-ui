@@ -29,7 +29,7 @@ export const RenderModalBody = (props) => {
               overflowX: "hidden",
               paddingBottom: "1rem",
               paddingRight: "0rem",
-              
+
             }}
           >
             <div
@@ -139,14 +139,12 @@ export const RenderModalBody = (props) => {
                         onChange={(e) =>
                           props.onChange(e.target.value, "skillsortScore")
                         }
-                        onKeyDown={(e) => {
-                          const allowedKeys = ['Backspace', 'Tab', 'Enter', 'Escape', 'ArrowLeft', 'ArrowRight'];
-                          if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
-                            e.preventDefault();
-                          }
-                        }}
+                        maxLength={5}
                       ></input>
                     </div>
+                    {parseFloat(props.report.skillsortScore) > 100 && (
+                      <p style={{ color: 'red' }}>Value must be 100 or less</p>
+                    )}
                   </div>
                 </>
               ) : null}

@@ -36,9 +36,23 @@ class AddStaff extends Component {
     };
   }
 
+  // handleChange = (event, key) => {
+  //   const { staff, error } = this.state;
+  //   staff[key] = event.target.value;
+  //   error[key] = false;
+  //   this.setState({ staff, error });
+  // };
   handleChange = (event, key) => {
     const { staff, error } = this.state;
-    staff[key] = event.target.value;
+    if (key === "phone") {
+      const sanitizedValue = event.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+      staff[key] = sanitizedValue;
+    } else if (key === "name") {
+      const sanitizedValue = event.target.value.replace(/[^a-zA-Z]/g, '');
+      staff[key] = sanitizedValue;
+    } else {
+      staff[key] = event.target.value;
+    }
     error[key] = false;
     this.setState({ staff, error });
   };
@@ -143,18 +157,24 @@ class AddStaff extends Component {
         name: "name",
         type: "text",
         placeholder: "Enter User Name",
+        maxlength: "30",
+        pattern: "[a-zA-Z]",
       },
       {
         label: "Email",
         name: "email",
         type: "text",
         placeholder: "Enter email",
+        maxlength: "30",
+        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$",
       },
       {
         label: "Phone",
         name: "phone",
-        type: "number",
+        type: "tel",
         placeholder: "Enter phone",
+        pattern: "[0-9]{10}",
+        maxlength: "10",
       },
     ];
     let action = null;
@@ -195,6 +215,7 @@ class AddStaff extends Component {
                               name={field.name}
                               type={field.type}
                               placeholder={field.placeholder}
+                              maxlength={field.maxlength}
                             />
                           </div>
                         ))}

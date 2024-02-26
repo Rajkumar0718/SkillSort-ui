@@ -48,73 +48,99 @@ const TableHeaderWithDate = (props) => {
           props.showDate ?
             <>
               <div className='col-lg-2 col-sm-1 col-md-1 col-xs-1 col-2'>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <MuiDatePicker
-                  value={fromDate === "" ? null : fromDate}
-                  onChange={(date) => setFromDate(date)}
-                  format="dd/MM/yyyy"
-                  slotProps={{
-                    textField: {
-                      variant: "filled",
-                      size: "small",
-
-                      sx: {
-                        borderRadius: "3rem",
-
-                        "& .MuiInputBase-input": {
-                          backgroundColor: "white",
-                          paddingTop: "0px !important",
-                          height: "2rem",
-                        },
-                        "& .MuiSvgIcon-root": {
-                          color: "currentcolor",
-                        },
-                        "& .MuiInputBase-root": {
-                          width: "12rem",
-                          background: "white",
-                        },
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <MuiDatePicker
+                    value={fromDate === "" ? null : fromDate}
+                    onChange={(date) => setFromDate(date)}
+                    format="dd/MM/yyyy"
+                    slotProps={{
+                      popper: {
+                        placement: 'auto',
+                        modifiers: [
+                          {
+                            name: 'flip',
+                            enabled: true,
+                            options: {
+                              fallbackPlacements: ['top', 'bottom'], // Specify the fallback placements
+                            },
+                          },
+                        ],
                       },
-                      className: "profile-page",
-                      placeholder: "From Date",
-                    },
-                  }}
-                />
-              </LocalizationProvider>
+                      textField: {
+                        variant: "filled",
+                        size: "small",
+
+                        sx: {
+                          borderRadius: "3rem",
+
+                          "& .MuiInputBase-input": {
+                            backgroundColor: "white",
+                            paddingTop: "0px !important",
+                            height: "2rem",
+                          },
+                          "& .MuiSvgIcon-root": {
+                            color: "currentcolor",
+                          },
+                          "& .MuiInputBase-root": {
+                            width: "12rem",
+                            background: "white",
+                          },
+                        },
+                        className: "profile-page",
+                        placeholder: "From Date",
+                      },
+                      field: { clearable: true, onClear: () => setToDate("") },
+                    }}
+                  />
+                </LocalizationProvider>
               </div>
               <div className='col-lg-2 col-sm-1 col-md-1 col-xs-2 col-2'>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <MuiDatePicker
-                  value={toDate === "" ? null : toDate}
-                  onChange={(date) => setToDate(date)}
-                  format="dd/MM/yyyy"
-                  minDate={fromDate || null}
-                  slotProps={{
-                    textField: {
-                      variant: "filled",
-                      size: "small",
-
-                      sx: {
-                        borderRadius: "3rem",
-
-                        "& .MuiInputBase-input": {
-                          backgroundColor: "white",
-                          paddingTop: "0px !important",
-                          height: "2rem",
-                        },
-                        "& .MuiSvgIcon-root": {
-                          color: "currentcolor",
-                        },
-                        "& .MuiInputBase-root": {
-                          width: "12rem",
-                          background: "white",
-                        },
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <MuiDatePicker
+                    value={toDate === "" ? null : toDate}
+                    onChange={(date) => setToDate(date)}
+                    format="dd/MM/yyyy"
+                    minDate={fromDate || null}
+                    slotProps={{
+                      popper: {
+                        placement: 'auto',
+                        modifiers: [
+                          {
+                            name: 'flip',
+                            enabled: true,
+                            options: {
+                              fallbackPlacements: ['top', 'bottom'], // Specify the fallback placements
+                            },
+                          },
+                        ],
                       },
-                      className: "profile-page",
-                      placeholder: "To Date",
-                    },
-                  }}
-                />
-              </LocalizationProvider>
+                      textField: {
+                        variant: "filled",
+                        size: "small",
+
+                        sx: {
+                          borderRadius: "3rem",
+
+                          "& .MuiInputBase-input": {
+                            backgroundColor: "white",
+                            paddingTop: "0px !important",
+                            height: "2rem",
+                          },
+                          "& .MuiSvgIcon-root": {
+                            color: "currentcolor",
+                          },
+                          "& .MuiInputBase-root": {
+                            width: "12rem",
+                            background: "white",
+                          },
+                        },
+                        className: "profile-page",
+                        placeholder: "To Date",
+                      },
+                      field: { clearable: true, onClear: () => setToDate("") },
+                    }}
+                  />
+                </LocalizationProvider>
               </div>
             </> : <></>
         }
@@ -122,7 +148,7 @@ const TableHeaderWithDate = (props) => {
           props.showSearch ?
             <>
               <div className="col-md-3 col-lg-4 col-sm-2">
-                <input type="text" className="form-control" placeholder={props.placeholder} onChange={onChange} onKeyDown={(e) => e.key === 'Enter' ? onSearch() : ""}/>
+                <input type="text" className="form-control" placeholder={props.placeholder} onChange={onChange} onKeyDown={(e) => e.key === 'Enter' ? onSearch() : ""} />
               </div>
               <div className="col-md-2">
                 <button className="btn btn-sm btn-prev pull-right" style={{ marginTop: "5px" }} onClick={onSearch}>search</button>
