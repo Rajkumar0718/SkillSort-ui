@@ -281,7 +281,7 @@ export default class StudentTestList extends Component  {
     }
   
     clearStorage = () => {
-      const keysToRemove = ["examSubmitMessage", "candidateInstruction", "examId", "jwtToken", "exam", "count", "startDate", "startTime", "onGoingExamId", "examDuration", "AnsweredState", "languageId", "languageName", "examTimeUp", "count"];
+      const keysToRemove = ["examSubmitMessage", "candidateInstruction", "examId", "jwtToken", "exam", "count", "startDate", "startTime", "onGoingExamId", "examDuration", "AnsweredState", "languageId", "languageName", "examTimeUp", "count", "practiceExamId"];
       keysToRemove.forEach(k => localStorage.removeItem(k))
     }
   

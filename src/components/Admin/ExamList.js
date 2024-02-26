@@ -200,7 +200,7 @@ export default class ExamList extends Component {
             </span>}
             link="/admin/test/add"
             buttonName="Add Test"
-            showLink={true}
+            showLink={false}
           />
           <Search
             title='Filter'

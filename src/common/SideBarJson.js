@@ -413,8 +413,21 @@ const sidebar = {
     name: "HOME",
     icon: 'fa fa-building-o',
     subPath: ['/processadmin/company/test','/processadmin/company','/processadmin/company/test/candidate','/processadmin/company/test/candidate/sendmail'],
-
-  }]
+  }],
+  "COLLEGE_STAFF": [{
+    isSubMenu: false,
+    name: 'Students',
+    isDefault: true,
+    to: '/college',
+    icon: 'fa fa-users',
+    subPath: ['/college/add', '/college/edit']
+  }, {
+    isSubMenu: false,
+    to: '/college/collegeReport',
+    name: 'SkillSort User Report',
+    icon: 'fa fa-file-text-o'
+  }
+  ],
 
 }
 

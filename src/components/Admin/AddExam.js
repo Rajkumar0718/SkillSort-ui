@@ -454,8 +454,8 @@ class AddExam extends Component {
           }
           this.setState({ loading: false, disabled: false });
         } else {
-          toastMessage('success', 'Test Added Successfully..!');
-          this.props.navigate('/admin/vacancy')
+          toastMessage('success', this.state.id ? 'Test updated successfully..!' : 'Test Added Successfully..!');
+          this.props.navigate('/admin/test')
           this.setState({ loading: false, disabled: false });
         }
       }).catch(error => {
@@ -652,6 +652,7 @@ class AddExam extends Component {
   componentWillMount() {
     if (this.props.location?.state?.clonedExam || this.props.location?.state?.exams) {
       const exams = this.props.location?.state?.clonedExam || this.props.location?.state?.exams
+      let generatedLink = exams.publicUrlHashcode ? `${url.UI_URL}/candidate/register/${exams.publicUrlHashcode}` : undefined
       this.setState({
         id: exams.id,
         name: this.props.location?.state?.clonedExam ? '' : exams.name,
@@ -677,6 +678,7 @@ class AddExam extends Component {
         isProgrammingCamera: exams.isProgrammingCamera,
         projectDuration: exams.projectDuration,
         tokenValidity: exams.tokenValidity,
+        generatedLink: generatedLink,
         isCopyPaste: exams.isCopyPaste
       })
 

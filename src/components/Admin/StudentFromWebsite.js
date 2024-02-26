@@ -141,9 +141,9 @@ const AdminLogin = () => {
         }).then((response) => {
           toastMessage('success', "Password created Successfully..!")
           navigate("/")
-        }).catch(() => {
+        }).catch((error) => {
           setDisableBtn(false)
-          // errorHandler(error);
+          errorHandler(error);
         });
       }
     }

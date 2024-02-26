@@ -239,7 +239,8 @@ class CandidateRegister extends Component {
         localStorage.setItem("examDuration", duration)
         let programming = _.filter(ongoingExam.categories, { 'sectionName': 'PROGRAMMING' }).length > 0 ? true : false;
         const pathname = `${url.UI_URL}/${programming && ongoingExam.isAppsCompleted ? 'program' : response.data.response.projectDuration ? 'project' : 'test'}`
-        window.open(pathname, "", "width=1450px,height=900px");
+        this.setState({ disabled : true})
+        this.props.navigate(pathname);
       }).catch((err) => console.log(err))
     }).catch((err) => console.log(err))
   }
@@ -494,6 +495,7 @@ class CandidateRegister extends Component {
       return;
     }
     // event.preventDefault();
+    this.setState({ disabled : true})
     const formData = new FormData();
     // Update the formData object
     formData.append('resume', this.state.selectedFile);
@@ -509,8 +511,7 @@ class CandidateRegister extends Component {
         localStorage.setItem("user", JSON.stringify(res.data.response));
         this.setState({
           jwt: res.data.response.jwtToken,
-          isSubmitted: true,
-          disabled: true,
+          isSubmitted: true
         });
         if (this.state.mcqHasCamera || this.state.programmingHasCamera) {
           this.setState({ openModal: true })
@@ -713,7 +714,6 @@ class CandidateRegister extends Component {
                         </div>
                         <div className="col-4">
                           <input type="file" className="custom-file-input" onChange={this.onFileChange} accept={"application/pdf"} style={{ width: '311px', marginLeft: '5px' }} />
-                          <label className="custom-file-label text-label" style={{ width: '255px', marginLeft: '14px' }}>{this.state.selectedFile ? this.state.selectedFile.name : "Upload Resume"}</label>
                           {error.resumeFile && <FormHelperText className="helper helper-login" style={{ paddingLeft: "35px" }}>{error.resumeFile ? error.helperTextResumeFile : null}</FormHelperText>}
                         </div>
                         <div className='col-4'>

@@ -9,7 +9,7 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import { errorHandler } from "../api/Api";
 import LOGO from '../assests/images/LOGO.svg';
-import  url  from "../utils/UrlConstant";
+import url from "../utils/UrlConstant";
 import { isEmpty, isValidEmail, isValidMobileNo, isValidName } from "../utils/Validation";
 import ExamTimeOver from "./Candidate/ExamTimeOver";
 import TakePicture from "./Candidate/TakePicture";
@@ -238,6 +238,7 @@ const CandidateReg = () => {
   }
 
   const validateFields = () => {
+    return new Promise((resolve, reject) => {
     let isValid = true;
     let updatedError = { ...error };
 
@@ -257,11 +258,11 @@ const CandidateReg = () => {
     validateField('phone', isEmpty(user.phone) || !isValidMobileNo(user.phone), 'Please enter a valid phone number');
     validateField('gender', isEmpty(user.gender), 'Please select a gender');
     const dobError = dobValidation();
-    if(dobError){
+    if (dobError) {
       isValid = false
-      updatedError['dob']=true
+      updatedError['dob'] = true
       updatedError['helperTxtDob'] = dobError
-    } else{
+    } else {
       updatedError['dob'] = false
     }
     validateField('qualification', isEmpty(user.qualification), 'Please select a qualification');
@@ -278,7 +279,7 @@ const CandidateReg = () => {
         isEmpty(user.gender) || dobError)
     ) {
       setError(updatedError);
-      return isValid;
+      resolve(isValid);
     }
 
     if (
@@ -290,13 +291,14 @@ const CandidateReg = () => {
       (selectedFile === null)
     ) {
       setError(updatedError);
-      return isValid;
+      resolve(isValid);
     }
-
-    return isValid;
+      resolve(isValid);
+    });
   };
 
   const saveCandidate = (formData) => {
+    setDisable(true)
     axios.post(`${url.CANDIDATE_API}/candidate/public/save?examId=${examId}`,
       formData)
       .then((res) => {
@@ -310,28 +312,24 @@ const CandidateReg = () => {
         else {
           navigate('/candidateinstruction')
         }
-      }).catch((err) =>
-        errorHandler(err),
+      }).catch(err => {
         setDisable(false)
-      )
+        errorHandler(err)
+      })
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const handleSubmit = async (event) => {
     setDisable(true)
-    if (!validateFields()) {
-      setDisable(false)
-      return;
+    event.preventDefault();
+    const isValidFields = await validateFields();
+    if (!isValidFields) {
+      return setDisable(false)
     }
 
-
     const formData = new FormData();
-    axios.get(`${url.CANDIDATE_API}/candidate/csrf-token`).then((res) => {
-      formData.append('resume', selectedFile);
-      formData.append('candidate', JSON.stringify(user));
-      saveCandidate(formData); // Make sure to define saveCandidate
-    });
+    formData.append('resume', selectedFile);
+    formData.append('candidate', JSON.stringify(user));
+    saveCandidate(formData); // Make sure to define saveCandidate
   };
 
   const handleTextInput = (event, key) => {
@@ -363,7 +361,6 @@ const CandidateReg = () => {
 
   const onCloseModal = () => {
     setOpenModal(false)
-    setDisable(false)
     window.close();
   }
 
@@ -416,10 +413,10 @@ const CandidateReg = () => {
                       </div>
                       <div className="col-4">
                         <input className="profile-page" type='name' onKeyDown={(e) => {
-                            if (!/[a-zA-Z\s]/.test(e.key)) {
-                              e.preventDefault();
-                            }
-                          }}  label='First Name' name='username' maxLength="50" value={user.firstName} onChange={(e) => handleTextInput(e, 'firstName')} aria-label="default input example"></input>
+                          if (!/[a-zA-Z\s]/.test(e.key)) {
+                            e.preventDefault();
+                          }
+                        }} label='First Name' name='username' maxLength="50" value={user.firstName} onChange={(e) => handleTextInput(e, 'firstName')} aria-label="default input example"></input>
                         {error.firstName && <FormHelperText className="helper helper-login">{error.firstName ? error.helperTxtFirstName : null}</FormHelperText>}
                       </div>
                       <div className="col-2 candidate-col">
@@ -440,10 +437,10 @@ const CandidateReg = () => {
                       </div>
                       <div className="col-4">
                         <input className="profile-page" type='name' onKeyDown={(e) => {
-                            if (!/[a-zA-Z\s]/.test(e.key)) {
-                              e.preventDefault();
-                            }
-                          }} label='Last Name' name='lastName' maxLength="50" value={user.lastName} onChange={(e) => handleTextInput(e, 'lastName')} id='lastName' aria-label="default input example"></input><span className='required'></span>
+                          if (!/[a-zA-Z\s]/.test(e.key)) {
+                            e.preventDefault();
+                          }
+                        }} label='Last Name' name='lastName' maxLength="50" value={user.lastName} onChange={(e) => handleTextInput(e, 'lastName')} id='lastName' aria-label="default input example"></input><span className='required'></span>
                         {error.lastName && <FormHelperText className="helper helper-login">{error.lastName ? error.helperTxtLastName : null}</FormHelperText>}
                       </div>
                       <div className="col-2 candidate-col">
@@ -507,10 +504,10 @@ const CandidateReg = () => {
                                     color: 'black',
                                     fontSize: '13px',
                                   },
-                                  '&. MuiFormHelperText-root':{
+                                  '&. MuiFormHelperText-root': {
                                     color: 'red !important'
                                   },
-                                  '& .MuiFormControl-root':{
+                                  '& .MuiFormControl-root': {
                                     fontSize: '13px',
                                     fontWeight: 400,
                                     color: 'black',
@@ -533,7 +530,7 @@ const CandidateReg = () => {
                       <div className="col-2 candidate-col">
                         <label className="form-label text-label">Gender*</label>
                       </div>
-                      <div className='col-4' style={{ paddingLeft: '1rem'}}>
+                      <div className='col-4' style={{ paddingLeft: '1rem' }}>
                         <div className="form-check form-check-inline">
                           <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="MALE" checked={user.gender === "MALE"} onClick={(event) => { handleInput(event, "gender") }} />
                           <label className="form-check-label text-label" htmlFor="inlineRadio1">Male</label>
@@ -561,7 +558,6 @@ const CandidateReg = () => {
                       </div>
                       <div className="col-4">
                         <input type="file" className="custom-file-input" onChange={onFileChange} accept={"application/pdf"} style={{ width: '311px', marginLeft: '5px' }} />
-                        <label className="custom-file-label text-label" style={{ width: '255px', marginLeft: '14px' }}>{selectedFile ? selectedFile.name : "Upload Resume"}</label>
                         {error.resumeFile && <FormHelperText className="helper helper-login" style={{ paddingLeft: "15px" }}>{error.resumeFile ? error.helperTxtResumeFile : null}</FormHelperText>}
                       </div>
                       <div className='col-4'>

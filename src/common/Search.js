@@ -59,6 +59,9 @@ const AdvSearch = (props) => {
                   onChange={(date) => setFromDate(date)}
                   format="dd/MM/yyyy"
                   slotProps={{
+                    popper:{
+                      placement:'auto'
+                    },
                     textField: {
                       variant: "filled",
                       size: "small",
@@ -82,6 +85,7 @@ const AdvSearch = (props) => {
                       className: "profile-page",
                       placeholder: "From Date",
                     },
+                    field: { clearable: true, onClear: () => setFromDate("") },
                   }}
                 />
               </LocalizationProvider>
@@ -94,6 +98,18 @@ const AdvSearch = (props) => {
                   format="dd/MM/yyyy"
                   minDate={fromDate || null}
                   slotProps={{
+                    popper: {
+                      placement: 'auto',
+                      modifiers: [
+                        {
+                          name: 'flip',
+                          enabled: true,
+                          options: {
+                            fallbackPlacements: ['top', 'bottom'], // Specify the fallback placements
+                          },
+                        },
+                      ],
+                    },
                     textField: {
                       variant: "filled",
                       size: "small",
@@ -117,6 +133,7 @@ const AdvSearch = (props) => {
                       className: "profile-page",
                       placeholder: "To Date",
                     },
+                    field: { clearable: true, onClear: () => setToDate("") },
                   }}
                 />
               </LocalizationProvider>

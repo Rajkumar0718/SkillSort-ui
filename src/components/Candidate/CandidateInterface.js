@@ -206,7 +206,7 @@ export default function CandidateInterface(props) {
 
     setExamQuestions(ques);
     setInduQuestions(selectedQuestion);
-    localStorage.setItem("AnsweredState", JSON.stringify(examQuestions));
+    localStorage.setItem("AnsweredState", JSON.stringify(ques));
     saveOnGoingExam();
   };
 

@@ -4,7 +4,6 @@ import _ from "lodash";
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { authHeader, errorHandler } from '../../api/Api';
-import AdvSearch from "../../common/Search";
 import { CustomTable } from "../../utils/CustomTable";
 import Pagination from "../../utils/Pagination";
 import TableHeader from "../../utils/TableHeader";
@@ -14,7 +13,6 @@ import Search from "../../common/AdvanceSearch";
 
 const PracticeExam = () => {
   const [practiceExam, setPracticeExam] = useState([]);
-  const [searchName, setSearchName] = useState("");
   const [status, setStatus] = useState("ACTIVE");
   const [loader, setLoader] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,6 +24,7 @@ const PracticeExam = () => {
 
   useEffect(() => {
     practiceExamList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, pageSize, status]);
 
   const setTableJson = () => {
@@ -105,7 +104,6 @@ const PracticeExam = () => {
   };
 
   const onSearch = (value) => {
-    setSearchName(value);
     handleFilter(value);
   };
 

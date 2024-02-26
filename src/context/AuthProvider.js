@@ -10,12 +10,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     let token = localStorage.getItem('token') || localStorage.getItem('jwtToken') 
       if(token) {
-          let user = localStorage.getItem('user') || {}
+          let user = localStorage.getItem('user') || "{}";
           const role = isRoleValidation()
           setAuth({token,user: JSON.parse(user), role})
       }
   },[])
-  console.log(auth)
+  
   return (
     <AuthContext.Provider value={{auth, setAuth}}>
       {children}
