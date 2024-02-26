@@ -4,7 +4,9 @@ const sidebar = {
   "ADMIN": [{
     to: '/admin/hr',
     name: 'HR Users',
-    icon: 'fa fa-id-badge'
+    icon: 'fa fa-id-badge',
+    subPath: ['/admin/hr/add']
+
   }, {
     isSubMenu: true,
     name: 'Test',

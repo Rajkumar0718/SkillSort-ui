@@ -141,7 +141,7 @@ export default class ExamList extends Component {
     axios.delete(`${url.ADMIN_API}/exam/remove/${examId}`, { headers: authHeader() })
       .then(_res => {
         toastMessage('success', 'Test Deleted Successfully..!');
-        this.componentDidMount();
+        this.initialCall();
       }).catch(error => {
         errorHandler(error);
       })
