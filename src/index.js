@@ -1,12 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import 'font-awesome/css/font-awesome.min.css';
-import React, { StrictMode } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
 import App from "./App";
 import { AuthProvider } from './context/AuthProvider';
-import 'react-toastify/dist/ReactToastify.css';
 
 const gtmId = process.env.REACT_APP_GTM_ID;
 const gtmScript = document.createElement('script');
@@ -32,9 +32,7 @@ root.render(
   // </StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route path="/*" element={<App />} />
-        </Routes>
+        <App />
       </AuthProvider>
     </BrowserRouter>
 );

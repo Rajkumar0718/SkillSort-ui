@@ -399,7 +399,8 @@ const sidebar = {
     to: '/testadmin/question',
     name: 'Questions',
     pathName: '/testadmin',
-    icon: 'fa fa-question-circle-o'
+    icon: 'fa fa-question-circle-o',
+    subPath: ['/testadmin/question/add', '/testadmin/question/edit']
   }, {
     isSubMenu: false,
     to: '/testadmin/setting',
