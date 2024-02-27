@@ -12,7 +12,6 @@ import StudentRoutes from "./routes/StudentRoutes";
 import SuperAdminRoutes from "./routes/SuperAdminRoutes";
 import TestAdminRoutes from "./routes/TestAdminRoutes";
 
-
 function App() {
   return (
     <Suspense fallback={<div className="animated fadeIn pt-1" style={{ position: 'fixed', top: "45%", left: "45%", transform: "translate(-50%, -50%)" }}> <CircleLoader color={'#0000FF'} loading={true} size={150} /></div>}>

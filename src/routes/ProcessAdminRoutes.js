@@ -4,11 +4,12 @@ import Layout from "../common/Layout";
 import RequireAuth from "../components/RequireAuth";
 
 const CandidateLists = React.lazy(() => import("../components/ProcessAdmin/CandidateList"));
-const ExamListProcesss = React.lazy(() => import("../components/Student/StudentTestList"));
-const SendMail = React.lazy(() => import("../components/ProcessAdmin/ExamList"));
+const SendMail = React.lazy(() => import("../components/ProcessAdmin/SendMail"));
+const ExamListProcesss = React.lazy(() => import("../components/ProcessAdmin/ExamList"));
 const CompanyList = React.lazy(() => import("../components/SuperAdmin/CompanyList"));
 
 export default function ProcessAdminRoutes() {
+  return (
   <Routes>
     <Route path="/processadmin/" element={<Layout />}>
       <Route element={<RequireAuth allowedRoles={["PROCESS_ADMIN"]} />}>
@@ -20,4 +21,5 @@ export default function ProcessAdminRoutes() {
       </Route>
     </Route>
   </Routes>
+  )
 }
