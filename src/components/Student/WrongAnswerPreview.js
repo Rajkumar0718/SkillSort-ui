@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import LOGO from '../../assests/images/LOGO.svg';
 import _ from "lodash";
 import { Radio } from "@mui/material";
+import "../Candidate/Styles.css";
 
 const WronganswerPreview = () => {
     const [questions, setQuestions] = useState([]);
@@ -102,7 +103,7 @@ const WronganswerPreview = () => {
                         <div
                             className="cursor-pointer"
                             title="Next"
-                            style={{ fontSize: "30px", color: "#5B6263", width: '8rem' }}
+                            style={{ fontSize: "30px", color: "#5B6263", width: '8rem',marginRight: '1rem' }}
                         >
                             {disabledNext === true || _.size(questions) === 1 ? (
                                 null) : (

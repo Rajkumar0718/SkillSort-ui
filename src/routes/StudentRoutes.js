@@ -34,8 +34,10 @@ export default function StudentRoutes() {
           <Route path='update' element={<EnhancedCompetitorUpdate />} />
           <Route path='company-offer' element={<CompanyOffers />} />
           <Route path='test/takePicture' element={<TakePicture />} />
-          <Route path='test/selectTech' element={<SelectTech />} />
         </Route>
+      </Route>
+      <Route element={<RequireAuth allowedRoles={["COLLEGE_STUDENT", "COMPETITOR", "DEMO_ROLE"]} />}>
+        <Route path='/competitor/test/selectTech' element={<SelectTech />} />
       </Route>
     </Routes>
   )
