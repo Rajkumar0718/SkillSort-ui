@@ -8,6 +8,7 @@ import ForgetPassword from "../components/Admin/ForgotPassword";
 import WronganswerPreview from "../components/Student/WrongAnswerPreview";
 import ProjectResultView from "../components/project-ui/ProjectResultView";
 import LoginRegistration from "../utils/LoginRegistration";
+import CompanyRegister from "../components/Admin/CompanyRegister";
 
 const AdminLogin = React.lazy(() => import("../components/Admin/AdminLogin"));
 const CandidateResultDetails = React.lazy(() => import("../components/Admin/CandidateResultDetails"));
@@ -38,6 +39,7 @@ function PublicRoutes() {
       <Route index path="/" element={<AdminLogin />} />
       <Route exact path="/login" element={<AdminLogin />} />
       <Route exact path='/admin/forgot/password' element={<ForgetPassword />} />
+      <Route path='/company/register' element={<CompanyRegister/>} />
       <Route exact path='/register/:token/:examId/:examUsersId' element={<EnhancedCandidateRegister />} />
       <Route exact path='/examResult/:candidateId' element={<TestResults />} />
       <Route exact path="/project" element={<ProjectUi />} />
