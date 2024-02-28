@@ -351,7 +351,7 @@ export default class IndividualUserReportModal extends Component {
                             style={{ border: "none", height: "3rem" }}
                         >
                             <div>
-                                {this.state.toggleClick ? "" : <span style={{ marginRight: '14rem' }}>options </span>}
+                                {this.state.toggleClick ? "" : <span style={{ marginRight: '10rem' }}>options </span>}
                                 <i onClick={this.togleOption} style={{ fontSize: '1.5rem', marginRight: this.state.toggleClick ? _.size(this.state.individualUser) > 0 ? '45rem' : '54rem' : null }} className="fa fa-filter" aria-hidden="true"></i>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center' }}>

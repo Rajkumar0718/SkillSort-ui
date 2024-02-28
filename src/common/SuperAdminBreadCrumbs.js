@@ -20,7 +20,7 @@ const SuperAdminBreadcrumbs = ({ breadCrumbJSON }) => {
         navigate(homeLink);
     };
 
-    const skipPath = ['settings', 'panelists', 'skillsortadmin', 'Test']
+    const skipPath = ['settings', 'panelists', 'Test']
 
     return (
         <MUIBreadcrumbs aria-label="breadcrumb" separator=">" style={{marginLeft:'-0.9rem'}}>
