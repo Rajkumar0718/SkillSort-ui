@@ -12,6 +12,9 @@ import TableHeader from '../../utils/TableHeader';
 import url from '../../utils/UrlConstant';
 import { isRoleValidation } from '../../utils/Validation';
 import SocialMediaShareModal from "./SocialMediaShareModal";
+import { Card } from '@mui/material';
+import gold from '../../assests/images/goldMedal.jpg';
+import silver from '../../assests/images/silverMedal.jpg';
 
 
 class PracticeExamList extends Component {
@@ -37,10 +40,10 @@ class PracticeExamList extends Component {
       startPage: 1,
       endPage: 5,
       advertisement: [],
-      filteredExam:[],
+      filteredExam: [],
       carouselRef: null,
       average: 0,
-      certificateType:'',
+      certificateType: '',
     };
   }
 
@@ -96,7 +99,7 @@ class PracticeExamList extends Component {
       .then(async res => {
         const practiceExam = this.setResultsForExams(res.data.response);
         this.setState({
-          practiceExam: this.state.searchName === ''? _.sortBy(practiceExam, 'displayOrder'):this.state.practiceExam,
+          practiceExam: this.state.searchName === '' ? _.sortBy(practiceExam, 'displayOrder') : this.state.practiceExam,
           filteredExam: _.sortBy(practiceExam, 'displayOrder'),
           totalPages: res.data.response.totalPages,
           totalElements: res.data.response.totalElements,
@@ -120,16 +123,16 @@ class PracticeExamList extends Component {
   }
   getAdvertisment = () => {
     axios.get(`${url.ADV_API}/advdetails/getAll`, { headers: authHeader() }).then(res => {
-        this.setState({ advertisement: res.data.response })
-      }).catch(error => {
-        errorHandler(error);
-      })
+      this.setState({ advertisement: res.data.response })
+    }).catch(error => {
+      errorHandler(error);
+    })
   }
 
 
   checkExistingPracticeExamGoingOn = (practiceExam) => {
     const URL = `${url.COLLEGE_API}/test/check-ongoing-practice-exam?practiceExamId=${practiceExam.id}`;
-    axios.get(URL,{ headers: authHeader() }).then(() => {
+    axios.get(URL, { headers: authHeader() }).then(() => {
       this.takeTest(practiceExam);
     }).catch((err) => {
       errorHandler(err)
@@ -200,7 +203,7 @@ class PracticeExamList extends Component {
   }
 
   clearStorage = () => {
-    const keysToRemove = ["seconds","examSubmitMessage", "candidateInstruction", "examId", "jwtToken", "exam", "count", "startDate", "startTime", "onGoingExamId", "examDuration", "AnsweredState", "languageId", "languageName", "examTimeUp", "count", "practiceExamId","examStartDate","questionId","status"];
+    const keysToRemove = ["seconds", "examSubmitMessage", "candidateInstruction", "examId", "jwtToken", "exam", "count", "startDate", "startTime", "onGoingExamId", "examDuration", "AnsweredState", "languageId", "languageName", "examTimeUp", "count", "practiceExamId", "examStartDate", "questionId", "status"];
     keysToRemove.forEach(k => localStorage.removeItem(k))
   }
 
@@ -208,40 +211,40 @@ class PracticeExamList extends Component {
     this.setState({ searchName: value }, this.getPracticeExams)
   }
 
-  setMedals = (marks,practice) => {
+  setMedals = (marks, practice) => {
     switch (true) {
       case marks === null:
         return null;
-      case marks >=  81:
-        return <FaAward onClick={() => this.getWrongAnswer(practice)}  style={{ fontSize: '25px', color: '#DAA520' }} />;
-      case marks >  60 && marks <=  80:
-        return <FaAward onClick={() => this.getWrongAnswer(practice)}  style={{ fontSize: '25px', color: '#71706E' }} />;
-      case marks >=  40 && marks <=  60:
+      case marks >= 81:
+        return <FaAward onClick={() => this.getWrongAnswer(practice)} style={{ fontSize: '25px', color: '#DAA520' }} />;
+      case marks > 60 && marks <= 80:
+        return <FaAward onClick={() => this.getWrongAnswer(practice)} style={{ fontSize: '25px', color: '#71706E' }} />;
+      case marks >= 40 && marks <= 60:
         return <FaAward onClick={() => this.getWrongAnswer(practice)} style={{ fontSize: '25px', color: '#804A00' }} />;
-      case marks >=  0 && marks <=  39:
+      case marks >= 0 && marks <= 39:
         return <span onClick={() => this.getWrongAnswer(practice)} style={{ fontSize: '20px' }}>&#128528;</span>;
       default:
         return null;
     }
   }
-    setAvarage = () => {
+  setAvarage = () => {
     let totalMarks = 0;
     _.map(this.state.results, r => {
       totalMarks += r.totalMarks + r.totalProgrammingMarks
     })
     const avg = totalMarks / _.size(this.state.practiceExam)
-      // const avg = 60;
+    // const avg = 60;
     // const avg =85;
-     if(avg>59 && avg<80){
-      this.setState({certificateType:'silver'});
+    if (avg > 59 && avg < 80) {
+      this.setState({ certificateType: 'silver' });
     }
-    else if(avg>79){
-      this.setState({certificateType:'gold'});
+    else if (avg > 79) {
+      this.setState({ certificateType: 'gold' });
     }
     this.setState({ average: avg })
   }
 
-   onCloseModal = () => {
+  onCloseModal = () => {
     this.setState({ openModal: !this.state.openModal });
   };
 
@@ -251,19 +254,19 @@ class PracticeExamList extends Component {
     }
   };
 
-  getWrongAnswer = (exam)=>{
+  getWrongAnswer = (exam) => {
     let wrongQuestions = []
-    if(exam.results && exam.duration){
-      _.map(exam.results.submittedExam,s=>{
-        if(s.question.answer && (s.question.answer!==s.selectOption)){
+    if (exam.results && exam.duration) {
+      _.map(exam.results.submittedExam, s => {
+        if (s.question.answer && (s.question.answer !== s.selectOption)) {
           s.question['selectedAnswer'] = s.selectOption
           wrongQuestions.push(s.question)
         }
       })
-    const jsonString = JSON.stringify(wrongQuestions);
-    localStorage.removeItem('wrongAnswers')
-    localStorage.setItem('wrongAnswers',jsonString)
-    return window.open(`/student/wrong-answers/preview`,'_blank')
+      const jsonString = JSON.stringify(wrongQuestions);
+      localStorage.removeItem('wrongAnswers')
+      localStorage.setItem('wrongAnswers', jsonString)
+      return window.open(`/student/wrong-answers/preview`, '_blank')
     }
     return null;
   }
@@ -286,9 +289,19 @@ class PracticeExamList extends Component {
       <>
         <div className='row'>
           <div className='col-12'>
-            <TableHeader title="PracticeExams"/>
+            <TableHeader title="PracticeExams" />
             {fallBackLoader(this.state.loader)}
-            <AdvSearch title="Filter" showSearch={true} placeholder="search by topics" onSearch={this.onSearch} style={{marginLeft:'0.5rem',width:'calc(100vw - 9.12rem)'}}/>
+            <AdvSearch title="Filter" showSearch={true} placeholder="search by topics" onSearch={this.onSearch} style={{ marginLeft: '0.5rem', width: 'calc(100vw - 9.12rem)' }} />
+
+            <div style={{ position: 'relative', width: '90%', transform: 'translate(30%,-400%)' }}>
+              <div className='scrolling-text'>
+                <FaAward style={{ fontSize: '25px', color: '#DAA520' }} />&nbsp;<span style={{ fontSize: '15px' }}>{"- Marks = 81-100 %"}</span>&emsp;&emsp;
+                <FaAward style={{ fontSize: '25px', color: '#71706E' }} />&nbsp;<span style={{ fontSize: '15px' }}>{"- Marks = 61-80 %"}</span>&emsp;&emsp;
+                <FaAward style={{ fontSize: '25px', color: '#804A00' }} />&nbsp;<span style={{ fontSize: '15px' }}>{"- Marks = 40-60 %"}</span>&emsp;&emsp;
+                <span style={{ fontSize: '20px' }}>&#128528;</span>&nbsp;<span style={{ fontSize: '15px' }}>{"- Marks = 0-39 %"}</span>
+              </div>
+            </div>
+
             <div style={{ width: '100%', height: 'calc(100vh - -22rem)', position: 'relative', right: '15px', bottom: '10px' }}>
               <Grid container>
                 {_.map(this.state.filteredExam, (practice, index) => {
@@ -320,7 +333,7 @@ class PracticeExamList extends Component {
                           {<p style={{ position: 'absolute', top: '75px', fontSize: '13px', color: '#5e5858' }}>{_.map(practice.categories, p => p.groupQuestionType).join(" and ")}</p>}
                           <div title={'TotalMarks : ' + ((rating?.toFixed() / 5) * 100) + '%'} style={{ marginRight: '2rem' }}>
                             <div>
-                              {this.setMedals(rating !== null ? ((rating.toFixed() / 5) * 100) : null,practice)}
+                              {this.setMedals(rating !== null ? ((rating.toFixed() / 5) * 100) : null, practice)}
                             </div>
                           </div>
                         </div>
@@ -393,10 +406,9 @@ class PracticeExamList extends Component {
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 {_.size(this.state.advertisement) > 0 ? <Link style={{ color: '#4b9df5', border: 'none', background: 'none' }} to='/student/advertisement'  >See More</Link> : null}
               </div>
-            </div>
           </div> */}
         </div>
-        {this.state.openModal ? <SocialMediaShareModal close={this.onCloseModal}  handleOutside={this.handleOutsideClick} examType={"practice"} certificateType={this.state.certificateType} candidateName={this.state.user.username?this.state.user.username:null} />:null}
+        {this.state.openModal ? <SocialMediaShareModal close={this.onCloseModal} handleOutside={this.handleOutsideClick} examType={"practice"} certificateType={this.state.certificateType} candidateName={this.state.user.username ? this.state.user.username : null} /> : null}
       </>
     );
   }

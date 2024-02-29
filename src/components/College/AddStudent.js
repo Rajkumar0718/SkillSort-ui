@@ -22,6 +22,7 @@ class AddStudent extends Component {
         department: "",
         token: localStorage.getItem("token"),
         status: "ACTIVE",
+        isFromCollege: true,
       },
       disabled: false,
       // departments: [Mechanicle],
@@ -124,6 +125,7 @@ class AddStudent extends Component {
       staffData.phone = student.phone;
       staffData.password = student.password;
       staffData.status = student.status;
+      staffData.isFromCollege = true
       this.setState({ student: staffData });
     }
   }
