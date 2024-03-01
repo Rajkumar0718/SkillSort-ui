@@ -238,7 +238,7 @@ export default class ViewResult extends Component {
   }
 
   handleActionFilter = (value) => {
-    this.setState({ action:value }, () => this.handleFilterByDate());
+    this.setState({ action: value }, () => this.handleFilterByDate());
   }
   matchResumes = () => {
     const resumeDto = {
@@ -369,17 +369,25 @@ export default class ViewResult extends Component {
     ];
     this.setState({ headers: headers });
   };
-  render() {
-    return (
-      <>
-        <div className="card-header-new">
-          {!this.state.results[0]?.projectRound ?
-            <button className="btn btn-sm btn-nxt" onClick={() => this.exportCSV(this.props.position.examId)} style={{ marginTop: '10px', float: 'right' }}>Download</button> : ''}
-        </div>
-        <div >
 
-          {fallBackLoader(this.state.loader)}
-          {/* {_.size(this.state.results)>0?
+  onSearch = (value, fromDate, toDate) => {
+    this.setState(
+      { mark: value, currentPage: 1, fromDate: fromDate, toDate: toDate },
+      this.handleFilterByDate
+    );
+  };
+
+render() {
+  return (
+    <>
+      <div className="card-header-new">
+        {!this.state.results[0]?.projectRound ?
+          <button className="btn btn-sm btn-nxt" onClick={() => this.exportCSV(this.props.position.examId)} style={{ marginTop: '10px', float: 'right' }}>Download</button> : ''}
+      </div>
+      <div >
+
+        {fallBackLoader(this.state.loader)}
+        {/* {_.size(this.state.results)>0?
         <div className="card-header-new" style={{display:"flex",justifyContent:"flex-end",alignItems:'baseline'}}>
          <button className="btn btn-sm btn-nxt pull-right m-0" onClick={()=>this.matchResumes()}>
           Match Resumes
@@ -387,42 +395,42 @@ export default class ViewResult extends Component {
 
         </div>:null
   } */}
-          <AdvSearch
-            title="Filter"
-            showSearch={true}
-            showDate={true}
-            placeholder="Search Mark  Eg: <=10, =10"
-            onSearch={this.onSearch}
+        <AdvSearch
+          title="Filter"
+          showSearch={true}
+          showDate={true}
+          placeholder="Search Mark  Eg: <=10, =10"
+          onSearch={this.onSearch }
 
-          />
-          <CustomTable
-            data={this.state.results}
-            headers={this.state.headers}
-            loader={this.state.loader}
-            pageSize={this.state.pageSize}
+        />
+        <CustomTable
+          data={this.state.results}
+          headers={this.state.headers}
+          loader={this.state.loader}
+          pageSize={this.state.pageSize}
+          currentPage={this.state.currentPage}
+        />
+        {this.state.numberOfElements === 0 ? (
+          ""
+        ) : (
+          <Pagination
+            totalPages={this.state.totalPages}
             currentPage={this.state.currentPage}
+            onPagination={this.onPagination}
+            numberOfElements={this.state.numberOfElements}
+            totalElements={this.state.totalElements}
+            pageSize={this.state.pageSize}
           />
-          {this.state.numberOfElements === 0 ? (
-            ""
-          ) : (
-            <Pagination
-              totalPages={this.state.totalPages}
-              currentPage={this.state.currentPage}
-              onPagination={this.onPagination}
-              numberOfElements={this.state.numberOfElements}
-              totalElements={this.state.totalElements}
-              pageSize={this.state.pageSize}
-            />
-          )}
-          {this.state.openModal && (
-            <CopyClipBoardPopUp
-              link={this.state.sharableLink}
-              onCloseModal={this.onCloseModal}
-            />
-          )}
-          {/* {this.state.resumeMatchModal && <MatchResumeModal onCloseModal={this.onCloseResumeMatchModal} data={this.state.matchResumeData}/>} */}
-        </div>
-      </>
-    );
-  }
+        )}
+        {this.state.openModal && (
+          <CopyClipBoardPopUp
+            link={this.state.sharableLink}
+            onCloseModal={this.onCloseModal}
+          />
+        )}
+        {/* {this.state.resumeMatchModal && <MatchResumeModal onCloseModal={this.onCloseResumeMatchModal} data={this.state.matchResumeData}/>} */}
+      </div>
+    </>
+  );
+}
 }
