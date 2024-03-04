@@ -7,6 +7,7 @@ import { authHeader, errorHandler, logOut } from "../../api/Api";
 import { fallBackLoader, toastMessage } from "../../utils/CommonUtils";
 import url from "../../utils/UrlConstant";
 import CkEditor from "../../common/CkEditor";
+import { isRoleValidation } from "../../utils/Validation";
 const StyledCKEditorWrapper = styled.div`
   .ck-editor__editable {
     &.ck-rounded-corners.ck-editor__editable_inline.ck-focused {
@@ -259,7 +260,7 @@ export default class ExamMailModel extends Component {
                   <span style={{ color: '#F05A28' }}>{this.props.remainingTest}</span> Credits Available
                 </h5>
               )}
-            {this.props.remainingTest?<button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{border:"none",backgroundColor:"initial",fontSize:'3rem',color:"#F05A28"}}>&times;</button>:<button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{position:"relative",left:"24rem",border:"none",backgroundColor:"initial",fontSize:'3rem',color:"#F05A28"}}>&times;</button>}
+            {this.props.remainingTest?<button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{border:"none",backgroundColor:"initial",fontSize:'3rem',color:"#F05A28"}}>&times;</button>:<button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{  position: isRoleValidation() === "ADMIN" ? "static" : "relative", left: isRoleValidation() === "ADMIN" ? "0rem !important" : "24rem",border:"none",backgroundColor:"initial",fontSize:'3rem',color:"#F05A28"}}>&times;{console.log(isRoleValidation(),"hello")}</button>}
             </div>
             <div className="card-body" style={{ paddingTop: "4px",marginTop:'5rem', position:"relative",left:"8px",marginRight:"1rem"}}>
               {this.renderQuestionTemplate()}
