@@ -300,7 +300,7 @@ export default class CandidateResultDetails extends Component {
     return (
       this.state.mcqScreenShots?.length > 0 ?
         // <div className='col-4 col-lg-4'>
-        <Link onClick={() => this.openModal()} >View MCQ Images</Link>
+        <StyledLink onClick={() => this.openModal()} >View MCQ Images</StyledLink>
         : null
     )
   }

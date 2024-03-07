@@ -122,7 +122,9 @@ export default class ViewResult extends Component {
   };
 
   getTotalTestCase = (result) => {
-    return _.filter(result.submittedExam, 'question.input').length * 5;
+    let res = _.filter(result.results, r => r.section === 'PROGRAMMING')
+    return _.size(res) >0 ? res[0].totalTestCases :0
+
   }
 
 
@@ -323,7 +325,7 @@ export default class ViewResult extends Component {
         renderCell: (params) => {
           let numerator = 0;
           numerator = params?.results && params?.results[_.findIndex(params?.results, { section: "PROGRAMMING" })]?.totalTestCasePass || 0;
-          const denominator = this.getTotalTestCase(params) || 1;
+          const denominator = this.getTotalTestCase(params);
           return `${numerator}/${denominator}`;
         },
       },
@@ -377,17 +379,17 @@ export default class ViewResult extends Component {
     );
   };
 
-render() {
-  return (
-    <>
-      <div className="card-header-new">
-        {!this.state.results[0]?.projectRound ?
-          <button className="btn btn-sm btn-nxt" onClick={() => this.exportCSV(this.props.position.examId)} style={{ marginTop: '10px', float: 'right' }}>Download</button> : ''}
-      </div>
-      <div >
+  render() {
+    return (
+      <>
+        <div className="card-header-new">
+          {!this.state.results[0]?.projectRound ?
+            <button className="btn btn-sm btn-nxt" onClick={() => this.exportCSV(this.props.position.examId)} style={{ marginTop: '10px', float: 'right' }}>Download</button> : ''}
+        </div>
+        <div >
 
-        {fallBackLoader(this.state.loader)}
-        {/* {_.size(this.state.results)>0?
+          {fallBackLoader(this.state.loader)}
+          {/* {_.size(this.state.results)>0?
         <div className="card-header-new" style={{display:"flex",justifyContent:"flex-end",alignItems:'baseline'}}>
          <button className="btn btn-sm btn-nxt pull-right m-0" onClick={()=>this.matchResumes()}>
           Match Resumes
@@ -395,42 +397,42 @@ render() {
 
         </div>:null
   } */}
-        <AdvSearch
-          title="Filter"
-          showSearch={true}
-          showDate={true}
-          placeholder="Search Mark  Eg: <=10, =10"
-          onSearch={this.onSearch }
+          <AdvSearch
+            title="Filter"
+            showSearch={true}
+            showDate={true}
+            placeholder="Search Mark  Eg: <=10, =10"
+            onSearch={this.onSearch}
 
-        />
-        <CustomTable
-          data={this.state.results}
-          headers={this.state.headers}
-          loader={this.state.loader}
-          pageSize={this.state.pageSize}
-          currentPage={this.state.currentPage}
-        />
-        {this.state.numberOfElements === 0 ? (
-          ""
-        ) : (
-          <Pagination
-            totalPages={this.state.totalPages}
-            currentPage={this.state.currentPage}
-            onPagination={this.onPagination}
-            numberOfElements={this.state.numberOfElements}
-            totalElements={this.state.totalElements}
+          />
+          <CustomTable
+            data={this.state.results}
+            headers={this.state.headers}
+            loader={this.state.loader}
             pageSize={this.state.pageSize}
+            currentPage={this.state.currentPage}
           />
-        )}
-        {this.state.openModal && (
-          <CopyClipBoardPopUp
-            link={this.state.sharableLink}
-            onCloseModal={this.onCloseModal}
-          />
-        )}
-        {/* {this.state.resumeMatchModal && <MatchResumeModal onCloseModal={this.onCloseResumeMatchModal} data={this.state.matchResumeData}/>} */}
-      </div>
-    </>
-  );
-}
+          {this.state.numberOfElements === 0 ? (
+            ""
+          ) : (
+            <Pagination
+              totalPages={this.state.totalPages}
+              currentPage={this.state.currentPage}
+              onPagination={this.onPagination}
+              numberOfElements={this.state.numberOfElements}
+              totalElements={this.state.totalElements}
+              pageSize={this.state.pageSize}
+            />
+          )}
+          {this.state.openModal && (
+            <CopyClipBoardPopUp
+              link={this.state.sharableLink}
+              onCloseModal={this.onCloseModal}
+            />
+          )}
+          {/* {this.state.resumeMatchModal && <MatchResumeModal onCloseModal={this.onCloseResumeMatchModal} data={this.state.matchResumeData}/>} */}
+        </div>
+      </>
+    );
+  }
 }

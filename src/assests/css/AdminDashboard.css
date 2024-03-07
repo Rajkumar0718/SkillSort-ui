@@ -1892,41 +1892,38 @@ h4,
   line-height: 0rem;
 }
 
-.can-page {
+/* Candidate Instruction Class Css Start*/
+.candidate-main{
   background: #fff;
   display: flex;
   flex-direction: column;
   background-image: url("../../assests/images/Instruction.png");
   background-repeat: no-repeat;
+  height: 98vh;
   background-position: right 4rem bottom 2rem;
 }
-
-.can-header {
-  margin: 1rem;
-  margin-left: -6.688rem !important;
-}
-
 .can-instruction {
-  font-family: "Baskervville", "Times New Roman", Times, serif;
+  font-family: "Baskervville", "Times New Roman", Times, serif !important;
   font-size: 42px;
   font-weight: 400;
   line-height: 54px;
   letter-spacing: 0em;
   text-align: center;
 }
-
-.can-section {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  font-family: "Montserrat", "Times New Roman", Times, serif;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0em;
-  text-align: left;
+.instruction-container {
+  width: 37.625rem !important;
+  padding: 1rem;
+  height: 17rem;
 }
-
+.candidate-instruction {
+  font-family: "Montserrat", "Times New Roman", Times, serif !important;
+  min-width: 37.625rem !important;
+  width: 37.625rem !important;
+  height: calc(100vh - 29rem) !important;
+  font-size: 18px;
+  overflow: auto;
+  padding: 0;
+}
 .section {
   /* border-top: none;
   border-right: none;
@@ -1951,28 +1948,43 @@ h4,
   box-shadow: 0 0 5px rgba(59, 72, 158, 0.5);
 }
 
-.instruction-container {
-  /* margin-left: 19.688rem !important; */
-  width: 37.625rem !important;
-  padding: 1rem;
+/* Candidate Instruction Class Css End*/
+
+
+
+
+.can-page {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../../assests/images/Instruction.png");
+  background-repeat: no-repeat;
+  background-position: right 4rem bottom 2rem;
 }
 
-.candidate-instruction {
-  font-family: "Montserrat", "Times New Roman", Times, serif !important;
-  margin-top: 1rem;
-  min-width: 37.625rem !important;
-  width: 37.625rem !important;
-  height: calc(100vh - 35rem) !important;
-  font-size: 18px;
-  overflow: auto;
-  padding: 0;
+.can-header {
+  margin: 1rem;
+  margin-left: -6.688rem !important;
 }
 
-.start-test {
-  width: auto;
-  height: 44px;
-  min-height: 44px;
+
+.can-section {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  font-family: "Montserrat", "Times New Roman", Times, serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
 }
+
+
+
+
+
+
 .notify-button {
   height: 32px;
   width: 120px;

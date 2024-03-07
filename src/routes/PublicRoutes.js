@@ -17,7 +17,7 @@ const ProgramResult = React.lazy(() => import("../components/Admin/ProgramResult
 const ShortListedResultDetails = React.lazy(() => import("../components/Admin/ShortListedResultDetails"));
 const StudentFromWebsite = React.lazy(() => import("../components/Admin/StudentFromWebsite"));
 const ReExamRequest = React.lazy(() => import("../components/Candidate/AlreadyWrittenExam"));
-const CandidateInstruction = React.lazy(() => import("../components/Candidate/CandidateInstruction"));
+const CandidateInstruction = React.lazy(() => import("../components/Candidate/CandidateInstructions"));
 const CandidateInterface = React.lazy(() => import("../components/Candidate/CandidateInterface"));
 const PublicRegister = React.lazy(() => import("../components/Candidate/PublicRegister"));
 const QueryUi = React.lazy(() => import("../components/Candidate/QueryUi"));

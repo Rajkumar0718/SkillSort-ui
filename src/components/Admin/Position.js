@@ -71,9 +71,10 @@ const Position = () => {
     }
     handleVaccancyPageViewEventTrack();
     getPosition();
-    getCompanyPlans();
   }, []);
-
+  useEffect(() => {
+    getCompanyPlans();
+  }, [plans]);
   useEffect(() => {
     handleFilterByDate();
   }, [name]);

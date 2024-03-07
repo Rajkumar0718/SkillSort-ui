@@ -4,7 +4,7 @@ import _ from "lodash";
 import React, { Component } from "react";
 import styled from 'styled-components';
 import { authHeader, errorHandler, logOut } from "../../api/Api";
-import { fallBackLoader, toastMessage } from "../../utils/CommonUtils";
+import { fallBackLoader, toastMessage, withLocation } from "../../utils/CommonUtils";
 import url from "../../utils/UrlConstant";
 import CkEditor from "../../common/CkEditor";
 import { isRoleValidation } from "../../utils/Validation";
@@ -22,7 +22,7 @@ const StyledCKEditorWrapper = styled.div`
   }
 `;
 
-export default class ExamMailModel extends Component {
+class ExamMailModel extends Component {
   state = {
     loader: false,
     validMailButton: false,
@@ -30,7 +30,7 @@ export default class ExamMailModel extends Component {
     mailMsg: '',
     selectedFile: null,
     validUploadButton: true,
-    shortListedCandidates:[],
+    shortListedCandidates: [],
     csvImportObject: {
       section: '',
       questionType: '',
@@ -40,7 +40,7 @@ export default class ExamMailModel extends Component {
       mailModalSection: "",
     },
     questionType: ['MCQ', 'True/False', 'programming'],
-    examType: ['MOCK', 'ACTUAL']
+    examType: ['MOCK', 'ACTUAL'],
   }
 
   componentWillMount() {
@@ -48,24 +48,24 @@ export default class ExamMailModel extends Component {
       return null;
     }
     if (this.props.modalSection.type === "Email") {
-      if(this.props.mailModalSection?.exam){
+      if (this.props.mailModalSection?.exam) {
         this.setState({ mailMsg: this.props.mailModalSection?.exam?.message });
       }
       else this.getExam(this.props.examId)
     }
-    if(this.props.shortListedCandidates){
-      this.setState({shortListedCandidates:this.props.shortListedCandidates})
+    if (this.props.shortListedCandidates) {
+      this.setState({ shortListedCandidates: this.props.shortListedCandidates })
     }
   }
 
-  getExam =  (examId) => {
-		axios.get(`${url.CANDIDATE_API}/candidate/exam/instruction?examId=${examId}`, { headers: authHeader() }
-		).then(res =>{
-			const exam = res.data.response
-      this.setState({ mailMsg: exam.message,exam:exam});
-		})
-		  .catch(() => toastMessage('error', 'Error while fetching exam'))
-	  }
+  getExam = (examId) => {
+    axios.get(`${url.CANDIDATE_API}/candidate/exam/instruction?examId=${examId}`, { headers: authHeader() }
+    ).then(res => {
+      const exam = res.data.response
+      this.setState({ mailMsg: exam.message, exam: exam });
+    })
+      .catch(() => toastMessage('error', 'Error while fetching exam'))
+  }
 
   sendExamLink = (data) => {
     this.handleMailSentEventTrack()
@@ -73,10 +73,10 @@ export default class ExamMailModel extends Component {
     data.positionId = this.props.positionId;
     this.setState({ validMailButton: true, loader: true });
     let formData = new FormData();
-    formData.append("file",this.state.selectedFile)
-    formData.append("exam",JSON.stringify(data))
-    formData.append("candidateEmails",_.map(this.state.shortListedCandidates,s=>s.id))
-    axios.post(`${url.ADMIN_API}/onlineTest/send/link`, formData, { headers: authHeader()})
+    formData.append("file", this.state.selectedFile)
+    formData.append("exam", JSON.stringify(data))
+    formData.append("candidateEmails", _.map(this.state.shortListedCandidates, s => s.id))
+    axios.post(`${url.ADMIN_API}/onlineTest/send/link`, formData, { headers: authHeader() })
       .then(_res => {
         this.setState({ validMailButton: false, loader: false });
         toastMessage('success', "Emails sent Successfully..!");
@@ -86,13 +86,13 @@ export default class ExamMailModel extends Component {
         this.setState({ validMailButton: false, loader: false });
         if (error.response?.status === 401) {
           logOut();
-          this.props.history.push('/login');
+          this.props.navigate('/login');
         }
         errorHandler(error);
       })
   }
 
-  handleMailSentEventTrack =()=>{
+  handleMailSentEventTrack = () => {
     window.dataLayer.push({
       event: 'EmailSentForExams'
     });
@@ -175,7 +175,7 @@ export default class ExamMailModel extends Component {
           </div>
           <div style={{ paddingTop: "10px", marginLeft: "20px" }}>
             <button className='btn btn-sm btn-nxt' disabled={(this.state.csvImportObject?.section !== '' && this.state.csvImportObject?.questionType !== '') ? false : true} onClick={this.importSampleFile} ><i className="fa fa-download" aria-hidden="true"></i> Sample Template</button>
-            <strong className='ml-2' style={{ color: '#3b489e' , position:'relative' , left:'10px' }}>( *must upload this file format )</strong>
+            <strong className='ml-2' style={{ color: '#3b489e', position: 'relative', left: '10px' }}>( *must upload this file format )</strong>
           </div>
         </div>
       case 'Email':
@@ -251,31 +251,31 @@ export default class ExamMailModel extends Component {
     return (
       <div className="modal fade show" id="myModal" role="dialog" style={{ paddingRight: '15px', display: 'flex', justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.90)' }} aria-hidden="true">
         {fallBackLoader(this.state.loader)}
-        <div className="modal-dialog" style={{ width: "710px", maxWidth: "770px",overflowY:"hidden" }}>
-          <div className="modal-content" style={{ borderStyle: 'solid', borderColor: '#af80ecd1', borderRadius: "32px",overflow:"hidden"}}>
-            <div className="modal-header" style={{  border: "none",position:"fixed",height:"6rem" }}>
+        <div className="modal-dialog" style={{ width: "710px", maxWidth: "770px", overflowY: "hidden" }}>
+          <div className="modal-content" style={{ borderStyle: 'solid', borderColor: '#af80ecd1', borderRadius: "32px", overflow: "hidden" }}>
+            <div className="modal-header" style={{ border: "none", position: "fixed", height: "6rem" }}>
               <h5 className="setting-title">Upload {this.props.modalSection?.type === "Email" ? "Candidates" : this.props.modalSection?.type}</h5>
               {this.props.modalSection?.type === "Email" && (
-                <h5 className="setting-title" style={{ marginRight:"7rem"}}>
-                  <span style={{ color: '#F05A28' }}>{this.props.remainingTest}</span> Credits Available
+                <h5 className="setting-title" style={{ marginRight: "7rem" }}>
+                  <span style={{ color: '#F05A28' }}>&nbsp;{this.props.remainingTest}</span> Credits Available
                 </h5>
               )}
-            {this.props.remainingTest?<button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{border:"none",backgroundColor:"initial",fontSize:'3rem',color:"#F05A28"}}>&times;</button>:<button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{  position: isRoleValidation() === "ADMIN" ? "static" : "relative", left: isRoleValidation() === "ADMIN" ? "0rem !important" : "24rem",border:"none",backgroundColor:"initial",fontSize:'3rem',color:"#F05A28"}}>&times;{console.log(isRoleValidation(),"hello")}</button>}
+              {this.props.remainingTest ? <button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{ border: "none", backgroundColor: "initial", fontSize: '3rem', color: "#F05A28" }}>&times;</button> : <button type="button" onClick={this.props.onCloseModal} className="close" data-dismiss="modal" style={{ position: isRoleValidation() === "ADMIN" ? "static" : "relative", left: isRoleValidation() === "ADMIN" ? "0rem !important" : "24rem", border: "none", backgroundColor: "initial", fontSize: '3rem', color: "#F05A28" }}>&times;{console.log(isRoleValidation(), "hello")}</button>}
             </div>
-            <div className="card-body" style={{ paddingTop: "4px",marginTop:'5rem', position:"relative",left:"8px",marginRight:"1rem"}}>
+            <div className="card-body" style={{ paddingTop: "4px", marginTop: '5rem', position: "relative", left: "8px", marginRight: "1rem" }}>
               {this.renderQuestionTemplate()}
               {(this.props.mailModalSection?.exam === null && this.props.modalSection.type === "Email") ||
                 this.props.modalSection?.type === "Student" ? (
-                  <strong className="ml-2" style={{ color: "#3b489e", marginLeft: "1rem" }}>
-                    ( *must upload this file format )
-                  </strong>
-                ) : this.props.modalSection?.type !== "Question" && this.props.modalSection?.type !== "Student" ? (
-                  <strong className="ml-2" style={{ color: "#3b489e" }}>
-                    ( *You can add more candidates, but the file must be in CSV format )
-                  </strong>
-                ) : null}
-              <hr className="rounded" style={{width:"42rem",marginLeft:".5rem"}}/>
-              <div style={{ display: "flex", justifyContent: "space-between", position:"relative",right:"23px" }}>
+                <strong className="ml-2" style={{ color: "#3b489e", marginLeft: "1rem" }}>
+                  ( *must upload this file format )
+                </strong>
+              ) : this.props.modalSection?.type !== "Question" && this.props.modalSection?.type !== "Student" ? (
+                <strong className="ml-2" style={{ color: "#3b489e" }}>
+                  ( *You can add more candidates, but the file must be in CSV format )
+                </strong>
+              ) : null}
+              <hr className="rounded" style={{ width: "42rem", marginLeft: ".5rem" }} />
+              <div style={{ display: "flex", justifyContent: "space-between", position: "relative", right: "23px" }}>
                 <input
                   style={{ color: "#3b489e", paddingLeft: "2rem", paddingBottom: "1rem" }}
                   id="files"
@@ -297,20 +297,22 @@ export default class ExamMailModel extends Component {
               {questionType && (
                 <form onSubmit={this.handleSubmit}>
                   <div className="form-row" style={{ marginTop: "1rem", paddingLeft: "11px", paddingRight: "11px", height: "18rem" }}>
-                    <div className="form-group col-12" style={{height:"16rem"}}>
+                    <div className="form-group col-12" style={{ height: "16rem" }}>
                       <StyledCKEditorWrapper>
-                      <CkEditor data={this.state.mailMsg} onChange={this.handleEditorChange}/>
+                        <CkEditor data={this.state.mailMsg} onChange={this.handleEditorChange} />
+
                       </StyledCKEditorWrapper>
                     </div>
-                    <div className="col-md-11" style={{ display: "flex", justifyContent: "flex-end",position:'relative',bottom:'.5rem'}}>
+                    <div className="col-md-11" style={{ display: "flex", justifyContent: "flex-end", position: 'relative', bottom: '.5rem' }}>
                       <button
-                        disabled={!this.state.selectedFile && this.props.mailModalSection?.exam === null}
+                        disabled={!this.state.selectedFile||!this.state.mailMsg && this.props.mailModalSection?.exam === null}
                         type="button"
                         onClick={() => this.sendExamLink(this.props.mailModalSection.exam || this.state.exam)}
                         className="btn btn-sm btn-nxt"
                       >
                         Send Mail
                       </button>
+
                     </div>
                   </div>
                 </form>
@@ -322,3 +324,4 @@ export default class ExamMailModel extends Component {
     );
   }
 }
+export default withLocation(ExamMailModel);
