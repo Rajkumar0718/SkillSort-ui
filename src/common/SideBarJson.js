@@ -349,7 +349,7 @@ const sidebar = {
     name: 'Profile',
     to: '/student/profile',
     isDefault: true,
-    icon: 'fa fa-users'
+    icon: 'fa fa-user'
   }, {
     isSubMenu: false,
     to: '/student/company-offer',

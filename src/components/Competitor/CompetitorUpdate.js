@@ -510,7 +510,7 @@ export default class CompetitorUpdate extends Component {
 
 
                         >
-                          {this.state.competitor.resume || this.state.resume ? 'Update file' : 'Uploadfile'}
+                          {this.state.competitor.resume || this.state.resume ? 'Update Resume' : 'Upload Resume'}
                           <VisuallyHiddenInput type="file" />
                         </Button>
                         {this.state.selectedFileName? (

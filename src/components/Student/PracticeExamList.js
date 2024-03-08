@@ -222,7 +222,7 @@ class PracticeExamList extends Component {
       case marks >= 40 && marks <= 60:
         return <FaAward onClick={() => this.getWrongAnswer(practice)} style={{ fontSize: '25px', color: '#804A00' }} />;
       case marks >= 0 && marks <= 39:
-        return <span onClick={() => this.getWrongAnswer(practice)} style={{ fontSize: '20px' }}>&#128528;</span>;
+        return <span onClick={() => this.getWrongAnswer(practice)} style={{ fontSize: '20px' }}>&#128078;</span>;
       default:
         return null;
     }
@@ -298,7 +298,7 @@ class PracticeExamList extends Component {
                 <FaAward style={{ fontSize: '25px', color: '#DAA520' }} />&nbsp;<span style={{ fontSize: '15px' }}>{"- Marks = 81-100 %"}</span>&emsp;&emsp;
                 <FaAward style={{ fontSize: '25px', color: '#71706E' }} />&nbsp;<span style={{ fontSize: '15px' }}>{"- Marks = 61-80 %"}</span>&emsp;&emsp;
                 <FaAward style={{ fontSize: '25px', color: '#804A00' }} />&nbsp;<span style={{ fontSize: '15px' }}>{"- Marks = 40-60 %"}</span>&emsp;&emsp;
-                <span style={{ fontSize: '20px' }}>&#128528;</span>&nbsp;<span style={{ fontSize: '15px' }}>{"- Marks = 0-39 %"}</span>
+                <span style={{ fontSize: '20px' }}>&#128078;</span>&nbsp;<span style={{ fontSize: '15px' }}>{"- Marks = 0-39 %"}</span>
               </div>
             </div>
 

@@ -624,7 +624,7 @@ const StudentFirstTimeLogin = () => {
                           onChange={onFileChange}
                           style={{ backgroundColor: '#3b489e' }}
                         >
-                          {student.resume || resume ? 'Update file' : 'Uploadfile'}
+                          {student.resume || resume ? 'Update Resume' : 'Upload Resume'}
                           <VisuallyHiddenInput type="file" />
                         </Button>
                         {selectedFileName ? (
